@@ -99,7 +99,7 @@ public class PlayerBase : MonoBehaviour
         canMove = false;
         speed = 0;
         anim.Play(attack1Anim);
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/2);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/3);
         canMove = true;
         speed = lizardSpeed;
     }
