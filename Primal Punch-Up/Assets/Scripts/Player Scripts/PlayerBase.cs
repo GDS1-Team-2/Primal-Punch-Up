@@ -17,12 +17,33 @@ public class PlayerBase : MonoBehaviour
 
     public float lizardSpeed = 10.0f;
 
+    string idleAnim = "";
+    string runAnim = "";
+    string attack1Anim = "";
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         canMove = true;
+
+        switch (gameObject.tag)
+        {
+            case "Lizard":
+                idleAnim = "LizardIdle";
+                runAnim = "LizardRun";
+                attack1Anim = "LizardAttack1";
+                break;
+            case "Bear":
+                idleAnim = "BearIdle";
+                runAnim = "BearRun";
+                attack1Anim = "BearAttack1";
+                break;
+            default:
+                break;
+        }
+
     }
 
     // Update is called once per frame
@@ -65,11 +86,11 @@ public class PlayerBase : MonoBehaviour
 
         if (rbody.velocity.z != 0 || rbody.velocity.x != 0)
         {
-            anim.Play("LizardRun");
+            anim.Play(runAnim);
             lastMoveDirection = moveDirection;
         } else
         {
-            anim.Play("LizardIdle");
+            anim.Play(idleAnim);
         }
     }
 
@@ -77,8 +98,8 @@ public class PlayerBase : MonoBehaviour
     {
         canMove = false;
         speed = 0;
-        anim.Play("LizardAttack1");
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/2);
+        anim.Play(attack1Anim);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/3);
         canMove = true;
         speed = lizardSpeed;
     }
