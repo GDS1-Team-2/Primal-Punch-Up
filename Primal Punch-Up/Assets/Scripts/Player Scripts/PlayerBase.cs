@@ -20,6 +20,12 @@ public class PlayerBase : MonoBehaviour
     string idleAnim = "";
     string runAnim = "";
     string attack1Anim = "";
+    public float dashSpeed = 20.0f; // 冲刺速度
+    public float dashCooldown = 1.0f; // 冲刺冷却时间
+    public float dashDuration = 1.0f; // 冲刺持续时间
+
+    private bool isDashing = false; // 是否正在冲刺
+    private float dashTimer = 0.0f; // 冲刺计时器
 
     // Start is called before the first frame update
     void Start()
@@ -92,7 +98,32 @@ public class PlayerBase : MonoBehaviour
         {
             anim.Play(idleAnim);
         }
+
+    // dash
+    if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer <= 0.0f)
+        {
+    
+            isDashing = true;
+            dashTimer = dashDuration;
+        }
+
+        if (isDashing)
+        {
+            //dash
+            transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            dashTimer -= Time.deltaTime;
+
+            if (dashTimer <= 0.0f)
+            {
+                // end dash
+                isDashing = false;
+                dashTimer = dashCooldown;
+            }
+        }
+    
+    
     }
+
 
     IEnumerator PlayerBasicAttack()
     {
