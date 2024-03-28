@@ -49,12 +49,12 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeDirection();
-
         if (Input.GetKeyDown(KeyCode.C))
         {
             StartCoroutine(PlayerBasicAttack());
         }
+
+        ChangeDirection();
     }
 
     void FixedUpdate()
@@ -84,7 +84,7 @@ public class PlayerBase : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotateSpeed * Time.deltaTime);
         }
 
-        if (rbody.velocity.z != 0 || rbody.velocity.x != 0)
+        if (rbody.velocity.magnitude > 0.1f)
         {
             anim.Play(runAnim);
             lastMoveDirection = moveDirection;
@@ -96,11 +96,23 @@ public class PlayerBase : MonoBehaviour
 
     IEnumerator PlayerBasicAttack()
     {
-        canMove = false;
-        speed = 0;
-        anim.Play(attack1Anim);
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/3);
-        canMove = true;
-        speed = lizardSpeed;
+        if (rbody.velocity.magnitude > 0.1f)
+        {
+            canMove = false;
+            rbody.velocity = Vector3.zero;
+            speed = 0;
+            anim.Play(attack1Anim);
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            canMove = true;
+            speed = lizardSpeed;
+        } else
+        {
+            canMove = false;
+            speed = 0;
+            anim.Play(attack1Anim);
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 4);
+            canMove = true;
+            speed = lizardSpeed;
+        }
     }
 }
