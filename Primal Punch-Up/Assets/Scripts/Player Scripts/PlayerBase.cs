@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
@@ -61,6 +62,10 @@ public class PlayerBase : MonoBehaviour
         {
             StartCoroutine(PlayerBasicAttack());
         }
+
+        if(dashTimer > 0 && !isDashing){
+            dashTimer -= Time.deltaTime;
+        }
     }
 
     void FixedUpdate()
@@ -100,14 +105,14 @@ public class PlayerBase : MonoBehaviour
         }
 
     // dash
-    if (Input.GetKeyDown(KeyCode.Space) && !isDashing && dashTimer <= 0.0f)
+    if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
     
             isDashing = true;
             dashTimer = dashDuration;
         }
 
-        if (isDashing)
+    if (isDashing)
         {
             //dash
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
