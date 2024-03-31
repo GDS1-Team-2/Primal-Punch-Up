@@ -35,6 +35,8 @@ public class PlayerBase : MonoBehaviour
         rbody = GetComponent<Rigidbody>();
         canMove = true;
 
+        transform.position = new Vector3(0,0,0);
+
         switch (gameObject.tag)
         {
             case "Lizard":
@@ -83,6 +85,40 @@ public class PlayerBase : MonoBehaviour
 
         moveDirection = new Vector3(moveX, 0, moveZ);
         moveDirection.Normalize();
+    }
+
+    
+    void speedUp() {
+    
+    
+        isDashing = true;
+        dashTimer = dashDuration;
+        
+
+        if (isDashing)
+            {
+                //dash
+                transform.position += transform.forward * dashSpeed * Time.deltaTime;
+                dashTimer -= Time.deltaTime;
+
+                if (dashTimer <= 0.0f)
+                {
+                    // end dash
+                    isDashing = false;
+                    dashTimer = dashCooldown;
+                }
+            }
+    }
+
+     private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("book"))
+        {
+           
+            this.speedUp();
+           
+        }
+
     }
 
     void Move()
