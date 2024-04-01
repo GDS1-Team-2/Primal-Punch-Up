@@ -38,7 +38,7 @@ public class PickupItem : MonoBehaviour
         }
 
         // 检查分数是否达到通关条件
-       // CheckForLevelCompletion();
+        // CheckForLevelCompletion();
     }
 
     private void Update()
