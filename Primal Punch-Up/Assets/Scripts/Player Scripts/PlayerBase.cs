@@ -36,6 +36,13 @@ public class PlayerBase : MonoBehaviour
     KeyCode? rotateRightKey = null;
     KeyCode? attack1Key = null;
 
+    public float dashSpeed = 20.0f;
+    public float dashCooldown = 1.0f;
+    public float dashDuration = 1.0f;
+
+    private bool isDashing = false;
+    private float dashTimer = 0.0f;
+
     public GameObject healthBar;
     public Slider healthBarSlider;
 
@@ -95,6 +102,11 @@ public class PlayerBase : MonoBehaviour
         }
 
         ChangeDirection();
+
+        if (dashTimer > 0 && !isDashing)
+        {
+            dashTimer -= Time.deltaTime;
+        }
 
         //Regen health when out of combat
         if (!inCombat)
@@ -171,6 +183,24 @@ public class PlayerBase : MonoBehaviour
         else
         {
             anim.Play(idleAnim);
+        }
+
+        //dash
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        {
+            isDashing = true;
+            dashTimer = dashDuration;
+        }
+        if (isDashing)
+        {
+            transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            dashTimer -= Time.deltaTime;
+
+            if (dashTimer <= 0.0f)
+            {
+                isDashing = false;
+                dashTimer = dashCooldown;
+            }
         }
     }
 
