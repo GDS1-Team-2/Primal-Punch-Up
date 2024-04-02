@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBase : MonoBehaviour
@@ -8,34 +7,36 @@ public class PlayerBase : MonoBehaviour
 
     public Animator anim;
     public Rigidbody rbody;
+    public BoxCollider boxCol;
 
     private Vector3 moveDirection;
     private Vector3 lastMoveDirection;
     public float speed = 10.0f;
     public float rotateSpeed = 720.0f;
+    public int hp = 50;
+    public int maxHP = 50;
 
     public bool canMove;
 
     public float lizardSpeed = 10.0f;
 
+    float inCombatTimer = 0.0f;
+    public float inCombatLength = 5.0f;
+    bool inCombat = false;
+    float gainHP = 0.0f;
+
     string idleAnim = "";
     string runAnim = "";
     string attack1Anim = "";
-    public float dashSpeed = 20.0f; // 冲刺速度
-    public float dashCooldown = 1.0f; // 冲刺冷却时间
-    public float dashDuration = 1.0f; // 冲刺持续时间
-
-    private bool isDashing = false; // 是否正在冲刺
-    private float dashTimer = 0.0f; // 冲刺计时器
+    string takeHit1Anim = "";
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
+        boxCol = GetComponent<BoxCollider>();
         canMove = true;
-
-        transform.position = new Vector3(0,0,0);
 
         switch (gameObject.tag)
         {
@@ -43,11 +44,13 @@ public class PlayerBase : MonoBehaviour
                 idleAnim = "LizardIdle";
                 runAnim = "LizardRun";
                 attack1Anim = "LizardAttack1";
+                takeHit1Anim = "LizardTakeHit1";
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
                 runAnim = "BearRun";
                 attack1Anim = "BearAttack1";
+                takeHit1Anim = "BearTakeHit1";
                 break;
             default:
                 break;
@@ -58,15 +61,34 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeDirection();
-
         if (Input.GetKeyDown(KeyCode.C))
         {
             StartCoroutine(PlayerBasicAttack());
         }
 
-        if(dashTimer > 0 && !isDashing){
-            dashTimer -= Time.deltaTime;
+        ChangeDirection();
+
+        if (!inCombat)
+        {
+            gainHP += Time.deltaTime;
+            if (gainHP >= 1.0f)
+            {
+                hp += 2;
+                if (hp >= maxHP)
+                {
+                    hp = maxHP;
+                }
+                gainHP = 0.0f;
+                Debug.Log(this.hp);
+            }
+        } else
+        {
+            inCombatTimer -= 1 * Time.deltaTime;
+            if (inCombatTimer < 0.0f)
+            {
+                inCombatTimer = 0.0f;
+                inCombat = false;
+            }
         }
     }
 
@@ -87,40 +109,6 @@ public class PlayerBase : MonoBehaviour
         moveDirection.Normalize();
     }
 
-    
-    void speedUp() {
-    
-    
-        isDashing = true;
-        dashTimer = dashDuration;
-        
-
-        if (isDashing)
-            {
-                //dash
-                transform.position += transform.forward * dashSpeed * Time.deltaTime;
-                dashTimer -= Time.deltaTime;
-
-                if (dashTimer <= 0.0f)
-                {
-                    // end dash
-                    isDashing = false;
-                    dashTimer = dashCooldown;
-                }
-            }
-    }
-
-     private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("book"))
-        {
-           
-            this.speedUp();
-           
-        }
-
-    }
-
     void Move()
     {
         rbody.velocity = new Vector3(moveDirection.x * speed, 0.0f, moveDirection.z * speed);
@@ -131,7 +119,7 @@ public class PlayerBase : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotateSpeed * Time.deltaTime);
         }
 
-        if (rbody.velocity.z != 0 || rbody.velocity.x != 0)
+        if (rbody.velocity.magnitude > 0.1f)
         {
             anim.Play(runAnim);
             lastMoveDirection = moveDirection;
@@ -139,40 +127,69 @@ public class PlayerBase : MonoBehaviour
         {
             anim.Play(idleAnim);
         }
-
-    // dash
-    if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
-        {
-    
-            isDashing = true;
-            dashTimer = dashDuration;
-        }
-
-    if (isDashing)
-        {
-            //dash
-            transform.position += transform.forward * dashSpeed * Time.deltaTime;
-            dashTimer -= Time.deltaTime;
-
-            if (dashTimer <= 0.0f)
-            {
-                // end dash
-                isDashing = false;
-                dashTimer = dashCooldown;
-            }
-        }
-    
-    
     }
-
 
     IEnumerator PlayerBasicAttack()
     {
+        if (rbody.velocity.magnitude > 0.1f)
+        {
+            canMove = false;
+            rbody.velocity = Vector3.zero;
+            speed = 0;
+            anim.Play(attack1Anim);
+            //boxCol.enabled = true;
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            boxCol.enabled = false;
+            canMove = true;
+            speed = lizardSpeed;
+        } else
+        {
+            canMove = false;
+            speed = 0;
+            anim.Play(attack1Anim);
+            //boxCol.enabled = true;
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 4);
+            boxCol.enabled = false;
+            canMove = true;
+            speed = lizardSpeed;
+        }
+    }
+
+    void BAColliderOn()
+    {
+        boxCol.enabled = true;
+    }
+
+    void BAColliderOff()
+    {
+        boxCol.enabled = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        int BADamage = 10;
+        PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
+        PlayerBase thisPlayer = GetComponent<PlayerBase>();
+
+        if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger)
+        {
+            StartCoroutine(otherPlayer.TakeDamage(BADamage));
+            Debug.Log(otherPlayer.gameObject.name + " has been hit");
+        }
+    }
+
+    IEnumerator TakeDamage(int damage)
+    {
         canMove = false;
         speed = 0;
-        anim.Play(attack1Anim);
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/3);
-        canMove = true;
+        anim.Play(takeHit1Anim);
+        hp -= damage;
+        Debug.Log(gameObject.name + " HP: " + hp);
+        inCombat = true;
+        inCombatTimer = inCombatLength;
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         speed = lizardSpeed;
+        canMove = true;
     }
+
 }
