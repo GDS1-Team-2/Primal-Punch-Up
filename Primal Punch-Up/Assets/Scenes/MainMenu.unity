@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   demoSceneName: 2 player selection
-  startGameSceneName: PickUpAndScoreTesting
+  startGameSceneName: CharacterSelect
   optionsSceneName: 
 --- !u!4 &19622181
 Transform:
@@ -861,7 +861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &897786587
 RectTransform:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class CharacterSelectionManager : MonoBehaviour
         PlayerPrefs.SetInt(playerPrefsKey1, selectedCharacter1Index);
         PlayerPrefs.SetInt(playerPrefsKey2, selectedCharacter2Index);
         PlayerPrefs.Save();
-        SceneManager.LoadScene("PvPScene");
+        SceneManager.LoadScene("MapTesting");
     }
 
 }
