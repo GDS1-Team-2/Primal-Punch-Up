@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -11,14 +12,14 @@ public class PlayerBase : MonoBehaviour
 
     private Vector3 moveDirection;
     private Vector3 lastMoveDirection;
-    public float speed = 10.0f;
+    public float currentSpeed = 10.0f;
     public float rotateSpeed = 720.0f;
     public int hp = 50;
     public int maxHP = 50;
 
     public bool canMove;
 
-    public float lizardSpeed = 10.0f;
+    public float speed = 10.0f;
 
     float inCombatTimer = 0.0f;
     public float inCombatLength = 5.0f;
@@ -35,12 +36,16 @@ public class PlayerBase : MonoBehaviour
     KeyCode? rotateRightKey = null;
     KeyCode? attack1Key = null;
 
+    public GameObject healthBar;
+    public Slider healthBarSlider;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
+        
         canMove = true;
 
         switch (gameObject.tag)
@@ -55,7 +60,8 @@ public class PlayerBase : MonoBehaviour
                 rotateLeftKey = KeyCode.A;
                 rotateRightKey = KeyCode.D;
                 attack1Key = KeyCode.C;
-
+                healthBar = GameObject.Find("Player 1 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
@@ -67,11 +73,12 @@ public class PlayerBase : MonoBehaviour
                 rotateLeftKey = KeyCode.LeftArrow;
                 rotateRightKey = KeyCode.RightArrow;
                 attack1Key = KeyCode.P;
+                healthBar = GameObject.Find("Player 2 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
             default:
                 break;
         }
-
     }
 
     // Update is called once per frame
@@ -82,7 +89,7 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(PlayerBasicAttack());
         }*/
 
-        if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
+        if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && canMove)
         {
             StartCoroutine(PlayerBasicAttack());
         }
@@ -112,6 +119,9 @@ public class PlayerBase : MonoBehaviour
                 inCombat = false;
             }
         }
+
+        healthBarSlider.value = hp;
+
     }
 
     void FixedUpdate()
@@ -124,7 +134,7 @@ public class PlayerBase : MonoBehaviour
 
     void ChangeDirection()
     {
-        float moveX = 0;
+        //float moveX = 0
         float moveZ = 0;
 
         if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value))
@@ -164,30 +174,29 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-
     IEnumerator PlayerBasicAttack()
     {
         if (rbody.velocity.magnitude > 0.1f)
         {
             canMove = false;
             rbody.velocity = Vector3.zero;
-            speed = 0;
+            currentSpeed = 0;
             anim.Play(attack1Anim);
             //boxCol.enabled = true;
             yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             boxCol.enabled = false;
             canMove = true;
-            speed = lizardSpeed;
+            currentSpeed = speed;
         } else
         {
             canMove = false;
-            speed = 0;
+            currentSpeed = 0;
             anim.Play(attack1Anim);
             //boxCol.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/1.5f);
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/4);
             boxCol.enabled = false;
             canMove = true;
-            speed = lizardSpeed;
+            currentSpeed = speed;
         }
     }
 
@@ -217,14 +226,14 @@ public class PlayerBase : MonoBehaviour
     IEnumerator TakeDamage(int damage)
     {
         canMove = false;
-        speed = 0;
+        currentSpeed = 0;
         anim.Play(takeHit1Anim);
         hp -= damage;
-        Debug.Log(gameObject.name + " HP: " + hp);
+        //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        speed = lizardSpeed;
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
+        currentSpeed = speed;
         canMove = true;
     }
 
