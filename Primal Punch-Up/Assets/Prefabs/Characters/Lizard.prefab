@@ -803,7 +803,6 @@ GameObject:
   - component: {fileID: 6654922943361477780}
   - component: {fileID: 6654922943361477778}
   - component: {fileID: 6654922943361477768}
-  - component: {fileID: -2241193523328174100}
   m_Layer: 0
   m_Name: Lizard
   m_TagString: Lizard
@@ -826,7 +825,7 @@ Transform:
   - {fileID: 7102725529104834283}
   - {fileID: 1693884085209943290}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6654922943361477782
 Rigidbody:
@@ -941,26 +940,6 @@ MonoBehaviour:
   dashSpeed: 20
   dashCooldown: 1
   dashDuration: 1
---- !u!114 &-2241193523328174100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5808061296119019220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 608560cdf929c2149b153a123aae2e47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
-  score: 0
-  tempScore: 0
-  maxTempScore: 3
-  scoreText: {fileID: 0}
-  tempScoreText: {fileID: 0}
-  testTag: ScoreItems
-  baseTag: basement
 --- !u!1 &5923755035353375472
 GameObject:
   m_ObjectHideFlags: 0

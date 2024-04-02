@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 473510036691574270}
   - component: {fileID: 473510036691574271}
   - component: {fileID: 473510036691574269}
-  - component: {fileID: -1720298297880070136}
+  - component: {fileID: -8260735947841318581}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Bear
@@ -133,7 +133,7 @@ Transform:
   - {fileID: 4060211437710919864}
   - {fileID: 5568935612489718441}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &473510036691574270
 Rigidbody:
@@ -192,7 +192,7 @@ MonoBehaviour:
   dashSpeed: 20
   dashCooldown: 1
   dashDuration: 1
---- !u!114 &-1720298297880070136
+--- !u!114 &-8260735947841318581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 744034086423027847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 608560cdf929c2149b153a123aae2e47, type: 3}
+  m_Script: {fileID: 11500000, guid: eba429cf45fc989448b7d7333c42ee48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
@@ -210,8 +210,8 @@ MonoBehaviour:
   maxTempScore: 3
   scoreText: {fileID: 0}
   tempScoreText: {fileID: 0}
-  testTag: ScoreItems
-  baseTag: basement
+  testTag: 
+  baseTag: 
 --- !u!1 &1189870447749091117
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +252,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189870447749091117}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
