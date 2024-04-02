@@ -739,13 +739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0eb60abc7ebba418607a18bf70264c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefabs:
-  - {fileID: 919132149155446097, guid: b7f28244b085d5f45b6bb17d5c33a794, type: 3}
-  - {fileID: 919132149155446097, guid: 99082317269a88840ae4c829b0225a19, type: 3}
-  - {fileID: 919132149155446097, guid: ec31e20d097e66e498d12adfb748d912, type: 3}
-  - {fileID: 919132149155446097, guid: 542c4939e84a7f04cac446b29690da4f, type: 3}
-  - {fileID: 919132149155446097, guid: f7ab0e67da462eb408f3de59557c898c, type: 3}
-  playerPrefsKey: SelectedCharacterIndexPlayer2
+  character1Prefabs: []
+  playerPrefsKey1: SelectedCharacterIndexPlayer1
+  character2Prefabs: []
+  playerPrefsKey2: SelectedCharacterIndexPlayer2
 --- !u!1 &787075305
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,18 +953,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 650857413}
-        m_TargetAssemblyTypeName: CharacterSelectionManager, Assembly-CSharp
-        m_MethodName: StartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2047001981}
         m_TargetAssemblyTypeName: CharacterSelectionManager, Assembly-CSharp
         m_MethodName: StartGame
@@ -2417,13 +2402,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0eb60abc7ebba418607a18bf70264c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefabs:
-  - {fileID: 919132149155446097, guid: b7f28244b085d5f45b6bb17d5c33a794, type: 3}
-  - {fileID: 919132149155446097, guid: 99082317269a88840ae4c829b0225a19, type: 3}
-  - {fileID: 919132149155446097, guid: ec31e20d097e66e498d12adfb748d912, type: 3}
-  - {fileID: 919132149155446097, guid: 542c4939e84a7f04cac446b29690da4f, type: 3}
-  - {fileID: 919132149155446097, guid: f7ab0e67da462eb408f3de59557c898c, type: 3}
-  playerPrefsKey: SelectedCharacterIndexPlayer1
+  character1Prefabs: []
+  playerPrefsKey1: SelectedCharacterIndexPlayer1
+  character2Prefabs: []
+  playerPrefsKey2: SelectedCharacterIndexPlayer2
 --- !u!4 &2047001982
 Transform:
   m_ObjectHideFlags: 0
