@@ -6,24 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 36fcde842a16ef44883ce35005331ee7
   - enabled: 1
-    path: Assets/Scenes/2 player selection.unity
+    path: Assets/Scenes/CharacterSelect.unity
     guid: 843c1e4cc8dc99347a9e6409b291b103
-  - enabled: 1
-    path: Assets/Scenes/PvPScene.unity
-    guid: bbc470cd320126845b5e15fd90fcfc4e
-  - enabled: 1
-    path: Assets/Scenes/pickup&rush.unity
-    guid: 9d8e0eceadf12ce4a9f6839296e503c6
-  - enabled: 1
-    path: Assets/Scenes/PickUpAndScoreTesting.unity
-    guid: 33f31bd50ab9b9b48894ba87c60d6e9f
-  - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/Maps/MapTesting.unity
     guid: 894aadcbdbad27041be17c3f996727e8
+  - enabled: 1
+    path: Assets/Scenes/Complete.unity
+    guid: 48c4bac1a964b79479ec4eb552907443
   m_configObjects: {}

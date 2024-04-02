@@ -66,7 +66,7 @@ public class PickupItem : MonoBehaviour
     {
         if (score >= 11) // 根据需要设置通关的分数条件
         {
-            SceneManager.LoadScene("PassScene");
+            //SceneManager.LoadScene("PassScene");
         }
     }
 
