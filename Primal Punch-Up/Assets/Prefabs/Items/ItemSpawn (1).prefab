@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1340593966245118905}
   - component: {fileID: 1340593966245118906}
   - component: {fileID: 1340593966245118907}
+  - component: {fileID: 1925730310472829805}
   m_Layer: 0
   m_Name: ItemSpawn (1)
   m_TagString: ItemSpawn
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &1925730310472829805
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340593966245118885}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.8745732
+  m_Height: 1.0486279
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.43936014}
