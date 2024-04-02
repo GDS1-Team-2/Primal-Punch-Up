@@ -29,6 +29,11 @@ public class PlayerBase : MonoBehaviour
     string runAnim = "";
     string attack1Anim = "";
     string takeHit1Anim = "";
+    KeyCode? moveForwardKey = null;
+    KeyCode? moveBackKey = null;
+    KeyCode? rotateLeftKey = null;
+    KeyCode? rotateRightKey = null;
+    KeyCode? attack1Key = null;
 
     // Start is called before the first frame update
     void Start()
@@ -45,12 +50,23 @@ public class PlayerBase : MonoBehaviour
                 runAnim = "LizardRun";
                 attack1Anim = "LizardAttack1";
                 takeHit1Anim = "LizardTakeHit1";
+                moveForwardKey = KeyCode.W;
+                moveBackKey = KeyCode.S;
+                rotateLeftKey = KeyCode.A;
+                rotateRightKey = KeyCode.D;
+                attack1Key = KeyCode.C;
+
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
                 runAnim = "BearRun";
                 attack1Anim = "BearAttack1";
                 takeHit1Anim = "BearTakeHit1";
+                moveForwardKey = KeyCode.UpArrow;
+                moveBackKey = KeyCode.DownArrow;
+                rotateLeftKey = KeyCode.LeftArrow;
+                rotateRightKey = KeyCode.RightArrow;
+                attack1Key = KeyCode.P;
                 break;
             default:
                 break;
@@ -61,13 +77,19 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        /*if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
+        {
+            StartCoroutine(PlayerBasicAttack());
+        }*/
+
+        if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
         {
             StartCoroutine(PlayerBasicAttack());
         }
 
         ChangeDirection();
 
+        //Regen health when out of combat
         if (!inCombat)
         {
             gainHP += Time.deltaTime;
@@ -79,7 +101,7 @@ public class PlayerBase : MonoBehaviour
                     hp = maxHP;
                 }
                 gainHP = 0.0f;
-                Debug.Log(this.hp);
+                //Debug.Log(this.hp);
             }
         } else
         {
@@ -102,32 +124,46 @@ public class PlayerBase : MonoBehaviour
 
     void ChangeDirection()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
+        float moveX = 0;
+        float moveZ = 0;
 
-        moveDirection = new Vector3(moveX, 0, moveZ);
+        if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value))
+        {
+            transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+        }
+        else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value))
+        {
+            transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+        }
+
+        if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
+        {
+            moveZ = 1;
+        }
+        else if (moveBackKey.HasValue && Input.GetKey(moveBackKey.Value))
+        {
+            moveZ = -1;
+        }
+
+        moveDirection = new Vector3(0, 0, moveZ);
         moveDirection.Normalize();
     }
 
     void Move()
     {
-        rbody.velocity = new Vector3(moveDirection.x * speed, 0.0f, moveDirection.z * speed);
+        rbody.velocity = transform.forward * moveDirection.z * speed;
 
-        if(moveDirection != Vector3.zero)
-        {
-            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotateSpeed * Time.deltaTime);
-        }
-
-        if (rbody.velocity.magnitude > 0.1f)
+        if (moveDirection != Vector3.zero)
         {
             anim.Play(runAnim);
             lastMoveDirection = moveDirection;
-        } else
+        }
+        else
         {
             anim.Play(idleAnim);
         }
     }
+
 
     IEnumerator PlayerBasicAttack()
     {
@@ -148,7 +184,7 @@ public class PlayerBase : MonoBehaviour
             speed = 0;
             anim.Play(attack1Anim);
             //boxCol.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 4);
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/1.5f);
             boxCol.enabled = false;
             canMove = true;
             speed = lizardSpeed;
