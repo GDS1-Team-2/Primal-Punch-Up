@@ -14,10 +14,16 @@ public class PlayerBase : MonoBehaviour
     public float speed = 10.0f;
     public float rotateSpeed = 720.0f;
     public int hp = 50;
+    public int maxHP = 50;
 
     public bool canMove;
 
     public float lizardSpeed = 10.0f;
+
+    float inCombatTimer = 0.0f;
+    public float inCombatLength = 5.0f;
+    bool inCombat = false;
+    float gainHP = 0.0f;
 
     string idleAnim = "";
     string runAnim = "";
@@ -61,6 +67,29 @@ public class PlayerBase : MonoBehaviour
         }
 
         ChangeDirection();
+
+        if (!inCombat)
+        {
+            gainHP += Time.deltaTime;
+            if (gainHP >= 1.0f)
+            {
+                hp += 2;
+                if (hp >= maxHP)
+                {
+                    hp = maxHP;
+                }
+                gainHP = 0.0f;
+                Debug.Log(this.hp);
+            }
+        } else
+        {
+            inCombatTimer -= 1 * Time.deltaTime;
+            if (inCombatTimer < 0.0f)
+            {
+                inCombatTimer = 0.0f;
+                inCombat = false;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -138,21 +167,26 @@ public class PlayerBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        int BADamage = 10;
         PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
         PlayerBase thisPlayer = GetComponent<PlayerBase>();
 
         if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger)
         {
-            StartCoroutine(otherPlayer.TakeDamage());
+            StartCoroutine(otherPlayer.TakeDamage(BADamage));
             Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
     }
 
-    IEnumerator TakeDamage()
+    IEnumerator TakeDamage(int damage)
     {
         canMove = false;
         speed = 0;
         anim.Play(takeHit1Anim);
+        hp -= damage;
+        Debug.Log(gameObject.name + " HP: " + hp);
+        inCombat = true;
+        inCombatTimer = inCombatLength;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         speed = lizardSpeed;
         canMove = true;
