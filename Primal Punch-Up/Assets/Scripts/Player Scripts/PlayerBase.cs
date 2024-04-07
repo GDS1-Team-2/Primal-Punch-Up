@@ -21,6 +21,9 @@ public class PlayerBase : MonoBehaviour
 
     public float speed = 10.0f;
 
+    public float jumpSpeed;
+    private float ySpeed;
+
     float inCombatTimer = 0.0f;
     public float inCombatLength = 5.0f;
     bool inCombat = false;
@@ -133,6 +136,8 @@ public class PlayerBase : MonoBehaviour
         }
 
         healthBarSlider.value = hp;
+
+        ySpeed += Physics.gravity.y * Time.deltaTime;
 
     }
 
