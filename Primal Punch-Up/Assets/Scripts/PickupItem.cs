@@ -12,12 +12,14 @@ public class PickupItem : MonoBehaviour
     public int maxTempScore = 3; // 临时分数的上限，可以在Unity中修改
     public Text scoreText; // 分数显示的UI组件
     public Text tempScoreText; // 临时分数显示的UI组件
-    public string testTag; // 拾取物品的标签
+    public string OneScoreTag; // 拾取物品的标签
+    public string ThreeScoreTag; // 拾取多分物品的标签
+    public string BadScoreTag; // 拾取减分物品的标签
     public string baseTag; // 基地的标签
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(testTag) && tempScore < maxTempScore)
+        if (other.gameObject.CompareTag(OneScoreTag) && tempScore < maxTempScore)
         {
             // 增加临时分数
             tempScore++;
