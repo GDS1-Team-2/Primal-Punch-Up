@@ -9,18 +9,52 @@ public class PickupItem : MonoBehaviour
     public AudioClip pickupSound; // 拾取Items的音效
     public int score = 0; // 玩家得分
     public int tempScore = 0; // 玩家的临时得分
-    public int maxTempScore = 3; // 临时分数的上限，可以在Unity中修改
+    public int maxTempBag = 3; // 临时物品的上限，可以在Unity中修改
+    public int currentTempBag = 0;
     public Text scoreText; // 分数显示的UI组件
     public Text tempScoreText; // 临时分数显示的UI组件
-    public string testTag; // 拾取物品的标签
+    public string OneScoreTag; // 拾取物品的标签
+    public string ThreeScoreTag; // 拾取多分物品的标签
+    public string BadScoreTag; // 拾取减分物品的标签
     public string baseTag; // 基地的标签
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(testTag) && tempScore < maxTempScore)
+        if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
         {
             // 增加临时分数
             tempScore++;
+            currentTempBag++;
+            // 播放拾取音效
+            if (pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            }
+            // 销毁Item对象
+            Destroy(other.gameObject);
+            // 更新UI显示临时分数
+            UpdateTempScoreText();
+        }
+        if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
+        {
+            // 增加临时分数
+            tempScore = tempScore + 3;
+            currentTempBag++;
+            // 播放拾取音效
+            if (pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            }
+            // 销毁Item对象
+            Destroy(other.gameObject);
+            // 更新UI显示临时分数
+            UpdateTempScoreText();
+        }
+        if (other.gameObject.CompareTag(BadScoreTag))
+        {
+            // 增加临时分数
+            tempScore = tempScore - 1;
+            currentTempBag = currentTempBag - 1;
             // 播放拾取音效
             if (pickupSound != null)
             {
@@ -74,6 +108,7 @@ public class PickupItem : MonoBehaviour
     {
         score += tempScore;
         tempScore = 0; // 重置临时分数
+        currentTempBag = 0;
         UpdateScoreText();
         UpdateTempScoreText();
     }
