@@ -54,7 +54,11 @@ public class PickupItem : MonoBehaviour
         {
             // 增加临时分数
             tempScore = tempScore - 1;
-            currentTempBag = currentTempBag - 1;
+            if(currentTempBag > 0)
+            {
+                currentTempBag = currentTempBag - 1;
+            }
+            
             // 播放拾取音效
             if (pickupSound != null)
             {
