@@ -50,14 +50,10 @@ public class PickupItem : MonoBehaviour
             // 更新UI显示临时分数
             UpdateTempScoreText();
         }
-        if (other.gameObject.CompareTag(BadScoreTag))
+        if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
             // 增加临时分数
             tempScore = tempScore - 1;
-            if(currentTempBag > 0)
-            {
-                currentTempBag = currentTempBag - 1;
-            }
             
             // 播放拾取音效
             if (pickupSound != null)
