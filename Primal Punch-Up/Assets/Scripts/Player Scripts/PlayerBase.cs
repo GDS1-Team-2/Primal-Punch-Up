@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,6 +49,10 @@ public class PlayerBase : MonoBehaviour
 
     public GameObject healthBar;
     public Slider healthBarSlider;
+
+    public void setSpeed(bool half){
+        this.speed = half ? 5.0f : 10.0f;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -165,11 +170,11 @@ public class PlayerBase : MonoBehaviour
 
         if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
         {
-            moveZ = 1;
+            moveZ = 1 * this.speed;
         }
         else if (moveBackKey.HasValue && Input.GetKey(moveBackKey.Value))
         {
-            moveZ = -1;
+            moveZ = -1 * this.speed;
         }
 
         moveDirection = new Vector3(0, 0, moveZ);
