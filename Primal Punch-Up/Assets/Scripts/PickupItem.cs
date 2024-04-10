@@ -6,90 +6,92 @@ using UnityEngine.UI;
 
 public class PickupItem : MonoBehaviour
 {
-    public AudioClip pickupSound; // ʰȡItems����Ч
+    public AudioClip pickupSound; // Sound effect for picking up items
 
-   public int score = 0; // ��ҵ÷�
-    public int tempScore = 0; // ��ҵ���ʱ�÷�
-    public int maxTempBag = 3; // ��ʱ��Ʒ�����ޣ�������Unity���޸�
-    public int currentTempBag = 0;
-    public Text scoreText; // ������ʾ��UI���
-    public Text tempScoreText; // ��ʱ������ʾ��UI���
-    public string OneScoreTag; // ʰȡ��Ʒ�ı�ǩ
-    public string ThreeScoreTag; // ʰȡ�����Ʒ�ı�ǩ
-    public string BadScoreTag; // ʰȡ������Ʒ�ı�ǩ
-    public string baseTag; // ���صı�ǩ
+    public int score = 0; // Player's score
+    public int tempScore = 0; // Player's temporary score
+    public int maxTempBag = 3; // Maximum temporary item capacity, can be modified in Unity
+    public int currentTempBag = 0; // Current count of temporary items
+    public Text scoreText; // UI component for displaying score
+    public Text tempScoreText; // UI component for displaying temporary score
+    public string OneScoreTag; // Tag for items worth one point
+    public string ThreeScoreTag; // Tag for items worth three points
+    public string BadScoreTag; // Tag for items that subtract points
+    public string baseTag; // Base tag for depositing items
 
-    public GameObject speedRangeCollider;
+    public GameObject speedRangeCollider; // Collider that increases player's speed
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
         {
-            // ������ʱ����
+            // Increase temporary score
             tempScore++;
             currentTempBag++;
-            // ����ʰȡ��Ч
+            // Play pickup sound effect
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // ����Item����
+            // Destroy the item object
             Destroy(other.gameObject);
-            // ����UI��ʾ��ʱ����
+            // Update UI to display temporary score
             UpdateTempScoreText();
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
         {
-            // ������ʱ����
-            tempScore = tempScore + 3;
+            // Increase temporary score
+            tempScore += 3;
             currentTempBag++;
-            // ����ʰȡ��Ч
+            // Play pickup sound effect
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // ����Item����
+            // Destroy the item object
             Destroy(other.gameObject);
-            // ����UI��ʾ��ʱ����
+            // Update UI to display temporary score
             UpdateTempScoreText();
-        } 
-        
-        if (other.gameObject.CompareTag("chocolate")){
-           Destroy(other.gameObject);
-           this.speedRangeCollider.gameObject.SetActive(true);
-        }
-        if (other.gameObject.CompareTag("speedRange")){
-           this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
         }
 
-        if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1) 
+        /*if (other.gameObject.CompareTag("chocolate"))
         {
-            // ������ʱ����
-            tempScore = tempScore - 1;
-            
-            // ����ʰȡ��Ч
+            Destroy(other.gameObject);
+            this.speedRangeCollider.gameObject.SetActive(true);
+        }
+        if (other.gameObject.CompareTag("speedRange"))
+        {
+            this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
+        }*/
+
+        if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
+        {
+            // Decrease temporary score
+            tempScore -= 1;
+
+            // Play pickup sound effect
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // ����Item����
+            // Destroy the item object
             Destroy(other.gameObject);
-            // ����UI��ʾ��ʱ����
+            // Update UI to display temporary score
             UpdateTempScoreText();
         }
         else if (other.gameObject.CompareTag(baseTag))
         {
-            // ����ʱ����ת��Ϊ��ʽ����
+            // Convert temporary score to permanent score
             ConvertTempScoreToScore();
         }
 
-        // �������Ƿ�ﵽͨ������
+        // Check if the level completion condition is met
         // CheckForLevelCompletion();
     }
 
     private void Update()
     {
-        // �������������Ӽ������������߼���������LoseTempScore()����
+        // Continuously check for conditions such as losing temporary score, etc.
     }
 
     private void UpdateScoreText()
@@ -110,24 +112,25 @@ public class PickupItem : MonoBehaviour
 
     private void CheckForLevelCompletion()
     {
-        if (score >= 11) // ������Ҫ����ͨ�صķ�������
+        if (score >= 11) // Set the condition for level completion based on requirements
         {
-            //SceneManager.LoadScene("PassScene");
+            // Load the "PassScene" or similar
+            // SceneManager.LoadScene("PassScene");
         }
     }
 
     private void ConvertTempScoreToScore()
     {
-        score += tempScore;
-        tempScore = 0; // ������ʱ����
-        currentTempBag = 0;
+        score += tempScore; // Add temporary score to main score
+        tempScore = 0; // Reset temporary score
+        currentTempBag = 0; // Reset temporary item count
         UpdateScoreText();
         UpdateTempScoreText();
     }
 
     public void LoseTempScore()
     {
-        // ���������ʧ��ʱ����
+        // Logic for losing temporary score
         tempScore = 0;
         UpdateTempScoreText();
     }
