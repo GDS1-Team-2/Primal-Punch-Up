@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -46,13 +47,20 @@ public class PlayerBase : MonoBehaviour
     public GameObject healthBar;
     public Slider healthBarSlider;
 
+    private PlayerInput playerInput;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
-        
+        playerInput = GetComponent<PlayerInput>();
+
+        //PlayerInputActions playerInputActions = new PlayerInputActions();
+        //playerInputActions.Player.Enable();
+        //playerInputActions.Player.Attack.performed += CallBACoroutine;
+
         canMove = true;
 
         switch (gameObject.tag)
@@ -68,7 +76,7 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.D;
                 attack1Key = KeyCode.C;
                 healthBar = GameObject.Find("Player 1 Health");
-                healthBarSlider = healthBar.GetComponent<Slider>();
+                //healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
@@ -81,7 +89,9 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.RightArrow;
                 attack1Key = KeyCode.P;
                 healthBar = GameObject.Find("Player 2 Health");
-                healthBarSlider = healthBar.GetComponent<Slider>();
+                //healthBarSlider = healthBar.GetComponent<Slider>();
+                break;
+            case "Rabbit":
                 break;
             default:
                 break;
@@ -91,12 +101,7 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
-        {
-            StartCoroutine(PlayerBasicAttack());
-        }*/
-
-        if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && canMove)
+        if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
         {
             StartCoroutine(PlayerBasicAttack());
         }
@@ -132,7 +137,7 @@ public class PlayerBase : MonoBehaviour
             }
         }
 
-        healthBarSlider.value = hp;
+        //healthBarSlider.value = hp;
 
     }
 
@@ -174,6 +179,8 @@ public class PlayerBase : MonoBehaviour
     void Move()
     {
         rbody.velocity = transform.forward * moveDirection.z * speed;
+        //Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        //rbody.AddForce(new Vector3(inputVector.x, 0, inputVector.z) * currentSpeed, ForceMode.Force);
 
         if (moveDirection != Vector3.zero)
         {
@@ -204,29 +211,41 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    //public void CallBACoroutine(InputAction.CallbackContext context)
+    //{
+     //   if (context.performed)
+      //  {
+       //     StartCoroutine(PlayerBasicAttack());
+        //}
+    //}
+
     IEnumerator PlayerBasicAttack()
     {
-        if (rbody.velocity.magnitude > 0.1f)
+        if (canMove)
         {
-            canMove = false;
-            rbody.velocity = Vector3.zero;
-            currentSpeed = 0;
-            anim.Play(attack1Anim);
-            //boxCol.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-            boxCol.enabled = false;
-            canMove = true;
-            currentSpeed = speed;
-        } else
-        {
-            canMove = false;
-            currentSpeed = 0;
-            anim.Play(attack1Anim);
-            //boxCol.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/4);
-            boxCol.enabled = false;
-            canMove = true;
-            currentSpeed = speed;
+            if (rbody.velocity.magnitude > 0.1f)
+            {
+                canMove = false;
+                rbody.velocity = Vector3.zero;
+                currentSpeed = 0;
+                anim.Play(attack1Anim);
+                //boxCol.enabled = true;
+                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+                boxCol.enabled = false;
+                canMove = true;
+                currentSpeed = speed;
+            }
+            else
+            {
+                canMove = false;
+                currentSpeed = 0;
+                anim.Play(attack1Anim);
+                //boxCol.enabled = true;
+                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 4);
+                boxCol.enabled = false;
+                canMove = true;
+                currentSpeed = speed;
+            }
         }
     }
 
