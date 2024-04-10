@@ -89,6 +89,7 @@ public class PlayerBase : MonoBehaviour
             default:
                 break;
         }
+
     }
 
     // Update is called once per frame
@@ -256,6 +257,8 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
+
+        
     }
 
     IEnumerator TakeDamage(int damage)
