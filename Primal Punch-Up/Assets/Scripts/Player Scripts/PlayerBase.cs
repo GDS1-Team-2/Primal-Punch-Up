@@ -261,7 +261,7 @@ public class PlayerBase : MonoBehaviour
         
     }
 
-    IEnumerator TakeDamage(int damage)
+    public IEnumerator TakeDamage(int damage)
     {
         canMove = false;
         currentSpeed = 0;
@@ -274,5 +274,7 @@ public class PlayerBase : MonoBehaviour
         currentSpeed = speed;
         canMove = true;
     }
+
+   
 
 }

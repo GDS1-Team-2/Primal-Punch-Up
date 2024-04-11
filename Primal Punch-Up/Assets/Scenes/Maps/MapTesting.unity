@@ -3075,6 +3075,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7548605024746769291, guid: 2b5fac81b175ba74994fbe56214889e9, type: 3}
   m_PrefabInstance: {fileID: 387775271}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &396700075 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1982851572413039692, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+  m_PrefabInstance: {fileID: 8944801350045443769}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &407505173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16900,7 +16905,7 @@ PrefabInstance:
       objectReference: {fileID: 465174654}
     - target: {fileID: 6331431712326904636, guid: 78c58f6d8a80cc246bab86f1b09c8a5c, type: 3}
       propertyPath: m_Mass
-      value: 999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6331431712326904636, guid: 78c58f6d8a80cc246bab86f1b09c8a5c, type: 3}
       propertyPath: m_Constraints
@@ -17759,6 +17764,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1982851572413039692, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982851572413039692, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5714401161000572519, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -17820,8 +17833,16 @@ PrefabInstance:
       value: 999999
       objectReference: {fileID: 0}
     - target: {fileID: 8832306589054526758, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+      propertyPath: knockBackForce
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832306589054526758, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+      propertyPath: particleSystem
+      value: 
+      objectReference: {fileID: 396700075}
+    - target: {fileID: 8832306589054526758, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
       propertyPath: explosionRadius
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

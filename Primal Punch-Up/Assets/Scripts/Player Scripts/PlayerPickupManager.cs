@@ -26,7 +26,7 @@ public class PlayerPickupManager : MonoBehaviour
         if (other.gameObject.CompareTag("Pickup"))
         {
             // Destroy(other.gameObject);
-            int rand = Random.Range(0, numberOfItems - 1);
+            int rand = Random.Range(0, numberOfItems);
             switch (rand)
             {
                 case 0:
