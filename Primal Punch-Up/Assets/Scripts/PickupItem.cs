@@ -54,7 +54,7 @@ public class PickupItem : MonoBehaviour
             UpdateTempScoreText();
         }
 
-        /*if (other.gameObject.CompareTag("chocolate"))
+        if (other.gameObject.CompareTag("chocolate"))
         {
             Destroy(other.gameObject);
             this.speedRangeCollider.gameObject.SetActive(true);
@@ -62,7 +62,7 @@ public class PickupItem : MonoBehaviour
         if (other.gameObject.CompareTag("speedRange"))
         {
             this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
-        }*/
+        }
 
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
