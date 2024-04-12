@@ -10,7 +10,6 @@ public class LandmineScript : MonoBehaviour
     public float knockBackForce = 10;
     public ParticleSystem particleSystem;
     public AudioClip explodeSound;
-    private bool destroy = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +39,8 @@ public class LandmineScript : MonoBehaviour
             StartCoroutine(other.gameObject.GetComponent<PlayerBase>().TakeDamage(damage));
             Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
             other.gameObject.GetComponent<Rigidbody>().AddForce(direction * knockBackForce);
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 }
