@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1340593966245118906}
   - component: {fileID: 1340593966245118907}
   - component: {fileID: 1925730310472829805}
+  - component: {fileID: 5284946614432074662}
   m_Layer: 0
   m_Name: ItemSpawn (1)
   m_TagString: ItemSpawn
@@ -98,3 +99,23 @@ CapsuleCollider:
   m_Height: 1.0486279
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0.43936014}
+--- !u!95 &5284946614432074662
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340593966245118885}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0decf989b8bceaf49b0ab30f7bfbbea2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
