@@ -6,17 +6,10 @@ public class LandmineScript : MonoBehaviour
 {
     public float explosionForce = 10.0f;
     public float explosionRadius = 5.0f;
-    public int damage = 1;
-    public float knockBackForce = 10;
-    public ParticleSystem particleSystem;
-    public AudioClip explodeSound;
-    private bool destroy = false;
     // Start is called before the first frame update
     void Start()
     {
-        particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
-        //particleSystem = gameObject.GetComponent<ParticleSystem>();
-        particleSystem.Stop();
+        
     }
 
     // Update is called once per frame
@@ -28,18 +21,10 @@ public class LandmineScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Lizard") ||
-            other.gameObject.CompareTag("Bear") ||
-            other.gameObject.CompareTag("Cat") ||
-            other.gameObject.CompareTag("Rabbit") ||
-            other.gameObject.CompareTag("Fox"))
+            other.gameObject.CompareTag("Bear"))
         {
             Debug.Log("explode");
-            particleSystem.Play();
-            gameObject.GetComponent<AudioSource>().PlayOneShot(explodeSound);
-            //other.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, 3.0F);
-            StartCoroutine(other.gameObject.GetComponent<PlayerBase>().TakeDamage(damage));
-            Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
-            other.gameObject.GetComponent<Rigidbody>().AddForce(direction * knockBackForce);
+            other.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius, 3.0f, ForceMode.Impulse);
         }
     }
 }
