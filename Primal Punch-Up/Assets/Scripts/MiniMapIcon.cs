@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class MiniMapIcon : MonoBehaviour
 {
-    public Transform player; // 玩家的Transform
-    public float heightAbovePlayer = 100f; // 图标在玩家头顶上方的高度
+    public Transform player; // Player's Transform
+    public float heightAbovePlayer = 100f; // Height of the icon above the player
 
     void Update()
     {
-        // 更新图标的位置，使其仅跟随玩家的x和z坐标，y坐标则根据需要调整高度
-        transform.position = new Vector3(player.position.x, player.position.y + heightAbovePlayer, player.position.z);
-        transform.rotation = Quaternion.Euler(90, player.eulerAngles.y, 0);
+        // Ensure the player variable is not null
+        if (player != null)
+        {
+            // Update the icon's position so that it follows only the player's x and z coordinates, adjusting the y coordinate according to the specified height
+            transform.position = new Vector3(player.position.x, player.position.y + heightAbovePlayer, player.position.z);
+
+            // Set the icon's rotation to face upwards, while adjusting based on the player's y-axis rotation
+            transform.rotation = Quaternion.Euler(90, player.eulerAngles.y, 0);
+        }
     }
 }
