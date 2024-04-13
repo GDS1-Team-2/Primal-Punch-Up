@@ -20,45 +20,53 @@ public class PickupItem : MonoBehaviour
 
     public GameObject speedRangeCollider;
 
+    public GameObject blueEffectPrefab;
+
+    float speedRangeDeactivationTime = 10.0f;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
         {
-            // ������ʱ����
+
             tempScore++;
             currentTempBag++;
-            // ����ʰȡ��Ч
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // ����Item����
+            
             Destroy(other.gameObject);
-            // ����UI��ʾ��ʱ����
             UpdateTempScoreText();
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
         {
-            // ������ʱ����
+            
             tempScore = tempScore + 3;
             currentTempBag++;
-            // ����ʰȡ��Ч
+            
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // ����Item����
+            
             Destroy(other.gameObject);
-            // ����UI��ʾ��ʱ����
+            
             UpdateTempScoreText();
         }
         if (other.gameObject.CompareTag("chocolate")){
            Destroy(other.gameObject);
            this.speedRangeCollider.gameObject.SetActive(true);
+           GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
+           newPrefab.transform.parent = this.transform;
+           newPrefab.transform.localScale *= 10;
+           StartCoroutine(DeactivateNodeAfterTime(newPrefab));
         }
         if (other.gameObject.CompareTag("speedRange")){
            this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
+           StartCoroutine(recoverSpeed());
         }
+
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
             // ������ʱ����
@@ -82,6 +90,33 @@ public class PickupItem : MonoBehaviour
 
         // �������Ƿ�ﵽͨ������
         // CheckForLevelCompletion();
+    }
+
+    IEnumerator DeactivateNodeAfterTime(GameObject effect)
+    {
+        // 等待指定的时间
+        yield return new WaitForSeconds(speedRangeDeactivationTime);
+
+        // 将节点的活动状态设置为 false
+         this.speedRangeCollider.gameObject.SetActive(false);
+        Destroy(effect);
+    }
+
+    IEnumerator recoverSpeed()
+    {
+        // 等待指定的时间
+        yield return new WaitForSeconds(speedRangeDeactivationTime);
+
+        // 将节点的活动状态设置为 false
+        this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("speedRange")){
+           this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
+        }
     }
 
     private void Update()

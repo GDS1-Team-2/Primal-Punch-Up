@@ -50,6 +50,7 @@ public class PlayerBase : MonoBehaviour
     public GameObject healthBar;
     public Slider healthBarSlider;
 
+
     public void setSpeed(bool half){
         this.speed = half ? 5.0f : 10.0f;
     }
