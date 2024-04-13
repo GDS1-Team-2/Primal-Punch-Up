@@ -6,78 +6,87 @@ using UnityEngine.UI;
 
 public class PickupItem : MonoBehaviour
 {
-    public AudioClip pickupSound; // Ê°È¡ItemsµÄÒôĞ§
-    public int score = 0; // Íæ¼ÒµÃ·Ö
-    public int tempScore = 0; // Íæ¼ÒµÄÁÙÊ±µÃ·Ö
-    public int maxTempBag = 3; // ÁÙÊ±ÎïÆ·µÄÉÏÏŞ£¬¿ÉÒÔÔÚUnityÖĞĞŞ¸Ä
+    public AudioClip pickupSound; // Ê°È¡Itemsï¿½ï¿½ï¿½ï¿½Ğ§
+    public int score = 0; // ï¿½ï¿½ÒµÃ·ï¿½
+    public int tempScore = 0; // ï¿½ï¿½Òµï¿½ï¿½ï¿½Ê±ï¿½Ã·ï¿½
+    public int maxTempBag = 3; // ï¿½ï¿½Ê±ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Ş£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Unityï¿½ï¿½ï¿½Ş¸ï¿½
     public int currentTempBag = 0;
-    public Text scoreText; // ·ÖÊıÏÔÊ¾µÄUI×é¼ş
-    public Text tempScoreText; // ÁÙÊ±·ÖÊıÏÔÊ¾µÄUI×é¼ş
-    public string OneScoreTag; // Ê°È¡ÎïÆ·µÄ±êÇ©
-    public string ThreeScoreTag; // Ê°È¡¶à·ÖÎïÆ·µÄ±êÇ©
-    public string BadScoreTag; // Ê°È¡¼õ·ÖÎïÆ·µÄ±êÇ©
-    public string baseTag; // »ùµØµÄ±êÇ©
+    public Text scoreText; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½UIï¿½ï¿½ï¿½
+    public Text tempScoreText; // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½UIï¿½ï¿½ï¿½
+    public string OneScoreTag; // Ê°È¡ï¿½ï¿½Æ·ï¿½Ä±ï¿½Ç©
+    public string ThreeScoreTag; // Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ä±ï¿½Ç©
+    public string BadScoreTag; // Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ä±ï¿½Ç©
+    public string baseTag; // ï¿½ï¿½ï¿½ØµÄ±ï¿½Ç©
+
+    public GameObject speedRangeCollider;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
         {
-            // Ôö¼ÓÁÙÊ±·ÖÊı
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
             tempScore++;
             currentTempBag++;
-            // ²¥·ÅÊ°È¡ÒôĞ§
+            // ï¿½ï¿½ï¿½ï¿½Ê°È¡ï¿½ï¿½Ğ§
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // Ïú»ÙItem¶ÔÏó
+            // ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½
             Destroy(other.gameObject);
-            // ¸üĞÂUIÏÔÊ¾ÁÙÊ±·ÖÊı
+            // ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½Ê¾ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
             UpdateTempScoreText();
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
         {
-            // Ôö¼ÓÁÙÊ±·ÖÊı
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
             tempScore = tempScore + 3;
             currentTempBag++;
-            // ²¥·ÅÊ°È¡ÒôĞ§
+            // ï¿½ï¿½ï¿½ï¿½Ê°È¡ï¿½ï¿½Ğ§
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // Ïú»ÙItem¶ÔÏó
+            // ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½
             Destroy(other.gameObject);
-            // ¸üĞÂUIÏÔÊ¾ÁÙÊ±·ÖÊı
+            // ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½Ê¾ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
             UpdateTempScoreText();
+        }
+        if (other.gameObject.CompareTag("chocolate")){
+           Destroy(other.gameObject);
+           this.speedRangeCollider.gameObject.SetActive(true);
+        }
+        if (other.gameObject.CompareTag("speedRange")){
+           this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
         }
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
-            // Ôö¼ÓÁÙÊ±·ÖÊı
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
             tempScore = tempScore - 1;
             
-            // ²¥·ÅÊ°È¡ÒôĞ§
+            // ï¿½ï¿½ï¿½ï¿½Ê°È¡ï¿½ï¿½Ğ§
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            // Ïú»ÙItem¶ÔÏó
+            // ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½
             Destroy(other.gameObject);
-            // ¸üĞÂUIÏÔÊ¾ÁÙÊ±·ÖÊı
+            // ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½Ê¾ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
             UpdateTempScoreText();
         }
         else if (other.gameObject.CompareTag(baseTag))
         {
-            // ½«ÁÙÊ±·ÖÊı×ª»»ÎªÕıÊ½·ÖÊı
+            // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
             ConvertTempScoreToScore();
         }
 
-        // ¼ì²é·ÖÊıÊÇ·ñ´ïµ½Í¨¹ØÌõ¼ş
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ïµ½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         // CheckForLevelCompletion();
     }
 
     private void Update()
     {
-        // ¿ÉÒÔÔÚÕâÀïÌí¼Ó¼ì²âÍæ¼ÒËÀÍöµÄÂß¼­£¬²¢µ÷ÓÃLoseTempScore()·½·¨
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LoseTempScore()ï¿½ï¿½ï¿½ï¿½
     }
 
     private void UpdateScoreText()
@@ -98,7 +107,7 @@ public class PickupItem : MonoBehaviour
 
     private void CheckForLevelCompletion()
     {
-        if (score >= 11) // ¸ù¾İĞèÒªÉèÖÃÍ¨¹ØµÄ·ÖÊıÌõ¼ş
+        if (score >= 11) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Í¨ï¿½ØµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             //SceneManager.LoadScene("PassScene");
         }
@@ -107,7 +116,7 @@ public class PickupItem : MonoBehaviour
     private void ConvertTempScoreToScore()
     {
         score += tempScore;
-        tempScore = 0; // ÖØÖÃÁÙÊ±·ÖÊı
+        tempScore = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
         currentTempBag = 0;
         UpdateScoreText();
         UpdateTempScoreText();
@@ -115,7 +124,7 @@ public class PickupItem : MonoBehaviour
 
     public void LoseTempScore()
     {
-        // Íæ¼ÒËÀÍöºó¶ªÊ§ÁÙÊ±·ÖÊı
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
         tempScore = 0;
         UpdateTempScoreText();
     }
