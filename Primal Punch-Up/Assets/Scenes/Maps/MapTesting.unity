@@ -5392,6 +5392,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 584952872}
     - target: {fileID: 1310735103919160533, guid: c115c70ae92864d42b3040bf617474c2, type: 3}
+      propertyPath: BadScoreTag
+      value: score
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310735103919160533, guid: c115c70ae92864d42b3040bf617474c2, type: 3}
+      propertyPath: OneScoreTag
+      value: score
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310735103919160533, guid: c115c70ae92864d42b3040bf617474c2, type: 3}
+      propertyPath: ThreeScoreTag
+      value: score
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310735103919160533, guid: c115c70ae92864d42b3040bf617474c2, type: 3}
       propertyPath: tempScoreText
       value: 
       objectReference: {fileID: 1199117478}
@@ -16579,6 +16591,18 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1508978135}
+    - target: {fileID: 166747306276969153, guid: 78c58f6d8a80cc246bab86f1b09c8a5c, type: 3}
+      propertyPath: BadScoreTag
+      value: score
+      objectReference: {fileID: 0}
+    - target: {fileID: 166747306276969153, guid: 78c58f6d8a80cc246bab86f1b09c8a5c, type: 3}
+      propertyPath: OneScoreTag
+      value: score
+      objectReference: {fileID: 0}
+    - target: {fileID: 166747306276969153, guid: 78c58f6d8a80cc246bab86f1b09c8a5c, type: 3}
+      propertyPath: ThreeScoreTag
+      value: score
+      objectReference: {fileID: 0}
     - target: {fileID: 166747306276969153, guid: 78c58f6d8a80cc246bab86f1b09c8a5c, type: 3}
       propertyPath: tempScoreText
       value: 
