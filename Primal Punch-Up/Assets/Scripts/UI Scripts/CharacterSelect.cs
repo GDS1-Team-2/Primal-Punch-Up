@@ -9,7 +9,7 @@ public class CharacterSelect : MonoBehaviour
     public int playerNo = 0;
 
     private int index = 0;
-    private int lockIndex = 0;
+    public int lockIndex = 0;
     private Vector3[] positions;
     bool leftStickUse = false;
     float increaseHeightPerPlayer = 0.0f;
@@ -50,13 +50,13 @@ public class CharacterSelect : MonoBehaviour
             case 3:
                 imgCol.color = Color.yellow;
                 Player3 = Gamepad.current;
-                print(Player3.name);
+                //print(Player3.name);
                 increaseHeightPerPlayer = 150.0f;
                 break;
             case 4:
                 imgCol.color = Color.green;
                 Player4 = Gamepad.current;
-                print(Player4.name);
+                //print(Player4.name);
                 increaseHeightPerPlayer = 225.0f;
                 break;
             default:

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class SelectController : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class SelectController : MonoBehaviour
     Gamepad player3Controller;
     bool allLockedIn = true;
     public GameObject letsGoBtn;
+    public GameObject characterLoader;
+    public string P1Char = "";
+    public string P2Char = "";
+    public string P3Char = "";
+    public string P4Char = "";
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +38,8 @@ public class SelectController : MonoBehaviour
             characterScript.playerNo = i + 1;
             prefabs.Add(newPlayer);
         }
+
+        characterLoader = GameObject.Find("CharacterLoader");
     }
 
     // Update is called once per frame
@@ -92,5 +100,35 @@ public class SelectController : MonoBehaviour
         {
             letsGoBtn.SetActive(false);
         }
+    }
+
+    public void LetsGoBtn()
+    {
+        CharacterLoader charLoadScript = characterLoader.GetComponent<CharacterLoader>();
+        charLoadScript.noOfPlayers = noOfPlayers;
+        charLoadScript.loadCharacters = true;
+        foreach (GameObject prefab in prefabs)
+        {
+            CharacterSelect characterScript = prefab.GetComponent<CharacterSelect>();
+            switch (characterScript.playerNo)
+            {
+                case 1:
+                    charLoadScript.P1Char = characterScript.lockIndex;
+                    break;
+                case 2:
+                    charLoadScript.P2Char = characterScript.lockIndex;
+                    break;
+                case 3:
+                    charLoadScript.P3Char = characterScript.lockIndex;
+                    break;
+                case 4:
+                    charLoadScript.P4Char = characterScript.lockIndex;
+                    break;
+                default:
+                    break;
+            }
+        }
+        DontDestroyOnLoad(characterLoader);
+        SceneManager.LoadScene("MapTesting");
     }
 }
