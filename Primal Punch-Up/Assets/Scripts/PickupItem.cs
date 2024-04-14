@@ -132,7 +132,7 @@ public class PickupItem : MonoBehaviour
         }
     }
 
-    private void UpdateTempScoreText()
+    public void UpdateTempScoreText()
     {
         if (tempScoreText != null)
         {
@@ -162,5 +162,11 @@ public class PickupItem : MonoBehaviour
         // ���������ʧ��ʱ����
         tempScore = 0;
         UpdateTempScoreText();
+    }
+
+    public void AddScore(int scoreToAdd)
+    {
+            tempScore += scoreToAdd;
+            UpdateTempScoreText();
     }
 }
