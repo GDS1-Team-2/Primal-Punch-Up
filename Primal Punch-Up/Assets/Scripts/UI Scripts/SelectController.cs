@@ -17,6 +17,7 @@ public class SelectController : MonoBehaviour
     bool allLockedIn = true;
     public GameObject letsGoBtn;
     public GameObject characterLoader;
+    public CharacterLoader characterLoadScript;
     public string P1Char = "";
     public string P2Char = "";
     public string P3Char = "";
@@ -40,6 +41,7 @@ public class SelectController : MonoBehaviour
         }
 
         characterLoader = GameObject.Find("CharacterLoader");
+        characterLoadScript = characterLoader.GetComponent<CharacterLoader>();
     }
 
     // Update is called once per frame
@@ -61,6 +63,7 @@ public class SelectController : MonoBehaviour
                             characterScript.Player3 = gamepad;
                             characterScript.player3Activated = true;
                             player3Controller = gamepad;
+                            characterLoadScript.P3Controller = gamepad;
                             player3Assigned = true;
                             print(gamepad.name + " is the controller for player 3");
                             break;
@@ -73,6 +76,7 @@ public class SelectController : MonoBehaviour
                             CharacterSelect characterScript = prefabs[3].GetComponent<CharacterSelect>();
                             characterScript.player4Activated = true;
                             characterScript.Player4 = gamepad;
+                            characterLoadScript.P4Controller = gamepad;
                             player4Assigned = true;
                             print(gamepad.name + " is the controller for player 4");
                             break;

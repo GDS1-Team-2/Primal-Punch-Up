@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 99082317269a88840ae4c829b0225a19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.9
+      value: 3.57
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 99082317269a88840ae4c829b0225a19, type: 3}
       propertyPath: m_LocalPosition.y
@@ -735,11 +735,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afefdf1ba872d6f40aafce7d52edf1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noOfPlayers: 2
+  noOfPlayers: 4
   playerPrefab: {fileID: 3012033178335270275, guid: 878a0506d700f564fa98361600f1126a, type: 3}
   characterScript: {fileID: 0}
   letsGoBtn: {fileID: 1533413727}
   characterLoader: {fileID: 0}
+  characterLoadScript: {fileID: 0}
   P1Char: 
   P2Char: 
   P3Char: 
@@ -773,7 +774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec31e20d097e66e498d12adfb748d912, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 10.06
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ec31e20d097e66e498d12adfb748d912, type: 3}
       propertyPath: m_LocalPosition.y

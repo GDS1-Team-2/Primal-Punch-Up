@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerBase : MonoBehaviour
 {
+    public int playerNo = 0;
+
+    public Gamepad P3Controller = null;
+    public Gamepad P4Controller = null;
 
     public Animator anim;
     public Rigidbody rbody;
@@ -47,21 +51,36 @@ public class PlayerBase : MonoBehaviour
     public GameObject healthBar;
     public Slider healthBarSlider;
 
-    private PlayerInput playerInput;
-
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
-        playerInput = GetComponent<PlayerInput>();
-
-        //PlayerInputActions playerInputActions = new PlayerInputActions();
-        //playerInputActions.Player.Enable();
-        //playerInputActions.Player.Attack.performed += CallBACoroutine;
 
         canMove = true;
+
+        switch (playerNo)
+        {
+            case 1:
+                moveForwardKey = KeyCode.W;
+                moveBackKey = KeyCode.S;
+                rotateLeftKey = KeyCode.A;
+                rotateRightKey = KeyCode.D;
+                attack1Key = KeyCode.C;
+                healthBar = GameObject.Find("Player 1 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
+                break;
+            case 2:
+                moveForwardKey = KeyCode.UpArrow;
+                moveBackKey = KeyCode.DownArrow;
+                rotateLeftKey = KeyCode.LeftArrow;
+                rotateRightKey = KeyCode.RightArrow;
+                attack1Key = KeyCode.O;
+                healthBar = GameObject.Find("Player 2 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
+                break;
+        }
 
         switch (gameObject.tag)
         {
@@ -70,26 +89,12 @@ public class PlayerBase : MonoBehaviour
                 runAnim = "LizardRun";
                 attack1Anim = "LizardAttack1";
                 takeHit1Anim = "LizardTakeHit1";
-                moveForwardKey = KeyCode.W;
-                moveBackKey = KeyCode.S;
-                rotateLeftKey = KeyCode.A;
-                rotateRightKey = KeyCode.D;
-                attack1Key = KeyCode.C;
-                healthBar = GameObject.Find("Player 1 Health");
-                //healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
                 runAnim = "BearRun";
                 attack1Anim = "BearAttack1";
                 takeHit1Anim = "BearTakeHit1";
-                moveForwardKey = KeyCode.UpArrow;
-                moveBackKey = KeyCode.DownArrow;
-                rotateLeftKey = KeyCode.LeftArrow;
-                rotateRightKey = KeyCode.RightArrow;
-                attack1Key = KeyCode.P;
-                healthBar = GameObject.Find("Player 2 Health");
-                //healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
             case "Rabbit":
                 break;
@@ -101,10 +106,26 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
+        if (playerNo == 1 || playerNo == 2)
         {
-            StartCoroutine(PlayerBasicAttack());
+            if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
+            {
+                StartCoroutine(PlayerBasicAttack());
+            }
+        } else if (playerNo == 3)
+        {
+            if (P3Controller.buttonEast.wasPressedThisFrame)
+            {
+                StartCoroutine(PlayerBasicAttack());
+            }
+        } else if (playerNo == 4)
+        {
+            if (P4Controller.buttonEast.wasPressedThisFrame)
+            {
+                StartCoroutine(PlayerBasicAttack());
+            }
         }
+
 
         ChangeDirection();
 
@@ -154,22 +175,63 @@ public class PlayerBase : MonoBehaviour
         //float moveX = 0
         float moveZ = 0;
 
-        if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value))
+        if (playerNo == 1 || playerNo == 2)
         {
-            transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-        }
-        else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value))
-        {
-            transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
-        }
+            if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value))
+            {
+                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+            }
+            else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value))
+            {
+                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+            }
 
-        if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
+            if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
+            {
+                moveZ = 1;
+            }
+            else if (moveBackKey.HasValue && Input.GetKey(moveBackKey.Value))
+            {
+                moveZ = -1;
+            }
+        } else if (playerNo == 3)
         {
-            moveZ = 1;
-        }
-        else if (moveBackKey.HasValue && Input.GetKey(moveBackKey.Value))
+            if (P3Controller.leftStick.left.isPressed)
+            {
+                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+            } 
+            else if (P3Controller.leftStick.right.isPressed)
+            {
+                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+            }
+
+            if (P3Controller.leftStick.up.isPressed)
+            {
+                moveZ = 1;
+            }
+            else if (P3Controller.leftStick.down.isPressed)
+            {
+                moveZ = -1;
+            }
+        } else if (playerNo == 4)
         {
-            moveZ = -1;
+            if (P4Controller.leftStick.left.isPressed)
+            {
+                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+            }
+            else if (P4Controller.leftStick.right.isPressed)
+            {
+                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+            }
+
+            if (P4Controller.leftStick.up.isPressed)
+            {
+                moveZ = 1;
+            }
+            else if (P4Controller.leftStick.down.isPressed)
+            {
+                moveZ = -1;
+            }
         }
 
         moveDirection = new Vector3(0, 0, moveZ);
@@ -179,8 +241,6 @@ public class PlayerBase : MonoBehaviour
     void Move()
     {
         rbody.velocity = transform.forward * moveDirection.z * speed;
-        //Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        //rbody.AddForce(new Vector3(inputVector.x, 0, inputVector.z) * currentSpeed, ForceMode.Force);
 
         if (moveDirection != Vector3.zero)
         {
@@ -193,11 +253,11 @@ public class PlayerBase : MonoBehaviour
         }
 
         //dash
-        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        /*if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
             isDashing = true;
             dashTimer = dashDuration;
-        }
+        }*/
         if (isDashing)
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;

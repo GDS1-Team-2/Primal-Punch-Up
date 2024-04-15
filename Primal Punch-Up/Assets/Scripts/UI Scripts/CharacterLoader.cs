@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterLoader : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class CharacterLoader : MonoBehaviour
     public GameObject P3Spawn;
     public GameObject P4Spawn;
 
+    public Gamepad P3Controller = null;
+    public Gamepad P4Controller = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +48,8 @@ public class CharacterLoader : MonoBehaviour
                 {
                     case 0:
                         GameObject player1 = Instantiate(convertCharacter(P1Char), P1Spawn.transform.position, Quaternion.identity);
+                        PlayerBase player1Script = player1.GetComponent<PlayerBase>();
+                        player1Script.playerNo = 1;
                         Camera P1cam = player1.GetComponentInChildren<Camera>();
                         if (noOfPlayers == 1)
                         {
@@ -59,6 +65,8 @@ public class CharacterLoader : MonoBehaviour
                         break;
                     case 1:
                         GameObject player2 = Instantiate(convertCharacter(P2Char), P2Spawn.transform.position, Quaternion.identity);
+                        PlayerBase player2Script = player2.GetComponent<PlayerBase>();
+                        player2Script.playerNo = 2;
                         Camera P2cam = player2.GetComponentInChildren<Camera>();
                         if (noOfPlayers == 2)
                         {
@@ -71,11 +79,17 @@ public class CharacterLoader : MonoBehaviour
                         break;
                     case 2:
                         GameObject player3 = Instantiate(convertCharacter(P3Char), P3Spawn.transform.position, Quaternion.identity);
+                        PlayerBase player3Script = player3.GetComponent<PlayerBase>();
+                        player3Script.playerNo = 3;
+                        player3Script.P3Controller = P3Controller;
                         Camera P3cam = player3.GetComponentInChildren<Camera>();
                         P3cam.rect = new Rect(0.0f, 0.0f, 0.5f, 0.5f);
                         break;
                     case 3:
                         GameObject player4 = Instantiate(convertCharacter(P4Char), P4Spawn.transform.position, Quaternion.identity);
+                        PlayerBase player4Script = player4.GetComponent<PlayerBase>();
+                        player4Script.playerNo = 4;
+                        player4Script.P4Controller = P4Controller;
                         Camera P4cam = player4.GetComponentInChildren<Camera>();
                         P4cam.rect = new Rect(0.5f, 0.0f, 0.5f, 0.5f);
                         break;
