@@ -271,14 +271,6 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    //public void CallBACoroutine(InputAction.CallbackContext context)
-    //{
-     //   if (context.performed)
-      //  {
-       //     StartCoroutine(PlayerBasicAttack());
-        //}
-    //}
-
     IEnumerator PlayerBasicAttack()
     {
         if (canMove)
@@ -332,7 +324,7 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    IEnumerator TakeDamage(int damage)
+    public IEnumerator TakeDamage(int damage)
     {
         canMove = false;
         currentSpeed = 0;
