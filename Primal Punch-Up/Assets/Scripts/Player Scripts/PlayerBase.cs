@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class PlayerBase : MonoBehaviour
 {
-    public int playerNo = 0;
-
-    public Gamepad P3Controller = null;
-    public Gamepad P4Controller = null;
 
     public Animator anim;
     public Rigidbody rbody;
@@ -25,6 +21,9 @@ public class PlayerBase : MonoBehaviour
     public bool canMove;
 
     public float speed = 10.0f;
+
+    public float jumpSpeed;
+    private float ySpeed;
 
     float inCombatTimer = 0.0f;
     public float inCombatLength = 5.0f;
@@ -51,36 +50,19 @@ public class PlayerBase : MonoBehaviour
     public GameObject healthBar;
     public Slider healthBarSlider;
 
+
+    public void setSpeed(bool half){
+        this.speed = half ? 5.0f : 10.0f;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
-
+        
         canMove = true;
-
-        switch (playerNo)
-        {
-            case 1:
-                moveForwardKey = KeyCode.W;
-                moveBackKey = KeyCode.S;
-                rotateLeftKey = KeyCode.A;
-                rotateRightKey = KeyCode.D;
-                attack1Key = KeyCode.C;
-                healthBar = GameObject.Find("Player 1 Health");
-                healthBarSlider = healthBar.GetComponent<Slider>();
-                break;
-            case 2:
-                moveForwardKey = KeyCode.UpArrow;
-                moveBackKey = KeyCode.DownArrow;
-                rotateLeftKey = KeyCode.LeftArrow;
-                rotateRightKey = KeyCode.RightArrow;
-                attack1Key = KeyCode.O;
-                healthBar = GameObject.Find("Player 2 Health");
-                healthBarSlider = healthBar.GetComponent<Slider>();
-                break;
-        }
 
         switch (gameObject.tag)
         {
@@ -89,14 +71,26 @@ public class PlayerBase : MonoBehaviour
                 runAnim = "LizardRun";
                 attack1Anim = "LizardAttack1";
                 takeHit1Anim = "LizardTakeHit1";
+                moveForwardKey = KeyCode.W;
+                moveBackKey = KeyCode.S;
+                rotateLeftKey = KeyCode.A;
+                rotateRightKey = KeyCode.D;
+                attack1Key = KeyCode.C;
+                healthBar = GameObject.Find("Player 1 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
                 runAnim = "BearRun";
                 attack1Anim = "BearAttack1";
                 takeHit1Anim = "BearTakeHit1";
-                break;
-            case "Rabbit":
+                moveForwardKey = KeyCode.UpArrow;
+                moveBackKey = KeyCode.DownArrow;
+                rotateLeftKey = KeyCode.LeftArrow;
+                rotateRightKey = KeyCode.RightArrow;
+                attack1Key = KeyCode.P;
+                healthBar = GameObject.Find("Player 2 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
             default:
                 break;
@@ -106,26 +100,15 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerNo == 1 || playerNo == 2)
+        /*if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
         {
-            if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
-            {
-                StartCoroutine(PlayerBasicAttack());
-            }
-        } else if (playerNo == 3)
-        {
-            if (P3Controller.buttonEast.wasPressedThisFrame)
-            {
-                StartCoroutine(PlayerBasicAttack());
-            }
-        } else if (playerNo == 4)
-        {
-            if (P4Controller.buttonEast.wasPressedThisFrame)
-            {
-                StartCoroutine(PlayerBasicAttack());
-            }
-        }
+            StartCoroutine(PlayerBasicAttack());
+        }*/
 
+        if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && canMove)
+        {
+            StartCoroutine(PlayerBasicAttack());
+        }
 
         ChangeDirection();
 
@@ -158,7 +141,9 @@ public class PlayerBase : MonoBehaviour
             }
         }
 
-        //healthBarSlider.value = hp;
+        healthBarSlider.value = hp;
+
+        ySpeed += Physics.gravity.y * Time.deltaTime;
 
     }
 
@@ -175,63 +160,22 @@ public class PlayerBase : MonoBehaviour
         //float moveX = 0
         float moveZ = 0;
 
-        if (playerNo == 1 || playerNo == 2)
+        if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value))
         {
-            if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value))
-            {
-                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-            }
-            else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value))
-            {
-                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
-            }
-
-            if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
-            {
-                moveZ = 1;
-            }
-            else if (moveBackKey.HasValue && Input.GetKey(moveBackKey.Value))
-            {
-                moveZ = -1;
-            }
-        } else if (playerNo == 3)
+            transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+        }
+        else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value))
         {
-            if (P3Controller.leftStick.left.isPressed)
-            {
-                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-            } 
-            else if (P3Controller.leftStick.right.isPressed)
-            {
-                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
-            }
+            transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+        }
 
-            if (P3Controller.leftStick.up.isPressed)
-            {
-                moveZ = 1;
-            }
-            else if (P3Controller.leftStick.down.isPressed)
-            {
-                moveZ = -1;
-            }
-        } else if (playerNo == 4)
+        if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
         {
-            if (P4Controller.leftStick.left.isPressed)
-            {
-                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-            }
-            else if (P4Controller.leftStick.right.isPressed)
-            {
-                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
-            }
-
-            if (P4Controller.leftStick.up.isPressed)
-            {
-                moveZ = 1;
-            }
-            else if (P4Controller.leftStick.down.isPressed)
-            {
-                moveZ = -1;
-            }
+            moveZ = 1 * this.speed;
+        }
+        else if (moveBackKey.HasValue && Input.GetKey(moveBackKey.Value))
+        {
+            moveZ = -1 * this.speed;
         }
 
         moveDirection = new Vector3(0, 0, moveZ);
@@ -253,11 +197,11 @@ public class PlayerBase : MonoBehaviour
         }
 
         //dash
-        /*if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
             isDashing = true;
             dashTimer = dashDuration;
-        }*/
+        }
         if (isDashing)
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
@@ -271,41 +215,29 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    //public void CallBACoroutine(InputAction.CallbackContext context)
-    //{
-     //   if (context.performed)
-      //  {
-       //     StartCoroutine(PlayerBasicAttack());
-        //}
-    //}
-
     IEnumerator PlayerBasicAttack()
     {
-        if (canMove)
+        if (rbody.velocity.magnitude > 0.1f)
         {
-            if (rbody.velocity.magnitude > 0.1f)
-            {
-                canMove = false;
-                rbody.velocity = Vector3.zero;
-                currentSpeed = 0;
-                anim.Play(attack1Anim);
-                //boxCol.enabled = true;
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                boxCol.enabled = false;
-                canMove = true;
-                currentSpeed = speed;
-            }
-            else
-            {
-                canMove = false;
-                currentSpeed = 0;
-                anim.Play(attack1Anim);
-                //boxCol.enabled = true;
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 4);
-                boxCol.enabled = false;
-                canMove = true;
-                currentSpeed = speed;
-            }
+            canMove = false;
+            rbody.velocity = Vector3.zero;
+            currentSpeed = 0;
+            anim.Play(attack1Anim);
+            //boxCol.enabled = true;
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            boxCol.enabled = false;
+            canMove = true;
+            currentSpeed = speed;
+        } else
+        {
+            canMove = false;
+            currentSpeed = 0;
+            anim.Play(attack1Anim);
+            //boxCol.enabled = true;
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/4);
+            boxCol.enabled = false;
+            canMove = true;
+            currentSpeed = speed;
         }
     }
 
@@ -332,7 +264,7 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    IEnumerator TakeDamage(int damage)
+    public IEnumerator TakeDamage(int damage)
     {
         canMove = false;
         currentSpeed = 0;
