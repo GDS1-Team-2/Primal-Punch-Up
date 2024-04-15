@@ -97,6 +97,10 @@ public class PlayerBase : MonoBehaviour
                 takeHit1Anim = "BearTakeHit1";
                 break;
             case "Rabbit":
+                idleAnim = "RabbitIdle";
+                runAnim = "RabbitRun";
+                attack1Anim = "RabbitAttack1";
+                takeHit1Anim = "RabbitTakeHit1";
                 break;
             default:
                 break;
@@ -293,7 +297,7 @@ public class PlayerBase : MonoBehaviour
                 currentSpeed = 0;
                 anim.Play(attack1Anim);
                 //boxCol.enabled = true;
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 4);
+                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 3.5f);
                 boxCol.enabled = false;
                 canMove = true;
                 currentSpeed = speed;
