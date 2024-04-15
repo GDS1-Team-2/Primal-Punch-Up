@@ -43,20 +43,41 @@ public class CharacterLoader : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        Instantiate(convertCharacter(P1Char), P1Spawn.transform.position, Quaternion.identity);
-                        Camera P1cam = convertCharacter(P1Char).GetComponentInChildren<Camera>();
-                        P1cam.rect = new Rect(0f, 0f, 0.5f, 1f);
+                        GameObject player1 = Instantiate(convertCharacter(P1Char), P1Spawn.transform.position, Quaternion.identity);
+                        Camera P1cam = player1.GetComponentInChildren<Camera>();
+                        if (noOfPlayers == 1)
+                        {
+                            P1cam.rect = new Rect(0f, 0f, 1f, 1f);
+                        } else if (noOfPlayers == 2)
+                        {
+                            P1cam.rect = new Rect(0f, 0f, 0.5f, 1f);
+                        } else if (noOfPlayers >= 3)
+                        {
+                            P1cam.rect = new Rect(0f, 0.5f, 0.5f, 0.5f);
+                        }
+                        
                         break;
                     case 1:
-                        Instantiate(convertCharacter(P2Char), P2Spawn.transform.position, Quaternion.identity);
-                        Camera P2cam = convertCharacter(P2Char).GetComponentInChildren<Camera>();
-                        P2cam.rect = new Rect(0.5f, 0f, 0.5f, 1f);
+                        GameObject player2 = Instantiate(convertCharacter(P2Char), P2Spawn.transform.position, Quaternion.identity);
+                        Camera P2cam = player2.GetComponentInChildren<Camera>();
+                        if (noOfPlayers == 2)
+                        {
+                            P2cam.rect = new Rect(0.5f, 0f, 0.5f, 1f);
+                        }
+                        else if (noOfPlayers >= 3)
+                        {
+                            P2cam.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+                        }
                         break;
                     case 2:
-                        Instantiate(convertCharacter(P3Char), P3Spawn.transform.position, Quaternion.identity);
+                        GameObject player3 = Instantiate(convertCharacter(P3Char), P3Spawn.transform.position, Quaternion.identity);
+                        Camera P3cam = player3.GetComponentInChildren<Camera>();
+                        P3cam.rect = new Rect(0.0f, 0.0f, 0.5f, 0.5f);
                         break;
                     case 3:
-                        Instantiate(convertCharacter(P4Char), P4Spawn.transform.position, Quaternion.identity);
+                        GameObject player4 = Instantiate(convertCharacter(P4Char), P4Spawn.transform.position, Quaternion.identity);
+                        Camera P4cam = player4.GetComponentInChildren<Camera>();
+                        P4cam.rect = new Rect(0.5f, 0.0f, 0.5f, 0.5f);
                         break;
                     default:
                         break;
