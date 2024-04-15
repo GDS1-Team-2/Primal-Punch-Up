@@ -392,6 +392,7 @@ GameObject:
   - component: {fileID: 1908714111664789003}
   - component: {fileID: 4841880721754635691}
   - component: {fileID: 3024347818936393910}
+  - component: {fileID: 5261634457263654886}
   m_Layer: 0
   m_Name: Lizard
   m_TagString: Lizard
@@ -415,7 +416,7 @@ Transform:
   - {fileID: 6730241786267053114}
   - {fileID: 4711247991109224337}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1638312519870712918
 Rigidbody:
@@ -521,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0991cd0d97b0148a7e001abbed9830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNo: 0
   anim: {fileID: 0}
   rbody: {fileID: 0}
   boxCol: {fileID: 0}
@@ -564,11 +566,16 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
   score: 0
   tempScore: 0
-  maxTempScore: 3
+  maxTempBag: 3
+  currentTempBag: 0
   scoreText: {fileID: 0}
   tempScoreText: {fileID: 0}
-  testTag: ItemSpawn
+  OneScoreTag: 
+  ThreeScoreTag: 
+  BadScoreTag: 
   baseTag: Home1
+  speedRangeCollider: {fileID: 0}
+  blueEffectPrefab: {fileID: 0}
 --- !u!81 &3024347818936393910
 AudioListener:
   m_ObjectHideFlags: 0
@@ -577,6 +584,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908714111664789012}
   m_Enabled: 1
+--- !u!114 &5261634457263654886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908714111664789012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ecc4dd2994f1f478d9b72c4dd2f15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfItems: 2
+  items: []
 --- !u!1 &2337677526007381518
 GameObject:
   m_ObjectHideFlags: 0

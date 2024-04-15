@@ -1308,6 +1308,7 @@ GameObject:
   - component: {fileID: 7434326416971981776}
   - component: {fileID: 7434326416971981783}
   - component: {fileID: 7434326416971981782}
+  - component: {fileID: 8231370296093687314}
   m_Layer: 0
   m_Name: Rabbit
   m_TagString: Rabbit
@@ -1331,7 +1332,7 @@ Transform:
   - {fileID: 4612773886838540581}
   - {fileID: 7434326416881920522}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &7434326416971981804
 Animator:
@@ -1457,6 +1458,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7776979527999676037}
   m_Enabled: 1
+--- !u!114 &8231370296093687314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776979527999676037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ecc4dd2994f1f478d9b72c4dd2f15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfItems: 2
+  items: []
 --- !u!1 &8256619369320812399
 GameObject:
   m_ObjectHideFlags: 0

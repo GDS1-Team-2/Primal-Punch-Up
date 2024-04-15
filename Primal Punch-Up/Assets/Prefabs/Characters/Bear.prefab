@@ -1018,6 +1018,7 @@ GameObject:
   - component: {fileID: 7811819089111855672}
   - component: {fileID: 9093303603891428795}
   - component: {fileID: 5241141293592434043}
+  - component: {fileID: 197804796273387262}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Bear
@@ -1041,7 +1042,7 @@ Transform:
   - {fileID: 3130752099749365776}
   - {fileID: 7782587198703641146}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6964889129514635079
 Rigidbody:
@@ -1091,6 +1092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0991cd0d97b0148a7e001abbed9830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNo: 0
   anim: {fileID: 6964889129514635078}
   rbody: {fileID: 6964889129514635079}
   boxCol: {fileID: 0}
@@ -1148,11 +1150,16 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
   score: 0
   tempScore: 0
-  maxTempScore: 3
+  maxTempBag: 3
+  currentTempBag: 0
   scoreText: {fileID: 0}
   tempScoreText: {fileID: 0}
-  testTag: ItemSpawn
+  OneScoreTag: 
+  ThreeScoreTag: 
+  BadScoreTag: 
   baseTag: Home2
+  speedRangeCollider: {fileID: 0}
+  blueEffectPrefab: {fileID: 0}
 --- !u!81 &5241141293592434043
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1161,6 +1168,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7811819089111855678}
   m_Enabled: 1
+--- !u!114 &197804796273387262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811819089111855678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ecc4dd2994f1f478d9b72c4dd2f15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfItems: 2
+  items: []
 --- !u!1 &8047159989690782053
 GameObject:
   m_ObjectHideFlags: 0
