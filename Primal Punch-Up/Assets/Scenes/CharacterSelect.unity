@@ -567,11 +567,9 @@ MonoBehaviour:
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   m_JoinAction:
     m_UseReference: 0
     m_Action:
@@ -589,6 +587,7 @@ MonoBehaviour:
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
   m_SplitScreenRect:
+    serializedVersion: 2
     x: 0
     y: 0
     width: 1
@@ -743,10 +742,6 @@ MonoBehaviour:
   noOfPlayers: 4
   playerPrefab: {fileID: 3012033178335270275, guid: 878a0506d700f564fa98361600f1126a, type: 3}
   characterScript: {fileID: 0}
-  prefabs: []
-  player3Assigned: 0
-  player4Assigned: 0
-  allLockedIn: 1
   letsGoBtn: {fileID: 1533413727}
   characterLoader: {fileID: 0}
   characterLoadScript: {fileID: 0}

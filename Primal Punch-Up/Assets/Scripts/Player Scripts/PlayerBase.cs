@@ -338,4 +338,8 @@ public class PlayerBase : MonoBehaviour
         canMove = true;
     }
 
+    public void setSpeed(bool half)
+    {
+        this.speed = half ? 5.0f : 10.0f;
+    }
 }
