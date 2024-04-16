@@ -102,6 +102,12 @@ public class PlayerBase : MonoBehaviour
                 attack1Anim = "RabbitAttack1";
                 takeHit1Anim = "RabbitTakeHit1";
                 break;
+            case "Fox":
+                idleAnim = "FoxIdle";
+                runAnim = "FoxRun";
+                attack1Anim = "FoxAttack1";
+                takeHit1Anim = "FoxTakeHit1";
+                break;
             default:
                 break;
         }
