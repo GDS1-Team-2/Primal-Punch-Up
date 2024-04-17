@@ -1870,6 +1870,7 @@ MonoBehaviour:
   BadScoreTag: PunishScoreItem
   baseTag: Home1
   speedRangeCollider: {fileID: 0}
+  blueEffectPrefab: {fileID: 0}
 --- !u!1 &213645385604908499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,6 +3029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0991cd0d97b0148a7e001abbed9830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNo: 1
   anim: {fileID: 0}
   rbody: {fileID: 0}
   boxCol: {fileID: 0}
@@ -3037,7 +3039,6 @@ MonoBehaviour:
   maxHP: 50
   canMove: 0
   speed: 10
-  jumpSpeed: 0
   inCombatLength: 5
   dashSpeed: 20
   dashCooldown: 1
