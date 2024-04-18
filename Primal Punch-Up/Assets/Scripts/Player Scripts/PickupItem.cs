@@ -24,6 +24,19 @@ public class PickupItem : MonoBehaviour
 
     float speedRangeDeactivationTime = 10.0f;
 
+    public GameObject Manager;
+    private RoundsScript RoundsScript;
+    private PlayerBase PlayerBase;
+    public int playerNo;
+
+    void Start()
+    {
+        Manager = GameObject.FindGameObjectWithTag("Manager");
+        RoundsScript = Manager.GetComponent<RoundsScript>();
+        PlayerBase = gameObject.GetComponent<PlayerBase>();
+        playerNo = PlayerBase.playerNo;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
@@ -155,6 +168,21 @@ public class PickupItem : MonoBehaviour
         currentTempBag = 0;
         UpdateScoreText();
         UpdateTempScoreText();
+        switch (playerNo)
+        {
+            case 1:
+                RoundsScript.SavePlayer1Score(score);
+                break;
+            case 2:
+                RoundsScript.SavePlayer2Score(score);
+                break;
+            case 3:
+                RoundsScript.SavePlayer3Score(score);
+                break;
+            case 4:
+                RoundsScript.SavePlayer4Score(score);
+                break;
+        }
     }
 
     public void LoseTempScore()
@@ -169,4 +197,6 @@ public class PickupItem : MonoBehaviour
             tempScore += scoreToAdd;
             UpdateTempScoreText();
     }
+
+ 
 }

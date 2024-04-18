@@ -16,12 +16,17 @@ public class Timer : MonoBehaviour
     public int score1;
     public int score2;
 
+    public GameObject Manager;
+    private RoundsScript RoundsScript;
+
     private bool load = false;
 
     void Start()
     {
         TimerOn = true;
-        DontDestroyOnLoad(this.gameObject);
+        Manager = GameObject.FindGameObjectWithTag("Manager");
+        RoundsScript = Manager.GetComponent<RoundsScript>();
+        //DontDestroyOnLoad(this.gameObject);
        // score1 = GameObject.FindGameObjectWithTag("Lizard").GetComponent<PickupItem>().score;
         //score1 = GameObject.FindGameObjectWithTag("Bear").GetComponent<PickupItem>().score;
     }
@@ -41,7 +46,7 @@ public class Timer : MonoBehaviour
             {
                 //score1 = GameObject.FindGameObjectWithTag("Lizard").GetComponent<PickupItem>().score;
                 //score1 = GameObject.FindGameObjectWithTag("Bear").GetComponent<PickupItem>().score;
-                SceneManager.LoadScene("Complete");
+                RoundsScript.EndRound();
                 load = true;
                 //player1score = GameObject.FindGameObjectWithTag("score1").GetComponent<Text>();
                 //player2score = GameObject.FindGameObjectWithTag("score2").GetComponent<Text>();

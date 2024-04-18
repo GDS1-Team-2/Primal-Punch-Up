@@ -7,6 +7,7 @@ public class MapSelectScript : MonoBehaviour
 {
     public string Map1SceneName;
     public string Map2SceneName;
+    public string Map3SceneName;
     public string MainMenuSceneName;
     // Start is called before the first frame update
 
@@ -18,6 +19,11 @@ public class MapSelectScript : MonoBehaviour
     public void LoadMap2()
     {
         SceneManager.LoadScene(Map2SceneName);
+    }
+
+    public void LoadMap3()
+    {
+        SceneManager.LoadScene(Map3SceneName);
     }
 
     public void BackButton()

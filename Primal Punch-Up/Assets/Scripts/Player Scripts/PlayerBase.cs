@@ -51,12 +51,18 @@ public class PlayerBase : MonoBehaviour
     public GameObject healthBar;
     public Slider healthBarSlider;
 
+    public GameObject Manager;
+    private RoundsScript RoundsScript;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
+
+        Manager = GameObject.FindGameObjectWithTag("Manager");
+        RoundsScript = Manager.GetComponent<RoundsScript>();
 
         canMove = true;
 
@@ -111,6 +117,7 @@ public class PlayerBase : MonoBehaviour
             default:
                 break;
         }
+
     }
 
     // Update is called once per frame
@@ -169,6 +176,24 @@ public class PlayerBase : MonoBehaviour
         }
 
         //healthBarSlider.value = hp;
+
+
+        //setting the players for the round score
+        switch (playerNo)
+        {
+            case 1:
+                RoundsScript.SetPlayer1(gameObject);
+                break;
+            case 2:
+                RoundsScript.SetPlayer2(gameObject);
+                break;
+            case 3:
+                RoundsScript.SetPlayer3(gameObject);
+                break;
+            case 4:
+                RoundsScript.SetPlayer4(gameObject);
+                break;
+        }
 
     }
 
