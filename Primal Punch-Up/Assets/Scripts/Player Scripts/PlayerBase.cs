@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerBase : MonoBehaviour
 {
@@ -32,8 +33,12 @@ public class PlayerBase : MonoBehaviour
     float gainHP = 0.0f;
 
     string idleAnim = "";
+    string idleAnim_Fight = "";
+    string idleAnim_Gun = "";
     string runAnim = "";
     string attack1Anim = "";
+    string attackAnim_Fight = "";
+    string attackAnim_Gun = "";
     string takeHit1Anim = "";
     KeyCode? moveForwardKey = null;
     KeyCode? moveBackKey = null;
@@ -50,6 +55,9 @@ public class PlayerBase : MonoBehaviour
 
     public GameObject healthBar;
     public Slider healthBarSlider;
+    public GameObject weaponNode;
+    [NonSerialized]
+    public Weapon weapon;
 
     // Start is called before the first frame update
     void Start()
@@ -86,26 +94,42 @@ public class PlayerBase : MonoBehaviour
         {
             case "Lizard":
                 idleAnim = "LizardIdle";
+                idleAnim_Fight = "LizardIdle_Fight";
+                idleAnim_Gun = "LizardIdle_Gun";
                 runAnim = "LizardRun";
                 attack1Anim = "LizardAttack1";
+                attackAnim_Fight = "LizardAttack_Fight";
+                attackAnim_Gun = "LizardAttack_Gun";
                 takeHit1Anim = "LizardTakeHit1";
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
+                idleAnim_Fight = "BearIdle_Fight";
+                idleAnim_Gun = "BearIdle_Gun";
                 runAnim = "BearRun";
                 attack1Anim = "BearAttack1";
+                attackAnim_Fight = "BearAttack_Fight";
+                attackAnim_Gun = "BearAttack_Gun";
                 takeHit1Anim = "BearTakeHit1";
                 break;
             case "Rabbit":
                 idleAnim = "RabbitIdle";
+                idleAnim_Fight = "RabbitIdle_Fight";
+                idleAnim_Gun = "RabbitIdle_Gun";
                 runAnim = "RabbitRun";
                 attack1Anim = "RabbitAttack1";
+                attackAnim_Fight = "RabbitAttack_Fight";
+                attackAnim_Gun = "RabbitAttack_Gun";
                 takeHit1Anim = "RabbitTakeHit1";
                 break;
             case "Fox":
                 idleAnim = "FoxIdle";
+                idleAnim_Fight = "FoxIdle_Fight";
+                idleAnim_Gun = "FoxIdle_Gun";
                 runAnim = "FoxRun";
                 attack1Anim = "FoxAttack1";
+                attackAnim_Fight = "FoxAttack_Fight";
+                attackAnim_Gun = "FoxAttack_Gun";
                 takeHit1Anim = "FoxTakeHit1";
                 break;
             default:
@@ -122,13 +146,15 @@ public class PlayerBase : MonoBehaviour
             {
                 StartCoroutine(PlayerBasicAttack());
             }
-        } else if (playerNo == 3)
+        }
+        else if (playerNo == 3)
         {
             if (P3Controller.buttonEast.wasPressedThisFrame)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
-        } else if (playerNo == 4)
+        }
+        else if (playerNo == 4)
         {
             if (P4Controller.buttonEast.wasPressedThisFrame)
             {
@@ -158,7 +184,8 @@ public class PlayerBase : MonoBehaviour
                 gainHP = 0.0f;
                 //Debug.Log(this.hp);
             }
-        } else
+        }
+        else
         {
             inCombatTimer -= 1 * Time.deltaTime;
             if (inCombatTimer < 0.0f)
@@ -204,12 +231,13 @@ public class PlayerBase : MonoBehaviour
             {
                 moveZ = -1;
             }
-        } else if (playerNo == 3)
+        }
+        else if (playerNo == 3)
         {
             if (P3Controller.leftStick.left.isPressed)
             {
                 transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-            } 
+            }
             else if (P3Controller.leftStick.right.isPressed)
             {
                 transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
@@ -223,7 +251,8 @@ public class PlayerBase : MonoBehaviour
             {
                 moveZ = -1;
             }
-        } else if (playerNo == 4)
+        }
+        else if (playerNo == 4)
         {
             if (P4Controller.leftStick.left.isPressed)
             {
@@ -259,7 +288,21 @@ public class PlayerBase : MonoBehaviour
         }
         else
         {
-            anim.Play(idleAnim);
+            if (weapon != null)
+            {
+                if (weapon.isGun)
+                {
+                    anim.Play(idleAnim_Gun);
+                }
+                else
+                {
+                    anim.Play(idleAnim_Fight);
+                }
+            }
+            else
+            {
+                anim.Play(idleAnim);
+            }
         }
 
         //dash
@@ -290,7 +333,21 @@ public class PlayerBase : MonoBehaviour
                 canMove = false;
                 rbody.velocity = Vector3.zero;
                 currentSpeed = 0;
-                anim.Play(attack1Anim);
+                if (weapon != null)
+                {
+                    if (weapon.isGun)
+                    {
+                        anim.Play(attackAnim_Gun);
+                    }
+                    else
+                    {
+                        anim.Play(attackAnim_Fight);
+                    }
+                }
+                else
+                {
+                    anim.Play(attack1Anim);
+                }
                 //boxCol.enabled = true;
                 yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
                 boxCol.enabled = false;
@@ -301,7 +358,21 @@ public class PlayerBase : MonoBehaviour
             {
                 canMove = false;
                 currentSpeed = 0;
-                anim.Play(attack1Anim);
+                if (weapon != null)
+                {
+                    if (weapon.isGun)
+                    {
+                        anim.Play(attackAnim_Gun);
+                    }
+                    else
+                    {
+                        anim.Play(attackAnim_Fight);
+                    }
+                }
+                else
+                {
+                    anim.Play(attack1Anim);
+                }
                 //boxCol.enabled = true;
                 yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 3.5f);
                 boxCol.enabled = false;
@@ -313,12 +384,26 @@ public class PlayerBase : MonoBehaviour
 
     void BAColliderOn()
     {
-        boxCol.enabled = true;
+        if (weapon != null)
+        {
+            weapon.AttackStart();
+        }
+        else
+        {
+            boxCol.enabled = true;
+        }
     }
 
     void BAColliderOff()
     {
-        boxCol.enabled = false;
+        if (weapon != null)
+        {
+            weapon.AttackEnd();
+        }
+        else
+        {
+            boxCol.enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -332,6 +417,19 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
+        Weapon _weapon = other.GetComponentInParent<Weapon>();
+        if (_weapon != null)
+        {
+            if (weapon != null)
+            {
+                Destroy(weapon.gameObject);
+            }
+            weapon = _weapon;
+            weapon.PickUp(this);
+            weapon.transform.parent = weaponNode.transform;
+            weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.localRotation = Quaternion.identity;
+        }
     }
 
     public IEnumerator TakeDamage(int damage)
@@ -343,7 +441,7 @@ public class PlayerBase : MonoBehaviour
         //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 5);
         currentSpeed = speed;
         canMove = true;
     }

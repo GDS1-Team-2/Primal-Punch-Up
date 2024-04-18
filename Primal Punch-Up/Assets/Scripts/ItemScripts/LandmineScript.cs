@@ -15,7 +15,7 @@ public class LandmineScript : MonoBehaviour
     {
         particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
         //particleSystem = gameObject.GetComponent<ParticleSystem>();
-        particleSystem.Stop();
+       // particleSystem.Stop();
     }
 
     // Update is called once per frame

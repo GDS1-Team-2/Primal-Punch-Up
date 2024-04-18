@@ -35,43 +35,45 @@ public class PickupItem : MonoBehaviour
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            
+
             Destroy(other.gameObject);
             UpdateTempScoreText();
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
         {
-            
+
             tempScore = tempScore + 3;
             currentTempBag++;
-            
+
             if (pickupSound != null)
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            
+
             Destroy(other.gameObject);
-            
+
             UpdateTempScoreText();
         }
-        if (other.gameObject.CompareTag("chocolate")){
-           Destroy(other.gameObject);
-           this.speedRangeCollider.gameObject.SetActive(true);
-           GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
-           newPrefab.transform.parent = this.transform;
-           newPrefab.transform.localScale *= 10;
-           StartCoroutine(DeactivateNodeAfterTime(newPrefab));
+        if (other.gameObject.CompareTag("chocolate"))
+        {
+            Destroy(other.gameObject);
+            this.speedRangeCollider.gameObject.SetActive(true);
+            GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
+            newPrefab.transform.parent = this.transform;
+            newPrefab.transform.localScale *= 10;
+            StartCoroutine(DeactivateNodeAfterTime(newPrefab));
         }
-        if (other.gameObject.CompareTag("speedRange")){
-           this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
-           StartCoroutine(recoverSpeed());
+        if (other.gameObject.CompareTag("speedRange"))
+        {
+            this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
+            StartCoroutine(recoverSpeed());
         }
 
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
             // ������ʱ����
             tempScore = tempScore - 1;
-            
+
             // ����ʰȡ��Ч
             if (pickupSound != null)
             {
