@@ -40,6 +40,7 @@ public class PlayerBase : MonoBehaviour
     KeyCode? rotateLeftKey = null;
     KeyCode? rotateRightKey = null;
     KeyCode? attack1Key = null;
+    public KeyCode? attack2Key = null;
 
     public float dashSpeed = 20.0f;
     public float dashCooldown = 1.0f;
@@ -74,6 +75,7 @@ public class PlayerBase : MonoBehaviour
                 rotateLeftKey = KeyCode.A;
                 rotateRightKey = KeyCode.D;
                 attack1Key = KeyCode.C;
+                attack2Key = KeyCode.V;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
@@ -83,6 +85,7 @@ public class PlayerBase : MonoBehaviour
                 rotateLeftKey = KeyCode.LeftArrow;
                 rotateRightKey = KeyCode.RightArrow;
                 attack1Key = KeyCode.O;
+                attack2Key = KeyCode.P;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
