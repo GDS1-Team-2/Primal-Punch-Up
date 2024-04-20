@@ -96,12 +96,10 @@ public class FoxUniqueAbility : MonoBehaviour
     {
         int vortexDamage = 20;
         PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
-        //PlayerBase thisPlayer = GetComponent<PlayerBase>();
 
         if (otherPlayer != null && otherPlayer != baseScript && !other.isTrigger)
         {
             StartCoroutine(otherPlayer.TakeDamage(vortexDamage));
-            //Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
     }
 }

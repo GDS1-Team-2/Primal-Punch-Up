@@ -1527,6 +1527,30 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5151938167561789224, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: m_Radius
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151938167561789224, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151938167561789224, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151938167561789224, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: m_Center.y
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151938167561789224, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: m_Center.z
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151938167561789224, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6964889129514635076, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
       propertyPath: m_Enabled
       value: 0
