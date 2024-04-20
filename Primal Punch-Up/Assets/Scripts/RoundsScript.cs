@@ -83,8 +83,10 @@ public class RoundsScript : MonoBehaviour
                 maxIndex = i;
             }
         }
-        string winner = "Player" + maxIndex + "Wins";
+        string winner = "Player" + (maxIndex+1) + "Wins";
         PlayerPrefs.SetInt(winner, (PlayerPrefs.GetInt(winner) + 1));
+        PlayerPrefs.Save();
+        Debug.Log("win");
         SceneManager.LoadScene(CompleteSceneName);
     }
 }
