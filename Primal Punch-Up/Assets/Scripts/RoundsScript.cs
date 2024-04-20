@@ -75,7 +75,7 @@ public class RoundsScript : MonoBehaviour
 
         int maxIndex = -1;
         int maxValue = 0;
-        for (int i = 1; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (scores[i] > maxValue) 
             {

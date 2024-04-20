@@ -13051,6 +13051,10 @@ MonoBehaviour:
   Map2SceneName: Map 2
   Map3SceneName: Map 3
   CompleteSceneName: Complete
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
+  Player3: {fileID: 0}
+  Player4: {fileID: 0}
 --- !u!4 &1689374556
 Transform:
   m_ObjectHideFlags: 0
@@ -16904,7 +16908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6739797920296374019, guid: 9f4d504ff0df20647990f42fdd12b409, type: 3}
       propertyPath: TimeLeft
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6739797920296374019, guid: 9f4d504ff0df20647990f42fdd12b409, type: 3}
       propertyPath: TimerText

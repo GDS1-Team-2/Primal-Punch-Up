@@ -35,6 +35,10 @@ public class PickupItem : MonoBehaviour
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
+        string scoreTag = "Player" + playerNo + "Score";
+        scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
+        string inventoryTag = "Player" + playerNo + "InventoryScore";
+        tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
     }
 
     private void OnTriggerEnter(Collider other)

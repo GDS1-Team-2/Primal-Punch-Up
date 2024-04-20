@@ -1412,6 +1412,7 @@ MonoBehaviour:
   dashDuration: 1
   healthBar: {fileID: 0}
   healthBarSlider: {fileID: 0}
+  Manager: {fileID: 0}
 --- !u!65 &7434326416971981776
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1444,12 +1445,14 @@ MonoBehaviour:
   currentTempBag: 0
   scoreText: {fileID: 0}
   tempScoreText: {fileID: 0}
-  OneScoreTag: 
-  ThreeScoreTag: 
-  BadScoreTag: 
+  OneScoreTag: score1
+  ThreeScoreTag: score2
+  BadScoreTag: NegativeFruit
   baseTag: 
   speedRangeCollider: {fileID: 0}
   blueEffectPrefab: {fileID: 0}
+  Manager: {fileID: 0}
+  playerNo: 0
 --- !u!81 &7434326416971981782
 AudioListener:
   m_ObjectHideFlags: 0
