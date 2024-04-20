@@ -18,7 +18,7 @@ public class RoundsScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // Player1 = GameObject.FindGameObjectWithTag()
+        PlayerPrefs.SetInt("RoundNo", 1);
     }
 
     // Update is called once per frame
@@ -86,7 +86,7 @@ public class RoundsScript : MonoBehaviour
         string winner = "Player" + (maxIndex+1) + "Wins";
         PlayerPrefs.SetInt(winner, (PlayerPrefs.GetInt(winner) + 1));
         PlayerPrefs.Save();
-        Debug.Log("win");
+        PlayerPrefs.SetInt("RoundNo", (PlayerPrefs.GetInt("RoundNo")+1));
         SceneManager.LoadScene(CompleteSceneName);
     }
 }
