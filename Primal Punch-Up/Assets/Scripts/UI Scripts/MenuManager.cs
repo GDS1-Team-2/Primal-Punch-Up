@@ -10,7 +10,10 @@ public class MenuManager : MonoBehaviour
     public string Map2SceneName;
     public string Map3SceneName;
     public string MainMenuSceneName;
+    public string MapSelectSceneName;
     public string CharacterSelectSceneName;
+
+    public bool reset = false;
 
     public void OpenOptions()
     {
@@ -59,7 +62,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadMapSelect()
     {
-        SceneManager.LoadScene(MainMenuSceneName);
+        SceneManager.LoadScene(MapSelectSceneName);
     }
 
     public void ChangeMap()
@@ -75,6 +78,19 @@ public class MenuManager : MonoBehaviour
         else if (PlayerPrefs.GetInt("Map") == 3)
         {
             LoadMap1();
+        }
+    }
+
+    void Start()
+    {
+        if (SceneManager.GetActiveScene().name == MainMenuSceneName)
+        {
+            PlayerPrefs.SetInt("Player1Wins", 0);
+            PlayerPrefs.SetInt("Player2Wins", 0);
+            PlayerPrefs.SetInt("Player3Wins", 0);
+            PlayerPrefs.SetInt("Player4Wins", 0);
+            PlayerPrefs.SetInt("RoundNo", 1);
+            PlayerPrefs.Save();
         }
     }
 }

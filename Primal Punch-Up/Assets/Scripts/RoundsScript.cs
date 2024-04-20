@@ -15,16 +15,27 @@ public class RoundsScript : MonoBehaviour
     public GameObject Player3;
     public GameObject Player4;
 
+    public GameObject CharacterLoader;
+
+    public bool newRound = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.SetInt("RoundNo", 1);
+        CharacterLoader = GameObject.Find("CharacterLoader");
+        CharacterLoader.GetComponent<CharacterLoader>().loadCharacters = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (newRound)
+        {
+            PlayerPrefs.SetInt("ScoreKey1", 0);
+            PlayerPrefs.SetInt("ScoreKey2", 0);
+            PlayerPrefs.SetInt("ScoreKey3", 0);
+            PlayerPrefs.SetInt("ScoreKey4", 0);
+        }
     }
 
     public void SetPlayer1(GameObject player)

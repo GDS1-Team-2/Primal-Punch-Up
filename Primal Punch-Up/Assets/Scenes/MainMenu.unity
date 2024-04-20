@@ -458,7 +458,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1255274008}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: LoadMapSelect
+        m_MethodName: LoadCharacterSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1220,7 +1220,9 @@ MonoBehaviour:
   Map2SceneName: Map 2
   Map3SceneName: Map 3
   MainMenuSceneName: MainMenu
-  CharacterSelectSceneName: Character Select
+  MapSelectSceneName: MapSelect
+  CharacterSelectSceneName: CharacterSelect
+  reset: 0
 --- !u!1 &1783881416
 GameObject:
   m_ObjectHideFlags: 0
