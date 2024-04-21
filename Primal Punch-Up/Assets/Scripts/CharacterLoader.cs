@@ -117,7 +117,7 @@ public class CharacterLoader : MonoBehaviour
                 return Rabbit;
                 break;
             case 3:
-                return Tiger;
+                return Fox;
                 break;
             case 4:
                 return Fox;

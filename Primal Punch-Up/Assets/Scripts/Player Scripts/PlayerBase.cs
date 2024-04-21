@@ -145,7 +145,6 @@ public class PlayerBase : MonoBehaviour
             default:
                 break;
         }
-
     }
 
     // Update is called once per frame
