@@ -840,6 +840,7 @@ GameObject:
   - component: {fileID: 725703976395577736}
   - component: {fileID: 7705526007002578648}
   - component: {fileID: 8308846308071102076}
+  - component: {fileID: 1828411926130597895}
   m_Layer: 0
   m_Name: Lizard
   m_TagString: Lizard
@@ -979,7 +980,7 @@ MonoBehaviour:
   maxHP: 50
   canMove: 0
   speed: 10
-  inCombatLength: 5
+  inCombatLength: 10
   dashSpeed: 20
   dashCooldown: 1
   dashDuration: 1
@@ -1063,6 +1064,19 @@ MonoBehaviour:
   smr: {fileID: 0}
   smokePrefab: {fileID: 5600679544747505976, guid: 35528e477afca7142a2bea752d6d5580, type: 3}
   cdLength: 5
+--- !u!135 &1828411926130597895
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4149942698365021994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.03
+  m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!1 &4202957589398686833
 GameObject:
   m_ObjectHideFlags: 0

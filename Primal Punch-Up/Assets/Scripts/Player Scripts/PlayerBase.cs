@@ -27,7 +27,7 @@ public class PlayerBase : MonoBehaviour
     public float speed = 10.0f;
 
     float inCombatTimer = 0.0f;
-    public float inCombatLength = 5.0f;
+    public float inCombatLength = 10.0f;
     bool inCombat = false;
     float gainHP = 0.0f;
 
@@ -358,7 +358,7 @@ public class PlayerBase : MonoBehaviour
         if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger)
         {
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
-            Debug.Log(otherPlayer.gameObject.name + " has been hit");
+            //Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
     }
 
@@ -368,7 +368,7 @@ public class PlayerBase : MonoBehaviour
         currentSpeed = 0;
         anim.Play(takeHit1Anim);
         hp -= damage;
-        //Debug.Log(gameObject.name + " HP: " + hp);
+        Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
