@@ -16,6 +16,9 @@ public class RoundsScript : MonoBehaviour
     public GameObject Player4;
 
     public GameObject CharacterLoader;
+    public GameObject UICanvas2Players;
+    public GameObject UICanvas3Players;
+    public GameObject UICanvas4Players;
 
     public bool newRound = false;
 
@@ -24,6 +27,30 @@ public class RoundsScript : MonoBehaviour
     {
         CharacterLoader = GameObject.Find("CharacterLoader");
         CharacterLoader.GetComponent<CharacterLoader>().loadCharacters = true;
+        int noOfPlayers = CharacterLoader.GetComponent<CharacterLoader>().noOfPlayers;
+
+        UICanvas2Players = GameObject.Find("UICanvas2Players");
+        UICanvas3Players = GameObject.Find("UICanvas3Players");
+        UICanvas4Players = GameObject.Find("UICanvas4Players");
+
+        switch (noOfPlayers)
+        {
+            case 2:
+                UICanvas3Players.SetActive(false);
+                UICanvas4Players.SetActive(false);
+                UICanvas2Players.SetActive(true);
+                break;
+            case 3:
+                UICanvas2Players.SetActive(false);
+                UICanvas4Players.SetActive(false);
+                UICanvas3Players.SetActive(true);
+                break;
+            case 4:
+                UICanvas2Players.SetActive(false);
+                UICanvas3Players.SetActive(false);
+                UICanvas4Players.SetActive(true);
+                break;
+        }
     }
 
     // Update is called once per frame

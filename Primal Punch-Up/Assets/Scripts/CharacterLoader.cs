@@ -42,6 +42,7 @@ public class CharacterLoader : MonoBehaviour
             P2Spawn = GameObject.Find("HomeBase (2)");
             P3Spawn = GameObject.Find("HomeBase (3)");
             P4Spawn = GameObject.Find("HomeBase (4)");
+
             for (int i = 0; i < noOfPlayers; i++)
             {
                 switch (i)

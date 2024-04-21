@@ -10,13 +10,10 @@ public class Timer : MonoBehaviour
     public float TimeLeft;
     public bool TimerOn = false;
 
-    public Text TimerText;
-    public Text player1score;
-    public Text player2score;
-    public int score1;
-    public int score2;
+    public Text TimerText2;
+    public Text TimerText3;
+    public Text TimerText4;
 
-    public GameObject Manager;
     private RoundsScript RoundsScript;
 
     private bool load = false;
@@ -24,11 +21,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         TimerOn = true;
-        Manager = GameObject.FindGameObjectWithTag("Manager");
-        RoundsScript = Manager.GetComponent<RoundsScript>();
-        //DontDestroyOnLoad(this.gameObject);
-       // score1 = GameObject.FindGameObjectWithTag("Lizard").GetComponent<PickupItem>().score;
-        //score1 = GameObject.FindGameObjectWithTag("Bear").GetComponent<PickupItem>().score;
+        RoundsScript = gameObject.GetComponent<RoundsScript>();
     }
 
     void Update()
@@ -44,14 +37,8 @@ public class Timer : MonoBehaviour
             TimerOn = false;
             if (!load)
             {
-                //score1 = GameObject.FindGameObjectWithTag("Lizard").GetComponent<PickupItem>().score;
-                //score1 = GameObject.FindGameObjectWithTag("Bear").GetComponent<PickupItem>().score;
                 RoundsScript.EndRound();
                 load = true;
-                //player1score = GameObject.FindGameObjectWithTag("score1").GetComponent<Text>();
-                //player2score = GameObject.FindGameObjectWithTag("score2").GetComponent<Text>();
-                //player1score.text = score1.ToString();
-                //player2score.text = score2.ToString();
             }
         }
 
@@ -63,7 +50,9 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(currentTime / 60);
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
-        TimerText.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+        TimerText2.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+        TimerText3.text = string.Format("{0:00} : {1:00}", minutes, seconds);
+        TimerText4.text = string.Format("{0:00} : {1:00}", minutes, seconds);
     }
 
 
