@@ -712,6 +712,7 @@ MonoBehaviour:
   dashDuration: 1
   healthBar: {fileID: 0}
   healthBarSlider: {fileID: 0}
+  Manager: {fileID: 0}
 --- !u!65 &1994141739145485188
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -737,19 +738,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba429cf45fc989448b7d7333c42ee48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
   score: 0
   tempScore: 0
   maxTempBag: 3
   currentTempBag: 0
   scoreText: {fileID: 0}
   tempScoreText: {fileID: 0}
-  OneScoreTag: 
-  ThreeScoreTag: 
-  BadScoreTag: 
-  baseTag: 
+  OneScoreTag: score1
+  ThreeScoreTag: score2
+  BadScoreTag: NegativeFruit
+  baseTag: Home1
   speedRangeCollider: {fileID: 0}
   blueEffectPrefab: {fileID: 0}
+  Manager: {fileID: 0}
+  playerNo: 0
 --- !u!114 &3101603307692842012
 MonoBehaviour:
   m_ObjectHideFlags: 0

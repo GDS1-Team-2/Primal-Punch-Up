@@ -1439,7 +1439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba429cf45fc989448b7d7333c42ee48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
   score: 0
   tempScore: 0
   maxTempBag: 3
@@ -1449,7 +1449,7 @@ MonoBehaviour:
   OneScoreTag: score1
   ThreeScoreTag: score2
   BadScoreTag: NegativeFruit
-  baseTag: 
+  baseTag: Home1
   speedRangeCollider: {fileID: 0}
   blueEffectPrefab: {fileID: 0}
   Manager: {fileID: 0}
