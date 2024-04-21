@@ -279,6 +279,7 @@ MonoBehaviour:
   MainMenuSceneName: MainMenu
   MapSelectSceneName: MapSelect
   CharacterSelectSceneName: CharacterSelect
+  PlayerNumberSelectSceneName: 
   reset: 0
 --- !u!4 &503413277
 Transform:
@@ -608,7 +609,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &890834532
 GameObject:
@@ -1104,6 +1105,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7100809561100877484, guid: 13a0d744bd4760745a8ee66ad3eb1b64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7705526007002578648, guid: 13a0d744bd4760745a8ee66ad3eb1b64, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1569,6 +1574,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1994141740455233185, guid: c92b184a3fc44074cb79cfac9da05f8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3101603307692842012, guid: c92b184a3fc44074cb79cfac9da05f8d, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1678,6 +1687,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6964448494670545983, guid: bb5a61eecfd9c134284b9bab5a97ed11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434326416881920521, guid: bb5a61eecfd9c134284b9bab5a97ed11, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7434326416971981777, guid: bb5a61eecfd9c134284b9bab5a97ed11, type: 3}

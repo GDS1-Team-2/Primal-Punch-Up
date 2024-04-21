@@ -18,7 +18,7 @@ public class CompleteScoreScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("RoundNo") < numberOfRounds)
+        if (PlayerPrefs.GetInt("RoundNo") < 4)
         {
             continueScreen.SetActive(true);
             finalScreen.SetActive(false);

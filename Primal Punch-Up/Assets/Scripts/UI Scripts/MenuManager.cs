@@ -74,7 +74,7 @@ public class MenuManager : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Map") == 2)
         {
-            LoadMap3();
+            LoadMap1();
         }
         else if (PlayerPrefs.GetInt("Map") == 3)
         {
