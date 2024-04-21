@@ -94,6 +94,14 @@ public class PlayerBase : MonoBehaviour
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
+            case 3:
+                healthBar = GameObject.Find("Player 3 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
+                break;
+            case 4:
+                healthBar = GameObject.Find("Player 4 Health");
+                healthBarSlider = healthBar.GetComponent<Slider>();
+                break;
         }
 
         switch (gameObject.tag)
@@ -195,7 +203,7 @@ public class PlayerBase : MonoBehaviour
             }
         }
 
-        //healthBarSlider.value = hp;
+        healthBarSlider.value = hp;
 
 
         //setting the players for the round score

@@ -8,7 +8,6 @@ public class MagnetItem : MonoBehaviour
     public float magnetDuration = 10f;  // 磁铁效果持续时间
     private bool isActive = false;  // 磁铁是否激活的标志
     private float magnetTimer = 0;  // 磁铁效果的计时器
-
     void Update()
     {
         if (isActive)

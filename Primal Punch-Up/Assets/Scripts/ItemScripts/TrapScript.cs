@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrapScript : MonoBehaviour
 {
     public bool move = true;
+    public int playerNo;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +22,14 @@ public class TrapScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Lizard") ||
-            other.gameObject.CompareTag("Bear"))
+            other.gameObject.CompareTag("Bear") ||
+            other.gameObject.CompareTag("Fox") ||
+            other.gameObject.CompareTag("Rabbit"))
         {
-            StartCoroutine(Trapped(other.gameObject));
+            if (other.gameObject.GetComponent<PlayerBase>().playerNo != playerNo)
+            {
+                StartCoroutine(Trapped(other.gameObject));
+            }
         }
     }
 

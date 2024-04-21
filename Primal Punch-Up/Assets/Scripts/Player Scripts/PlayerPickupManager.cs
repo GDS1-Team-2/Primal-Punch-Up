@@ -61,8 +61,14 @@ public class PlayerPickupManager : MonoBehaviour
 
     public void UseItem()
     {
-        if (currentItem.name == "Trap" || currentItem.name == "Landmine")
+        if (currentItem.name == "Trap")
         {
+            currentItem.GetComponent<TrapScript>().playerNo = playerNo;
+            currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
+        }
+        else if (currentItem.name == "Landmine")
+        {
+            currentItem.GetComponent<LandmineScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
         }
     }

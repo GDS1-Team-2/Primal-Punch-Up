@@ -10,6 +10,7 @@ public class LandmineScript : MonoBehaviour
     public float knockBackForce = 10;
     public ParticleSystem particleSystem;
     public AudioClip explodeSound;
+    public int playerNo;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,15 +33,18 @@ public class LandmineScript : MonoBehaviour
             other.gameObject.CompareTag("Rabbit") ||
             other.gameObject.CompareTag("Fox"))
         {
-            Debug.Log("explode");
-            particleSystem.Play();
-            gameObject.GetComponent<AudioSource>().PlayOneShot(explodeSound);
-            //other.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, 3.0F);
-            StartCoroutine(other.gameObject.GetComponent<PlayerBase>().TakeDamage(damage));
-            Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
-            other.gameObject.GetComponent<Rigidbody>().AddForce(direction * knockBackForce);
-            gameObject.GetComponent<CapsuleCollider>().enabled = false;
-            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            if (other.gameObject.GetComponent<PlayerBase>().playerNo != playerNo)
+            {
+                Debug.Log("explode");
+                particleSystem.Play();
+                gameObject.GetComponent<AudioSource>().PlayOneShot(explodeSound);
+                //other.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, 3.0F);
+                StartCoroutine(other.gameObject.GetComponent<PlayerBase>().TakeDamage(damage));
+                Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
+                other.gameObject.GetComponent<Rigidbody>().AddForce(direction * knockBackForce);
+                gameObject.GetComponent<CapsuleCollider>().enabled = false;
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
         }
     }
 }
