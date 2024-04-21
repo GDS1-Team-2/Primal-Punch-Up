@@ -224,6 +224,77 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 99082317269a88840ae4c829b0225a19, type: 3}
+--- !u!1 &503413274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503413277}
+  - component: {fileID: 503413276}
+  - component: {fileID: 503413275}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &503413275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503413274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dce6818c067b0540b90489c4f7a75b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noOfPlayers: 1
+  noOfRounds: 1
+  playerDrop: {fileID: 0}
+  playerNoDrop: {fileID: 0}
+  roundDrop: {fileID: 0}
+  roundNoDrop: {fileID: 0}
+--- !u!114 &503413276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503413274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f602c85308e530447851cceffe8aad4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OptionsSceneName: 
+  Map1SceneName: Map 1
+  Map2SceneName: Map 2
+  Map3SceneName: Map 3
+  MainMenuSceneName: MainMenu
+  MapSelectSceneName: MapSelect
+  CharacterSelectSceneName: CharacterSelect
+  reset: 0
+--- !u!4 &503413277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503413274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &577113483
 GameObject:
   m_ObjectHideFlags: 0

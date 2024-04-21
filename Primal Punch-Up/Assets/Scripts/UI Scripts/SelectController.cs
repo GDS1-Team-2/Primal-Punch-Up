@@ -26,6 +26,8 @@ public class SelectController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        noOfPlayers = PlayerPrefs.GetInt("noOfPlayers");
+
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
             print(Gamepad.all[i].name + ": " + i);
@@ -42,6 +44,7 @@ public class SelectController : MonoBehaviour
 
         characterLoader = GameObject.Find("CharacterLoader");
         characterLoadScript = characterLoader.GetComponent<CharacterLoader>();
+
     }
 
     // Update is called once per frame

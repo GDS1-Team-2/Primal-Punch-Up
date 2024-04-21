@@ -79,8 +79,8 @@ public class CharacterSelect : MonoBehaviour
         positions[0] = new Vector3(-700, 250 + increaseHeightPerPlayer, 0);
         positions[1] = new Vector3(-350, 250 + increaseHeightPerPlayer, 0);
         positions[2] = new Vector3(0, 250 + increaseHeightPerPlayer, 0);
-        positions[3] = new Vector3(350, 250 + increaseHeightPerPlayer, 0);
-        positions[4] = new Vector3(700, 250 + increaseHeightPerPlayer, 0);
+        //positions[3] = new Vector3(350, 250 + increaseHeightPerPlayer, 0);
+        positions[3] = new Vector3(700, 250 + increaseHeightPerPlayer, 0);
         gameObject.GetComponent<RectTransform>().anchoredPosition = positions[index];
     }
 
@@ -146,7 +146,7 @@ public class CharacterSelect : MonoBehaviour
 
     void MoveRight()
     {
-        if (index < 4)
+        if (index < 3)
         {
             if (rectTrans != null)
             {
