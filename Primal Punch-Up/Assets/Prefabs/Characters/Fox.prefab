@@ -608,6 +608,7 @@ GameObject:
   - component: {fileID: 1994141739145485187}
   - component: {fileID: 3101603307692842012}
   - component: {fileID: 5017590714736440318}
+  - component: {fileID: -5895623837760483625}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Fox
@@ -782,6 +783,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.12
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5895623837760483625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5724064556769196478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ecc4dd2994f1f478d9b72c4dd2f15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 1844235179766881173, guid: 5272460ad18c21a42aa9e341772df81c, type: 3}
+  - {fileID: 6431815464764186155, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+  currentItem: {fileID: 0}
+  PlayerBase: {fileID: 0}
 --- !u!1 &5853534876893967106
 GameObject:
   m_ObjectHideFlags: 0

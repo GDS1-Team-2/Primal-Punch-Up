@@ -41,6 +41,7 @@ public class PlayerBase : MonoBehaviour
     KeyCode? rotateRightKey = null;
     KeyCode? attack1Key = null;
     public KeyCode? attack2Key = null;
+    KeyCode? placeKey = null;
 
     public float dashSpeed = 20.0f;
     public float dashCooldown = 1.0f;
@@ -54,6 +55,7 @@ public class PlayerBase : MonoBehaviour
 
     public GameObject Manager;
     private RoundsScript RoundsScript;
+    public PlayerPickupManager PlayerPickupManager;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +66,7 @@ public class PlayerBase : MonoBehaviour
 
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
+        PlayerPickupManager = gameObject.GetComponent<PlayerPickupManager>();
 
         canMove = true;
 
@@ -76,6 +79,7 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.D;
                 attack1Key = KeyCode.C;
                 attack2Key = KeyCode.V;
+                placeKey = KeyCode.T;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
@@ -86,6 +90,7 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.RightArrow;
                 attack1Key = KeyCode.O;
                 attack2Key = KeyCode.P;
+                placeKey = KeyCode.L;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
@@ -132,17 +137,29 @@ public class PlayerBase : MonoBehaviour
             {
                 StartCoroutine(PlayerBasicAttack());
             }
+            if (placeKey.HasValue && Input.GetKey(placeKey.Value))
+            {
+                PlayerPickupManager.PlaceItem();
+            }
         } else if (playerNo == 3)
         {
             if (P3Controller.buttonEast.wasPressedThisFrame)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
+            if (P3Controller.buttonWest.wasPressedThisFrame)
+            {
+                PlayerPickupManager.PlaceItem();
+            }
         } else if (playerNo == 4)
         {
             if (P4Controller.buttonEast.wasPressedThisFrame)
             {
                 StartCoroutine(PlayerBasicAttack());
+            }
+            if (P4Controller.buttonWest.wasPressedThisFrame)
+            {
+                PlayerPickupManager.PlaceItem();
             }
         }
 

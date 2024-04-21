@@ -1047,8 +1047,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ecc4dd2994f1f478d9b72c4dd2f15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfItems: 2
-  items: []
+  items:
+  - {fileID: 1844235179766881173, guid: 5272460ad18c21a42aa9e341772df81c, type: 3}
+  - {fileID: 6431815464764186155, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+  currentItem: {fileID: 0}
+  PlayerBase: {fileID: 0}
 --- !u!114 &8308846308071102076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1063,7 +1066,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smr: {fileID: 0}
   smokePrefab: {fileID: 5600679544747505976, guid: 35528e477afca7142a2bea752d6d5580, type: 3}
+  smokeCollider: {fileID: 0}
   cdLength: 5
+  invisTime: 3
 --- !u!135 &1828411926130597895
 SphereCollider:
   m_ObjectHideFlags: 0

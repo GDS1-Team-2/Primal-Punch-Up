@@ -1474,8 +1474,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ecc4dd2994f1f478d9b72c4dd2f15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfItems: 2
-  items: []
+  items:
+  - {fileID: 1844235179766881173, guid: 5272460ad18c21a42aa9e341772df81c, type: 3}
+  - {fileID: 6431815464764186155, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+  currentItem: {fileID: 0}
+  PlayerBase: {fileID: 0}
 --- !u!114 &3666104320534630235
 MonoBehaviour:
   m_ObjectHideFlags: 0
