@@ -11,8 +11,8 @@ public class PickupItem : MonoBehaviour
     public int tempScore = 0; // ��ҵ���ʱ�÷�
     public int maxTempBag = 3; // ��ʱ��Ʒ�����ޣ�������Unity���޸�
     public int currentTempBag = 0;
-    public Text scoreText; // ������ʾ��UI���
-    public Text tempScoreText; // ��ʱ������ʾ��UI���
+    public GameObject[] scoreTexts; // ������ʾ��UI���
+    public GameObject[] tempScoreTexts; // ��ʱ������ʾ��UI���
     public string OneScoreTag; // ʰȡ��Ʒ�ı�ǩ
     public string ThreeScoreTag; // ʰȡ�����Ʒ�ı�ǩ
     public string BadScoreTag; // ʰȡ������Ʒ�ı�ǩ
@@ -36,9 +36,9 @@ public class PickupItem : MonoBehaviour
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
         string scoreTag = "Player" + playerNo + "Score";
-        scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
+        scoreTexts = GameObject.FindGameObjectsWithTag(scoreTag);
         string inventoryTag = "Player" + playerNo + "InventoryScore";
-        tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
+        tempScoreTexts = GameObject.FindGameObjectsWithTag(inventoryTag);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -143,17 +143,23 @@ public class PickupItem : MonoBehaviour
 
     private void UpdateScoreText()
     {
-        if (scoreText != null)
+        if (scoreTexts != null)
         {
-            scoreText.text = score.ToString();
+            foreach (GameObject text in scoreTexts)
+            {
+                text.GetComponent<Text>().text = score.ToString();
+            }
         }
     }
 
     public void UpdateTempScoreText()
     {
-        if (tempScoreText != null)
+        if (tempScoreTexts != null)
         {
-            tempScoreText.text = tempScore.ToString();
+            foreach (GameObject text in tempScoreTexts)
+            {
+                text.GetComponent<Text>().text = score.ToString();
+            }
         }
     }
 

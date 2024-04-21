@@ -593,8 +593,8 @@ GameObject:
   - component: {fileID: 2973700154579265443}
   - component: {fileID: 2973700154579265452}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player4CurrentItem
+  m_TagString: Player4CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -660,7 +660,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Weapon:'
+  m_Text: Current Item;
 --- !u!1 &2973700154584560754
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,8 +906,8 @@ GameObject:
   - component: {fileID: 2973700154644866947}
   - component: {fileID: 2973700154644866956}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player1CurrentItem
+  m_TagString: Player1CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -973,7 +973,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Weapon:'
+  m_Text: 'Current Item:'
 --- !u!1 &2973700154644938029
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,8 +2565,8 @@ GameObject:
   - component: {fileID: 2973700154870065802}
   - component: {fileID: 2973700154870065803}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player3CurrentItem
+  m_TagString: Player3CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2632,7 +2632,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: :Weapon
+  m_Text: 'Current Item:'
 --- !u!1 &2973700154874525679
 GameObject:
   m_ObjectHideFlags: 0
@@ -3306,8 +3306,8 @@ GameObject:
   - component: {fileID: 2973700154998454784}
   - component: {fileID: 2973700154998454785}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player1CurrentItem
+  m_TagString: Player1CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3373,7 +3373,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Weapon:'
+  m_Text: 'Current Item:'
 --- !u!1 &2973700155005039323
 GameObject:
   m_ObjectHideFlags: 0
@@ -4131,8 +4131,8 @@ GameObject:
   - component: {fileID: 2973700155323053677}
   - component: {fileID: 2973700155323053678}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player2CurrentItem
+  m_TagString: Player2CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4198,7 +4198,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: :Weapon
+  m_Text: 'Current Item:'
 --- !u!1 &2973700155331562801
 GameObject:
   m_ObjectHideFlags: 0
@@ -4880,8 +4880,8 @@ GameObject:
   - component: {fileID: 2973700155415143729}
   - component: {fileID: 2973700155415143730}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player3CurrentItem
+  m_TagString: Player3CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4947,7 +4947,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: :Weapon
+  m_Text: 'Current Item:'
 --- !u!1 &2973700155425988931
 GameObject:
   m_ObjectHideFlags: 0
@@ -6239,8 +6239,8 @@ GameObject:
   - component: {fileID: 2973700155680047501}
   - component: {fileID: 2973700155680047502}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player2CurrentItem
+  m_TagString: Player2CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6306,7 +6306,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: :Weapon
+  m_Text: 'Current Item:'
 --- !u!1 &2973700155686015022
 GameObject:
   m_ObjectHideFlags: 0
@@ -9210,8 +9210,8 @@ GameObject:
   - component: {fileID: 2973700156271706442}
   - component: {fileID: 2973700156271706443}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player2CurrentItem
+  m_TagString: Player2CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9277,7 +9277,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: :Weapon
+  m_Text: 'CurrentItem:'
 --- !u!1 &2973700156294641393
 GameObject:
   m_ObjectHideFlags: 0
@@ -9575,8 +9575,8 @@ GameObject:
   - component: {fileID: 2973700156341633763}
   - component: {fileID: 2973700156341633772}
   m_Layer: 5
-  m_Name: WeaponTitle
-  m_TagString: Untagged
+  m_Name: Player1CurrentItem
+  m_TagString: Player1CurrentItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9642,7 +9642,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Weapon:'
+  m_Text: 'Current Item:'
 --- !u!1 &2973700156354102856
 GameObject:
   m_ObjectHideFlags: 0
@@ -10347,7 +10347,7 @@ Transform:
   - {fileID: 2973700155833324020}
   - {fileID: 2973700155342271843}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2973700156511210542
 GameObject:

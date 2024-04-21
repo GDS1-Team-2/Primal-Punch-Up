@@ -41,7 +41,7 @@ public class PlayerBase : MonoBehaviour
     KeyCode? rotateRightKey = null;
     KeyCode? attack1Key = null;
     public KeyCode? attack2Key = null;
-    KeyCode? placeKey = null;
+    KeyCode? itemKey = null;
 
     public float dashSpeed = 20.0f;
     public float dashCooldown = 1.0f;
@@ -79,7 +79,7 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.D;
                 attack1Key = KeyCode.C;
                 attack2Key = KeyCode.V;
-                placeKey = KeyCode.T;
+                itemKey = KeyCode.T;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
@@ -90,7 +90,7 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.RightArrow;
                 attack1Key = KeyCode.O;
                 attack2Key = KeyCode.P;
-                placeKey = KeyCode.L;
+                itemKey = KeyCode.L;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
@@ -137,9 +137,9 @@ public class PlayerBase : MonoBehaviour
             {
                 StartCoroutine(PlayerBasicAttack());
             }
-            if (placeKey.HasValue && Input.GetKey(placeKey.Value))
+            if (itemKey.HasValue && Input.GetKey(itemKey.Value))
             {
-                PlayerPickupManager.PlaceItem();
+                PlayerPickupManager.UseItem();
             }
         } else if (playerNo == 3)
         {
@@ -149,7 +149,7 @@ public class PlayerBase : MonoBehaviour
             }
             if (P3Controller.buttonWest.wasPressedThisFrame)
             {
-                PlayerPickupManager.PlaceItem();
+                PlayerPickupManager.UseItem();
             }
         } else if (playerNo == 4)
         {
@@ -159,7 +159,7 @@ public class PlayerBase : MonoBehaviour
             }
             if (P4Controller.buttonWest.wasPressedThisFrame)
             {
-                PlayerPickupManager.PlaceItem();
+                PlayerPickupManager.UseItem();
             }
         }
 
