@@ -35,6 +35,7 @@ public class PlayerBase : MonoBehaviour
     string runAnim = "";
     string attack1Anim = "";
     string takeHit1Anim = "";
+    string deathAnim = "";
     KeyCode? moveForwardKey = null;
     KeyCode? moveBackKey = null;
     KeyCode? rotateLeftKey = null;
@@ -57,6 +58,9 @@ public class PlayerBase : MonoBehaviour
     private RoundsScript RoundsScript;
     public PlayerPickupManager PlayerPickupManager;
 
+    private Vector3 spawnPos;
+    private PickupItem PickupItem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +72,11 @@ public class PlayerBase : MonoBehaviour
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerPickupManager = gameObject.GetComponent<PlayerPickupManager>();
 
+        PickupItem = GetComponent<PickupItem>();
+
         canMove = true;
+
+        spawnPos = transform.position;
 
         switch (playerNo)
         {
@@ -111,24 +119,28 @@ public class PlayerBase : MonoBehaviour
                 runAnim = "LizardRun";
                 attack1Anim = "LizardAttack1";
                 takeHit1Anim = "LizardTakeHit1";
+                deathAnim = "LizardDeath";
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
                 runAnim = "BearRun";
                 attack1Anim = "BearAttack1";
                 takeHit1Anim = "BearTakeHit1";
+                deathAnim = "BearDeath";
                 break;
             case "Rabbit":
                 idleAnim = "RabbitIdle";
                 runAnim = "RabbitRun";
                 attack1Anim = "RabbitAttack1";
                 takeHit1Anim = "RabbitTakeHit1";
+                deathAnim = "RabbitDeath";
                 break;
             case "Fox":
                 idleAnim = "FoxIdle";
                 runAnim = "FoxRun";
                 attack1Anim = "FoxAttack1";
                 takeHit1Anim = "FoxTakeHit1";
+                deathAnim = "FoxDeath";
                 break;
             default:
                 break;
@@ -221,6 +233,11 @@ public class PlayerBase : MonoBehaviour
             case 4:
                 RoundsScript.SetPlayer4(gameObject);
                 break;
+        }
+
+        if (hp <= 0)
+        {
+            StartCoroutine(OnDeath());
         }
 
     }
@@ -404,5 +421,16 @@ public class PlayerBase : MonoBehaviour
     public void setSpeed(bool half)
     {
         this.speed = half ? 5.0f : 10.0f;
+    }
+
+    IEnumerator OnDeath()
+    {
+        canMove = false;
+        anim.Play(deathAnim);
+        PickupItem.tempScore = 0;
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        canMove = true;
+        hp = maxHP;
+        transform.position = spawnPos;
     }
 }
