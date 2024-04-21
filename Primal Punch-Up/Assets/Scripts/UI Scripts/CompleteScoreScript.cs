@@ -14,10 +14,11 @@ public class CompleteScoreScript : MonoBehaviour
     public GameObject continueScreen;
     public Text winnerText;
     public Text winnerScoreText;
+    public int numberOfRounds;
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("RoundNo") < 3)
+        if (PlayerPrefs.GetInt("RoundNo") < numberOfRounds)
         {
             continueScreen.SetActive(true);
             finalScreen.SetActive(false);

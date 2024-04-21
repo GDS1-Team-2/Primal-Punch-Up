@@ -458,7 +458,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1255274008}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: LoadCharacterSelect
+        m_MethodName: LoadPlayerNumberSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1222,6 +1222,7 @@ MonoBehaviour:
   MainMenuSceneName: MainMenu
   MapSelectSceneName: MapSelect
   CharacterSelectSceneName: CharacterSelect
+  PlayerNumberSelectSceneName: PlayerNumber
   reset: 0
 --- !u!1 &1783881416
 GameObject:

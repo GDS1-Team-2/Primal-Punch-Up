@@ -21,6 +21,7 @@ public class RoundsScript : MonoBehaviour
     public GameObject UICanvas4Players;
 
     public bool newRound = false;
+    
 
     // Start is called before the first frame update
     void Start()

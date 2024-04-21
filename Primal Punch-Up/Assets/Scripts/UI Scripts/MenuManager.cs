@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour
     public string MainMenuSceneName;
     public string MapSelectSceneName;
     public string CharacterSelectSceneName;
+    public string PlayerNumberSelectSceneName;
 
     public bool reset = false;
 
@@ -92,5 +93,25 @@ public class MenuManager : MonoBehaviour
             PlayerPrefs.SetInt("RoundNo", 1);
             PlayerPrefs.Save();
         }
+    }
+
+    public void Set2Players()
+    {
+        PlayerPrefs.SetInt("noOfPlayers", 2);
+    }
+
+    public void Set3Players()
+    {
+        PlayerPrefs.SetInt("noOfPlayers", 3);
+    }
+
+    public void Set4Players()
+    {
+        PlayerPrefs.SetInt("noOfPlayers", 4);
+    }
+
+    public void LoadPlayerNumberSelect()
+    {
+        SceneManager.LoadScene(PlayerNumberSelectSceneName);
     }
 }
