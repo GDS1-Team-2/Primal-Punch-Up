@@ -1309,6 +1309,7 @@ GameObject:
   - component: {fileID: 7434326416971981783}
   - component: {fileID: 7434326416971981782}
   - component: {fileID: 8231370296093687314}
+  - component: {fileID: 3666104320534630235}
   m_Layer: 0
   m_Name: Rabbit
   m_TagString: Rabbit
@@ -1406,7 +1407,7 @@ MonoBehaviour:
   maxHP: 50
   canMove: 0
   speed: 10
-  inCombatLength: 5
+  inCombatLength: 10
   dashSpeed: 20
   dashCooldown: 1
   dashDuration: 1
@@ -1472,6 +1473,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfItems: 2
   items: []
+--- !u!114 &3666104320534630235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776979527999676037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d4c046764f7024abad5405ac5ce17a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  carrotKnifePrefab: {fileID: 3722026607177766680, guid: 8dfce1993f3670945a1d97b6b19e2cb2, type: 3}
+  cdLength: 2
+  throwSpeed: 25
 --- !u!1 &8256619369320812399
 GameObject:
   m_ObjectHideFlags: 0
