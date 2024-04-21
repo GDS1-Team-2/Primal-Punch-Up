@@ -7,6 +7,7 @@ public class PlayerPickupManager : MonoBehaviour
 {
     public List<GameObject> items = new List<GameObject>();
     public GameObject currentItem;
+    public bool hasItem = false;
 
     public PlayerBase PlayerBase;
     public int playerNo;
@@ -45,16 +46,19 @@ public class PlayerPickupManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //pickup items:
-
-        if (other.gameObject.CompareTag("Pickup"))
+        if (!hasItem)
         {
-            Destroy(other.gameObject);
-            int rand = Random.Range(0, items.Count);
-            currentItem = items[rand];
-            string uitext = "Current Item: " + currentItem.name;
-            foreach (GameObject text in itemTexts)
+            if (other.gameObject.CompareTag("Pickup"))
             {
-                text.GetComponent<Text>().text = uitext;
+                Destroy(other.gameObject);
+                hasItem = true;
+                int rand = Random.Range(0, items.Count);
+                currentItem = items[rand];
+                string uitext = "Current Item: " + currentItem.name;
+                foreach (GameObject text in itemTexts)
+                {
+                    text.GetComponent<Text>().text = uitext;
+                }
             }
         }
     }
@@ -65,11 +69,13 @@ public class PlayerPickupManager : MonoBehaviour
         {
             currentItem.GetComponent<TrapScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
+            hasItem = false;
         }
         else if (currentItem.name == "Landmine")
         {
             currentItem.GetComponent<LandmineScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
+            hasItem = false;
         }
     }
 }
