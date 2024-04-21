@@ -10,21 +10,33 @@ public class MiniMapIcon : MonoBehaviour
 
     void Start()
     {
-        GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
-        if (playerObject != null)
+        
+        if(string.IsNullOrEmpty(playerTag))
         {
-            player = playerObject.transform;
+           gameObject.SetActive(false);
         }
         else
         {
-            Debug.LogError("Player with tag " + playerTag + " not found.");
+             
+            GameObject playerObject = GameObject.FindGameObjectWithTag(playerTag);
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
+            else
+            {
+                //Debug.LogError("Player with tag " + playerTag + " not found.");
+                gameObject.SetActive(false);
+            }
         }
+        
     }
     void Update()
     {
         // Ensure the player variable is not null
         if (player != null)
         {
+            gameObject.SetActive(true);
             // Update the icon's position so that it follows only the player's x and z coordinates, adjusting the y coordinate according to the specified height
             transform.position = new Vector3(player.position.x, player.position.y + heightAbovePlayer, player.position.z);
 
@@ -38,6 +50,10 @@ public class MiniMapIcon : MonoBehaviour
             if (playerObject != null)
             {
                 player = playerObject.transform;
+            }
+            else
+            {
+                gameObject.SetActive(false);
             }
         }
     }
