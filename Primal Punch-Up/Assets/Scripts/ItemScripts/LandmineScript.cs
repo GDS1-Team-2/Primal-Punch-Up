@@ -14,9 +14,9 @@ public class LandmineScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
+        //particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
         //particleSystem = gameObject.GetComponent<ParticleSystem>();
-        particleSystem.Stop();
+        //particleSystem.Stop();
     }
 
     // Update is called once per frame
@@ -36,7 +36,7 @@ public class LandmineScript : MonoBehaviour
             if (other.gameObject.GetComponent<PlayerBase>().playerNo != playerNo)
             {
                 Debug.Log("explode");
-                particleSystem.Play();
+                //particleSystem.Play();
                 gameObject.GetComponent<AudioSource>().PlayOneShot(explodeSound);
                 //other.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, 3.0F);
                 StartCoroutine(other.gameObject.GetComponent<PlayerBase>().TakeDamage(damage));
