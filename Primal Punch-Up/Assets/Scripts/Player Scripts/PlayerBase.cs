@@ -36,17 +36,19 @@ public class PlayerBase : MonoBehaviour
     string attack1Anim = "";
     string takeHit1Anim = "";
     string deathAnim = "";
-    KeyCode? moveForwardKey = null;
+    string dashAnim = "";
+    KeyCode ? moveForwardKey = null;
     KeyCode? moveBackKey = null;
     KeyCode? rotateLeftKey = null;
     KeyCode? rotateRightKey = null;
     KeyCode? attack1Key = null;
     public KeyCode? attack2Key = null;
     KeyCode? itemKey = null;
+    KeyCode? dashKey = null;
 
     public float dashSpeed = 20.0f;
-    public float dashCooldown = 1.0f;
-    public float dashDuration = 1.0f;
+    public float dashCooldown = 0.5f;
+    public float dashDuration = 0.5f;
 
     private bool isDashing = false;
     private float dashTimer = 0.0f;
@@ -87,7 +89,8 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.D;
                 attack1Key = KeyCode.C;
                 attack2Key = KeyCode.V;
-                itemKey = KeyCode.T;
+                dashKey = KeyCode.B;
+                itemKey = KeyCode.N;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
@@ -98,7 +101,8 @@ public class PlayerBase : MonoBehaviour
                 rotateRightKey = KeyCode.RightArrow;
                 attack1Key = KeyCode.O;
                 attack2Key = KeyCode.P;
-                itemKey = KeyCode.L;
+                dashKey = KeyCode.LeftBracket;
+                itemKey = KeyCode.RightBracket;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 break;
@@ -120,6 +124,7 @@ public class PlayerBase : MonoBehaviour
                 attack1Anim = "LizardAttack1";
                 takeHit1Anim = "LizardTakeHit1";
                 deathAnim = "LizardDeath";
+                dashAnim = "LizardDash";
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
@@ -127,6 +132,7 @@ public class PlayerBase : MonoBehaviour
                 attack1Anim = "BearAttack1";
                 takeHit1Anim = "BearTakeHit1";
                 deathAnim = "BearDeath";
+                dashAnim = "BearDash";
                 break;
             case "Rabbit":
                 idleAnim = "RabbitIdle";
@@ -134,6 +140,7 @@ public class PlayerBase : MonoBehaviour
                 attack1Anim = "RabbitAttack1";
                 takeHit1Anim = "RabbitTakeHit1";
                 deathAnim = "RabbitDeath";
+                dashAnim = "RabbitDash";
                 break;
             case "Fox":
                 idleAnim = "FoxIdle";
@@ -141,6 +148,7 @@ public class PlayerBase : MonoBehaviour
                 attack1Anim = "FoxAttack1";
                 takeHit1Anim = "FoxTakeHit1";
                 deathAnim = "FoxDeath";
+                dashAnim = "FoxDash";
                 break;
             default:
                 break;
@@ -160,6 +168,11 @@ public class PlayerBase : MonoBehaviour
             {
                 PlayerPickupManager.UseItem();
             }
+            if (dashKey.HasValue && Input.GetKey(dashKey.Value))
+            {
+                isDashing = true;
+                dashTimer = dashDuration;
+            }
         } else if (playerNo == 3)
         {
             if (P3Controller.buttonEast.wasPressedThisFrame)
@@ -170,6 +183,11 @@ public class PlayerBase : MonoBehaviour
             {
                 PlayerPickupManager.UseItem();
             }
+            if (P3Controller.buttonSouth.wasPressedThisFrame)
+            {
+                isDashing = true;
+                dashTimer = dashDuration;
+            }
         } else if (playerNo == 4)
         {
             if (P4Controller.buttonEast.wasPressedThisFrame)
@@ -179,6 +197,11 @@ public class PlayerBase : MonoBehaviour
             if (P4Controller.buttonWest.wasPressedThisFrame)
             {
                 PlayerPickupManager.UseItem();
+            }
+            if (P4Controller.buttonSouth.wasPressedThisFrame)
+            {
+                isDashing = true;
+                dashTimer = dashDuration;
             }
         }
 
@@ -256,11 +279,11 @@ public class PlayerBase : MonoBehaviour
 
         if (playerNo == 1 || playerNo == 2)
         {
-            if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value))
+            if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value) && !isDashing)
             {
                 transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
             }
-            else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value))
+            else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value) && !isDashing)
             {
                 transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
             }
@@ -275,11 +298,11 @@ public class PlayerBase : MonoBehaviour
             }
         } else if (playerNo == 3)
         {
-            if (P3Controller.leftStick.left.isPressed)
+            if (P3Controller.leftStick.left.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
             } 
-            else if (P3Controller.leftStick.right.isPressed)
+            else if (P3Controller.leftStick.right.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
             }
@@ -294,11 +317,11 @@ public class PlayerBase : MonoBehaviour
             }
         } else if (playerNo == 4)
         {
-            if (P4Controller.leftStick.left.isPressed)
+            if (P4Controller.leftStick.left.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
             }
-            else if (P4Controller.leftStick.right.isPressed)
+            else if (P4Controller.leftStick.right.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
             }
@@ -323,23 +346,24 @@ public class PlayerBase : MonoBehaviour
 
         if (moveDirection != Vector3.zero)
         {
-            anim.Play(runAnim);
-            lastMoveDirection = moveDirection;
+            if (!isDashing)
+            {
+                anim.Play(runAnim);
+                lastMoveDirection = moveDirection;
+            }
         }
         else
         {
-            anim.Play(idleAnim);
+            if (!isDashing)
+            {
+                anim.Play(idleAnim);
+            }
         }
 
-        //dash
-        /*if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
-        {
-            isDashing = true;
-            dashTimer = dashDuration;
-        }*/
         if (isDashing)
         {
             transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            anim.Play(dashAnim);
             dashTimer -= Time.deltaTime;
 
             if (dashTimer <= 0.0f)
