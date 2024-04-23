@@ -451,7 +451,7 @@ public class PlayerBase : MonoBehaviour
         canMove = false;
         anim.Play(deathAnim);
         PickupItem.tempScore = 0;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 2);
         canMove = true;
         hp = maxHP;
         transform.position = spawnPos;
