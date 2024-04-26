@@ -1116,7 +1116,6 @@ GameObject:
   - component: {fileID: 7811819089111855679}
   - component: {fileID: 7811819089111855672}
   - component: {fileID: 9093303603891428795}
-  - component: {fileID: 5241141293592434043}
   - component: {fileID: 197804796273387262}
   - component: {fileID: 5412500035539744412}
   - component: {fileID: 5151938167561789224}
@@ -1212,6 +1211,7 @@ MonoBehaviour:
   healthBarSlider: {fileID: 0}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
+  fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
 --- !u!136 &7811819089111855679
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1266,14 +1266,6 @@ MonoBehaviour:
   blueEffectPrefab: {fileID: 0}
   Manager: {fileID: 0}
   playerNo: 0
---- !u!81 &5241141293592434043
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811819089111855678}
-  m_Enabled: 1
 --- !u!114 &197804796273387262
 MonoBehaviour:
   m_ObjectHideFlags: 0

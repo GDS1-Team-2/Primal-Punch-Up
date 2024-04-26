@@ -63,6 +63,8 @@ public class PlayerBase : MonoBehaviour
     private Vector3 spawnPos;
     private PickupItem PickupItem;
 
+    public GameObject fruitPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +75,7 @@ public class PlayerBase : MonoBehaviour
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerPickupManager = gameObject.GetComponent<PlayerPickupManager>();
+
 
         PickupItem = GetComponent<PickupItem>();
 
@@ -438,6 +441,12 @@ public class PlayerBase : MonoBehaviour
         inCombatTimer = inCombatLength;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
         currentSpeed = speed;
+        for (int i = 0; i < PickupItem.tempScore; i++)
+        {
+            GameObject fruit = Instantiate(fruitPrefab, gameObject.transform.position, Quaternion.identity);
+            //fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
+        }
+        PickupItem.LoseTempScore();
         canMove = true;
     }
 

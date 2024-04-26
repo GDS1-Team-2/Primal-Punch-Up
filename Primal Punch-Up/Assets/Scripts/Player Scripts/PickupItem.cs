@@ -27,12 +27,14 @@ public class PickupItem : MonoBehaviour
     public GameObject Manager;
     private RoundsScript RoundsScript;
     private PlayerBase PlayerBase;
+    public AudioSource audioSource;
     public int playerNo;
 
     void Start()
     {
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
+        audioSource = GameObject.Find("UI Sounds").GetComponent<AudioSource>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
         string scoreTag = "Player" + playerNo + "Score";
@@ -45,16 +47,18 @@ public class PickupItem : MonoBehaviour
     {
         if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
         {
-
-            tempScore++;
-            currentTempBag++;
-            if (pickupSound != null)
+            if (other.gameObject.GetComponent<FruitScript>().playerNo != playerNo)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                tempScore++;
+                currentTempBag++;
+                if (pickupSound != null)
+                {
+                    audioSource.PlayOneShot(pickupSound);
+                }
+
+                Destroy(other.gameObject);
+                UpdateTempScoreText();
             }
-            
-            Destroy(other.gameObject);
-            UpdateTempScoreText();
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
         {
@@ -64,14 +68,14 @@ public class PickupItem : MonoBehaviour
             
             if (pickupSound != null)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                audioSource.PlayOneShot(pickupSound);
             }
             
             Destroy(other.gameObject);
             
             UpdateTempScoreText();
         }
-        if (other.gameObject.CompareTag("chocolate")){
+        /*if (other.gameObject.CompareTag("chocolate")){
            Destroy(other.gameObject);
            this.speedRangeCollider.gameObject.SetActive(true);
            GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
@@ -82,7 +86,7 @@ public class PickupItem : MonoBehaviour
         if (other.gameObject.CompareTag("speedRange")){
            this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
            StartCoroutine(recoverSpeed());
-        }
+        }*/
 
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
@@ -92,7 +96,7 @@ public class PickupItem : MonoBehaviour
             // ����ʰȡ��Ч
             if (pickupSound != null)
             {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+                audioSource.PlayOneShot(pickupSound);
             }
             // ����Item����
             Destroy(other.gameObject);
@@ -153,7 +157,7 @@ public class PickupItem : MonoBehaviour
     {
         if (tempScoreText != null)
         {
-            tempScoreText.text = score.ToString();
+            tempScoreText.text = tempScore.ToString();
         }
     }
 
