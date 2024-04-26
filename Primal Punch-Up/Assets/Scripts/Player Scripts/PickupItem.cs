@@ -6,23 +6,25 @@ using UnityEngine.UI;
 
 public class PickupItem : MonoBehaviour
 {
-    public AudioClip pickupSound; // ʰȡItems����Ч
-    public int score = 0; // ��ҵ÷�
-    public int tempScore = 0; // ��ҵ���ʱ�÷�
-    public int maxTempBag = 3; // ��ʱ��Ʒ�����ޣ�������Unity���޸�
-    public int currentTempBag = 0;
-    public Text scoreText; // ������ʾ��UI���
-    public Text tempScoreText; // ��ʱ������ʾ��UI���
-    public string OneScoreTag; // ʰȡ��Ʒ�ı�ǩ
-    public string ThreeScoreTag; // ʰȡ�����Ʒ�ı�ǩ
-    public string BadScoreTag; // ʰȡ������Ʒ�ı�ǩ
-    public string baseTag; // ���صı�ǩ
+    //follow is for pickup score item
+    public AudioClip pickupSound; // Sound effect for picking up items
+    public int score = 0; // Player's score
+    public int tempScore = 0; // Player's temporary score
+    public int maxTempBag = 3; // Maximum capacity of temporary items, can be modified in Unity
+    public int currentTempBag = 0; // Current count of temporary items
+    public Text scoreText; // UI component for displaying score
+    public Text tempScoreText; // UI component for displaying temporary score
+    public string OneScoreTag = "ItemSpawn"; // Tag for items worth one point
+    public string ThreeScoreTag = "ScoreItems"; // Tag for items worth three points
+    public string BadScoreTag = "PunishScoreItem"; // Tag for items that subtract points
+    public string BigerBag = "BigerBag";
+    public string baseTag; // Base tag for depositing items
 
-    public GameObject speedRangeCollider;
 
-    public GameObject blueEffectPrefab;
-
-    float speedRangeDeactivationTime = 10.0f;
+    //follow is for ?
+    public GameObject speedRangeCollider; // Collider that increases player's speed
+    public GameObject blueEffectPrefab; // Prefab for the visual effect when speed is increased
+    float speedRangeDeactivationTime = 10.0f; // Time after which the speed range effect deactivates
 
     public GameObject Manager;
     private RoundsScript RoundsScript;
@@ -45,101 +47,97 @@ public class PickupItem : MonoBehaviour
     {
         if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
         {
-
-            tempScore++;
-            currentTempBag++;
-            if (pickupSound != null)
-            {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-            }
-            
-            Destroy(other.gameObject);
-            UpdateTempScoreText();
+            AddScore(other.gameObject, 1);
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
         {
-            
-            tempScore = tempScore + 3;
-            currentTempBag++;
-            
-            if (pickupSound != null)
-            {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-            }
-            
+            AddScore(other.gameObject, 3);
+        }
+        if (other.gameObject.CompareTag(BigerBag))
+        {
+            maxTempBag = 5;
             Destroy(other.gameObject);
-            
-            UpdateTempScoreText();
         }
-        if (other.gameObject.CompareTag("chocolate")){
-           Destroy(other.gameObject);
-           this.speedRangeCollider.gameObject.SetActive(true);
-           GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
-           newPrefab.transform.parent = this.transform;
-           newPrefab.transform.localScale *= 10;
-           StartCoroutine(DeactivateNodeAfterTime(newPrefab));
+
+
+        if (other.gameObject.CompareTag("chocolate"))
+        {
+            Destroy(other.gameObject);
+            this.speedRangeCollider.gameObject.SetActive(true);
+            GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
+            newPrefab.transform.parent = this.transform;
+            newPrefab.transform.localScale *= 10;
+            StartCoroutine(DeactivateNodeAfterTime(newPrefab));
         }
-        if (other.gameObject.CompareTag("speedRange")){
-           this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
-           StartCoroutine(recoverSpeed());
+        if (other.gameObject.CompareTag("speedRange"))
+        {
+            this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
+            StartCoroutine(recoverSpeed());
         }
 
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
-            // ������ʱ����
-            tempScore = tempScore - 1;
-            
-            // ����ʰȡ��Ч
-            if (pickupSound != null)
-            {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-            }
-            // ����Item����
-            Destroy(other.gameObject);
-            // ����UI��ʾ��ʱ����
-            UpdateTempScoreText();
+            BadFruitScore(other.gameObject);
         }
         else if (other.gameObject.CompareTag(baseTag))
         {
-            // ����ʱ����ת��Ϊ��ʽ����
             ConvertTempScoreToScore();
         }
-
-        // �������Ƿ�ﵽͨ������
-        // CheckForLevelCompletion();
     }
 
     IEnumerator DeactivateNodeAfterTime(GameObject effect)
     {
-        // 等待指定的时间
         yield return new WaitForSeconds(speedRangeDeactivationTime);
-
-        // 将节点的活动状态设置为 false
-         this.speedRangeCollider.gameObject.SetActive(false);
+        this.speedRangeCollider.gameObject.SetActive(false);
         Destroy(effect);
     }
 
     IEnumerator recoverSpeed()
     {
-        // 等待指定的时间
         yield return new WaitForSeconds(speedRangeDeactivationTime);
-
-        // 将节点的活动状态设置为 false
         this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
     }
 
-
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("speedRange")){
-           this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
+        if (other.gameObject.CompareTag("speedRange"))
+        {
+            this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
         }
     }
 
     private void Update()
     {
-        // �������������Ӽ������������߼���������LoseTempScore()����
+        // Method could be used to continuously check conditions or implement logic to lose temporary score
     }
+
+
+    private void AddScore(GameObject item, int scoreIncrease)
+    {
+        tempScore += scoreIncrease;
+        currentTempBag++;
+        if (pickupSound != null)
+        {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+        }
+
+        Destroy(item);
+        UpdateTempScoreText();
+    }
+
+
+    private void BadFruitScore(GameObject item)
+    {
+        tempScore -= 1;
+
+        if (pickupSound != null)
+        {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+        }
+        Destroy(item);
+        UpdateTempScoreText();
+    }
+
 
     private void UpdateScoreText()
     {
@@ -153,22 +151,14 @@ public class PickupItem : MonoBehaviour
     {
         if (tempScoreText != null)
         {
-            tempScoreText.text = score.ToString();
-        }
-    }
-
-    private void CheckForLevelCompletion()
-    {
-        if (score >= 11) // ������Ҫ����ͨ�صķ�������
-        {
-            //SceneManager.LoadScene("PassScene");
+            tempScoreText.text = tempScore.ToString();
         }
     }
 
     private void ConvertTempScoreToScore()
     {
-        score += tempScore;
-        tempScore = 0; // ������ʱ����
+        score += tempScore; // Add temporary score to main score
+        tempScore = 0; // Reset temporary score
         currentTempBag = 0;
         UpdateScoreText();
         UpdateTempScoreText();
@@ -191,16 +181,16 @@ public class PickupItem : MonoBehaviour
 
     public void LoseTempScore()
     {
-        // ���������ʧ��ʱ����
+        // Logic for losing temporary score
         tempScore = 0;
         UpdateTempScoreText();
     }
 
     public void AddScore(int scoreToAdd)
     {
-            tempScore += scoreToAdd;
-            UpdateTempScoreText();
+        tempScore += scoreToAdd;
+        UpdateTempScoreText();
     }
 
- 
+
 }
