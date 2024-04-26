@@ -135,9 +135,9 @@ public class PickupItem : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("speedRange")){
-           this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
-        }
+        //if (other.gameObject.CompareTag("speedRange")){
+        //   this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
+        //}
     }
 
     private void Update()

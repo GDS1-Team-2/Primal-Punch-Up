@@ -436,16 +436,18 @@ public class PlayerBase : MonoBehaviour
         currentSpeed = 0;
         anim.Play(takeHit1Anim);
         hp -= damage;
-        Debug.Log(gameObject.name + " HP: " + hp);
+        for (int i = 0; i < PickupItem.tempScore; i++)
+        {
+            Debug.Log("drop");
+            GameObject fruit = Instantiate(fruitPrefab, gameObject.transform.position, Quaternion.identity);
+            fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
+        }
+        //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
         currentSpeed = speed;
-        for (int i = 0; i < PickupItem.tempScore; i++)
-        {
-            GameObject fruit = Instantiate(fruitPrefab, gameObject.transform.position, Quaternion.identity);
-            //fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
-        }
+        
         PickupItem.LoseTempScore();
         canMove = true;
     }
