@@ -96,6 +96,7 @@ public class PlayerBase : MonoBehaviour
                 itemKey = KeyCode.N;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -108,14 +109,17 @@ public class PlayerBase : MonoBehaviour
                 itemKey = KeyCode.RightBracket;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player2Model", gameObject.tag);
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player3Model", gameObject.tag);
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player4Model", gameObject.tag);
                 break;
         }
 

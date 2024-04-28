@@ -176,21 +176,8 @@ public class PickupItem : MonoBehaviour
         currentTempBag = 0;
         UpdateScoreText();
         UpdateTempScoreText();
-        switch (playerNo)
-        {
-            case 1:
-                RoundsScript.SavePlayer1Score(score);
-                break;
-            case 2:
-                RoundsScript.SavePlayer2Score(score);
-                break;
-            case 3:
-                RoundsScript.SavePlayer3Score(score);
-                break;
-            case 4:
-                RoundsScript.SavePlayer4Score(score);
-                break;
-        }
+        string scoreKey = "ScoreKey" + playerNo;
+        PlayerPrefs.SetInt(scoreKey, score);
     }
 
     public void LoseTempScore()
