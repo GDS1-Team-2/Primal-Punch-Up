@@ -996,6 +996,7 @@ MonoBehaviour:
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  bearFireMovement: 0
 --- !u!65 &4149942698365022005
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1077,8 +1078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smr: {fileID: 0}
-  smokePrefab: {fileID: 5600679544747505976, guid: 35528e477afca7142a2bea752d6d5580, type: 3}
-  smokeCollider: {fileID: 0}
+  smokePrefab: {fileID: 875016001680053677, guid: 35528e477afca7142a2bea752d6d5580, type: 3}
   cdLength: 5
   invisTime: 3
 --- !u!135 &1828411926130597895

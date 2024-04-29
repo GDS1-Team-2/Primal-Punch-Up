@@ -1119,7 +1119,6 @@ GameObject:
   - component: {fileID: 5241141293592434043}
   - component: {fileID: 197804796273387262}
   - component: {fileID: 5412500035539744412}
-  - component: {fileID: 5151938167561789224}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Bear
@@ -1219,6 +1218,7 @@ MonoBehaviour:
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  bearFireMovement: 0
 --- !u!136 &7811819089111855679
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1316,22 +1316,9 @@ MonoBehaviour:
   anim: {fileID: 0}
   firePrefab: {fileID: 4930033384656873717, guid: ab9e397cc94290b4984ff53760829f3c, type: 3}
   rightHand: {fileID: 4974191164692079214}
-  damageCollider: {fileID: 0}
+  damageCollider: {fileID: 3504021144811894747, guid: fae87052a90ac384eb5cc361ab95ffc8, type: 3}
   cdLength: 5
   punchSpeed: 40
---- !u!135 &5151938167561789224
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811819089111855678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.03
-  m_Center: {x: 0, y: 0.03, z: 0.01}
 --- !u!1 &8047159989690782053
 GameObject:
   m_ObjectHideFlags: 0
