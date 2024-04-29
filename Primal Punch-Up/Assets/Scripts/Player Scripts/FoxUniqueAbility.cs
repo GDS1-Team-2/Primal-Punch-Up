@@ -78,11 +78,19 @@ public class FoxUniqueAbility : MonoBehaviour
         if (currentState.IsName(abilityAnim))
         {
             yield return new WaitForSeconds(currentState.length);
-            Destroy(particlesInstance);
+            ParticleSystem[] vortexInstances = FindObjectsOfType<ParticleSystem>();
             abilityCD = true;
             cdTimer = cdLength;
             damageCollider.enabled = false;
             baseScript.currentSpeed = baseScript.speed;
+            foreach (ParticleSystem instance in vortexInstances)
+            {
+                if (instance.name.Contains(magicPrefab.name))
+                {
+                    instance.Stop();
+                    Destroy(instance.gameObject, instance.main.duration + instance.main.startLifetime.constantMax);
+                }
+            }
         }
         baseScript.isUsingSpecial = false;
     }
