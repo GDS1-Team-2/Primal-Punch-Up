@@ -13,11 +13,14 @@ public class PlayerPickupManager : MonoBehaviour
     public int playerNo;
 
     public GameObject[] itemTexts;
+
+    public MagnetItem MagnetItem;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        MagnetItem = gameObject.GetComponent<MagnetItem>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
         switch (playerNo)
@@ -77,5 +80,9 @@ public class PlayerPickupManager : MonoBehaviour
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
             hasItem = false;
         }
+        else if((currentItem.name == "MagetItem")) {
+            MagnetItem.ActivateMagnet();
+        }
+            
     }
 }
