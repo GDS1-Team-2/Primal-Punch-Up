@@ -70,6 +70,7 @@ public class PlayerBase : MonoBehaviour
     public bool isAttacking = false;
     public bool isUsingSpecial = false;
     public bool bearFireMovement = false;
+    public bool lizSmokeDmg = false;
 
     // Start is called before the first frame update
     void Start()

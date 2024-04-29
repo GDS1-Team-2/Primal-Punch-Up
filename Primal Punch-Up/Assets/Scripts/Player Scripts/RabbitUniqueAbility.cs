@@ -30,21 +30,21 @@ public class RabbitUniqueAbility : MonoBehaviour
         {
             if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
             {
-                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value))
+                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(RabbitAttack());
                 }
             }
             else if (baseScript.playerNo == 3)
             {
-                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(RabbitAttack());
                 }
             }
             else if (baseScript.playerNo == 4)
             {
-                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(RabbitAttack());
                 }

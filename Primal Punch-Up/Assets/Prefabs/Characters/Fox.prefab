@@ -822,6 +822,7 @@ MonoBehaviour:
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  bearFireMovement: 0
 --- !u!65 &1994141739145485188
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -874,9 +875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9434a467ea014494f82a2831584ce9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicPrefab: {fileID: 6943487682105274453, guid: 5c08adae13206c14bb943daa45779b44, type: 3}
+  magicPrefab: {fileID: 6943487682119002423, guid: 5c08adae13206c14bb943daa45779b44, type: 3}
   anim: {fileID: 0}
-  damageCollider: {fileID: 0}
   cdLength: 5
 --- !u!135 &5017590714736440318
 SphereCollider:

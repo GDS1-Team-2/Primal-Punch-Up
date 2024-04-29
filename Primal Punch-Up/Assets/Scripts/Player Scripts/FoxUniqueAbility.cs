@@ -6,9 +6,8 @@ public class FoxUniqueAbility : MonoBehaviour
 {
 
     private PlayerBase baseScript;
-    public ParticleSystem magicPrefab;
+    public GameObject magicPrefab;
     public Animator anim;
-    public SphereCollider damageCollider;
 
     private bool abilityCD = false;
     private float cdTimer = 0.0f;
@@ -22,7 +21,6 @@ public class FoxUniqueAbility : MonoBehaviour
     {
         baseScript = GetComponent<PlayerBase>();
         anim = GetComponent<Animator>();
-        damageCollider = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
@@ -32,21 +30,21 @@ public class FoxUniqueAbility : MonoBehaviour
         {
             if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
             {
-                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value))
+                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(FoxAttack());
                 }
             }
             else if (baseScript.playerNo == 3)
             {
-                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(FoxAttack());
                 }
             }
             else if (baseScript.playerNo == 4)
             {
-                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(FoxAttack());
                 }
@@ -67,9 +65,11 @@ public class FoxUniqueAbility : MonoBehaviour
     public IEnumerator FoxAttack()
     {
         baseScript.isUsingSpecial = true;
-        ParticleSystem particlesInstance = Instantiate(magicPrefab, transform.position + magicSpawnLoc, Quaternion.LookRotation(Vector3.up));
+        GameObject particlesInstance = Instantiate(magicPrefab, transform.position + magicSpawnLoc, Quaternion.LookRotation(Vector3.up));
         baseScript.currentSpeed = 0;
-        damageCollider.enabled = true;
+        FoxVortex thisFoxVortex = particlesInstance.GetComponent<FoxVortex>();
+        PlayerBase thisPlayer = GetComponent<PlayerBase>();
+        thisFoxVortex.thisPlayer = thisPlayer;
         anim.Play(abilityAnim);
         yield return new WaitForSeconds(0.1f);
 
@@ -81,7 +81,6 @@ public class FoxUniqueAbility : MonoBehaviour
             ParticleSystem[] vortexInstances = FindObjectsOfType<ParticleSystem>();
             abilityCD = true;
             cdTimer = cdLength;
-            damageCollider.enabled = false;
             baseScript.currentSpeed = baseScript.speed;
             foreach (ParticleSystem instance in vortexInstances)
             {
@@ -93,17 +92,6 @@ public class FoxUniqueAbility : MonoBehaviour
             }
         }
         baseScript.isUsingSpecial = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        int vortexDamage = 20;
-        PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
-
-        if (otherPlayer != null && otherPlayer != baseScript && !other.isTrigger)
-        {
-            StartCoroutine(otherPlayer.TakeDamage(vortexDamage));
-        }
     }
 }
 

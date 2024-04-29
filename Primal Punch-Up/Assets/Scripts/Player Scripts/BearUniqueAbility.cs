@@ -9,7 +9,8 @@ public class BearUniqueAbility : MonoBehaviour
     public Animator anim;
     public ParticleSystem firePrefab;
     public GameObject rightHand;
-    public SphereCollider damageCollider;
+    public GameObject damageCollider;
+    private GameObject newFireCollider;
 
     private bool abilityCD = false;
     private float cdTimer = 0.0f;
@@ -22,7 +23,6 @@ public class BearUniqueAbility : MonoBehaviour
     {
         baseScript = GetComponent<PlayerBase>();
         anim = GetComponent<Animator>();
-        damageCollider = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
@@ -78,7 +78,7 @@ public class BearUniqueAbility : MonoBehaviour
             ParticleSystem[] fireInstances = FindObjectsOfType<ParticleSystem>();
             abilityCD = true;
             cdTimer = cdLength;
-            damageCollider.enabled = false;
+            Destroy(newFireCollider);
             baseScript.bearFireMovement = false;
             foreach (ParticleSystem instance in fireInstances)
             {
@@ -101,27 +101,20 @@ public class BearUniqueAbility : MonoBehaviour
     public void MovementStart()
     {
         baseScript.rbody.velocity = transform.forward * punchSpeed;
-        //baseScript.currentSpeed = punchSpeed;
-        damageCollider.enabled = true;
+        newFireCollider = Instantiate(damageCollider);
+        newFireCollider.transform.SetParent(this.transform);
+        newFireCollider.transform.position = this.transform.position;
+        newFireCollider.transform.localScale = new Vector3(1, 1, 1);
+        FirePunchCollision thisFirePunch = newFireCollider.GetComponent<FirePunchCollision>();
+        PlayerBase thisPlayer = GetComponent<PlayerBase>();
+        thisFirePunch.thisPlayer = thisPlayer;
         baseScript.bearFireMovement = true;
     }
 
     public void PunchMoveEnd()
     {
         baseScript.currentSpeed = baseScript.speed;
-        damageCollider.enabled = false;
+        Destroy(newFireCollider);
         baseScript.bearFireMovement = false;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        int firePunchDamage = 25;
-        PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
-
-        if (otherPlayer != null && otherPlayer != baseScript && !other.isTrigger)
-        {
-            StartCoroutine(otherPlayer.TakeDamage(firePunchDamage));
-        }
-    }
-
 }
