@@ -35,6 +35,7 @@ public class PickupItem : MonoBehaviour
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
+        baseTag = "Home" + playerNo;
         string scoreTag = "Player" + playerNo + "Score";
         scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
         string inventoryTag = "Player" + playerNo + "InventoryScore";
@@ -52,8 +53,9 @@ public class PickupItem : MonoBehaviour
             {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
             }
-            
-            Destroy(other.gameObject);
+
+            //Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             UpdateTempScoreText();
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
@@ -153,7 +155,7 @@ public class PickupItem : MonoBehaviour
     {
         if (tempScoreText != null)
         {
-            tempScoreText.text = score.ToString();
+            tempScoreText.text = tempScore.ToString();
         }
     }
 
