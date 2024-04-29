@@ -69,6 +69,7 @@ public class PlayerBase : MonoBehaviour
     public bool isTakingDamage = false;
     public bool isAttacking = false;
     public bool isUsingSpecial = false;
+    public bool bearFireMovement = false;
 
     // Start is called before the first frame update
     void Start()
@@ -263,7 +264,7 @@ public class PlayerBase : MonoBehaviour
                 break;
         }
 
-        if (hp <= 0)
+        if (hp <= 0 && !isDead)
         {
             StartCoroutine(OnDeath());
         }
@@ -271,7 +272,7 @@ public class PlayerBase : MonoBehaviour
 
     void FixedUpdate()
     {
-            Move();
+        Move();
     }
 
     void ChangeDirection()
@@ -343,12 +344,16 @@ public class PlayerBase : MonoBehaviour
 
     void Move()
     {
-        if (!isDead && !isTakingDamage)
+        if (!bearFireMovement)
         {
-            rbody.velocity = transform.forward * moveDirection.z * currentSpeed;
-        } else
-        {
-            rbody.velocity = Vector3.zero;
+            if (!isDead && !isTakingDamage)
+            {
+                rbody.velocity = transform.forward * moveDirection.z * currentSpeed;
+            }
+            else
+            {
+                rbody.velocity = Vector3.zero;
+            }
         }
 
 

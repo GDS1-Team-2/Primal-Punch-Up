@@ -68,7 +68,6 @@ public class BearUniqueAbility : MonoBehaviour
     {
         baseScript.isUsingSpecial = true;
         anim.Play("BearUniqueAbility");
-        damageCollider.enabled = true;
         yield return new WaitForSeconds(0.1f);
 
         AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
@@ -80,6 +79,7 @@ public class BearUniqueAbility : MonoBehaviour
             abilityCD = true;
             cdTimer = cdLength;
             damageCollider.enabled = false;
+            baseScript.bearFireMovement = false;
             foreach (ParticleSystem instance in fireInstances)
             {
                 if (instance.name.Contains(firePrefab.name))
@@ -100,13 +100,17 @@ public class BearUniqueAbility : MonoBehaviour
 
     public void MovementStart()
     {
-        //baseScript.rbody.velocity = transform.forward * punchSpeed;
-        baseScript.currentSpeed = punchSpeed;
+        baseScript.rbody.velocity = transform.forward * punchSpeed;
+        //baseScript.currentSpeed = punchSpeed;
+        damageCollider.enabled = true;
+        baseScript.bearFireMovement = true;
     }
 
     public void PunchMoveEnd()
     {
         baseScript.currentSpeed = baseScript.speed;
+        damageCollider.enabled = false;
+        baseScript.bearFireMovement = false;
     }
 
     private void OnTriggerEnter(Collider other)
