@@ -14,6 +14,8 @@ public class RabbitUniqueAbility : MonoBehaviour
     public float cdLength = 5.0f;
     public float throwSpeed = 25.0f;
 
+    private string abilityAnim = "RabbitUniqueAbility";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,24 +64,19 @@ public class RabbitUniqueAbility : MonoBehaviour
 
     IEnumerator RabbitAttack()
     {
-        if (baseScript.rbody.velocity.magnitude > 0.1f)
+        baseScript.isUsingSpecial = true;
+        anim.Play(abilityAnim);
+        yield return new WaitForSeconds(0.1f);
+
+        AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (currentState.IsName(abilityAnim))
         {
-            baseScript.canMove = false;
-            baseScript.rbody.velocity = Vector3.zero;
-            anim.Play("RabbitUniqueAbility");
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length * 1.5f);
+            yield return new WaitForSeconds(currentState.length);
             abilityCD = true;
             cdTimer = cdLength;
-            baseScript.canMove = true;
-        } else
-        {
-            baseScript.canMove = false;
-            anim.Play("RabbitUniqueAbility");
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 2);
-            abilityCD = true;
-            cdTimer = cdLength;
-            baseScript.canMove = true;
         }
+        baseScript.isUsingSpecial = false;
     }
 
     public void CarrotToss()

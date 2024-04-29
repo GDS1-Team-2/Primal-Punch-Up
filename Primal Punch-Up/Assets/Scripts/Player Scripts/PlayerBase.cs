@@ -14,6 +14,7 @@ public class PlayerBase : MonoBehaviour
     public Animator anim;
     public Rigidbody rbody;
     public BoxCollider boxCol;
+    public CapsuleCollider capCol;
 
     private Vector3 moveDirection;
     private Vector3 lastMoveDirection;
@@ -21,6 +22,7 @@ public class PlayerBase : MonoBehaviour
     public float rotateSpeed = 720.0f;
     public int hp = 50;
     public int maxHP = 50;
+    public float deathTimer = 5.0f;
 
     public bool canMove;
 
@@ -50,7 +52,7 @@ public class PlayerBase : MonoBehaviour
     public float dashCooldown = 0.5f;
     public float dashDuration = 0.5f;
 
-    private bool isDashing = false;
+    public bool isDashing = false;
     private float dashTimer = 0.0f;
 
     public GameObject healthBar;
@@ -63,12 +65,18 @@ public class PlayerBase : MonoBehaviour
     private Vector3 spawnPos;
     private PickupItem PickupItem;
 
+    public bool isDead = false;
+    public bool isTakingDamage = false;
+    public bool isAttacking = false;
+    public bool isUsingSpecial = false;
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
+        capCol = GetComponent<CapsuleCollider>();
 
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
@@ -160,7 +168,7 @@ public class PlayerBase : MonoBehaviour
     {
         if (playerNo == 1 || playerNo == 2)
         {
-            if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
+            if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) &&!isAttacking && !isDashing &&!isUsingSpecial &&!isDead)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
@@ -168,14 +176,14 @@ public class PlayerBase : MonoBehaviour
             {
                 PlayerPickupManager.UseItem();
             }
-            if (dashKey.HasValue && Input.GetKey(dashKey.Value))
+            if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
                 isDashing = true;
                 dashTimer = dashDuration;
             }
         } else if (playerNo == 3)
         {
-            if (P3Controller.buttonEast.wasPressedThisFrame)
+            if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
@@ -183,14 +191,14 @@ public class PlayerBase : MonoBehaviour
             {
                 PlayerPickupManager.UseItem();
             }
-            if (P3Controller.buttonSouth.wasPressedThisFrame)
+            if (P3Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
             {
                 isDashing = true;
                 dashTimer = dashDuration;
             }
         } else if (playerNo == 4)
         {
-            if (P4Controller.buttonEast.wasPressedThisFrame)
+            if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
@@ -198,13 +206,12 @@ public class PlayerBase : MonoBehaviour
             {
                 PlayerPickupManager.UseItem();
             }
-            if (P4Controller.buttonSouth.wasPressedThisFrame)
+            if (P4Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
             {
                 isDashing = true;
                 dashTimer = dashDuration;
             }
         }
-
 
         ChangeDirection();
 
@@ -239,7 +246,6 @@ public class PlayerBase : MonoBehaviour
 
         healthBarSlider.value = hp;
 
-
         //setting the players for the round score
         switch (playerNo)
         {
@@ -261,20 +267,15 @@ public class PlayerBase : MonoBehaviour
         {
             StartCoroutine(OnDeath());
         }
-
     }
 
     void FixedUpdate()
     {
-        if (canMove)
-        {
             Move();
-        }
     }
 
     void ChangeDirection()
     {
-        //float moveX = 0
         float moveZ = 0;
 
         if (playerNo == 1 || playerNo == 2)
@@ -342,19 +343,23 @@ public class PlayerBase : MonoBehaviour
 
     void Move()
     {
-        rbody.velocity = transform.forward * moveDirection.z * speed;
-
-        if (moveDirection != Vector3.zero)
+        if (!isDead && !isTakingDamage)
         {
-            if (!isDashing)
+            rbody.velocity = transform.forward * moveDirection.z * currentSpeed;
+        } else
+        {
+            rbody.velocity = Vector3.zero;
+        }
+
+
+        if (!isDashing && !isAttacking && !isDead && !isTakingDamage && !isUsingSpecial)
+        {
+            if (moveDirection != Vector3.zero)
             {
                 anim.Play(runAnim);
                 lastMoveDirection = moveDirection;
             }
-        }
-        else
-        {
-            if (!isDashing)
+            else
             {
                 anim.Play(idleAnim);
             }
@@ -375,33 +380,19 @@ public class PlayerBase : MonoBehaviour
     }
 
     IEnumerator PlayerBasicAttack()
-    {
-        if (canMove)
+    {        
+        isAttacking = true;
+        anim.Play(attack1Anim);
+        yield return new WaitForSeconds(0.1f);
+
+        AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (currentState.IsName(attack1Anim))
         {
-            if (rbody.velocity.magnitude > 0.1f)
-            {
-                canMove = false;
-                rbody.velocity = Vector3.zero;
-                currentSpeed = 0;
-                anim.Play(attack1Anim);
-                //boxCol.enabled = true;
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-                boxCol.enabled = false;
-                canMove = true;
-                currentSpeed = speed;
-            }
-            else
-            {
-                canMove = false;
-                currentSpeed = 0;
-                anim.Play(attack1Anim);
-                //boxCol.enabled = true;
-                yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 3.5f);
-                boxCol.enabled = false;
-                canMove = true;
-                currentSpeed = speed;
-            }
+            yield return new WaitForSeconds(currentState.length);
+            boxCol.enabled = false;
         }
+        isAttacking = false;
     }
 
     void BAColliderOn()
@@ -429,7 +420,7 @@ public class PlayerBase : MonoBehaviour
 
     public IEnumerator TakeDamage(int damage)
     {
-        canMove = false;
+        isTakingDamage = true;
         currentSpeed = 0;
         anim.Play(takeHit1Anim);
         hp -= damage;
@@ -438,7 +429,7 @@ public class PlayerBase : MonoBehaviour
         inCombatTimer = inCombatLength;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
         currentSpeed = speed;
-        canMove = true;
+        isTakingDamage = false;
     }
 
     public void setSpeed(bool half)
@@ -448,12 +439,20 @@ public class PlayerBase : MonoBehaviour
 
     IEnumerator OnDeath()
     {
-        canMove = false;
+        isDead = true;
         anim.Play(deathAnim);
         PickupItem.tempScore = 0;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 2);
-        canMove = true;
-        hp = maxHP;
+        capCol.enabled = false;
+
+        for (float timer = deathTimer; timer >= 0; timer -= 1f)
+        {
+            Debug.Log("Time remaining: " + timer + " seconds");
+            yield return new WaitForSeconds(1f);
+        }
+
+        capCol.enabled = true;
         transform.position = spawnPos;
+        hp = maxHP;
+        isDead = false;
     }
 }

@@ -15,6 +15,8 @@ public class FoxUniqueAbility : MonoBehaviour
     public float cdLength = 5.0f;
     Vector3 magicSpawnLoc = new Vector3(0, 0.1f, 0);
 
+    private string abilityAnim = "FoxUniqueAbility";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,32 +66,25 @@ public class FoxUniqueAbility : MonoBehaviour
 
     public IEnumerator FoxAttack()
     {
-        if (baseScript.rbody.velocity.magnitude > 0.1f)
+        baseScript.isUsingSpecial = true;
+        ParticleSystem particlesInstance = Instantiate(magicPrefab, transform.position + magicSpawnLoc, Quaternion.LookRotation(Vector3.up));
+        baseScript.currentSpeed = 0;
+        damageCollider.enabled = true;
+        anim.Play(abilityAnim);
+        yield return new WaitForSeconds(0.1f);
+
+        AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (currentState.IsName(abilityAnim))
         {
-            baseScript.canMove = false;
-            ParticleSystem particlesInstance = Instantiate(magicPrefab, transform.position + magicSpawnLoc, Quaternion.LookRotation(Vector3.up));
-            baseScript.rbody.velocity = Vector3.zero;
-            anim.Play("FoxUniqueAbility");
-            damageCollider.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length * 2);
+            yield return new WaitForSeconds(currentState.length);
             Destroy(particlesInstance);
             abilityCD = true;
             cdTimer = cdLength;
-            baseScript.canMove = true;
             damageCollider.enabled = false;
-        } else
-        {
-            baseScript.canMove = false;
-            ParticleSystem particlesInstance = Instantiate(magicPrefab, transform.position + magicSpawnLoc, Quaternion.LookRotation(Vector3.up));
-            anim.Play("FoxUniqueAbility");
-            damageCollider.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-            Destroy(particlesInstance);
-            abilityCD = true;
-            cdTimer = cdLength;
-            baseScript.canMove = true;
-            damageCollider.enabled = false;
-        } 
+            baseScript.currentSpeed = baseScript.speed;
+        }
+        baseScript.isUsingSpecial = false;
     }
 
     private void OnTriggerEnter(Collider other)

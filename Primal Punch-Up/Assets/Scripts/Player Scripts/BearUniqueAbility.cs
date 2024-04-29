@@ -14,7 +14,8 @@ public class BearUniqueAbility : MonoBehaviour
     private bool abilityCD = false;
     private float cdTimer = 0.0f;
     public float cdLength = 5.0f;
-    public float punchSpeed = 5.0f;
+    public float punchSpeed = 40.0f;
+    private string abilityAnim = "BearUniqueAbility";
 
     // Start is called before the first frame update
     void Start()
@@ -31,21 +32,21 @@ public class BearUniqueAbility : MonoBehaviour
         {
             if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
             {
-                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value))
+                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(BearAttack());
                 }
             }
             else if (baseScript.playerNo == 3)
             {
-                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(BearAttack());
                 }
             }
             else if (baseScript.playerNo == 4)
             {
-                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(BearAttack());
                 }
@@ -65,35 +66,16 @@ public class BearUniqueAbility : MonoBehaviour
 
     IEnumerator BearAttack()
     {
-        if (baseScript.rbody.velocity.magnitude > 0.1f)
+        baseScript.isUsingSpecial = true;
+        anim.Play("BearUniqueAbility");
+        damageCollider.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+
+        AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (currentState.IsName(abilityAnim))
         {
-            baseScript.canMove = false;
-            baseScript.rbody.velocity = Vector3.zero;
-            anim.Play("BearUniqueAbility");
-            damageCollider.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length * 3);
-            baseScript.rbody.velocity = Vector3.zero;
-            baseScript.canMove = true;
-            ParticleSystem[] fireInstances = FindObjectsOfType<ParticleSystem>();
-            abilityCD = true;
-            cdTimer = cdLength;
-            damageCollider.enabled = false;
-            foreach (ParticleSystem instance in fireInstances)
-            {
-                if (instance.name.Contains(firePrefab.name))
-                {
-                    instance.Stop();
-                    Destroy(instance.gameObject, instance.main.duration + instance.main.startLifetime.constantMax);
-                }
-            }
-        } else
-        {
-            baseScript.canMove = false;
-            anim.Play("BearUniqueAbility");
-            damageCollider.enabled = true;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-            baseScript.rbody.velocity = Vector3.zero;
-            baseScript.canMove = true;
+            yield return new WaitForSeconds(currentState.length);
             ParticleSystem[] fireInstances = FindObjectsOfType<ParticleSystem>();
             abilityCD = true;
             cdTimer = cdLength;
@@ -107,6 +89,7 @@ public class BearUniqueAbility : MonoBehaviour
                 }
             }
         }
+        baseScript.isUsingSpecial = false;
     }
 
     public void PunchMoveStart()
@@ -117,12 +100,13 @@ public class BearUniqueAbility : MonoBehaviour
 
     public void MovementStart()
     {
-        baseScript.rbody.velocity = transform.forward * punchSpeed;
+        //baseScript.rbody.velocity = transform.forward * punchSpeed;
+        baseScript.currentSpeed = punchSpeed;
     }
 
     public void PunchMoveEnd()
     {
-        baseScript.rbody.velocity = Vector3.zero;
+        baseScript.currentSpeed = baseScript.speed;
     }
 
     private void OnTriggerEnter(Collider other)
