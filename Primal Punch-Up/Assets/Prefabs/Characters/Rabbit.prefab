@@ -1001,6 +1001,7 @@ GameObject:
   - component: {fileID: 4615018074567182864}
   - component: {fileID: 931656363959131910}
   - component: {fileID: 8980895758698761618}
+  - component: {fileID: 2756874995523811431}
   m_Layer: 0
   m_Name: RabbitIcon
   m_TagString: Untagged
@@ -1082,13 +1083,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6589373237573452284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5c8872ad75266744ac0bf0d25a6cd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   heightAbovePlayer: 100
+--- !u!114 &2756874995523811431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589373237573452284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e27595e744731944bf6a5b11a82a9aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: c6e111631f6f7df42857ee3596fc465a, type: 2}
+  playerNo: 0
 --- !u!1 &6764928735356920189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,6 +1570,7 @@ MonoBehaviour:
   speedRangeCollider: {fileID: 0}
   blueEffectPrefab: {fileID: 0}
   Manager: {fileID: 0}
+  audioSource: {fileID: 0}
   playerNo: 0
 --- !u!114 &8231370296093687314
 MonoBehaviour:
@@ -1577,6 +1593,7 @@ MonoBehaviour:
   PlayerBase: {fileID: 0}
   playerNo: 0
   itemTexts: []
+  MagnetItem: {fileID: 0}
 --- !u!114 &3666104320534630235
 MonoBehaviour:
   m_ObjectHideFlags: 0

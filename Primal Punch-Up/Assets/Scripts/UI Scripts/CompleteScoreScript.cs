@@ -50,11 +50,12 @@ public class CompleteScoreScript : MonoBehaviour
                     player1Score = GameObject.Find("Player 1 Score").GetComponent<Slider>();
                     player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
 
+                    //player1Score.GetComponentInChildren<Image>().color = Color.red;
+                    //player2Score.GetComponentInChildren<Image>().color = Color.blue;
+
                     player1Score.value = PlayerPrefs.GetInt("Player1Wins");
                     player2Score.value = PlayerPrefs.GetInt("Player2Wins");
 
-                    //Player1ScoreText.text = PlayerPrefs.GetInt("Player1Wins").ToString();
-                    //Player2ScoreText.text = PlayerPrefs.GetInt("Player2Wins").ToString();
                     break;
                 case 3:
                     continueScreen3Players.SetActive(true);
@@ -66,13 +67,14 @@ public class CompleteScoreScript : MonoBehaviour
                     player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
                     player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
 
+                    //player1Score.GetComponentInChildren<Image>().color = Color.red;
+                    //player2Score.GetComponentInChildren<Image>().color = Color.blue;
+                    //player1Score.GetComponentInChildren<Image>().color = Color.green;
+
                     player1Score.value = PlayerPrefs.GetInt("Player1Wins");
                     player2Score.value = PlayerPrefs.GetInt("Player2Wins");
                     player3Score.value = PlayerPrefs.GetInt("Player3Wins");
 
-                    //Player1ScoreText.text = PlayerPrefs.GetInt("Player1Wins").ToString();
-                    //Player2ScoreText.text = PlayerPrefs.GetInt("Player2Wins").ToString();
-                    //Player3ScoreText.text = PlayerPrefs.GetInt("Player3Wins").ToString();
                     break;
                 case 4:
                     continueScreen4Players.SetActive(true);
@@ -85,27 +87,33 @@ public class CompleteScoreScript : MonoBehaviour
                     player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
                     player4Score = GameObject.Find("Player 4 Score").GetComponent<Slider>();
 
+                    //player1Score.GetComponentInChildren<Image>().color = Color.red;
+                    //player2Score.GetComponentInChildren<Image>().color = Color.blue;
+                    //player3Score.GetComponentInChildren<Image>().color = Color.green;
+                    //player4Score.GetComponentInChildren<Image>().color = Color.yellow;
+
                     player1Score.value = PlayerPrefs.GetInt("Player1Wins");
                     player2Score.value = PlayerPrefs.GetInt("Player2Wins");
                     player3Score.value = PlayerPrefs.GetInt("Player3Wins");
                     player4Score.value = PlayerPrefs.GetInt("Player4Wins");
 
-                    //Player1ScoreText.text = PlayerPrefs.GetInt("Player1Wins").ToString();
-                    //Player2ScoreText.text = PlayerPrefs.GetInt("Player2Wins").ToString();
-                    //Player3ScoreText.text = PlayerPrefs.GetInt("Player3Wins").ToString();
-                    //Player4ScoreText.text = PlayerPrefs.GetInt("Player4Wins").ToString();
                     break;
             }
+
             SetIcon(player1Icon, PlayerPrefs.GetString("Player1Model"));
+            player1Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(1);
             SetIcon(player2Icon, PlayerPrefs.GetString("Player2Model"));
+            player2Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(2);
 
             if (PlayerPrefs.GetString("Player3Model") != null)
             {
                 SetIcon(player3Icon, PlayerPrefs.GetString("Player3Model"));
+                player3Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(3);
             }
             if (PlayerPrefs.GetString("Player4Model") != null)
             {
                 SetIcon(player4Icon, PlayerPrefs.GetString("Player4Model"));
+                player4Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(4);
             }
         }
         else {

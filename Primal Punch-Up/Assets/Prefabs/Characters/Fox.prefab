@@ -568,6 +568,7 @@ GameObject:
   - component: {fileID: 3127671020419216718}
   - component: {fileID: 818680662343299807}
   - component: {fileID: 1820858812154089362}
+  - component: {fileID: 9016517462109216926}
   m_Layer: 0
   m_Name: FoxIcon
   m_TagString: Untagged
@@ -649,13 +650,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4932485034459057691}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5c8872ad75266744ac0bf0d25a6cd0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   heightAbovePlayer: 100
+--- !u!114 &9016517462109216926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932485034459057691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e27595e744731944bf6a5b11a82a9aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: c6e111631f6f7df42857ee3596fc465a, type: 2}
+  playerNo: 0
 --- !u!1 &5524684389121809125
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,6 +871,7 @@ MonoBehaviour:
   speedRangeCollider: {fileID: 0}
   blueEffectPrefab: {fileID: 0}
   Manager: {fileID: 0}
+  audioSource: {fileID: 0}
   playerNo: 0
 --- !u!114 &3101603307692842012
 MonoBehaviour:
@@ -907,6 +923,7 @@ MonoBehaviour:
   PlayerBase: {fileID: 0}
   playerNo: 0
   itemTexts: []
+  MagnetItem: {fileID: 0}
 --- !u!1 &5853534876893967106
 GameObject:
   m_ObjectHideFlags: 0
