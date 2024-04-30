@@ -21,10 +21,10 @@ public class CompleteScoreScript : MonoBehaviour
     public Image foxIcon;
     public Image rabbitIcon;
 
-    private Image player1Icon;
-    private Image player2Icon;
-    private Image player3Icon;
-    private Image player4Icon;
+    public Image player1Icon;
+    public Image player2Icon;
+    public Image player3Icon;
+    public Image player4Icon;
 
     public Slider player1Score;
     public Slider player2Score;
@@ -50,14 +50,16 @@ public class CompleteScoreScript : MonoBehaviour
                     player1Score = GameObject.Find("Player 1 Score").GetComponent<Slider>();
                     player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
 
-                    player1Icon = continueScreen2Players.transform.Find("Player 1 Icon").GetComponent<Image>();
-                    player2Icon = continueScreen2Players.transform.Find("Player 2 Icon").GetComponent<Image>();
+                    player1Icon = GameObject.Find("Player 1 Icon").GetComponent<Image>();
+                    player2Icon = GameObject.Find("Player 2 Icon").GetComponent<Image>();
 
-                    //player1Score.GetComponentInChildren<Image>().color = Color.red;
-                    //player2Score.GetComponentInChildren<Image>().color = Color.blue;
+                    Player1ScoreText = GameObject.Find("Player1ScoreText").GetComponent<Text>();
+                    Player2ScoreText = GameObject.Find("Player2ScoreText").GetComponent<Text>();
 
-                    player1Score.value = PlayerPrefs.GetInt("Player1Wins");
-                    player2Score.value = PlayerPrefs.GetInt("Player2Wins");
+                    //player1Score.value = PlayerPrefs.GetInt("Player1Wins");
+                    //player2Score.value = PlayerPrefs.GetInt("Player2Wins");
+                    SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
+                    SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
 
                     break;
                 case 3:
@@ -70,13 +72,20 @@ public class CompleteScoreScript : MonoBehaviour
                     player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
                     player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
 
-                    //player1Score.GetComponentInChildren<Image>().color = Color.red;
-                    //player2Score.GetComponentInChildren<Image>().color = Color.blue;
-                    //player1Score.GetComponentInChildren<Image>().color = Color.green;
+                    player1Icon = continueScreen3Players.transform.Find("Player 1 Icon").GetComponent<Image>();
+                    player2Icon = continueScreen3Players.transform.Find("Player 2 Icon").GetComponent<Image>();
+                    player3Icon = continueScreen3Players.transform.Find("Player 3 Icon").GetComponent<Image>();
 
-                    player1Score.value = PlayerPrefs.GetInt("Player1Wins");
-                    player2Score.value = PlayerPrefs.GetInt("Player2Wins");
-                    player3Score.value = PlayerPrefs.GetInt("Player3Wins");
+                    Player1ScoreText = continueScreen3Players.transform.Find("Player1ScoreText").GetComponent<Text>();
+                    Player2ScoreText = continueScreen3Players.transform.Find("Player2ScoreText").GetComponent<Text>();
+                    Player3ScoreText = continueScreen3Players.transform.Find("Player3ScoreText").GetComponent<Text>();
+
+                    // player1Score.value = PlayerPrefs.GetInt("Player1Wins");
+                    //player2Score.value = PlayerPrefs.GetInt("Player2Wins");
+                    //player3Score.value = PlayerPrefs.GetInt("Player3Wins");
+                    SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
+                    SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
+                    SetScore(player3Score, Player3ScoreText, PlayerPrefs.GetInt("Player3Wins"));
 
                     break;
                 case 4:
@@ -90,34 +99,38 @@ public class CompleteScoreScript : MonoBehaviour
                     player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
                     player4Score = GameObject.Find("Player 4 Score").GetComponent<Slider>();
 
-                    //player1Score.GetComponentInChildren<Image>().color = Color.red;
-                    //player2Score.GetComponentInChildren<Image>().color = Color.blue;
-                    //player3Score.GetComponentInChildren<Image>().color = Color.green;
-                    //player4Score.GetComponentInChildren<Image>().color = Color.yellow;
+                    player1Icon = continueScreen4Players.transform.Find("Player 1 Icon").GetComponent<Image>();
+                    player2Icon = continueScreen4Players.transform.Find("Player 2 Icon").GetComponent<Image>();
+                    player3Icon = continueScreen4Players.transform.Find("Player 3 Icon").GetComponent<Image>();
+                    player4Icon = continueScreen4Players.transform.Find("Player 4 Icon").GetComponent<Image>();
 
-                    player1Score.value = PlayerPrefs.GetInt("Player1Wins");
-                    player2Score.value = PlayerPrefs.GetInt("Player2Wins");
-                    player3Score.value = PlayerPrefs.GetInt("Player3Wins");
-                    player4Score.value = PlayerPrefs.GetInt("Player4Wins");
+                    Player1ScoreText = continueScreen4Players.transform.Find("Player1ScoreText").GetComponent<Text>();
+                    Player2ScoreText = continueScreen4Players.transform.Find("Player2ScoreText").GetComponent<Text>();
+                    Player3ScoreText = continueScreen4Players.transform.Find("Player3ScoreText").GetComponent<Text>();
+                    Player4ScoreText = continueScreen4Players.transform.Find("Player4ScoreText").GetComponent<Text>();
+
+                    // player1Score.value = PlayerPrefs.GetInt("Player1Wins");
+                    //player2Score.value = PlayerPrefs.GetInt("Player2Wins");
+                    //player3Score.value = PlayerPrefs.GetInt("Player3Wins");
+                    //player4Score.value = PlayerPrefs.GetInt("Player4Wins");
+                    SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
+                    SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
+                    SetScore(player3Score, Player3ScoreText, PlayerPrefs.GetInt("Player3Wins"));
+                    SetScore(player4Score, Player4ScoreText, PlayerPrefs.GetInt("Player4Wins"));
 
                     break;
             }
 
             SetIcon(player1Icon, PlayerPrefs.GetString("Player1Model"));
-            player1Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(1);
             SetIcon(player2Icon, PlayerPrefs.GetString("Player2Model"));
-            player2Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(2);
-            Debug.Log("colur");
 
             if (PlayerPrefs.GetString("Player3Model") != null)
             {
                 SetIcon(player3Icon, PlayerPrefs.GetString("Player3Model"));
-                player3Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(3);
             }
             if (PlayerPrefs.GetString("Player4Model") != null)
             {
                 SetIcon(player4Icon, PlayerPrefs.GetString("Player4Model"));
-                player4Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(4);
             }
         }
         else {
@@ -147,8 +160,6 @@ public class CompleteScoreScript : MonoBehaviour
             string winscore = "Player" + (maxIndex + 1) + "Wins";
             winnerScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
         }
-
-        
     }
 
     public void SetIcon(Image playerIcon, string animal)
@@ -168,6 +179,33 @@ public class CompleteScoreScript : MonoBehaviour
                 playerIcon.sprite = rabbitIcon.sprite;
                 break;
         }
+    }
+
+    public void SetScore(Slider slider, Text scoreText, int scoreValue)
+    {
+        //0 at -162
+        //1 at -38
+        //2 at 172
+        //3 at 385
+        slider.value = scoreValue;
+        scoreText.text = scoreValue.ToString();
+
+        switch (scoreValue)
+        {
+            case 0:
+                //scoreText.rectTransform.position = new Vector3(-162, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                break;
+            case 1:
+                //scoreText.rectTransform.position = new Vector3(-38, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                break;
+            case 2:
+                //scoreText.rectTransform.position = new Vector3(172, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                break;
+            case 4:
+                //scoreText.rectTransform.position = new Vector3(385, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                break;
+        }
+
     }
 
 

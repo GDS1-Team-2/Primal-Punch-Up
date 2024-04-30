@@ -19,10 +19,10 @@ public class SpriteOutlineGenerator : MonoBehaviour
         switch (playerNumber)
         {
             case 1:
-                outlineMaterial.SetColor("_OutlineColor", Color.red);
+                outlineMaterial.SetColor("_OutlineColor", Color.blue);
                 break;
             case 2:
-                outlineMaterial.SetColor("_OutlineColor", Color.blue);
+                outlineMaterial.SetColor("_OutlineColor", Color.red);
                 break;
             case 3:
                 outlineMaterial.SetColor("_OutlineColor", Color.green);
