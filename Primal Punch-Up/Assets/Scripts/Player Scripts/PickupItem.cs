@@ -39,6 +39,7 @@ public class PickupItem : MonoBehaviour
         audioSource = GameObject.Find("UI Sounds").GetComponent<AudioSource>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
+        baseTag = "Home" + playerNo;
         string scoreTag = "Player" + playerNo + "Score";
         scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
         string inventoryTag = "Player" + playerNo + "InventoryScore";

@@ -7,8 +7,7 @@ public class LizardUniqueAbility : MonoBehaviour
 
     private PlayerBase baseScript;
     public SkinnedMeshRenderer smr;
-    public ParticleSystem smokePrefab;
-    public SphereCollider smokeCollider;
+    public GameObject smokePrefab;
 
     private bool abilityCD = false;
     private float cdTimer = 0.0f;
@@ -21,7 +20,6 @@ public class LizardUniqueAbility : MonoBehaviour
     {
         baseScript = GetComponent<PlayerBase>();
         smr = GetComponentInChildren<SkinnedMeshRenderer>();
-        smokeCollider = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
@@ -31,21 +29,21 @@ public class LizardUniqueAbility : MonoBehaviour
         {
             if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
             {
-                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value))
+                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(LizardAttack());
                 }
             }
             else if (baseScript.playerNo == 3)
             {
-                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(LizardAttack());
                 }
             }
             else if (baseScript.playerNo == 4)
             {
-                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(LizardAttack());
                 }
@@ -66,31 +64,18 @@ public class LizardUniqueAbility : MonoBehaviour
     public IEnumerator LizardAttack()
     {
         smr.enabled = false;
-        ParticleSystem particlesInstance = Instantiate(smokePrefab, transform.position + smokeSpawnLoc, Quaternion.identity);
-        StartCoroutine(SmokeCollider());
+        GameObject particlesInstance = Instantiate(smokePrefab, transform.position + smokeSpawnLoc, Quaternion.identity);
+        LizardSmoke thisLizardSmoke = particlesInstance.GetComponent<LizardSmoke>();
+        PlayerBase thisPlayer = GetComponent<PlayerBase>();
+        thisLizardSmoke.thisPlayer = thisPlayer;
+        StartCoroutine(thisLizardSmoke.SmokeCollider());
         yield return new WaitForSeconds(invisTime);
         particlesInstance = Instantiate(smokePrefab, transform.position + smokeSpawnLoc, Quaternion.identity);
-        StartCoroutine(SmokeCollider());
+        LizardSmoke thisNewLizardSmoke = particlesInstance.GetComponent<LizardSmoke>();
+        thisNewLizardSmoke.thisPlayer = thisPlayer;
+        StartCoroutine(thisLizardSmoke.SmokeCollider());
         smr.enabled = true;
         abilityCD = true;
         cdTimer = cdLength;
-    }
-
-    public IEnumerator SmokeCollider()
-    {
-        smokeCollider.enabled = true;
-        yield return new WaitForSeconds(0.25f);
-        smokeCollider.enabled = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        int smokeDamage = 10;
-        PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
-
-        if (otherPlayer != null && otherPlayer != baseScript && !other.isTrigger)
-        {
-            StartCoroutine(otherPlayer.TakeDamage(smokeDamage));
-        }
     }
 }

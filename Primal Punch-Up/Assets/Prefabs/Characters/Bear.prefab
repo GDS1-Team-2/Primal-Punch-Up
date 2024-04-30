@@ -1133,7 +1133,6 @@ GameObject:
   - component: {fileID: 9093303603891428795}
   - component: {fileID: 197804796273387262}
   - component: {fileID: 5412500035539744412}
-  - component: {fileID: 5151938167561789224}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Bear
@@ -1171,7 +1170,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
@@ -1212,21 +1211,29 @@ MonoBehaviour:
   anim: {fileID: 6964889129514635078}
   rbody: {fileID: 6964889129514635079}
   boxCol: {fileID: 0}
+  capCol: {fileID: 0}
   currentSpeed: 10
   rotateSpeed: 180
   hp: 50
   maxHP: 50
+  deathTimer: 5
   canMove: 0
   speed: 10
   inCombatLength: 10
   dashSpeed: 20
   dashCooldown: 0.6
   dashDuration: 0.6
+  isDashing: 0
   healthBar: {fileID: 0}
   healthBarSlider: {fileID: 0}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
   fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
+  isDead: 0
+  isTakingDamage: 0
+  isAttacking: 0
+  isUsingSpecial: 0
+  bearFireMovement: 0
 --- !u!136 &7811819089111855679
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1320,22 +1327,9 @@ MonoBehaviour:
   anim: {fileID: 0}
   firePrefab: {fileID: 4930033384656873717, guid: ab9e397cc94290b4984ff53760829f3c, type: 3}
   rightHand: {fileID: 4974191164692079214}
-  damageCollider: {fileID: 0}
+  damageCollider: {fileID: 3504021144811894747, guid: fae87052a90ac384eb5cc361ab95ffc8, type: 3}
   cdLength: 5
   punchSpeed: 40
---- !u!135 &5151938167561789224
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811819089111855678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.03
-  m_Center: {x: 0, y: 0.03, z: 0.01}
 --- !u!1 &8047159989690782053
 GameObject:
   m_ObjectHideFlags: 0
