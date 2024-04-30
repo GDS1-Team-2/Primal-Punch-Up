@@ -36,9 +36,9 @@ public class PickupItem : MonoBehaviour
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
         string scoreTag = "Player" + playerNo + "Score";
-        scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
+       // scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
         string inventoryTag = "Player" + playerNo + "InventoryScore";
-        tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
+        //tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -71,18 +71,18 @@ public class PickupItem : MonoBehaviour
             
             UpdateTempScoreText();
         }
-        if (other.gameObject.CompareTag("chocolate")){
-           Destroy(other.gameObject);
-           this.speedRangeCollider.gameObject.SetActive(true);
-           GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
-           newPrefab.transform.parent = this.transform;
-           newPrefab.transform.localScale *= 10;
-           StartCoroutine(DeactivateNodeAfterTime(newPrefab));
-        }
-        if (other.gameObject.CompareTag("speedRange")){
-           this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
-           StartCoroutine(recoverSpeed());
-        }
+        //if (other.gameObject.CompareTag("chocolate")){
+          // Destroy(other.gameObject);
+           //this.speedRangeCollider.gameObject.SetActive(true);
+           //GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
+           //newPrefab.transform.parent = this.transform;
+           //newPrefab.transform.localScale *= 10;
+           //StartCoroutine(DeactivateNodeAfterTime(newPrefab));
+        //}
+        //if (other.gameObject.CompareTag("speedRange")){
+          // this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
+           //StartCoroutine(recoverSpeed());
+        //}
 
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
@@ -129,12 +129,12 @@ public class PickupItem : MonoBehaviour
     }
 
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("speedRange")){
-           this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
-        }
-    }
+   // private void OnTriggerExit(Collider other)
+    //{
+       // if (other.gameObject.CompareTag("speedRange")){
+        //   this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
+       // }
+   // }
 
     private void Update()
     {

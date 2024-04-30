@@ -7,7 +7,10 @@ using UnityEngine.InputSystem;
 public class PlayerBase : MonoBehaviour
 {
     public int playerNo = 0;
-
+    public GameObject teleportGatePrefab;
+    private GameObject firstPortal = null;
+    private GameObject secondPortal = null;
+    private bool hasTeleportGate = false;
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
 
@@ -37,7 +40,7 @@ public class PlayerBase : MonoBehaviour
     string takeHit1Anim = "";
     string deathAnim = "";
     string dashAnim = "";
-    KeyCode ? moveForwardKey = null;
+    KeyCode? moveForwardKey = null;
     KeyCode? moveBackKey = null;
     KeyCode? rotateLeftKey = null;
     KeyCode? rotateRightKey = null;
@@ -158,6 +161,8 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleInput();
+
         if (playerNo == 1 || playerNo == 2)
         {
             if (attack1Key.HasValue && Input.GetKey(attack1Key.Value))
@@ -173,7 +178,8 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
-        } else if (playerNo == 3)
+        }
+        else if (playerNo == 3)
         {
             if (P3Controller.buttonEast.wasPressedThisFrame)
             {
@@ -188,7 +194,8 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
-        } else if (playerNo == 4)
+        }
+        else if (playerNo == 4)
         {
             if (P4Controller.buttonEast.wasPressedThisFrame)
             {
@@ -203,6 +210,7 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
+
         }
 
 
@@ -227,7 +235,8 @@ public class PlayerBase : MonoBehaviour
                 gainHP = 0.0f;
                 //Debug.Log(this.hp);
             }
-        } else
+        }
+        else
         {
             inCombatTimer -= 1 * Time.deltaTime;
             if (inCombatTimer < 0.0f)
@@ -237,7 +246,7 @@ public class PlayerBase : MonoBehaviour
             }
         }
 
-        healthBarSlider.value = hp;
+        //healthBarSlider.value = hp;
 
 
         //setting the players for the round score
@@ -296,12 +305,13 @@ public class PlayerBase : MonoBehaviour
             {
                 moveZ = -1;
             }
-        } else if (playerNo == 3)
+        }
+        else if (playerNo == 3)
         {
             if (P3Controller.leftStick.left.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-            } 
+            }
             else if (P3Controller.leftStick.right.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
@@ -315,7 +325,8 @@ public class PlayerBase : MonoBehaviour
             {
                 moveZ = -1;
             }
-        } else if (playerNo == 4)
+        }
+        else if (playerNo == 4)
         {
             if (P4Controller.leftStick.left.isPressed && !isDashing)
             {
@@ -425,6 +436,12 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             //Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
+
+        if (other.gameObject.CompareTag("PortalPickup"))
+        {
+            hasTeleportGate = true;
+            Destroy(other.gameObject);
+        }
     }
 
     public IEnumerator TakeDamage(int damage)
@@ -436,7 +453,7 @@ public class PlayerBase : MonoBehaviour
         Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 5);
         currentSpeed = speed;
         canMove = true;
     }
@@ -455,5 +472,34 @@ public class PlayerBase : MonoBehaviour
         canMove = true;
         hp = maxHP;
         transform.position = spawnPos;
+    }
+
+    void HandleInput()
+    {
+        if (!hasTeleportGate) return;
+
+        if ((playerNo == 1 && Input.GetKeyDown(KeyCode.T)) ||
+            (playerNo == 2 && Input.GetKeyDown(KeyCode.L)) ||
+            (playerNo == 3 && Gamepad.current.buttonWest.wasPressedThisFrame) ||
+            (playerNo == 4 && Gamepad.current.buttonWest.wasPressedThisFrame))
+        {
+            PlacePortal();
+        }
+    }
+
+    void PlacePortal()
+    {
+        if (firstPortal == null)
+        {
+            firstPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            firstPortal.name = "FirstPortal";
+        }
+        else if (secondPortal == null)
+        {
+            secondPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            secondPortal.name = "SecondPortal";
+            firstPortal.GetComponent<Portal>().SetPartner(secondPortal);
+            secondPortal.GetComponent<Portal>().SetPartner(firstPortal);
+        }
     }
 }
