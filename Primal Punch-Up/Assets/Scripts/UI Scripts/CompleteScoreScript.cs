@@ -21,10 +21,10 @@ public class CompleteScoreScript : MonoBehaviour
     public Image foxIcon;
     public Image rabbitIcon;
 
-    public Image player1Icon;
-    public Image player2Icon;
-    public Image player3Icon;
-    public Image player4Icon;
+    private Image player1Icon;
+    private Image player2Icon;
+    private Image player3Icon;
+    private Image player4Icon;
 
     public Slider player1Score;
     public Slider player2Score;
@@ -49,6 +49,9 @@ public class CompleteScoreScript : MonoBehaviour
 
                     player1Score = GameObject.Find("Player 1 Score").GetComponent<Slider>();
                     player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
+
+                    player1Icon = continueScreen2Players.transform.Find("Player 1 Icon").GetComponent<Image>();
+                    player2Icon = continueScreen2Players.transform.Find("Player 2 Icon").GetComponent<Image>();
 
                     //player1Score.GetComponentInChildren<Image>().color = Color.red;
                     //player2Score.GetComponentInChildren<Image>().color = Color.blue;
@@ -101,19 +104,20 @@ public class CompleteScoreScript : MonoBehaviour
             }
 
             SetIcon(player1Icon, PlayerPrefs.GetString("Player1Model"));
-            player1Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(1);
+            player1Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(1);
             SetIcon(player2Icon, PlayerPrefs.GetString("Player2Model"));
-            player2Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(2);
+            player2Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(2);
+            Debug.Log("colur");
 
             if (PlayerPrefs.GetString("Player3Model") != null)
             {
                 SetIcon(player3Icon, PlayerPrefs.GetString("Player3Model"));
-                player3Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(3);
+                player3Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(3);
             }
             if (PlayerPrefs.GetString("Player4Model") != null)
             {
                 SetIcon(player4Icon, PlayerPrefs.GetString("Player4Model"));
-                player4Icon.GetComponent<SpriteOutlineGenerator>().SetPlayerNo(4);
+                player4Icon.GetComponent<SpriteOutlineGenerator>().UpdateColor(4);
             }
         }
         else {

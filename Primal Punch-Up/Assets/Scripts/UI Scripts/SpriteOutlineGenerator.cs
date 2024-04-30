@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpriteOutlineGenerator : MonoBehaviour
 {
@@ -9,12 +10,13 @@ public class SpriteOutlineGenerator : MonoBehaviour
 
     void Start()
     {
-        UpdateColor();
+        outlineMaterial = gameObject.GetComponent<Image>().material;
+        //UpdateColor();
     }
 
-    public void UpdateColor()
+    public void UpdateColor(int playerNumber)
     {
-        switch (playerNo)
+        switch (playerNumber)
         {
             case 1:
                 outlineMaterial.SetColor("_OutlineColor", Color.red);
@@ -38,6 +40,6 @@ public class SpriteOutlineGenerator : MonoBehaviour
     public void SetPlayerNo(int newPlayerNo)
     {
         playerNo = newPlayerNo;
-        UpdateColor();
+        UpdateColor(playerNo);
     }
 }
