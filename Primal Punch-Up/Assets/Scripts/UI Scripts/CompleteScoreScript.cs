@@ -31,24 +31,27 @@ public class CompleteScoreScript : MonoBehaviour
     public Slider player3Score;
     public Slider player4Score;
 
-    public Text winnerText;
-    public Text winnerScoreText;
+    //public Text winnerText;
+    public Text FirstPlaceScoreText;
+    public Text SecondPlaceScoreText;
+    public Text ThirdPlaceScoreText;
     public int numberOfRounds;
 
-    public class ScoreList
+    public class WinsList
     {
         public int playerNumber;
-        public int score;
-        public ScoreList(int playerNumber, int score)
+        public int wins;
+        public WinsList(int playerNumber, int score)
         {
             this.playerNumber = playerNumber;
-            this.score = score;
+            this.wins = score;
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("RoundNo") < 4)
+        if (PlayerPrefs.GetInt("RoundNo") < 1)
         {
             switch (PlayerPrefs.GetInt("noOfPlayers"))
             {
@@ -143,26 +146,12 @@ public class CompleteScoreScript : MonoBehaviour
             continueScreen3Players.SetActive(false);
             continueScreen4Players.SetActive(false);
 
-            int[] wins = {PlayerPrefs.GetInt("Player1Wins"),
-                            PlayerPrefs.GetInt("Player2Wins"),
-                            PlayerPrefs.GetInt("Player3Wins"),
-                            PlayerPrefs.GetInt("Player4Wins")};
+            CalculateWinner();
+            
 
-            int maxIndex = -1;
-            int maxValue = 0;
-            for (int i = 0; i < 4; i++)
-            {
-                if (wins[i] > maxValue)
-                {
-                    maxValue = wins[i];
-                    maxIndex = i;
-                }
-            }
-
-            string winner = "Player " + (maxIndex + 1);
-            winnerText.text = winner;
-            string winscore = "Player" + (maxIndex + 1) + "Wins";
-            winnerScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+            //1st place pos  0, 0.29,-4.5
+            //2nd place pos -2,-0.5,-4.5
+            //3rd place pos  2,-1.05,-4.5
         }
     }
 
@@ -223,9 +212,9 @@ public class CompleteScoreScript : MonoBehaviour
         }
     }
 
-    public List<ScoreList> ListWins(int noOfPlayers)
-    {
-        List<ScoreList> sorted = new List<ScoreList>();
+    //public List<WinsList> ListWins(int noOfPlayers)
+    //{
+        /*List<ScoreList> sorted = new List<ScoreList>();
         for (int i = 1; i <= noOfPlayers; i++)
         {
             string scoreString = "Player" + i + "Wins";
@@ -233,7 +222,71 @@ public class CompleteScoreScript : MonoBehaviour
         }
         //sorted.Sort();
         //sorted.Reverse();
-        return sorted;
+        return sorted;*/
+    //}
+
+    public void CalculateWinner()
+    {
+        List<int> wins = new List<int>();
+        int[] playerindex = {1, 2, 3, 4};
+
+        wins.Add(PlayerPrefs.GetInt("Player1Wins"));
+        wins.Add(PlayerPrefs.GetInt("Player2Wins"));
+        wins.Add(PlayerPrefs.GetInt("Player3Wins"));
+        wins.Add(PlayerPrefs.GetInt("Player4Wins"));
+
+        //wins.Sort();
+        //wins.Reverse();
+        //Debug.Log(wins);
+
+        for (int i = 1; i < 4; ++i)
+        {
+            int key = wins[i];
+            int keyIndex = playerindex[i];
+            int j = i - 1;
+
+            while (j >= 0 && wins[j] < key) 
+            {
+                wins[j + 1] = wins[j];
+                playerindex[j + 1] = playerindex[j];
+                j = j - 1;
+            }
+            wins[j + 1] = key;
+            playerindex[j + 1] = keyIndex;
+        }
+
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            string winscore = "Player" + playerindex[i] + "Wins";
+            switch (i)
+            {
+                case 0:
+                    FirstPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+                    break;
+                case 1:
+                    SecondPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+                    break;
+                case 2:
+                    ThirdPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+                    break;
+            }
+        }
+
+        /*int maxIndex = -1;
+        int maxValue = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (wins[i] > maxValue)
+            {
+                maxValue = wins[i];
+                maxIndex = i;
+            }
+        }
+        
+         string winner = "Player " + wins[i];
+            winnerText.text = winner;*/
     }
 
 
