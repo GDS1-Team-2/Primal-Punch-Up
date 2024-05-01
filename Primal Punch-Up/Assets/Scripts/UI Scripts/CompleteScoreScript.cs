@@ -21,6 +21,11 @@ public class CompleteScoreScript : MonoBehaviour
     public Image foxIcon;
     public Image rabbitIcon;
 
+    public GameObject lizardModel;
+    public GameObject bearModel;
+    public GameObject foxModel;
+    public GameObject rabbitModel;
+
     public Image player1Icon;
     public Image player2Icon;
     public Image player3Icon;
@@ -36,6 +41,10 @@ public class CompleteScoreScript : MonoBehaviour
     public Text SecondPlaceScoreText;
     public Text ThirdPlaceScoreText;
     public int numberOfRounds;
+
+    public Transform FirstPlacePosition;
+    public Transform SecondPlacePosition;
+    public Transform ThirdPlacePosition;
 
     public class WinsList
     {
@@ -147,11 +156,6 @@ public class CompleteScoreScript : MonoBehaviour
             continueScreen4Players.SetActive(false);
 
             CalculateWinner();
-            
-
-            //1st place pos  0, 0.29,-4.5
-            //2nd place pos -2,-0.5,-4.5
-            //3rd place pos  2,-1.05,-4.5
         }
     }
 
@@ -170,6 +174,25 @@ public class CompleteScoreScript : MonoBehaviour
                 break;
             case "Rabbit":
                 playerIcon.sprite = rabbitIcon.sprite;
+                break;
+        }
+    }
+
+    public void SetModel(Vector3 pos, string animal)
+    {
+        switch (animal)
+        {
+            case "Lizard":
+                lizardModel.transform.position = pos;
+                break;
+            case "Bear":
+                bearModel.transform.position = pos;
+                break;
+            case "Fox":
+                foxModel.transform.position = pos;
+                break;
+            case "Rabbit":
+                rabbitModel.transform.position = pos;
                 break;
         }
     }
@@ -212,19 +235,6 @@ public class CompleteScoreScript : MonoBehaviour
         }
     }
 
-    //public List<WinsList> ListWins(int noOfPlayers)
-    //{
-        /*List<ScoreList> sorted = new List<ScoreList>();
-        for (int i = 1; i <= noOfPlayers; i++)
-        {
-            string scoreString = "Player" + i + "Wins";
-            sorted.Add(new ScoreList(i, PlayerPrefs.GetInt(scoreString)));
-        }
-        //sorted.Sort();
-        //sorted.Reverse();
-        return sorted;*/
-    //}
-
     public void CalculateWinner()
     {
         List<int> wins = new List<int>();
@@ -234,10 +244,6 @@ public class CompleteScoreScript : MonoBehaviour
         wins.Add(PlayerPrefs.GetInt("Player2Wins"));
         wins.Add(PlayerPrefs.GetInt("Player3Wins"));
         wins.Add(PlayerPrefs.GetInt("Player4Wins"));
-
-        //wins.Sort();
-        //wins.Reverse();
-        //Debug.Log(wins);
 
         for (int i = 1; i < 4; ++i)
         {
@@ -256,38 +262,29 @@ public class CompleteScoreScript : MonoBehaviour
         }
 
 
-
         for (int i = 0; i < 3; i++)
         {
             string winscore = "Player" + playerindex[i] + "Wins";
+            string playerno = "Player" + playerindex[i] + "Model";
             switch (i)
             {
                 case 0:
                     FirstPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+                    SetModel(FirstPlacePosition.position, PlayerPrefs.GetString(playerno));
                     break;
                 case 1:
                     SecondPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+                    SetModel(SecondPlacePosition.position, PlayerPrefs.GetString(playerno));
                     break;
                 case 2:
                     ThirdPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+                    SetModel(ThirdPlacePosition.position, PlayerPrefs.GetString(playerno));
                     break;
             }
         }
-
-        /*int maxIndex = -1;
-        int maxValue = 0;
-        for (int i = 0; i < 4; i++)
-        {
-            if (wins[i] > maxValue)
-            {
-                maxValue = wins[i];
-                maxIndex = i;
-            }
-        }
-        
-         string winner = "Player " + wins[i];
-            winnerText.text = winner;*/
     }
+
+    
 
 
     // Update is called once per frame
