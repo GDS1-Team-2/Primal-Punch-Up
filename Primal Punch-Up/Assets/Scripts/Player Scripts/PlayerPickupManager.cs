@@ -82,6 +82,7 @@ public class PlayerPickupManager : MonoBehaviour
         }
         else if((currentItem.name == "MagetItem")) {
             MagnetItem.ActivateMagnet();
+            hasItem = false;
         }
             
     }

@@ -17,14 +17,14 @@ public class PickupItem : MonoBehaviour
     public string OneScoreTag = "ItemSpawn"; // Tag for items worth one point
     public string ThreeScoreTag = "ScoreItems"; // Tag for items worth three points
     public string BadScoreTag = "PunishScoreItem"; // Tag for items that subtract points
-    public string BigerBag = "BigerBag";
+    //public string BigerBag = "BigerBag";
     public string baseTag; // Base tag for depositing items
 
 
     //follow is for ?
-    public GameObject speedRangeCollider; // Collider that increases player's speed
+    /*public GameObject speedRangeCollider; // Collider that increases player's speed
     public GameObject blueEffectPrefab; // Prefab for the visual effect when speed is increased
-    float speedRangeDeactivationTime = 10.0f; // Time after which the speed range effect deactivates
+    float speedRangeDeactivationTime = 10.0f; // Time after which the speed range effect deactivates*/
 
     public GameObject Manager;
     private RoundsScript RoundsScript;
@@ -53,7 +53,7 @@ public class PickupItem : MonoBehaviour
         {
             AddScore(other.gameObject, 3);
         }
-        if (other.gameObject.CompareTag(BigerBag))
+        /*if (other.gameObject.CompareTag(BigerBag))
         {
             maxTempBag = 5;
             Destroy(other.gameObject);
@@ -73,7 +73,7 @@ public class PickupItem : MonoBehaviour
         {
             this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
             StartCoroutine(recoverSpeed());
-        }
+        }*/
 
         if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
         {
@@ -85,7 +85,7 @@ public class PickupItem : MonoBehaviour
         }
     }
 
-    IEnumerator DeactivateNodeAfterTime(GameObject effect)
+    /*IEnumerator DeactivateNodeAfterTime(GameObject effect)
     {
         yield return new WaitForSeconds(speedRangeDeactivationTime);
         this.speedRangeCollider.gameObject.SetActive(false);
@@ -104,7 +104,7 @@ public class PickupItem : MonoBehaviour
         {
             this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
         }
-    }
+    }*/
 
     private void Update()
     {
