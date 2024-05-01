@@ -34,6 +34,17 @@ public class CompleteScoreScript : MonoBehaviour
     public Text winnerText;
     public Text winnerScoreText;
     public int numberOfRounds;
+
+    public class ScoreList
+    {
+        public int playerNumber;
+        public int score;
+        public ScoreList(int playerNumber, int score)
+        {
+            this.playerNumber = playerNumber;
+            this.score = score;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -56,12 +67,11 @@ public class CompleteScoreScript : MonoBehaviour
                     Player1ScoreText = GameObject.Find("Player1ScoreText").GetComponent<Text>();
                     Player2ScoreText = GameObject.Find("Player2ScoreText").GetComponent<Text>();
 
-                    //player1Score.value = PlayerPrefs.GetInt("Player1Wins");
-                    //player2Score.value = PlayerPrefs.GetInt("Player2Wins");
                     SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
                     SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
 
                     break;
+
                 case 3:
                     continueScreen3Players.SetActive(true);
                     continueScreen2Players.SetActive(false);
@@ -80,14 +90,12 @@ public class CompleteScoreScript : MonoBehaviour
                     Player2ScoreText = continueScreen3Players.transform.Find("Player2ScoreText").GetComponent<Text>();
                     Player3ScoreText = continueScreen3Players.transform.Find("Player3ScoreText").GetComponent<Text>();
 
-                    // player1Score.value = PlayerPrefs.GetInt("Player1Wins");
-                    //player2Score.value = PlayerPrefs.GetInt("Player2Wins");
-                    //player3Score.value = PlayerPrefs.GetInt("Player3Wins");
                     SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
                     SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
                     SetScore(player3Score, Player3ScoreText, PlayerPrefs.GetInt("Player3Wins"));
 
                     break;
+
                 case 4:
                     continueScreen4Players.SetActive(true);
                     continueScreen2Players.SetActive(false);
@@ -109,10 +117,6 @@ public class CompleteScoreScript : MonoBehaviour
                     Player3ScoreText = continueScreen4Players.transform.Find("Player3ScoreText").GetComponent<Text>();
                     Player4ScoreText = continueScreen4Players.transform.Find("Player4ScoreText").GetComponent<Text>();
 
-                    // player1Score.value = PlayerPrefs.GetInt("Player1Wins");
-                    //player2Score.value = PlayerPrefs.GetInt("Player2Wins");
-                    //player3Score.value = PlayerPrefs.GetInt("Player3Wins");
-                    //player4Score.value = PlayerPrefs.GetInt("Player4Wins");
                     SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
                     SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
                     SetScore(player3Score, Player3ScoreText, PlayerPrefs.GetInt("Player3Wins"));
@@ -187,25 +191,49 @@ public class CompleteScoreScript : MonoBehaviour
         //1 at -38
         //2 at 172
         //3 at 385
-        slider.value = scoreValue;
+        //slider.value = scoreValue;
         scoreText.text = scoreValue.ToString();
+        StartCoroutine(IncreaseScore(slider, slider.value, scoreValue, 1));
 
-        switch (scoreValue)
+        /*switch (scoreValue)
         {
             case 0:
-                //scoreText.rectTransform.position = new Vector3(-162, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                scoreText.gameObject.transform.position = new Vector3(-162, scoreText.gameObject.transform.position.y, scoreText.gameObject.transform.position.z);
                 break;
             case 1:
-                //scoreText.rectTransform.position = new Vector3(-38, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                scoreText.rectTransform.position = new Vector3(-138, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
                 break;
             case 2:
-                //scoreText.rectTransform.position = new Vector3(172, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                scoreText.rectTransform.position = new Vector3(172, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
                 break;
             case 4:
-                //scoreText.rectTransform.position = new Vector3(385, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
+                scoreText.rectTransform.position = new Vector3(385, scoreText.rectTransform.position.y, scoreText.rectTransform.position.z);
                 break;
-        }
+        }*/
+    }
 
+    private IEnumerator IncreaseScore(Slider slider, float startValue, int endValue, float duration)
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            slider.value = Mathf.Lerp(startValue, endValue, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    public List<ScoreList> ListWins(int noOfPlayers)
+    {
+        List<ScoreList> sorted = new List<ScoreList>();
+        for (int i = 1; i <= noOfPlayers; i++)
+        {
+            string scoreString = "Player" + i + "Wins";
+            sorted.Add(new ScoreList(i, PlayerPrefs.GetInt(scoreString)));
+        }
+        //sorted.Sort();
+        //sorted.Reverse();
+        return sorted;
     }
 
 
