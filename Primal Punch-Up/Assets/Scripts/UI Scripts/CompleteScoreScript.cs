@@ -40,11 +40,20 @@ public class CompleteScoreScript : MonoBehaviour
     public Text FirstPlaceScoreText;
     public Text SecondPlaceScoreText;
     public Text ThirdPlaceScoreText;
-    public int numberOfRounds;
+    //public int numberOfRounds;
 
     public Transform FirstPlacePosition;
     public Transform SecondPlacePosition;
     public Transform ThirdPlacePosition;
+
+    public Image FirstPlaceIcon;
+    public Image SecondPlaceIcon;
+    public Image ThirdPlaceIcon;
+
+    public Material Player1Outline;
+    public Material Player2Outline;
+    public Material Player3Outline;
+    public Material Player4Outline;
 
     public class WinsList
     {
@@ -265,26 +274,58 @@ public class CompleteScoreScript : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             string winscore = "Player" + playerindex[i] + "Wins";
-            string playerno = "Player" + playerindex[i] + "Model";
+            string playermodel = "Player" + playerindex[i] + "Model";
             switch (i)
             {
                 case 0:
                     FirstPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                    SetModel(FirstPlacePosition.position, PlayerPrefs.GetString(playerno));
+                    SetModel(FirstPlacePosition.position, PlayerPrefs.GetString(playermodel));
+                    SetIcon(FirstPlaceIcon, PlayerPrefs.GetString(playermodel));
+                    SetIconColour(FirstPlaceIcon, playerindex[i]);
                     break;
                 case 1:
                     SecondPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                    SetModel(SecondPlacePosition.position, PlayerPrefs.GetString(playerno));
+                    SetModel(SecondPlacePosition.position, PlayerPrefs.GetString(playermodel));
+                    SetIcon(SecondPlaceIcon, PlayerPrefs.GetString(playermodel));
+                    SetIconColour(SecondPlaceIcon, playerindex[i]);
                     break;
                 case 2:
-                    ThirdPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                    SetModel(ThirdPlacePosition.position, PlayerPrefs.GetString(playerno));
+                    if (PlayerPrefs.GetInt("noOfPlayers") > 2)
+                    {
+                        ThirdPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
+                        SetModel(ThirdPlacePosition.position, PlayerPrefs.GetString(playermodel));
+                        SetIcon(ThirdPlaceIcon, PlayerPrefs.GetString(playermodel));
+                        SetIconColour(ThirdPlaceIcon, playerindex[i]);
+                    }
+                    else
+                    {
+                        ThirdPlaceIcon.enabled = false;
+                        ThirdPlaceScoreText.enabled = false;
+                    }
                     break;
             }
+            
         }
     }
 
-    
+    public void SetIconColour(Image playerIcon, int playerNumber)
+    {
+        switch (playerNumber)
+        {
+            case 1:
+                playerIcon.material = Player1Outline;
+                break;
+            case 2:
+                playerIcon.material = Player2Outline;
+                break;
+            case 3:
+                playerIcon.material = Player3Outline;
+                break;
+            case 4:
+                playerIcon.material = Player4Outline;
+                break;
+        }
+    }
 
 
     // Update is called once per frame
