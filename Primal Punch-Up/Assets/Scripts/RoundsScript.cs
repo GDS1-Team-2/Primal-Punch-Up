@@ -86,27 +86,6 @@ public class RoundsScript : MonoBehaviour
         Player4 = player;
     }
 
-    public void SavePlayer1Score(int score)
-    {
-        PlayerPrefs.SetInt("ScoreKey1", score);
-        PlayerPrefs.Save();
-    }
-    public void SavePlayer2Score(int score)
-    {
-        PlayerPrefs.SetInt("ScoreKey2", score);
-        PlayerPrefs.Save();
-    }
-    public void SavePlayer3Score(int score)
-    {
-        PlayerPrefs.SetInt("ScoreKey3", score);
-        PlayerPrefs.Save();
-    }
-    public void SavePlayer4Score(int score)
-    {
-        PlayerPrefs.SetInt("ScoreKey4", score);
-        PlayerPrefs.Save();
-    }
-
     public void EndRound()
     {
         int[] scores = {PlayerPrefs.GetInt("ScoreKey1"), PlayerPrefs.GetInt("ScoreKey2"),
