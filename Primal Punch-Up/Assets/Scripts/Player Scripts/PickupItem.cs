@@ -41,9 +41,9 @@ public class PickupItem : MonoBehaviour
         playerNo = PlayerBase.playerNo;
         baseTag = "Home" + playerNo;
         string scoreTag = "Player" + playerNo + "Score";
-       // scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
+        scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
         string inventoryTag = "Player" + playerNo + "InventoryScore";
-        //tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
+        tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
     }
 
     private void OnTriggerEnter(Collider other)
