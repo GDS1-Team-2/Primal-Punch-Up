@@ -24,14 +24,14 @@ public class MagnetItem : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("MagnetItem"))
         {
             ActivateMagnet();
             Destroy(other.gameObject);  // Ïú»Ù´ÅÌúµÀ¾ß
         }
-    }
+    }*/
 
     public void ActivateMagnet()
     {
