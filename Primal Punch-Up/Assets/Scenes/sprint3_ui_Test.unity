@@ -19424,6 +19424,7 @@ MonoBehaviour:
   playerNo: 0
   itemTexts: []
   MagnetItem: {fileID: 0}
+  itemIconUI: {fileID: 0}
 --- !u!137 &242327529675312503
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -22200,13 +22201,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 1124693863}
+  - {fileID: 1448466250548227226}
+  - {fileID: 1587506061}
   currentItem: {fileID: 0}
   hasItem: 0
   PlayerBase: {fileID: 0}
   playerNo: 0
   itemTexts: []
   MagnetItem: {fileID: 0}
+  itemIconUI: {fileID: 1232995409}
 --- !u!114 &7782587197634625761
 MonoBehaviour:
   m_ObjectHideFlags: 0

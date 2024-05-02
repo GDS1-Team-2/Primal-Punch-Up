@@ -15,8 +15,9 @@ public class PlayerPickupManager : MonoBehaviour
     public GameObject[] itemTexts;
 
     public MagnetItem MagnetItem;
-    
 
+    //add icon
+    public Image itemIconUI; // UI Image component to display the item icon
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +63,13 @@ public class PlayerPickupManager : MonoBehaviour
                 {
                     text.GetComponent<Text>().text = uitext;
                 }
+
+                // Update the UI icon for the current item
+                if (currentItem.GetComponent<Ui_icon>() != null)
+                {
+                    itemIconUI.sprite = currentItem.GetComponent<Ui_icon>().itemIcon;
+                    itemIconUI.gameObject.SetActive(true); // Ensure the icon is visible
+                }
             }
         }
     }
@@ -73,12 +81,14 @@ public class PlayerPickupManager : MonoBehaviour
             currentItem.GetComponent<TrapScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
             hasItem = false;
+            itemIconUI.gameObject.SetActive(false);
         }
         else if (currentItem.name == "Landmine")
         {
             currentItem.GetComponent<LandmineScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
             hasItem = false;
+            itemIconUI.gameObject.SetActive(false);
         }
         else if((currentItem.name == "MagetItem")) {
             MagnetItem.ActivateMagnet();
