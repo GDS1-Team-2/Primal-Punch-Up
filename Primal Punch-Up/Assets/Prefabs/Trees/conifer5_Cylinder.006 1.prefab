@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2066577243447280916}
   - component: {fileID: 1291384364762024686}
   - component: {fileID: 6159774334514871350}
+  - component: {fileID: 7107057255247566670}
   m_Layer: 0
   m_Name: conifer5_Cylinder.006 1
   m_TagString: Untagged
@@ -84,3 +85,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7107057255247566670
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5647974510526052543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8233423159555559216, guid: bf67988cf8fefea468d87e389ca93b79, type: 3}

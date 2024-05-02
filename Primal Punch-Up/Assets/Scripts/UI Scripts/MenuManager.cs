@@ -84,7 +84,10 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == MainMenuSceneName)
+        if (SceneManager.GetActiveScene().name == MainMenuSceneName ||
+            SceneManager.GetActiveScene().name == CharacterSelectSceneName ||
+            SceneManager.GetActiveScene().name == MapSelectSceneName ||
+            SceneManager.GetActiveScene().name == PlayerNumberSelectSceneName)
         {
             PlayerPrefs.SetInt("Player1Wins", 0);
             PlayerPrefs.SetInt("Player2Wins", 0);

@@ -77,6 +77,7 @@ public class PlayerBase : MonoBehaviour
     private Vector3 spawnPos;
     private PickupItem PickupItem;
 
+    public GameObject fruitPrefab;
     public bool isDead = false;
     public bool isTakingDamage = false;
     public bool isAttacking = false;
@@ -95,6 +96,7 @@ public class PlayerBase : MonoBehaviour
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerPickupManager = gameObject.GetComponent<PlayerPickupManager>();
+
 
         PickupItem = GetComponent<PickupItem>();
 
@@ -115,6 +117,7 @@ public class PlayerBase : MonoBehaviour
                 itemKey = KeyCode.N;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -127,14 +130,17 @@ public class PlayerBase : MonoBehaviour
                 itemKey = KeyCode.RightBracket;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player2Model", gameObject.tag);
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player3Model", gameObject.tag);
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player4Model", gameObject.tag);
                 break;
         }
 
@@ -462,7 +468,13 @@ public class PlayerBase : MonoBehaviour
         currentSpeed = 0;
         anim.Play(takeHit1Anim);
         hp -= damage;
-        Debug.Log(gameObject.name + " HP: " + hp);
+        for (int i = 0; i < PickupItem.tempScore; i++)
+        {
+            Debug.Log("drop");
+            GameObject fruit = Instantiate(fruitPrefab, gameObject.transform.position, Quaternion.identity);
+            fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
+        }
+        //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 5);

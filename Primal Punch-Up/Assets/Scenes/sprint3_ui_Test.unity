@@ -20103,6 +20103,7 @@ GameObject:
   - component: {fileID: 8012347074628972666}
   - component: {fileID: 8246646033090493353}
   - component: {fileID: 6228556997889812747}
+  - component: {fileID: 8246646033090493354}
   m_Layer: 0
   m_Name: BearIcon
   m_TagString: Untagged
@@ -20580,6 +20581,7 @@ MonoBehaviour:
   healthBarSlider: {fileID: 0}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
+  fruitPrefab: {fileID: 0}
 --- !u!54 &3843513543303457784
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21934,6 +21936,7 @@ MonoBehaviour:
   healthBarSlider: {fileID: 0}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
+  fruitPrefab: {fileID: 0}
 --- !u!54 &6964889131301662410
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21994,6 +21997,7 @@ MonoBehaviour:
   BadScoreTag: NegativeFruit
   baseTag: Home1
   Manager: {fileID: 0}
+  audioSource: {fileID: 0}
   playerNo: 0
 --- !u!1 &7100809560800092220
 GameObject:
@@ -22583,6 +22587,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8246646033090493354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031868048343883929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e27595e744731944bf6a5b11a82a9aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMaterial: {fileID: 2100000, guid: c6e111631f6f7df42857ee3596fc465a, type: 2}
+  playerNo: 3
 --- !u!4 &8277487438771004686
 Transform:
   m_ObjectHideFlags: 0
@@ -22913,6 +22931,7 @@ MonoBehaviour:
   BadScoreTag: NegativeFruit
   baseTag: Home2
   Manager: {fileID: 0}
+  audioSource: {fileID: 0}
   playerNo: 0
 --- !u!4 &9118677113657445268
 Transform:
