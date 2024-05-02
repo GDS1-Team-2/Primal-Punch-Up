@@ -6804,6 +6804,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6964889129514635076, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: flamePrefab
+      value: 
+      objectReference: {fileID: 2599679904589132441, guid: 497fb7daaae482e4986117ac010365bb, type: 3}
+    - target: {fileID: 6964889129514635076, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: flameLifetime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964889129514635076, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: flameTrailDuration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6964889129514635076, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
       propertyPath: teleportGatePrefab
       value: 
       objectReference: {fileID: 7577934001833564739, guid: 89a7a1e1cd9dda941bf50aca005dde9c, type: 3}
@@ -19052,3 +19064,78 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b5fac81b175ba74994fbe56214889e9, type: 3}
+--- !u!1001 &7945203849238202796
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4243
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4243
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4243
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 27.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7764183
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.6302179
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215515827841364103, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -78.132
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090779288734024140, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_Name
+      value: FirePickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090779288734024140, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
+      propertyPath: m_TagString
+      value: FirePickup
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: f327e85ec0ea7ce4197a89d7fdfe7b74, type: 3}
