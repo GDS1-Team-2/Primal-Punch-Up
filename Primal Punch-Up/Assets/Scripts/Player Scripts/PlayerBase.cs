@@ -20,9 +20,6 @@ public class PlayerBase : MonoBehaviour
     public float flameSpawnInterval = 0.5f;
     public float flameLifetime = 1.0f;
 
-
-
-
     public Animator anim;
     public Rigidbody rbody;
     public BoxCollider boxCol;
@@ -70,6 +67,10 @@ public class PlayerBase : MonoBehaviour
     public GameObject healthBar;
     public Slider healthBarSlider;
 
+    public GameObject respawnScreen;
+    public Slider respawnSlider;
+    public Text respawnTimer;
+
     public GameObject Manager;
     private RoundsScript RoundsScript;
     public PlayerPickupManager PlayerPickupManager;
@@ -97,6 +98,13 @@ public class PlayerBase : MonoBehaviour
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerPickupManager = gameObject.GetComponent<PlayerPickupManager>();
 
+        string s = "Player" + playerNo + "Respawn";
+        respawnScreen = GameObject.Find(s);
+        s = "Player" + playerNo + "RespawnSlider";
+        respawnSlider = GameObject.Find(s).GetComponent<Slider>();
+        s = "Player" + playerNo + "RespawnTimer";
+        respawnTimer = GameObject.Find(s).GetComponent<Text>();
+        respawnScreen.SetActive(false);
 
         PickupItem = GetComponent<PickupItem>();
 
@@ -495,6 +503,7 @@ public class PlayerBase : MonoBehaviour
     {
         isDead = true;
         anim.Play(deathAnim);
+        respawnScreen.SetActive(true);
         int radius = 5;
         int fruitNumber = PickupItem.tempScore;
         Vector3 center = new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z);
@@ -510,7 +519,8 @@ public class PlayerBase : MonoBehaviour
 
         for (float timer = deathTimer; timer >= 0; timer -= 1f)
         {
-            Debug.Log("Time remaining: " + timer + " seconds");
+            respawnTimer.text = timer.ToString();
+            respawnSlider.value = timer;
             yield return new WaitForSeconds(1f);
         }
 
@@ -518,6 +528,7 @@ public class PlayerBase : MonoBehaviour
         transform.position = spawnPos;
         hp = maxHP;
         isDead = false;
+        respawnScreen.SetActive(false);
     }
 
     void HandleInput()

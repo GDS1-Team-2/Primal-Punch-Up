@@ -31,22 +31,24 @@ public class MapScript : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         int rand = Random.Range(0, spawnPoints.Length);
-        while (spawnPoints[rand].activeSelf == true)
+        /*while (spawnPoints[rand].activeSelf == true)
         {
             rand = Random.Range(0, spawnPoints.Length);
+        }*/
+        if (spawnPoints[rand].activeSelf == false)
+        {
+            spawnPoints[rand].SetActive(true);
         }
-        spawnPoints[rand].SetActive(true);
         StartCoroutine(SpawnItems());
     }
     IEnumerator SpawnFruit()
     {
         yield return new WaitForSeconds(5);
         int rand = Random.Range(0, fruitSpawnPoints.Length);
-        while (spawnPoints[rand].activeSelf == true)
+        if (fruitSpawnPoints[rand].activeSelf == false)
         {
-            rand = Random.Range(0, fruitSpawnPoints.Length);
+            fruitSpawnPoints[rand].SetActive(true);
         }
-        spawnPoints[rand].SetActive(true);
         StartCoroutine(SpawnFruit());
     }
 }
