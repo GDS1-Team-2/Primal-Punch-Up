@@ -5,10 +5,18 @@ using UnityEngine;
 public class MapScript : MonoBehaviour
 {
     public GameObject[] spawnPoints;
+    public GameObject[] bases;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Spawn());
+        StartCoroutine(SpawnItems());
+        for (int i = 0; i < bases.Length; i++)
+        {
+            if (i >= PlayerPrefs.GetInt("noOfPlayers"))
+            {
+                bases[i].SetActive(false);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -17,7 +25,7 @@ public class MapScript : MonoBehaviour
         
     }
 
-    IEnumerator Spawn()
+    IEnumerator SpawnItems()
     {
         yield return new WaitForSeconds(5);
         int rand = Random.Range(0, spawnPoints.Length);
@@ -26,6 +34,6 @@ public class MapScript : MonoBehaviour
             rand = Random.Range(0, spawnPoints.Length);
         }
         spawnPoints[rand].SetActive(true);
-        StartCoroutine(Spawn());
+        StartCoroutine(SpawnItems());
     }
 }
