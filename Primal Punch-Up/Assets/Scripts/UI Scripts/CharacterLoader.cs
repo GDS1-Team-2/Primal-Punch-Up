@@ -39,10 +39,10 @@ public class CharacterLoader : MonoBehaviour
         if (loadCharacters == true)
         {
             noOfPlayers = PlayerPrefs.GetInt("noOfPlayers");
-            P1Spawn = GameObject.Find("HomeBase (1)");
-            P2Spawn = GameObject.Find("HomeBase (2)");
-            P3Spawn = GameObject.Find("HomeBase (3)");
-            P4Spawn = GameObject.Find("HomeBase (4)");
+            P1Spawn = GameObject.Find("HomeBase1");
+            P2Spawn = GameObject.Find("HomeBase2");
+            P3Spawn = GameObject.Find("HomeBase3");
+            P4Spawn = GameObject.Find("HomeBase4");
 
             for (int i = 0; i < noOfPlayers; i++)
             {
