@@ -94,6 +94,10 @@ public class MenuManager : MonoBehaviour
             PlayerPrefs.SetInt("Player3Wins", 0);
             PlayerPrefs.SetInt("Player4Wins", 0);
             PlayerPrefs.SetInt("RoundNo", 1);
+            PlayerPrefs.SetInt("ScoreKey1", 0);
+            PlayerPrefs.SetInt("ScoreKey2", 0);
+            PlayerPrefs.SetInt("ScoreKey3", 0);
+            PlayerPrefs.SetInt("ScoreKey4", 0);
             PlayerPrefs.Save();
         }
     }

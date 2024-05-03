@@ -238,7 +238,6 @@ GameObject:
   m_Component:
   - component: {fileID: 503413277}
   - component: {fileID: 503413276}
-  - component: {fileID: 503413275}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -246,24 +245,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &503413275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503413274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dce6818c067b0540b90489c4f7a75b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noOfPlayers: 1
-  noOfRounds: 1
-  playerDrop: {fileID: 0}
-  playerNoDrop: {fileID: 0}
-  roundDrop: {fileID: 0}
-  roundNoDrop: {fileID: 0}
 --- !u!114 &503413276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,6 +1033,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lizard
       objectReference: {fileID: 0}
+    - target: {fileID: 6646040885406481520, guid: 13a0d744bd4760745a8ee66ad3eb1b64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6979246154201744533, guid: 13a0d744bd4760745a8ee66ad3eb1b64, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1577,6 +1562,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4932485034459057691, guid: c92b184a3fc44074cb79cfac9da05f8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5724064556769196478, guid: c92b184a3fc44074cb79cfac9da05f8d, type: 3}
       propertyPath: m_Name
       value: Fox
@@ -1594,6 +1583,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3666104320534630235, guid: bb5a61eecfd9c134284b9bab5a97ed11, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589373237573452284, guid: bb5a61eecfd9c134284b9bab5a97ed11, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6964448494670545983, guid: bb5a61eecfd9c134284b9bab5a97ed11, type: 3}
@@ -1677,6 +1670,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 197804796273387262, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2031868050147705108, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5151938167561789224, guid: 757c9da5c6484f64891c1feabe66dcbd, type: 3}

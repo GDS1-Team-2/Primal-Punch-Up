@@ -972,6 +972,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNo: 0
   teleportGatePrefab: {fileID: 7577934001833564739, guid: 89a7a1e1cd9dda941bf50aca005dde9c, type: 3}
+  flamePrefab: {fileID: 0}
+  hasFlameItem: 0
+  flameTrailDuration: 5
+  flameSpawnInterval: 0.5
+  flameLifetime: 1
   anim: {fileID: 0}
   rbody: {fileID: 0}
   boxCol: {fileID: 0}
@@ -998,6 +1003,7 @@ MonoBehaviour:
   isAttacking: 0
   isUsingSpecial: 0
   bearFireMovement: 0
+  lizSmokeDmg: 0
 --- !u!65 &4149942698365022005
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1033,10 +1039,7 @@ MonoBehaviour:
   OneScoreTag: score1
   ThreeScoreTag: score2
   BadScoreTag: NegativeFruit
-  BigerBag: BigerBag
   baseTag: Home1
-  speedRangeCollider: {fileID: 0}
-  blueEffectPrefab: {fileID: 0}
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
   playerNo: 0
@@ -1062,6 +1065,7 @@ MonoBehaviour:
   playerNo: 0
   itemTexts: []
   MagnetItem: {fileID: 0}
+  itemIconUI: {fileID: 0}
 --- !u!114 &8308846308071102076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1485,8 +1489,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8512258468613967134}
   - component: {fileID: 3846237997825244276}
-  - component: {fileID: 6291293919665745590}
-  - component: {fileID: 5850603242195508447}
   m_Layer: 0
   m_Name: LizardIcon
   m_TagString: Untagged
@@ -1561,34 +1563,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6291293919665745590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6646040885406481520}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c8872ad75266744ac0bf0d25a6cd0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  heightAbovePlayer: 100
---- !u!114 &5850603242195508447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6646040885406481520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e27595e744731944bf6a5b11a82a9aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMaterial: {fileID: 2100000, guid: c6e111631f6f7df42857ee3596fc465a, type: 2}
-  playerNo: 0
 --- !u!1 &6704431402920827450
 GameObject:
   m_ObjectHideFlags: 0
