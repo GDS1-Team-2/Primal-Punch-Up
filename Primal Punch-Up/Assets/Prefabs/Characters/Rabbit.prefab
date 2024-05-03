@@ -1595,6 +1595,11 @@ MonoBehaviour:
   carrotKnifePrefab: {fileID: 3722026607177766680, guid: 8dfce1993f3670945a1d97b6b19e2cb2, type: 3}
   cdLength: 2
   throwSpeed: 25
+  cooldownSlider: {fileID: 0}
+  cooldownIcon: {fileID: 0}
+  cooldownGray: {fileID: 0}
+  iconSprite: {fileID: 21300000, guid: a89e36769c546a44aa1af6ee7b6dd715, type: 3}
+  graySprite: {fileID: 21300000, guid: bb61ed31e74723840947a9f1eb38a2b8, type: 3}
 --- !u!1 &8256619369320812399
 GameObject:
   m_ObjectHideFlags: 0

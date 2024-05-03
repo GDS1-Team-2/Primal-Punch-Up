@@ -1305,8 +1305,14 @@ MonoBehaviour:
   firePrefab: {fileID: 4930033384656873717, guid: ab9e397cc94290b4984ff53760829f3c, type: 3}
   rightHand: {fileID: 4974191164692079214}
   damageCollider: {fileID: 3504021144811894747, guid: fae87052a90ac384eb5cc361ab95ffc8, type: 3}
+  cdTimer: 0
   cdLength: 5
   punchSpeed: 40
+  cooldownSlider: {fileID: 0}
+  cooldownIcon: {fileID: 0}
+  cooldownGray: {fileID: 0}
+  iconSprite: {fileID: 21300000, guid: bd4fa9329a228044ab7f793c25eb5da0, type: 3}
+  graySprite: {fileID: 21300000, guid: caae9615ab038884bb0b4a9851d62dce, type: 3}
 --- !u!1 &8047159989690782053
 GameObject:
   m_ObjectHideFlags: 0

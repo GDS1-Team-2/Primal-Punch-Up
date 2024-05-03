@@ -1084,6 +1084,11 @@ MonoBehaviour:
   smokePrefab: {fileID: 875016001680053677, guid: 35528e477afca7142a2bea752d6d5580, type: 3}
   cdLength: 5
   invisTime: 3
+  cooldownSlider: {fileID: 0}
+  cooldownIcon: {fileID: 0}
+  cooldownGray: {fileID: 0}
+  iconSprite: {fileID: 21300000, guid: 1dca3413bed1f574881bccd1ca0a91d4, type: 3}
+  graySprite: {fileID: 21300000, guid: 3e71c7f7fdad53c4eadee6acf0bfc216, type: 3}
 --- !u!135 &1828411926130597895
 SphereCollider:
   m_ObjectHideFlags: 0

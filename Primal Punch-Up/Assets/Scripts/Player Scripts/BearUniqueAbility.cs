@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BearUniqueAbility : MonoBehaviour
 {
@@ -13,16 +14,33 @@ public class BearUniqueAbility : MonoBehaviour
     private GameObject newFireCollider;
 
     private bool abilityCD = false;
-    private float cdTimer = 0.0f;
+    public float cdTimer = 0.0f;
     public float cdLength = 5.0f;
     public float punchSpeed = 40.0f;
     private string abilityAnim = "BearUniqueAbility";
+
+    public Slider cooldownSlider;
+    public Image cooldownIcon;
+    public Image cooldownGray;
+    public Sprite iconSprite;
+    public Sprite graySprite;
 
     // Start is called before the first frame update
     void Start()
     {
         baseScript = GetComponent<PlayerBase>();
         anim = GetComponent<Animator>();
+        string playerCooldownSlider = "Player" + baseScript.playerNo + "AbilityCooldown";
+        cooldownSlider = GameObject.Find(playerCooldownSlider).GetComponent<Slider>();
+        cooldownSlider.maxValue = cdLength;
+        cooldownSlider.value = 0;
+        string playerCooldownIcon = "Player" + baseScript.playerNo + "AbilityIcon";
+        cooldownIcon = GameObject.Find(playerCooldownIcon).GetComponent<Image>();
+        cooldownIcon.sprite = iconSprite;
+        string playerCooldownGray = "Player" + baseScript.playerNo + "AbilityGray";
+        cooldownGray = GameObject.Find(playerCooldownGray).GetComponent<Image>();
+        cooldownGray.sprite = graySprite;
+        cooldownGray.enabled = false;
     }
 
     // Update is called once per frame
@@ -55,11 +73,14 @@ public class BearUniqueAbility : MonoBehaviour
 
         if (abilityCD)
         {
+            cooldownGray.enabled = true;
+            cooldownSlider.value = cdTimer;
             cdTimer -= 1 * Time.deltaTime;
             if (cdTimer < 0)
             {
                 cdTimer = 0.0f;
                 abilityCD = false;
+                cooldownGray.enabled = false;
             }
         }
     }

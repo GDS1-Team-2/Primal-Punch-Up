@@ -870,6 +870,11 @@ MonoBehaviour:
   magicPrefab: {fileID: 6943487682119002423, guid: 5c08adae13206c14bb943daa45779b44, type: 3}
   anim: {fileID: 0}
   cdLength: 5
+  cooldownSlider: {fileID: 0}
+  cooldownIcon: {fileID: 0}
+  cooldownGray: {fileID: 0}
+  iconSprite: {fileID: 21300000, guid: 594c207a28136a642893414f7ea4607a, type: 3}
+  graySprite: {fileID: 21300000, guid: 59791d8e653713444a8a0678f12b1431, type: 3}
 --- !u!135 &5017590714736440318
 SphereCollider:
   m_ObjectHideFlags: 0
