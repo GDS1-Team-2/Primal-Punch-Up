@@ -6,6 +6,7 @@ public class MapScript : MonoBehaviour
 {
     public GameObject[] spawnPoints;
     public GameObject[] bases;
+    public GameObject[] fruitSpawnPoints;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,7 @@ public class MapScript : MonoBehaviour
                 bases[i].SetActive(false);
             }
         }
+        //StartCoroutine(SpawnFruit());
     }
 
     // Update is called once per frame
@@ -35,5 +37,16 @@ public class MapScript : MonoBehaviour
         }
         spawnPoints[rand].SetActive(true);
         StartCoroutine(SpawnItems());
+    }
+    IEnumerator SpawnFruit()
+    {
+        yield return new WaitForSeconds(5);
+        int rand = Random.Range(0, fruitSpawnPoints.Length);
+        while (spawnPoints[rand].activeSelf == true)
+        {
+            rand = Random.Range(0, fruitSpawnPoints.Length);
+        }
+        spawnPoints[rand].SetActive(true);
+        StartCoroutine(SpawnFruit());
     }
 }

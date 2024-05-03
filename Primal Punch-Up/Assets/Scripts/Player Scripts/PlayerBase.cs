@@ -270,7 +270,7 @@ public class PlayerBase : MonoBehaviour
             }
         }
 
-        //healthBarSlider.value = hp;
+        healthBarSlider.value = hp;
 
         //setting the players for the round score
         switch (playerNo)
@@ -468,18 +468,22 @@ public class PlayerBase : MonoBehaviour
         currentSpeed = 0;
         anim.Play(takeHit1Anim);
         hp -= damage;
-        for (int i = 0; i < PickupItem.tempScore; i++)
-        {
-            Debug.Log("drop");
-            GameObject fruit = Instantiate(fruitPrefab, gameObject.transform.position, Quaternion.identity);
-            fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
-        }
         //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 5);
         currentSpeed = speed;
         isTakingDamage = false;
+    }
+
+    Vector3 RandomCircle(Vector3 center, float radius)
+    {
+        float ang = Random.value * 360;
+        Vector3 pos;
+        pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad);
+        pos.y = center.y;
+        pos.z = center.z + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
+        return pos;
     }
 
     public void setSpeed(bool half)
@@ -491,6 +495,16 @@ public class PlayerBase : MonoBehaviour
     {
         isDead = true;
         anim.Play(deathAnim);
+        int radius = 5;
+        int fruitNumber = PickupItem.tempScore;
+        Vector3 center = new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z);
+        for (int i = 0; i < fruitNumber; i++)
+        {
+            Vector3 pos = RandomCircle(center, 5.0f);
+            Quaternion rot = Quaternion.Euler(270, 0, 0);
+            GameObject fruit = Instantiate(fruitPrefab, pos, rot);
+            //fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
+        }
         PickupItem.tempScore = 0;
         capCol.enabled = false;
 

@@ -17,7 +17,7 @@ public class PickupItem : MonoBehaviour
     public string OneScoreTag = "ItemSpawn"; // Tag for items worth one point
     public string ThreeScoreTag = "ScoreItems"; // Tag for items worth three points
     public string BadScoreTag = "PunishScoreItem"; // Tag for items that subtract points
-    //public string BigerBag = "BigerBag";
+    //public string BiggerBag = "BiggerBag";
     public string baseTag; // Base tag for depositing items
 
 
@@ -56,7 +56,7 @@ public class PickupItem : MonoBehaviour
         {
             AddScore(other.gameObject, 3);
         }
-        /*if (other.gameObject.CompareTag(BigerBag))
+        /*if (other.gameObject.CompareTag(BiggerBag))
         {
             maxTempBag = 5;
             Destroy(other.gameObject);
@@ -124,7 +124,7 @@ public class PickupItem : MonoBehaviour
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
         }
 
-        Destroy(item);
+        item.SetActive(false);
         UpdateTempScoreText();
     }
 
