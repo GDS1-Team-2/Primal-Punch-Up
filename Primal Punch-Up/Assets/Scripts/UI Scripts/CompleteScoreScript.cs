@@ -69,7 +69,7 @@ public class CompleteScoreScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("RoundNo") < 1)
+        if (PlayerPrefs.GetInt("RoundNo") < 3)
         {
             switch (PlayerPrefs.GetInt("noOfPlayers"))
             {
