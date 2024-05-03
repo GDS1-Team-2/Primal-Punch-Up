@@ -4029,9 +4029,9 @@ MonoBehaviour:
   Player3: {fileID: 0}
   Player4: {fileID: 0}
   CharacterLoader: {fileID: 0}
-  UICanvas2Players: {fileID: 0}
-  UICanvas3Players: {fileID: 0}
-  UICanvas4Players: {fileID: 0}
+  UICanvas2Players: {fileID: 632926530}
+  UICanvas3Players: {fileID: 632926529}
+  UICanvas4Players: {fileID: 632926531}
   newRound: 0
 --- !u!4 &264402510
 Transform:
@@ -4062,7 +4062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeLeft: 120
   TimerOn: 1
-  TimerText2: {fileID: 632926529}
+  TimerText2: {fileID: 632926532}
   TimerText3: {fileID: 632926528}
   TimerText4: {fileID: 632926527}
 --- !u!114 &264402512
@@ -4106,6 +4106,7 @@ MonoBehaviour:
   - {fileID: 1722322672}
   - {fileID: 882176741}
   - {fileID: 1315772574}
+  bases: []
 --- !u!1001 &264546525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9800,7 +9801,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
 --- !u!114 &632926527 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2973700154832795978, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2571464048404440183, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
   m_PrefabInstance: {fileID: 632926526}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -9820,9 +9821,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &632926529 stripped
+--- !u!1 &632926529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973700155833324021, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 632926526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &632926530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973700155731709513, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 632926526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &632926531 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973700155342271852, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 632926526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &632926532 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2973700156160169744, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6289523831267571893, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
   m_PrefabInstance: {fileID: 632926526}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

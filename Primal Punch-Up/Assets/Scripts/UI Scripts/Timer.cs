@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        if (TimeLeft > 0)
+        if (TimeLeft > 1)
         {
             TimeLeft -= Time.deltaTime;
             UpdateTimer(TimeLeft);

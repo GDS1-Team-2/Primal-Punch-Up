@@ -4933,7 +4933,7 @@ Transform:
   m_Children:
   - {fileID: 1394880094}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &404112391
 BoxCollider:
@@ -8428,7 +8428,7 @@ Transform:
   - {fileID: 1513251556}
   - {fileID: 1137351953}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &667025721
 PrefabInstance:
@@ -10144,7 +10144,7 @@ Transform:
   - {fileID: 167967460}
   - {fileID: 9193384}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &804829011
 PrefabInstance:
@@ -16903,9 +16903,9 @@ MonoBehaviour:
   Player3: {fileID: 0}
   Player4: {fileID: 0}
   CharacterLoader: {fileID: 0}
-  UICanvas2Players: {fileID: 0}
-  UICanvas3Players: {fileID: 0}
-  UICanvas4Players: {fileID: 0}
+  UICanvas2Players: {fileID: 1704504504}
+  UICanvas3Players: {fileID: 1704504503}
+  UICanvas4Players: {fileID: 1704504505}
   newRound: 0
 --- !u!4 &1311737661
 Transform:
@@ -16920,7 +16920,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1311737662
 MonoBehaviour:
@@ -16936,7 +16936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeLeft: 120
   TimerOn: 1
-  TimerText2: {fileID: 1704504503}
+  TimerText2: {fileID: 1704504506}
   TimerText3: {fileID: 1704504502}
   TimerText4: {fileID: 1704504501}
 --- !u!114 &1311737663
@@ -16980,6 +16980,7 @@ MonoBehaviour:
   - {fileID: 926106850}
   - {fileID: 1460775767}
   - {fileID: 304417205}
+  bases: []
 --- !u!1001 &1320303975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21775,7 +21776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2973700155731709513, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2973700156065187974, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -21787,7 +21788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2973700156501281621, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2973700156501281621, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21838,7 +21839,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
 --- !u!114 &1704504501 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2973700154832795978, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2571464048404440183, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
   m_PrefabInstance: {fileID: 1704504500}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -21858,9 +21859,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1704504503 stripped
+--- !u!1 &1704504503 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973700155833324021, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 1704504500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1704504504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973700155731709513, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 1704504500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1704504505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2973700155342271852, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 1704504500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1704504506 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2973700156160169744, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6289523831267571893, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
   m_PrefabInstance: {fileID: 1704504500}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
