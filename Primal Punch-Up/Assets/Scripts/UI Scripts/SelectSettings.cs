@@ -20,8 +20,8 @@ public class SelectSettings : MonoBehaviour
     {
         playerDrop = GameObject.Find("NoPlayersDropDown");
         playerNoDrop = playerDrop.GetComponent<TMP_Dropdown>();
-        //roundDrop = GameObject.Find("NoRoundsDropDown");
-        //roundNoDrop = roundDrop.GetComponent<TMP_Dropdown>();
+        roundDrop = GameObject.Find("NoRoundsDropDown");
+        roundNoDrop = roundDrop.GetComponent<TMP_Dropdown>();
     }
 
     // Update is called once per frame

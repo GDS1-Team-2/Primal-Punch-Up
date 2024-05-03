@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class CharacterLoader : MonoBehaviour
 {
@@ -37,7 +36,7 @@ public class CharacterLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (loadCharacters == true && SceneManager.GetActiveScene().name != "MapSelect")
+        if (loadCharacters == true)
         {
             noOfPlayers = PlayerPrefs.GetInt("noOfPlayers");
             P1Spawn = GameObject.Find("HomeBase (1)");
