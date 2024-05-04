@@ -74,6 +74,7 @@ public class PlayerBase : MonoBehaviour
     public GameObject Manager;
     private RoundsScript RoundsScript;
     public PlayerPickupManager PlayerPickupManager;
+    public PauseScript PauseScript;
 
     private Vector3 spawnPos;
     private PickupItem PickupItem;
@@ -97,6 +98,7 @@ public class PlayerBase : MonoBehaviour
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerPickupManager = gameObject.GetComponent<PlayerPickupManager>();
+        PauseScript = Manager.GetComponent<PauseScript>();
 
         string s = "Player" + playerNo + "Respawn";
         respawnScreen = GameObject.Find(s);
@@ -300,6 +302,11 @@ public class PlayerBase : MonoBehaviour
         if (hp <= 0 && !isDead)
         {
             StartCoroutine(OnDeath());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseScript.PauseGame();
         }
     }
 

@@ -136,6 +136,6 @@ public class SelectController : MonoBehaviour
             }
         }
         DontDestroyOnLoad(characterLoader);
-        SceneManager.LoadScene("MapSelect");
+        SceneManager.LoadScene("Map 1");
     }
 }

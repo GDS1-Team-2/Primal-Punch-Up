@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SelectSettings : MonoBehaviour
 {
@@ -30,7 +31,9 @@ public class SelectSettings : MonoBehaviour
         
     }
 
-    public void UpdatePlayerCount()
+    
+
+    public void UpdatePlayerCountDropdown()
     {
         string selectedOptionText = playerNoDrop.options[playerNoDrop.value].text;
 
