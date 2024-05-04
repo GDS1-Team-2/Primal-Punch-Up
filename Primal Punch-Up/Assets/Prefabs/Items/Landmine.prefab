@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6431815464764186153}
   - component: {fileID: 6431815464764186152}
   - component: {fileID: 8832306589054526758}
+  - component: {fileID: -7237163596702958626}
   m_Layer: 0
   m_Name: Landmine
   m_TagString: Untagged
@@ -143,3 +144,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa437df2cf42d74aa3e7a2f7675742c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionForce: 10
+  explosionRadius: 5
+  damage: 1
+  knockBackForce: 10
+  particleSystem: {fileID: 0}
+  explodeSound: {fileID: 0}
+  playerNo: 0
+--- !u!114 &-7237163596702958626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6431815464764186155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469716de623693d48bf83eae012fb45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 21300000, guid: 167a1be4100872e46acceb93482004d0, type: 3}
