@@ -124,4 +124,25 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(PlayerNumberSelectSceneName);
     }
+
+    public void TwoPlayerLoad()
+    {
+        PlayerPrefs.SetInt("noOfPlayers", 2);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(CharacterSelectSceneName);
+    }
+
+    public void ThreePlayerLoad()
+    {
+        PlayerPrefs.SetInt("noOfPlayers", 3);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(CharacterSelectSceneName);
+    }
+
+    public void FourPlayerLoad()
+    {
+        PlayerPrefs.SetInt("noOfPlayers", 4);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(CharacterSelectSceneName);
+    }
 }
