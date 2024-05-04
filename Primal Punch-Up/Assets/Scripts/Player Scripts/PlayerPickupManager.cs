@@ -12,7 +12,7 @@ public class PlayerPickupManager : MonoBehaviour
     public PlayerBase PlayerBase;
     public int playerNo;
 
-    public GameObject[] itemTexts;
+    public GameObject itemText;
 
     public MagnetItem MagnetItem;
 
@@ -24,21 +24,10 @@ public class PlayerPickupManager : MonoBehaviour
         MagnetItem = gameObject.GetComponent<MagnetItem>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
-        switch (playerNo)
-        {
-            case 1:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player1CurrentItem");
-                break;
-            case 2:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player2CurrentItem");
-                break;
-            case 3:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player3CurrentItem");
-                break;
-            case 4:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player4CurrentItem");
-                break;
-        }
+        string playerItemUi = "Player" + playerNo + "CurrentItemText";
+        itemText = GameObject.Find(playerItemUi);
+        string playerIconUi = "Player" + playerNo + "CurrentItemIcon";
+        itemIconUI = GameObject.Find(playerIconUi).GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -60,10 +49,7 @@ public class PlayerPickupManager : MonoBehaviour
                 int rand = Random.Range(0, items.Count);
                 currentItem = items[rand];
                 string uitext = "Current Item: " + currentItem.name;
-                foreach (GameObject text in itemTexts)
-                {
-                    text.GetComponent<Text>().text = uitext;
-                }
+                itemText.GetComponent<Text>().text = uitext;
 
                 // Update the UI icon for the current item
                 if (currentItem.GetComponent<Ui_icon>() != null)
