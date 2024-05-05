@@ -540,27 +540,38 @@ public class PlayerBase : MonoBehaviour
 
     void HandleInput()
     {
-        KeyCode actionKey = KeyCode.None;
-        if (playerNo == 1) actionKey = KeyCode.T;
-        else if (playerNo == 2) actionKey = KeyCode.L;
-        else if (playerNo == 3 && P3Controller != null) actionKey = KeyCode.Joystick3Button2; 
-        else if (playerNo == 4 && P4Controller != null) actionKey = KeyCode.Joystick4Button2; 
-
-        if (Input.GetKeyDown(actionKey))
+        if (hasFlameItem)
         {
-            if (hasFlameItem)
+
+            if ((playerNo == 1 && Input.GetKeyDown(KeyCode.T)) ||
+                (playerNo == 2 && Input.GetKeyDown(KeyCode.L)) ||
+                (playerNo == 3 && P3Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame) ||
+                (playerNo == 4 && P4Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame))
             {
                 StartCoroutine(CreateFlameTrail());
                 hasFlameItem = false; 
             }
-            else if (hasTeleportGate)
+        }
+        else if (hasTeleportGate)
+        {
+
+            if ((playerNo == 1 && Input.GetKeyDown(KeyCode.T)) ||
+                (playerNo == 2 && Input.GetKeyDown(KeyCode.L)) ||
+                (playerNo == 3 && P3Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame) ||
+                (playerNo == 4 && P4Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame))
             {
-                PlacePortal();
-                hasTeleportGate = false; 
+                if (firstPortal == null)
+                {
+                    PlacePortal(); 
+                }
+                else if (secondPortal == null)
+                {
+                    PlacePortal();
+                    hasTeleportGate = false; 
+                }
             }
         }
     }
-
 
     void PlacePortal()
     {
