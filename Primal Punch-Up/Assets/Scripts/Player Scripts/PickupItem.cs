@@ -165,7 +165,7 @@ public class PickupItem : MonoBehaviour
         currentTempBag = 0;
         UpdateScoreText();
         UpdateTempScoreText();
-        string scoreKey = "ScoreKey" + playerNo;
+        string scoreKey = "ScoreKey" + PlayerBase.playerNo;
         PlayerPrefs.SetInt(scoreKey, score);
     }
 
