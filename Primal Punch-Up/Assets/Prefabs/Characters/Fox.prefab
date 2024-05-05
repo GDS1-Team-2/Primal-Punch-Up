@@ -693,7 +693,8 @@ GameObject:
   - component: {fileID: 3101603307692842012}
   - component: {fileID: 5017590714736440318}
   - component: {fileID: -5895623837760483625}
-  - component: {fileID: -5400410151672196126}
+  - component: {fileID: 1224327192596402605}
+  - component: {fileID: -2007047264132788939}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Fox
@@ -929,7 +930,21 @@ MonoBehaviour:
   itemText: {fileID: 0}
   MagnetItem: {fileID: 0}
   itemIconUI: {fileID: 0}
---- !u!82 &-5400410151672196126
+--- !u!114 &1224327192596402605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5724064556769196478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7235d122c50909c46b4643d477da93dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnetRadius: 5
+  magnetDuration: 10
+--- !u!82 &-2007047264132788939
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

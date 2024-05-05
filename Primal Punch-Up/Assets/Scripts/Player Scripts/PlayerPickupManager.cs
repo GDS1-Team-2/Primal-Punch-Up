@@ -8,6 +8,7 @@ public class PlayerPickupManager : MonoBehaviour
     public List<GameObject> items = new List<GameObject>();
     public GameObject currentItem;
     public bool hasItem = false;
+    public bool usingMagnet = false;
 
     public PlayerBase PlayerBase;
     public int playerNo;
@@ -34,7 +35,13 @@ public class PlayerPickupManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (usingMagnet && !MagnetItem.isActive)
+        {
+            hasItem = false;
+            usingMagnet = false;
+            itemText.text = "Current Item: None";
+            itemIconUI.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,10 +88,12 @@ public class PlayerPickupManager : MonoBehaviour
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
         }
-        else if((currentItem.name == "MagetItem")) {
+        else if((currentItem.name == "Magnet")) {
             MagnetItem.ActivateMagnet();
-            hasItem = false;
+            usingMagnet = true;
+            hasItem = true;
         }
             
     }
+
 }

@@ -1393,7 +1393,8 @@ GameObject:
   - component: {fileID: 7434326416971981783}
   - component: {fileID: 8231370296093687314}
   - component: {fileID: 3666104320534630235}
-  - component: {fileID: 5570790593042929207}
+  - component: {fileID: 2951514896833709135}
+  - component: {fileID: 5754138758391911797}
   m_Layer: 0
   m_Name: Rabbit
   m_TagString: Rabbit
@@ -1616,7 +1617,21 @@ MonoBehaviour:
   graySprite: {fileID: 21300000, guid: bb61ed31e74723840947a9f1eb38a2b8, type: 3}
   audioSource: {fileID: 0}
   clip: {fileID: 8300000, guid: 7b00e6248d25cb347b8c2657dca4de2b, type: 3}
---- !u!82 &5570790593042929207
+--- !u!114 &2951514896833709135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7776979527999676037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7235d122c50909c46b4643d477da93dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnetRadius: 5
+  magnetDuration: 10
+--- !u!82 &5754138758391911797
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
