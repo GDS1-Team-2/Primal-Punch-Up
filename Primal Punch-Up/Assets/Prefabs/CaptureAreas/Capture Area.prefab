@@ -9484,7 +9484,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3578631364533116275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
   m_Name: 
@@ -9527,7 +9527,7 @@ Transform:
   - {fileID: 3578631364533469521}
   - {fileID: 3578631364533469523}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3578631364519314453
 ParticleSystem:
@@ -14312,6 +14312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles: {fileID: 0}
   sphereCol: {fileID: 0}
+  areaCountDown: 20
 --- !u!1 &3578631364533116279
 GameObject:
   m_ObjectHideFlags: 0
