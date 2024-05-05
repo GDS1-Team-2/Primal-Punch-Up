@@ -80,6 +80,9 @@ public class PlayerBase : MonoBehaviour
     private PickupItem PickupItem;
 
     public GameObject fruitPrefab;
+
+    private AudioSource audioSource;
+    public AudioClip[] audioClips; 
     public bool isDead = false;
     public bool isTakingDamage = false;
     public bool isAttacking = false;
@@ -113,6 +116,8 @@ public class PlayerBase : MonoBehaviour
         canMove = true;
 
         spawnPos = transform.position;
+
+        audioSource = GetComponent<AudioSource>();
 
         switch (playerNo)
         {
@@ -203,6 +208,8 @@ public class PlayerBase : MonoBehaviour
             if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) &&!isAttacking && !isDashing &&!isUsingSpecial &&!isDead)
             {
                 StartCoroutine(PlayerBasicAttack());
+                audioSource.clip = audioClips[0];
+                audioSource.Play();
             }
             if (itemKey.HasValue && Input.GetKey(itemKey.Value))
             {
@@ -213,12 +220,28 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
+            if (playerNo == 1 && (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))){
+                 audioSource.Stop();
+            }
+            if (playerNo == 1 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))){
+                audioSource.clip = audioClips[2];
+                 audioSource.Play();
+            }
+            if (playerNo == 2 && (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow))){
+                 audioSource.Stop();
+            }
+            if (playerNo == 2 && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))){
+                audioSource.clip = audioClips[2];
+                 audioSource.Play();
+            }
         }
         else if (playerNo == 3)
         {
             if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
                 StartCoroutine(PlayerBasicAttack());
+                audioSource.clip = audioClips[0];
+                audioSource.Play();
             }
             if (P3Controller.buttonWest.wasPressedThisFrame)
             {
@@ -229,12 +252,21 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
+             if (playerNo == 3 && (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))){
+                 audioSource.Stop();
+            }
+            if (playerNo == 3 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))){
+                audioSource.clip = audioClips[2];
+                 audioSource.Play();
+            }
         }
         else if (playerNo == 4)
         {
             if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
                 StartCoroutine(PlayerBasicAttack());
+                audioSource.clip = audioClips[0];
+                audioSource.Play();
             }
             if (P4Controller.buttonWest.wasPressedThisFrame)
             {
@@ -244,6 +276,13 @@ public class PlayerBase : MonoBehaviour
             {
                 isDashing = true;
                 dashTimer = dashDuration;
+            }
+             if (playerNo == 4 && (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))){
+                 audioSource.Stop();
+            }
+            if (playerNo == 4 && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))){
+                audioSource.clip = audioClips[2];
+                 audioSource.Play();
             }
 
         }
@@ -308,6 +347,7 @@ public class PlayerBase : MonoBehaviour
         {
             PauseScript.PauseGame();
         }
+
     }
 
     void FixedUpdate()
