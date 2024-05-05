@@ -7,9 +7,18 @@ using UnityEngine.InputSystem;
 public class PlayerBase : MonoBehaviour
 {
     public int playerNo = 0;
-
+    public GameObject teleportGatePrefab;
+    private GameObject firstPortal = null;
+    private GameObject secondPortal = null;
+    private bool hasTeleportGate = false;
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
+
+    public GameObject flamePrefab;
+    public bool hasFlameItem = false;
+    public float flameTrailDuration = 5.0f;
+    public float flameSpawnInterval = 0.5f;
+    public float flameLifetime = 1.0f;
 
     public Animator anim;
     public Rigidbody rbody;
@@ -39,7 +48,7 @@ public class PlayerBase : MonoBehaviour
     string takeHit1Anim = "";
     string deathAnim = "";
     string dashAnim = "";
-    KeyCode ? moveForwardKey = null;
+    KeyCode? moveForwardKey = null;
     KeyCode? moveBackKey = null;
     KeyCode? rotateLeftKey = null;
     KeyCode? rotateRightKey = null;
@@ -58,18 +67,25 @@ public class PlayerBase : MonoBehaviour
     public GameObject healthBar;
     public Slider healthBarSlider;
 
+    public GameObject respawnScreen;
+    public Slider respawnSlider;
+    public Text respawnTimer;
+
     public GameObject Manager;
     private RoundsScript RoundsScript;
     public PlayerPickupManager PlayerPickupManager;
+    public PauseScript PauseScript;
 
     private Vector3 spawnPos;
     private PickupItem PickupItem;
 
+    public GameObject fruitPrefab;
     public bool isDead = false;
     public bool isTakingDamage = false;
     public bool isAttacking = false;
     public bool isUsingSpecial = false;
     public bool bearFireMovement = false;
+    public bool lizSmokeDmg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +98,15 @@ public class PlayerBase : MonoBehaviour
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
         PlayerPickupManager = gameObject.GetComponent<PlayerPickupManager>();
+        PauseScript = Manager.GetComponent<PauseScript>();
+
+        string s = "Player" + playerNo + "Respawn";
+        respawnScreen = GameObject.Find(s);
+        s = "Player" + playerNo + "RespawnSlider";
+        respawnSlider = GameObject.Find(s).GetComponent<Slider>();
+        s = "Player" + playerNo + "RespawnTimer";
+        respawnTimer = GameObject.Find(s).GetComponent<Text>();
+        respawnScreen.SetActive(false);
 
         PickupItem = GetComponent<PickupItem>();
 
@@ -102,6 +127,7 @@ public class PlayerBase : MonoBehaviour
                 itemKey = KeyCode.N;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -114,14 +140,17 @@ public class PlayerBase : MonoBehaviour
                 itemKey = KeyCode.RightBracket;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player2Model", gameObject.tag);
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player3Model", gameObject.tag);
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
+                PlayerPrefs.SetString("Player4Model", gameObject.tag);
                 break;
         }
 
@@ -167,6 +196,8 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleInput();
+
         if (playerNo == 1 || playerNo == 2)
         {
             if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) &&!isAttacking && !isDashing &&!isUsingSpecial &&!isDead)
@@ -182,7 +213,8 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
-        } else if (playerNo == 3)
+        }
+        else if (playerNo == 3)
         {
             if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
@@ -197,7 +229,8 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
-        } else if (playerNo == 4)
+        }
+        else if (playerNo == 4)
         {
             if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
@@ -212,6 +245,7 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
+
         }
 
         ChangeDirection();
@@ -235,7 +269,8 @@ public class PlayerBase : MonoBehaviour
                 gainHP = 0.0f;
                 //Debug.Log(this.hp);
             }
-        } else
+        }
+        else
         {
             inCombatTimer -= 1 * Time.deltaTime;
             if (inCombatTimer < 0.0f)
@@ -268,6 +303,11 @@ public class PlayerBase : MonoBehaviour
         {
             StartCoroutine(OnDeath());
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseScript.PauseGame();
+        }
     }
 
     void FixedUpdate()
@@ -298,12 +338,13 @@ public class PlayerBase : MonoBehaviour
             {
                 moveZ = -1;
             }
-        } else if (playerNo == 3)
+        }
+        else if (playerNo == 3)
         {
             if (P3Controller.leftStick.left.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-            } 
+            }
             else if (P3Controller.leftStick.right.isPressed && !isDashing)
             {
                 transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
@@ -317,7 +358,8 @@ public class PlayerBase : MonoBehaviour
             {
                 moveZ = -1;
             }
-        } else if (playerNo == 4)
+        }
+        else if (playerNo == 4)
         {
             if (P4Controller.leftStick.left.isPressed && !isDashing)
             {
@@ -421,6 +463,18 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             //Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
+
+        if (other.gameObject.CompareTag("PortalPickup"))
+        {
+            hasTeleportGate = true;
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("FirePickup"))
+        {
+            this.hasFlameItem = true;
+            Destroy(other.gameObject);
+        }
     }
 
     public IEnumerator TakeDamage(int damage)
@@ -429,12 +483,22 @@ public class PlayerBase : MonoBehaviour
         currentSpeed = 0;
         anim.Play(takeHit1Anim);
         hp -= damage;
-        Debug.Log(gameObject.name + " HP: " + hp);
+        //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length/5);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 5);
         currentSpeed = speed;
         isTakingDamage = false;
+    }
+
+    Vector3 RandomCircle(Vector3 center, float radius)
+    {
+        float ang = Random.value * 360;
+        Vector3 pos;
+        pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad);
+        pos.y = center.y;
+        pos.z = center.z + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
+        return pos;
     }
 
     public void setSpeed(bool half)
@@ -446,12 +510,24 @@ public class PlayerBase : MonoBehaviour
     {
         isDead = true;
         anim.Play(deathAnim);
+        respawnScreen.SetActive(true);
+        int radius = 5;
+        int fruitNumber = PickupItem.tempScore;
+        Vector3 center = new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z);
+        for (int i = 0; i < fruitNumber; i++)
+        {
+            Vector3 pos = RandomCircle(center, 5.0f);
+            Quaternion rot = Quaternion.Euler(270, 0, 0);
+            GameObject fruit = Instantiate(fruitPrefab, pos, rot);
+            //fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
+        }
         PickupItem.tempScore = 0;
         capCol.enabled = false;
 
         for (float timer = deathTimer; timer >= 0; timer -= 1f)
         {
-            Debug.Log("Time remaining: " + timer + " seconds");
+            respawnTimer.text = timer.ToString();
+            respawnSlider.value = timer;
             yield return new WaitForSeconds(1f);
         }
 
@@ -459,5 +535,57 @@ public class PlayerBase : MonoBehaviour
         transform.position = spawnPos;
         hp = maxHP;
         isDead = false;
+        respawnScreen.SetActive(false);
+    }
+
+    void HandleInput()
+    {
+        KeyCode actionKey = KeyCode.None;
+        if (playerNo == 1) actionKey = KeyCode.T;
+        else if (playerNo == 2) actionKey = KeyCode.L;
+        else if (playerNo == 3 && P3Controller != null) actionKey = KeyCode.Joystick3Button2; 
+        else if (playerNo == 4 && P4Controller != null) actionKey = KeyCode.Joystick4Button2; 
+
+        if (Input.GetKeyDown(actionKey))
+        {
+            if (hasFlameItem)
+            {
+                StartCoroutine(CreateFlameTrail());
+                hasFlameItem = false; 
+            }
+            else if (hasTeleportGate)
+            {
+                PlacePortal();
+                hasTeleportGate = false; 
+            }
+        }
+    }
+
+
+    void PlacePortal()
+    {
+        if (firstPortal == null)
+        {
+            firstPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            firstPortal.name = "FirstPortal";
+        }
+        else if (secondPortal == null)
+        {
+            secondPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            secondPortal.name = "SecondPortal";
+            firstPortal.GetComponent<Portal>().SetPartner(secondPortal);
+            secondPortal.GetComponent<Portal>().SetPartner(firstPortal);
+        }
+    }
+
+    IEnumerator CreateFlameTrail()
+    {
+        float endTime = Time.time + flameTrailDuration;
+        while (Time.time <= endTime)
+        {
+            GameObject flame = Instantiate(flamePrefab, transform.position, Quaternion.identity);
+            Destroy(flame, flameLifetime);
+            yield return new WaitForSeconds(flameSpawnInterval);
+        }
     }
 }

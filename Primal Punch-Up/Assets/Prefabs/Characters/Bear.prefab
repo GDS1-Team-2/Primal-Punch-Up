@@ -264,7 +264,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8012347076432335351}
   - component: {fileID: 8246646032394082852}
-  - component: {fileID: 6228556997210081414}
   m_Layer: 0
   m_Name: BearIcon
   m_TagString: Untagged
@@ -339,20 +338,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6228556997210081414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031868050147705108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5c8872ad75266744ac0bf0d25a6cd0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  heightAbovePlayer: 100
 --- !u!1 &2126684914963932008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,10 +1101,8 @@ GameObject:
   - component: {fileID: 7811819089111855679}
   - component: {fileID: 7811819089111855672}
   - component: {fileID: 9093303603891428795}
-  - component: {fileID: 5241141293592434043}
   - component: {fileID: 197804796273387262}
   - component: {fileID: 5412500035539744412}
-  - component: {fileID: 5151938167561789224}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Bear
@@ -1195,6 +1178,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNo: 0
+  teleportGatePrefab: {fileID: 7577934001833564739, guid: 89a7a1e1cd9dda941bf50aca005dde9c, type: 3}
+  flamePrefab: {fileID: 0}
+  hasFlameItem: 0
+  flameTrailDuration: 5
+  flameSpawnInterval: 0.5
+  flameLifetime: 1
   anim: {fileID: 6964889129514635078}
   rbody: {fileID: 6964889129514635079}
   boxCol: {fileID: 0}
@@ -1213,12 +1202,19 @@ MonoBehaviour:
   isDashing: 0
   healthBar: {fileID: 0}
   healthBarSlider: {fileID: 0}
+  respawnScreen: {fileID: 0}
+  respawnSlider: {fileID: 0}
+  respawnTimer: {fileID: 0}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
+  PauseScript: {fileID: 0}
+  fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
   isDead: 0
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  bearFireMovement: 0
+  lizSmokeDmg: 0
 --- !u!136 &7811819089111855679
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1269,18 +1265,9 @@ MonoBehaviour:
   ThreeScoreTag: score2
   BadScoreTag: NegativeFruit
   baseTag: Home2
-  speedRangeCollider: {fileID: 0}
-  blueEffectPrefab: {fileID: 0}
   Manager: {fileID: 0}
+  audioSource: {fileID: 0}
   playerNo: 0
---- !u!81 &5241141293592434043
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811819089111855678}
-  m_Enabled: 1
 --- !u!114 &197804796273387262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1296,11 +1283,14 @@ MonoBehaviour:
   items:
   - {fileID: 1844235179766881173, guid: 5272460ad18c21a42aa9e341772df81c, type: 3}
   - {fileID: 6431815464764186155, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
+  - {fileID: 5507687823956197242, guid: 993ae5fceace12a459365715af5c25d8, type: 3}
   currentItem: {fileID: 0}
   hasItem: 0
   PlayerBase: {fileID: 0}
   playerNo: 0
-  itemTexts: []
+  itemText: {fileID: 0}
+  MagnetItem: {fileID: 0}
+  itemIconUI: {fileID: 0}
 --- !u!114 &5412500035539744412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,22 +1306,15 @@ MonoBehaviour:
   anim: {fileID: 0}
   firePrefab: {fileID: 4930033384656873717, guid: ab9e397cc94290b4984ff53760829f3c, type: 3}
   rightHand: {fileID: 4974191164692079214}
-  damageCollider: {fileID: 0}
+  damageCollider: {fileID: 3504021144811894747, guid: fae87052a90ac384eb5cc361ab95ffc8, type: 3}
+  cdTimer: 0
   cdLength: 5
   punchSpeed: 40
---- !u!135 &5151938167561789224
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7811819089111855678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.03
-  m_Center: {x: 0, y: 0.03, z: 0.01}
+  cooldownSlider: {fileID: 0}
+  cooldownIcon: {fileID: 0}
+  cooldownGray: {fileID: 0}
+  iconSprite: {fileID: 21300000, guid: bd4fa9329a228044ab7f793c25eb5da0, type: 3}
+  graySprite: {fileID: 21300000, guid: caae9615ab038884bb0b4a9851d62dce, type: 3}
 --- !u!1 &8047159989690782053
 GameObject:
   m_ObjectHideFlags: 0

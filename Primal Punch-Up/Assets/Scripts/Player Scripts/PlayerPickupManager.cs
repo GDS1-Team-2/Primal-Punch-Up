@@ -12,29 +12,22 @@ public class PlayerPickupManager : MonoBehaviour
     public PlayerBase PlayerBase;
     public int playerNo;
 
-    public GameObject[] itemTexts;
-    
+    public GameObject itemText;
 
+    public MagnetItem MagnetItem;
+
+    //add icon
+    public Image itemIconUI; // UI Image component to display the item icon
     // Start is called before the first frame update
     void Start()
     {
+        MagnetItem = gameObject.GetComponent<MagnetItem>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
-        switch (playerNo)
-        {
-            case 1:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player1CurrentItem");
-                break;
-            case 2:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player2CurrentItem");
-                break;
-            case 3:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player3CurrentItem");
-                break;
-            case 4:
-                itemTexts = GameObject.FindGameObjectsWithTag("Player4CurrentItem");
-                break;
-        }
+        string playerItemUi = "Player" + playerNo + "CurrentItemText";
+        itemText = GameObject.Find(playerItemUi);
+        string playerIconUi = "Player" + playerNo + "CurrentItemIcon";
+        itemIconUI = GameObject.Find(playerIconUi).GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -50,14 +43,19 @@ public class PlayerPickupManager : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Pickup"))
             {
-                Destroy(other.gameObject);
+                //Destroy(other.gameObject);
+                other.gameObject.SetActive(false);
                 hasItem = true;
                 int rand = Random.Range(0, items.Count);
                 currentItem = items[rand];
                 string uitext = "Current Item: " + currentItem.name;
-                foreach (GameObject text in itemTexts)
+                itemText.GetComponent<Text>().text = uitext;
+
+                // Update the UI icon for the current item
+                if (currentItem.GetComponent<Ui_icon>() != null)
                 {
-                    text.GetComponent<Text>().text = uitext;
+                    itemIconUI.sprite = currentItem.GetComponent<Ui_icon>().itemIcon;
+                    itemIconUI.gameObject.SetActive(true); // Ensure the icon is visible
                 }
             }
         }
@@ -70,12 +68,19 @@ public class PlayerPickupManager : MonoBehaviour
             currentItem.GetComponent<TrapScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
             hasItem = false;
+            itemIconUI.gameObject.SetActive(false);
         }
         else if (currentItem.name == "Landmine")
         {
             currentItem.GetComponent<LandmineScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
             hasItem = false;
+            itemIconUI.gameObject.SetActive(false);
         }
+        else if((currentItem.name == "MagetItem")) {
+            MagnetItem.ActivateMagnet();
+            hasItem = false;
+        }
+            
     }
 }

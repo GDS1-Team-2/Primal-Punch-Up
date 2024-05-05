@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RabbitUniqueAbility : MonoBehaviour
 {
@@ -16,11 +17,28 @@ public class RabbitUniqueAbility : MonoBehaviour
 
     private string abilityAnim = "RabbitUniqueAbility";
 
+    public Slider cooldownSlider;
+    public Image cooldownIcon;
+    public Image cooldownGray;
+    public Sprite iconSprite;
+    public Sprite graySprite;
+
     // Start is called before the first frame update
     void Start()
     {
         baseScript = GetComponent<PlayerBase>();
         anim = GetComponent<Animator>();
+        string playerCooldownSlider = "Player" + baseScript.playerNo + "AbilityCooldown";
+        cooldownSlider = GameObject.Find(playerCooldownSlider).GetComponent<Slider>();
+        cooldownSlider.maxValue = cdLength;
+        cooldownSlider.value = 0;
+        string playerCooldownIcon = "Player" + baseScript.playerNo + "AbilityIcon";
+        cooldownIcon = GameObject.Find(playerCooldownIcon).GetComponent<Image>();
+        cooldownIcon.sprite = iconSprite;
+        string playerCooldownGray = "Player" + baseScript.playerNo + "AbilityGray";
+        cooldownGray = GameObject.Find(playerCooldownGray).GetComponent<Image>();
+        cooldownGray.sprite = graySprite;
+        cooldownGray.enabled = false;
     }
 
     // Update is called once per frame
@@ -30,21 +48,21 @@ public class RabbitUniqueAbility : MonoBehaviour
         {
             if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
             {
-                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value))
+                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(RabbitAttack());
                 }
             }
             else if (baseScript.playerNo == 3)
             {
-                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(RabbitAttack());
                 }
             }
             else if (baseScript.playerNo == 4)
             {
-                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame)
+                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
                 {
                     StartCoroutine(RabbitAttack());
                 }
@@ -53,11 +71,14 @@ public class RabbitUniqueAbility : MonoBehaviour
 
         if (abilityCD)
         {
+            cooldownGray.enabled = true;
+            cooldownSlider.value = cdTimer;
             cdTimer -= 1 * Time.deltaTime;
             if (cdTimer < 0)
             {
                 cdTimer = 0.0f;
                 abilityCD = false;
+                cooldownGray.enabled = false;
             }
         }
     }

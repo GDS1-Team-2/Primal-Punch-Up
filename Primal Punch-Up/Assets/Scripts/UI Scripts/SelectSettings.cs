@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SelectSettings : MonoBehaviour
 {
@@ -20,8 +21,8 @@ public class SelectSettings : MonoBehaviour
     {
         playerDrop = GameObject.Find("NoPlayersDropDown");
         playerNoDrop = playerDrop.GetComponent<TMP_Dropdown>();
-        roundDrop = GameObject.Find("NoRoundsDropDown");
-        roundNoDrop = roundDrop.GetComponent<TMP_Dropdown>();
+        //roundDrop = GameObject.Find("NoRoundsDropDown");
+        //roundNoDrop = roundDrop.GetComponent<TMP_Dropdown>();
     }
 
     // Update is called once per frame
@@ -30,7 +31,9 @@ public class SelectSettings : MonoBehaviour
         
     }
 
-    public void UpdatePlayerCount()
+    
+
+    public void UpdatePlayerCountDropdown()
     {
         string selectedOptionText = playerNoDrop.options[playerNoDrop.value].text;
 
