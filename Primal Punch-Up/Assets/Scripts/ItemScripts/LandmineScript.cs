@@ -11,6 +11,7 @@ public class LandmineScript : MonoBehaviour
     public ParticleSystem particleSystem;
     public AudioClip explodeSound;
     public int playerNo;
+    public GameObject model;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,7 @@ public class LandmineScript : MonoBehaviour
                 other.gameObject.GetComponent<Rigidbody>().AddForce(direction * knockBackForce);
                 gameObject.GetComponent<CapsuleCollider>().enabled = false;
                 gameObject.GetComponent<MeshRenderer>().enabled = false;
+                model.SetActive(false);
             }
         }
     }

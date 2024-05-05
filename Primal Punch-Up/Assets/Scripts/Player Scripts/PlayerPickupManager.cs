@@ -12,7 +12,7 @@ public class PlayerPickupManager : MonoBehaviour
     public PlayerBase PlayerBase;
     public int playerNo;
 
-    public GameObject itemText;
+    public Text itemText;
 
     public MagnetItem MagnetItem;
 
@@ -25,15 +25,16 @@ public class PlayerPickupManager : MonoBehaviour
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
         string playerItemUi = "Player" + playerNo + "CurrentItemText";
-        itemText = GameObject.Find(playerItemUi);
+        itemText = GameObject.Find(playerItemUi).GetComponent<Text>();
         string playerIconUi = "Player" + playerNo + "CurrentItemIcon";
         itemIconUI = GameObject.Find(playerIconUi).GetComponent<Image>();
+        itemIconUI.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,13 +50,14 @@ public class PlayerPickupManager : MonoBehaviour
                 int rand = Random.Range(0, items.Count);
                 currentItem = items[rand];
                 string uitext = "Current Item: " + currentItem.name;
-                itemText.GetComponent<Text>().text = uitext;
+                itemText.text = uitext;
 
                 // Update the UI icon for the current item
                 if (currentItem.GetComponent<Ui_icon>() != null)
                 {
+                    itemIconUI.gameObject.SetActive(true);
                     itemIconUI.sprite = currentItem.GetComponent<Ui_icon>().itemIcon;
-                    itemIconUI.gameObject.SetActive(true); // Ensure the icon is visible
+                     // Ensure the icon is visible
                 }
             }
         }
@@ -68,6 +70,7 @@ public class PlayerPickupManager : MonoBehaviour
             currentItem.GetComponent<TrapScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
             hasItem = false;
+            itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
         }
         else if (currentItem.name == "Landmine")
@@ -75,6 +78,7 @@ public class PlayerPickupManager : MonoBehaviour
             currentItem.GetComponent<LandmineScript>().playerNo = playerNo;
             currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
             hasItem = false;
+            itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
         }
         else if((currentItem.name == "MagetItem")) {
