@@ -142,7 +142,7 @@ public class PickupItem : MonoBehaviour
     }
 
 
-    private void UpdateScoreText()
+    public void UpdateScoreText()
     {
         if (scoreText != null)
         {
