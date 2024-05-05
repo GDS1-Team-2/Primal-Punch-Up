@@ -17167,7 +17167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePaused: 0
   pauseMenu: {fileID: 1734730669}
-  tutorialBox: {fileID: 0}
+  tutorialBox: {fileID: 1930357655}
 --- !u!1001 &1320303975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22041,6 +22041,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvases
       objectReference: {fileID: 0}
+    - target: {fileID: 6528418322015220555, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1311737665}
+    - target: {fileID: 6528418322015220555, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528418322015220555, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseScript, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
@@ -24966,6 +24978,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3114652360415854008, guid: 913fdd26cde2975499d1326dbcb62cb0, type: 3}
   m_PrefabInstance: {fileID: 1928607250}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1930357655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7411068568331918057, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 1704504500}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1930684226
 PrefabInstance:
