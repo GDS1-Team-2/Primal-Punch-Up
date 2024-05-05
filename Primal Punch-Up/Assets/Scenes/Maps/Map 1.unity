@@ -7380,6 +7380,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1043214738935376519, guid: 8a26fd33538a9244290178e18a12d324, type: 3}
   m_PrefabInstance: {fileID: 823946862}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &837133156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7411068568331918057, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 1298635097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &848501995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8704,6 +8709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePaused: 0
   pauseMenu: {fileID: 1693618151}
+  tutorialBox: {fileID: 837133156}
 --- !u!114 &966917694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11215,6 +11221,18 @@ PrefabInstance:
     - target: {fileID: 6511816779376787704, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528418322015220555, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 966917693}
+    - target: {fileID: 6528418322015220555, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528418322015220555, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseScript, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6618229655134975275, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_AnchorMax.x
