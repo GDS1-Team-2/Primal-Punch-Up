@@ -807,8 +807,17 @@ MonoBehaviour:
   isDashing: 0
   healthBar: {fileID: 0}
   healthBarSlider: {fileID: 0}
+  respawnScreen: {fileID: 0}
+  respawnSlider: {fileID: 0}
+  respawnTimer: {fileID: 0}
+  minimapIcon: {fileID: 818680662343299807}
+  Player1Material: {fileID: 2100000, guid: c6e111631f6f7df42857ee3596fc465a, type: 2}
+  Player2Material: {fileID: 2100000, guid: 49e3edc3223d7374c93c60b28294d42b, type: 2}
+  Player3Material: {fileID: 2100000, guid: ce3f41d4a66f0a843911b089d9c659ad, type: 2}
+  Player4Material: {fileID: 2100000, guid: d82794495071b354b89c52e524db2be4, type: 2}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
+  PauseScript: {fileID: 0}
   fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
   isDead: 0
   isTakingDamage: 0
@@ -910,7 +919,7 @@ MonoBehaviour:
   hasItem: 0
   PlayerBase: {fileID: 0}
   playerNo: 0
-  itemTexts: []
+  itemText: {fileID: 0}
   MagnetItem: {fileID: 0}
   itemIconUI: {fileID: 0}
 --- !u!1 &5853534876893967106

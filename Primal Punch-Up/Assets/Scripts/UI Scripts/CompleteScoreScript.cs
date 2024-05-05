@@ -69,7 +69,7 @@ public class CompleteScoreScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("RoundNo") < 3)
+        if (PlayerPrefs.GetInt("RoundNo") < 4)
         {
             switch (PlayerPrefs.GetInt("noOfPlayers"))
             {
@@ -206,6 +206,27 @@ public class CompleteScoreScript : MonoBehaviour
         }
     }
 
+    public void SetAnim(string animal, string state)
+    {
+        string anim = animal + state;
+        Debug.Log(anim);
+        switch (animal)
+        {
+            case "Lizard":
+                lizardModel.GetComponent<Animator>().Play(anim);
+                break;
+            case "Bear":
+                bearModel.GetComponent<Animator>().Play(anim);
+                break;
+            case "Fox":
+                foxModel.GetComponent<Animator>().Play(anim);
+                break;
+            case "Rabbit":
+                rabbitModel.GetComponent<Animator>().Play(anim);
+                break;
+        }
+    }
+
     public void SetScore(Slider slider, Text scoreText, int scoreValue)
     {
         //0 at -162
@@ -282,12 +303,14 @@ public class CompleteScoreScript : MonoBehaviour
                     SetModel(FirstPlacePosition.position, PlayerPrefs.GetString(playermodel));
                     SetIcon(FirstPlaceIcon, PlayerPrefs.GetString(playermodel));
                     SetIconColour(FirstPlaceIcon, playerindex[i]);
+                    SetAnim(PlayerPrefs.GetString(playermodel), "Victory");
                     break;
                 case 1:
                     SecondPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
                     SetModel(SecondPlacePosition.position, PlayerPrefs.GetString(playermodel));
                     SetIcon(SecondPlaceIcon, PlayerPrefs.GetString(playermodel));
                     SetIconColour(SecondPlaceIcon, playerindex[i]);
+                    SetAnim(PlayerPrefs.GetString(playermodel), "Defeat");
                     break;
                 case 2:
                     if (PlayerPrefs.GetInt("noOfPlayers") > 2)
@@ -296,6 +319,7 @@ public class CompleteScoreScript : MonoBehaviour
                         SetModel(ThirdPlacePosition.position, PlayerPrefs.GetString(playermodel));
                         SetIcon(ThirdPlaceIcon, PlayerPrefs.GetString(playermodel));
                         SetIconColour(ThirdPlaceIcon, playerindex[i]);
+                        SetAnim(PlayerPrefs.GetString(playermodel), "Defeat");
                     }
                     else
                     {
