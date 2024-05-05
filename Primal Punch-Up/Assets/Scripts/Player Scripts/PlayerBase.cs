@@ -33,7 +33,7 @@ public class PlayerBase : MonoBehaviour
     public int maxHP = 50;
     public float deathTimer = 5.0f;
 
-    public bool canMove;
+    public bool canMove = true;
 
     public float speed = 10.0f;
 
@@ -330,7 +330,11 @@ public class PlayerBase : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        if (canMove)
+        {
+            Move();
+        }
+        
     }
 
     void ChangeDirection()
@@ -404,6 +408,7 @@ public class PlayerBase : MonoBehaviour
 
     void Move()
     {
+        
         if (!bearFireMovement)
         {
             if (!isDead && !isTakingDamage)
