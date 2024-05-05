@@ -6,17 +6,28 @@ public class PauseScript : MonoBehaviour
 {
     public bool gamePaused = false;
     public GameObject pauseMenu;
+    public GameObject tutorialBox;
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu = GameObject.Find("PauseMenu");
         pauseMenu.SetActive(false);
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ExitTutorial()
+    {
+        Time.timeScale = 1;
+        if (tutorialBox != null)
+        {
+            tutorialBox.SetActive(false);
+        }
     }
 
     public void PauseGame()
@@ -37,5 +48,6 @@ public class PauseScript : MonoBehaviour
         {
             pauseMenu.SetActive(false);
         }
+
     }
 }

@@ -18,7 +18,7 @@ public class MapScript : MonoBehaviour
                 bases[i].SetActive(false);
             }
         }
-        //StartCoroutine(SpawnFruit());
+        StartCoroutine(SpawnFruit());
     }
 
     // Update is called once per frame
