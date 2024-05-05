@@ -28,10 +28,15 @@ public class CharacterSelect : MonoBehaviour
     KeyCode? moveLeft = null;
     KeyCode? select = null;
 
+    public AudioSource audioSource;
+    public AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
         //print(playerNo);
+        audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        clip = audioSource.clip;
 
         switch (playerNo)
         {
@@ -189,6 +194,7 @@ public class CharacterSelect : MonoBehaviour
         } else
         {
             lockedIn = true;
+            audioSource.PlayOneShot(clip);
             rectTrans.sizeDelta = new Vector2(50, 50);
         }
 
