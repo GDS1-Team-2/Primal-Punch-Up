@@ -6,7 +6,7 @@ public class LandmineScript : MonoBehaviour
 {
     public float explosionForce = 10.0f;
     public float explosionRadius = 5.0f;
-    public int damage = 1;
+    public int damage = 25;
     public float knockBackForce = 10;
     public ParticleSystem particleSystem;
     public AudioClip explodeSound;

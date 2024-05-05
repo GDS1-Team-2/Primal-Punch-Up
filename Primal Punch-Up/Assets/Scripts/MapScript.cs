@@ -31,10 +31,6 @@ public class MapScript : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         int rand = Random.Range(0, spawnPoints.Length);
-        /*while (spawnPoints[rand].activeSelf == true)
-        {
-            rand = Random.Range(0, spawnPoints.Length);
-        }*/
         if (spawnPoints[rand].activeSelf == false)
         {
             spawnPoints[rand].SetActive(true);

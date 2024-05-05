@@ -150,6 +150,7 @@ public class PlayerPickupManager : MonoBehaviour
         while (Time.time <= endTime)
         {
             GameObject flame = Instantiate(flamePrefab, transform.position, Quaternion.identity);
+            flame.GetComponent<Flame>().playerNo = PlayerBase.playerNo;
             Destroy(flame, flameLifetime);
             yield return new WaitForSeconds(flameSpawnInterval);
         }

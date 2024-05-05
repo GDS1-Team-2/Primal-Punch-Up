@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5807424735145907193}
   - component: {fileID: 7058918617186133220}
   - component: {fileID: 3728187459031145640}
+  - component: {fileID: 2704594606353488433}
   m_Layer: 0
   m_Name: Firecracker
   m_TagString: FirePickup
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -78.132}
 --- !u!33 &5807424735145907193
 MeshFilter:
@@ -97,3 +98,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2704594606353488433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9090779288734024140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469716de623693d48bf83eae012fb45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 21300000, guid: a7f55d9059a5e0a48b6503b37217cf4c, type: 3}

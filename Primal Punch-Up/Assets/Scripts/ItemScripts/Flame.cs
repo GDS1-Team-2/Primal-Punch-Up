@@ -5,16 +5,18 @@ using System.Collections.Generic;
 public class Flame : MonoBehaviour
 {
 
-    private List<string> playerTags = new List<string> { "Lizard", "Bear", "Rabbit", "Fox" };
+    public int playerNo;
 
     void OnTriggerEnter(Collider other)
     {
-        if (playerTags.Contains(other.gameObject.tag))
+        if (other.gameObject.CompareTag("Lizard") ||
+            other.gameObject.CompareTag("Bear") ||
+            other.gameObject.CompareTag("Fox") ||
+            other.gameObject.CompareTag("Rabbit"))
         {
-            PlayerBase player = other.GetComponent<PlayerBase>();
-            if (player != null)
+            if (other.gameObject.GetComponent<PlayerBase>().playerNo != playerNo)
             {
-                player.TakeDamage(5); 
+                other.gameObject.GetComponent<PlayerBase>().TakeDamage(5);
             }
         }
     }
