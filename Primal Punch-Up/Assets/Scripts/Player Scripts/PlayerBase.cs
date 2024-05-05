@@ -93,6 +93,9 @@ public class PlayerBase : MonoBehaviour
     public bool bearFireMovement = false;
     public bool lizSmokeDmg = false;
 
+    private AudioSource audioSource;
+    public AudioClip[] audioClips;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -119,6 +122,9 @@ public class PlayerBase : MonoBehaviour
         canMove = true;
 
         spawnPos = transform.position;
+
+
+        audioSource = GetComponent<AudioSource>();
 
         switch (playerNo)
         {
@@ -224,6 +230,7 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
+            
         }
         else if (playerNo == 3)
         {
@@ -416,10 +423,13 @@ public class PlayerBase : MonoBehaviour
             {
                 anim.Play(runAnim);
                 lastMoveDirection = moveDirection;
+                audioSource.clip = audioClips[2];
+                audioSource.Play();
             }
             else
             {
                 anim.Play(idleAnim);
+                audioSource.Stop();
             }
         }
 
@@ -441,6 +451,8 @@ public class PlayerBase : MonoBehaviour
     {        
         isAttacking = true;
         anim.Play(attack1Anim);
+        audioSource.clip = audioClips[0];
+        audioSource.Play();
         yield return new WaitForSeconds(0.1f);
 
         AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
@@ -493,6 +505,8 @@ public class PlayerBase : MonoBehaviour
         isTakingDamage = true;
         currentSpeed = 0;
         anim.Play(takeHit1Anim);
+        audioSource.clip = audioClips[1];
+        audioSource.Play();
         hp -= damage;
         //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;

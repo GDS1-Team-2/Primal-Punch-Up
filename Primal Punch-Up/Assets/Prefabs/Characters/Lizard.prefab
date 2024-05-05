@@ -1013,6 +1013,10 @@ MonoBehaviour:
   isUsingSpecial: 0
   bearFireMovement: 0
   lizSmokeDmg: 0
+  audioClips:
+  - {fileID: 8300000, guid: d9c8ba1a3e7b6a6469a261676f4f37f7, type: 3}
+  - {fileID: 8300000, guid: 8e79656fc2cf74b4aaa153f154d92c43, type: 3}
+  - {fileID: 8300000, guid: 1d7e76ede927349499281571b3214066, type: 3}
 --- !u!65 &4149942698365022005
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1096,6 +1100,8 @@ MonoBehaviour:
   cooldownGray: {fileID: 0}
   iconSprite: {fileID: 21300000, guid: 1dca3413bed1f574881bccd1ca0a91d4, type: 3}
   graySprite: {fileID: 21300000, guid: 3e71c7f7fdad53c4eadee6acf0bfc216, type: 3}
+  audioSource: {fileID: 0}
+  clip: {fileID: 8300000, guid: 1184f9bf2ca42b344936ba8c1e0b2674, type: 3}
 --- !u!135 &1828411926130597895
 SphereCollider:
   m_ObjectHideFlags: 0

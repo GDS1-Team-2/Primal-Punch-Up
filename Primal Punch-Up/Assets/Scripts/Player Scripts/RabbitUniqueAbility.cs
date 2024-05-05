@@ -23,11 +23,15 @@ public class RabbitUniqueAbility : MonoBehaviour
     public Sprite iconSprite;
     public Sprite graySprite;
 
+    public AudioSource audioSource;
+    public AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
         baseScript = GetComponent<PlayerBase>();
         anim = GetComponent<Animator>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         string playerCooldownSlider = "Player" + baseScript.playerNo + "AbilityCooldown";
         cooldownSlider = GameObject.Find(playerCooldownSlider).GetComponent<Slider>();
         cooldownSlider.maxValue = cdLength;
@@ -87,6 +91,8 @@ public class RabbitUniqueAbility : MonoBehaviour
     {
         baseScript.isUsingSpecial = true;
         anim.Play(abilityAnim);
+        audioSource.clip = clip;
+        audioSource.Play();
         yield return new WaitForSeconds(0.1f);
 
         AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);

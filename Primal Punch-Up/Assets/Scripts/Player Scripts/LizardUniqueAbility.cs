@@ -22,11 +22,15 @@ public class LizardUniqueAbility : MonoBehaviour
     public Sprite iconSprite;
     public Sprite graySprite;
 
+    public AudioSource audioSource;
+    public AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
         baseScript = GetComponent<PlayerBase>();
         smr = GetComponentInChildren<SkinnedMeshRenderer>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         string playerCooldownSlider = "Player" + baseScript.playerNo + "AbilityCooldown";
         cooldownSlider = GameObject.Find(playerCooldownSlider).GetComponent<Slider>();
         cooldownSlider.maxValue = cdLength;
@@ -84,6 +88,8 @@ public class LizardUniqueAbility : MonoBehaviour
 
     public IEnumerator LizardAttack()
     {
+        audioSource.clip = clip;
+        audioSource.Play();
         smr.enabled = false;
         GameObject particlesInstance = Instantiate(smokePrefab, transform.position + smokeSpawnLoc, Quaternion.identity);
         LizardSmoke thisLizardSmoke = particlesInstance.GetComponent<LizardSmoke>();
