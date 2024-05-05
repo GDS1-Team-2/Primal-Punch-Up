@@ -306,7 +306,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c6e111631f6f7df42857ee3596fc465a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1205,6 +1205,11 @@ MonoBehaviour:
   respawnScreen: {fileID: 0}
   respawnSlider: {fileID: 0}
   respawnTimer: {fileID: 0}
+  minimapIcon: {fileID: 8246646032394082852}
+  Player1Material: {fileID: 2100000, guid: c6e111631f6f7df42857ee3596fc465a, type: 2}
+  Player2Material: {fileID: 2100000, guid: 49e3edc3223d7374c93c60b28294d42b, type: 2}
+  Player3Material: {fileID: 2100000, guid: ce3f41d4a66f0a843911b089d9c659ad, type: 2}
+  Player4Material: {fileID: 2100000, guid: d82794495071b354b89c52e524db2be4, type: 2}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}

@@ -71,6 +71,12 @@ public class PlayerBase : MonoBehaviour
     public Slider respawnSlider;
     public Text respawnTimer;
 
+    public SpriteRenderer minimapIcon;
+    public Material Player1Material;
+    public Material Player2Material;
+    public Material Player3Material;
+    public Material Player4Material;
+
     public GameObject Manager;
     private RoundsScript RoundsScript;
     public PlayerPickupManager PlayerPickupManager;
@@ -128,6 +134,7 @@ public class PlayerBase : MonoBehaviour
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player1Model", gameObject.tag);
+                minimapIcon.material = Player1Material;
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -141,16 +148,19 @@ public class PlayerBase : MonoBehaviour
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player2Model", gameObject.tag);
+                minimapIcon.material = Player2Material;
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player3Model", gameObject.tag);
+                minimapIcon.material = Player3Material;
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player4Model", gameObject.tag);
+                minimapIcon.material = Player4Material;
                 break;
         }
 
@@ -191,6 +201,7 @@ public class PlayerBase : MonoBehaviour
             default:
                 break;
         }
+
     }
 
     // Update is called once per frame
