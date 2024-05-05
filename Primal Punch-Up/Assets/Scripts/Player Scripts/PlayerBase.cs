@@ -7,18 +7,11 @@ using UnityEngine.InputSystem;
 public class PlayerBase : MonoBehaviour
 {
     public int playerNo = 0;
-    public GameObject teleportGatePrefab;
-    private GameObject firstPortal = null;
-    private GameObject secondPortal = null;
-    private bool hasTeleportGate = false;
+    
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
 
-    public GameObject flamePrefab;
-    public bool hasFlameItem = false;
-    public float flameTrailDuration = 5.0f;
-    public float flameSpawnInterval = 0.5f;
-    public float flameLifetime = 1.0f;
+    
 
     public Animator anim;
     public Rigidbody rbody;
@@ -213,7 +206,7 @@ public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleInput();
+        //HandleInput();
 
         if (playerNo == 1 || playerNo == 2)
         {
@@ -491,18 +484,6 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             //Debug.Log(otherPlayer.gameObject.name + " has been hit");
         }
-
-        if (other.gameObject.CompareTag("PortalPickup"))
-        {
-            hasTeleportGate = true;
-            Destroy(other.gameObject);
-        }
-
-        if (other.gameObject.CompareTag("FirePickup"))
-        {
-            this.hasFlameItem = true;
-            Destroy(other.gameObject);
-        }
     }
 
     public IEnumerator TakeDamage(int damage)
@@ -568,65 +549,6 @@ public class PlayerBase : MonoBehaviour
         respawnScreen.SetActive(false);
     }
 
-    void HandleInput()
-    {
-        if (hasFlameItem)
-        {
 
-            if ((playerNo == 1 && Input.GetKeyDown(KeyCode.T)) ||
-                (playerNo == 2 && Input.GetKeyDown(KeyCode.L)) ||
-                (playerNo == 3 && P3Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame) ||
-                (playerNo == 4 && P4Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame))
-            {
-                StartCoroutine(CreateFlameTrail());
-                hasFlameItem = false; 
-            }
-        }
-        else if (hasTeleportGate)
-        {
-
-            if ((playerNo == 1 && Input.GetKeyDown(KeyCode.T)) ||
-                (playerNo == 2 && Input.GetKeyDown(KeyCode.L)) ||
-                (playerNo == 3 && P3Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame) ||
-                (playerNo == 4 && P4Controller != null && Gamepad.current.buttonWest.wasPressedThisFrame))
-            {
-                if (firstPortal == null)
-                {
-                    PlacePortal(); 
-                }
-                else if (secondPortal == null)
-                {
-                    PlacePortal();
-                    hasTeleportGate = false; 
-                }
-            }
-        }
-    }
-
-    void PlacePortal()
-    {
-        if (firstPortal == null)
-        {
-            firstPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
-            firstPortal.name = "FirstPortal";
-        }
-        else if (secondPortal == null)
-        {
-            secondPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
-            secondPortal.name = "SecondPortal";
-            firstPortal.GetComponent<Portal>().SetPartner(secondPortal);
-            secondPortal.GetComponent<Portal>().SetPartner(firstPortal);
-        }
-    }
-
-    IEnumerator CreateFlameTrail()
-    {
-        float endTime = Time.time + flameTrailDuration;
-        while (Time.time <= endTime)
-        {
-            GameObject flame = Instantiate(flamePrefab, transform.position, Quaternion.identity);
-            Destroy(flame, flameLifetime);
-            yield return new WaitForSeconds(flameSpawnInterval);
-        }
-    }
+    
 }

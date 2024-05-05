@@ -17,6 +17,19 @@ public class PlayerPickupManager : MonoBehaviour
 
     public MagnetItem MagnetItem;
 
+    public GameObject teleportGatePrefab;
+    private GameObject firstPortal = null;
+    private GameObject secondPortal = null;
+    private bool hasTeleportGate = false;
+    public GameObject flamePrefab;
+    public bool hasFlameItem = false;
+    public float flameTrailDuration = 5.0f;
+    public float flameSpawnInterval = 0.5f;
+    public float flameLifetime = 1.0f;
+
+    private bool firstPlaced = false;
+    private bool secondPlaced = false;
+
     //add icon
     public Image itemIconUI; // UI Image component to display the item icon
     // Start is called before the first frame update
@@ -93,7 +106,57 @@ public class PlayerPickupManager : MonoBehaviour
             usingMagnet = true;
             hasItem = true;
         }
-            
+        else if (currentItem.name == "Firecracker")
+        {
+            StartCoroutine(CreateFlameTrail());
+        }
+        else if (currentItem.name == "Portal")
+        {
+            if (!firstPlaced)
+            {
+                PlacePortal();
+            }
+            else if (firstPlaced && !secondPlaced)
+            {
+                PlacePortal();
+            }
+        }
+    }
+
+    void PlacePortal()
+    {
+        if (!firstPlaced)
+        {
+            firstPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            firstPortal.name = "FirstPortal";
+        }
+        else if (firstPlaced && !secondPlaced)
+        {
+            secondPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            secondPortal.name = "SecondPortal";
+            firstPortal.GetComponent<Portal>().SetPartner(secondPortal);
+            secondPortal.GetComponent<Portal>().SetPartner(firstPortal);
+            hasItem = false;
+            firstPlaced = false;
+            secondPlaced = false;
+            itemText.text = "Current Item: None";
+            itemIconUI.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator CreateFlameTrail()
+    {
+        float endTime = Time.time + flameTrailDuration;
+        while (Time.time <= endTime)
+        {
+            GameObject flame = Instantiate(flamePrefab, transform.position, Quaternion.identity);
+            Destroy(flame, flameLifetime);
+            yield return new WaitForSeconds(flameSpawnInterval);
+        }
+        hasItem = false;
+        currentItem = null;
+        itemText.text = "Current Item: None";
+        itemIconUI.gameObject.SetActive(false);
     }
 
 }
