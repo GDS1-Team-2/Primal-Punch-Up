@@ -167,6 +167,7 @@ public class PickupItem : MonoBehaviour
         UpdateTempScoreText();
         string scoreKey = "ScoreKey" + PlayerBase.playerNo;
         PlayerPrefs.SetInt(scoreKey, score);
+        PlayerPrefs.Save();
     }
 
     public void LoseTempScore()

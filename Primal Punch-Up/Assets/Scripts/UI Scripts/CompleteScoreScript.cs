@@ -103,13 +103,13 @@ public class CompleteScoreScript : MonoBehaviour
                     player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
                     player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
 
-                    player1Icon = continueScreen3Players.transform.Find("Player 1 Icon").GetComponent<Image>();
-                    player2Icon = continueScreen3Players.transform.Find("Player 2 Icon").GetComponent<Image>();
-                    player3Icon = continueScreen3Players.transform.Find("Player 3 Icon").GetComponent<Image>();
+                    player1Icon = GameObject.Find("Player 1 Icon").GetComponent<Image>();
+                    player2Icon = GameObject.Find("Player 2 Icon").GetComponent<Image>();
+                    player3Icon = GameObject.Find("Player 3 Icon").GetComponent<Image>();
 
-                    Player1ScoreText = continueScreen3Players.transform.Find("Player1ScoreText").GetComponent<Text>();
-                    Player2ScoreText = continueScreen3Players.transform.Find("Player2ScoreText").GetComponent<Text>();
-                    Player3ScoreText = continueScreen3Players.transform.Find("Player3ScoreText").GetComponent<Text>();
+                    Player1ScoreText = GameObject.Find("Player1ScoreText").GetComponent<Text>();
+                    Player2ScoreText = GameObject.Find("Player2ScoreText").GetComponent<Text>();
+                    Player3ScoreText = GameObject.Find("Player3ScoreText").GetComponent<Text>();
 
                     SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
                     SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
@@ -128,15 +128,15 @@ public class CompleteScoreScript : MonoBehaviour
                     player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
                     player4Score = GameObject.Find("Player 4 Score").GetComponent<Slider>();
 
-                    player1Icon = continueScreen4Players.transform.Find("Player 1 Icon").GetComponent<Image>();
-                    player2Icon = continueScreen4Players.transform.Find("Player 2 Icon").GetComponent<Image>();
-                    player3Icon = continueScreen4Players.transform.Find("Player 3 Icon").GetComponent<Image>();
-                    player4Icon = continueScreen4Players.transform.Find("Player 4 Icon").GetComponent<Image>();
+                    player1Icon = GameObject.Find("Player 1 Icon").GetComponent<Image>();
+                    player2Icon = GameObject.Find("Player 2 Icon").GetComponent<Image>();
+                    player3Icon = GameObject.Find("Player 3 Icon").GetComponent<Image>();
+                    player4Icon = GameObject.Find("Player 4 Icon").GetComponent<Image>();
 
-                    Player1ScoreText = continueScreen4Players.transform.Find("Player1ScoreText").GetComponent<Text>();
-                    Player2ScoreText = continueScreen4Players.transform.Find("Player2ScoreText").GetComponent<Text>();
-                    Player3ScoreText = continueScreen4Players.transform.Find("Player3ScoreText").GetComponent<Text>();
-                    Player4ScoreText = continueScreen4Players.transform.Find("Player4ScoreText").GetComponent<Text>();
+                    Player1ScoreText = GameObject.Find("Player1ScoreText").GetComponent<Text>();
+                    Player2ScoreText = GameObject.Find("Player2ScoreText").GetComponent<Text>();
+                    Player3ScoreText = GameObject.Find("Player3ScoreText").GetComponent<Text>();
+                    Player4ScoreText = GameObject.Find("Player4ScoreText").GetComponent<Text>();
 
                     SetScore(player1Score, Player1ScoreText, PlayerPrefs.GetInt("Player1Wins"));
                     SetScore(player2Score, Player2ScoreText, PlayerPrefs.GetInt("Player2Wins"));
