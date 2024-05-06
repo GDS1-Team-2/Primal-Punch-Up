@@ -154,7 +154,8 @@ public class PickupItem : MonoBehaviour
     {
         if (tempScoreText != null)
         {
-            tempScoreText.text = tempScore.ToString();
+            string s = tempScore + "/3";
+            tempScoreText.text = s;
         }
     }
 
