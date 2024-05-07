@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MagnetItem : MonoBehaviour
 {
-    public float magnetRadius = 5f;  // 磁铁作用半径
+    public float magnetRadius = 10f;  // 磁铁作用半径
     public float magnetDuration = 10f;  // 磁铁效果持续时间
     public bool isActive = false;  // 磁铁是否激活的标志
     private float magnetTimer = 0;  // 磁铁效果的计时器
@@ -48,28 +48,43 @@ public class MagnetItem : MonoBehaviour
         PickupItem pickupScript = GetComponent<PickupItem>();
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.CompareTag(pickupScript.OneScoreTag) && pickupScript.currentTempBag < pickupScript.maxTempBag)
+            if ((hitCollider.CompareTag(pickupScript.OneScoreTag) || hitCollider.CompareTag(pickupScript.ThreeScoreTag)) && pickupScript.currentTempBag < pickupScript.maxTempBag)
             {
-                pickupScript.AddScore(1);
-                pickupScript.currentTempBag++;
-                Destroy(hitCollider.gameObject);  // 销毁得分物品
-                if (pickupScript.pickupSound != null)
-                {
-                    AudioSource.PlayClipAtPoint(pickupScript.pickupSound, transform.position);
-                }
-            }
-            else if (hitCollider.CompareTag(pickupScript.ThreeScoreTag) && pickupScript.currentTempBag < pickupScript.maxTempBag)
-            {
-                pickupScript.AddScore(3);
-                pickupScript.currentTempBag++;
-                if (pickupScript.pickupSound != null)
-                {
-                    AudioSource.PlayClipAtPoint(pickupScript.pickupSound, transform.position);
-                }
-                Destroy(hitCollider.gameObject);  // 销毁得分物品
+                StartCoroutine(MoveItemToPlayer(hitCollider.gameObject, hitCollider.CompareTag(pickupScript.OneScoreTag) ? 1 : 3, pickupScript));
             }
         }
     }
+
+    IEnumerator MoveItemToPlayer(GameObject item, int scoreToAdd, PickupItem pickupScript)
+    {
+        float time = 0;
+        float duration = 0.5f; // 定义移动到玩家所需的时间
+        Vector3 startPosition = item.transform.position;
+
+        // 确保在物体被销毁前持续更新位置
+        while (time < duration)
+        {
+            if (item == null)  // 检查物体是否存在
+                yield break;  // 如果物体不存在，立即退出协程
+
+            item.transform.position = Vector3.Lerp(startPosition, transform.position, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // 物品到达玩家位置后再进行分数添加和销毁
+        if (item != null)  // 再次检查以确保物体仍然存在
+        {
+            //pickupScript.AddScore(scoreToAdd);
+            //pickupScript.currentTempBag++;
+            if (pickupScript.pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(pickupScript.pickupSound, transform.position);
+            }
+            Destroy(item);  // 销毁得分物品
+        }
+    }
+
 
     private void DeactivateMagnet()
     {
