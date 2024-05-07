@@ -17167,9 +17167,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1311737661}
+  - component: {fileID: 1311737663}
   - component: {fileID: 1311737660}
   - component: {fileID: 1311737662}
-  - component: {fileID: 1311737663}
   - component: {fileID: 1311737665}
   - component: {fileID: 1311737664}
   m_Layer: 0
@@ -17322,6 +17322,13 @@ MonoBehaviour:
   - {fileID: 829272151}
   - {fileID: 1513251557}
   - {fileID: 1137351954}
+  fruits:
+  - {fileID: 8863973275017441408, guid: 832c82a2d594e0f4ea4f1bea93811e0c, type: 3}
+  - {fileID: 8694433813301734547, guid: 3e37777b34ad9994f82a060ea2dbc0a3, type: 3}
+  - {fileID: 5413602950076491785, guid: 59acca3c3404a134aa769ad67c0ceee3, type: 3}
+  - {fileID: 2604164167954528985, guid: cec04d24e86202846813de5a9f61a6ba, type: 3}
+  - {fileID: 6596685521752545756, guid: 99c117a1c28b220428305e07fff280e7, type: 3}
+  filledPositions: []
 --- !u!114 &1311737664
 MonoBehaviour:
   m_ObjectHideFlags: 0

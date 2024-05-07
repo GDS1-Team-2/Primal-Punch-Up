@@ -7,9 +7,19 @@ public class MapScript : MonoBehaviour
     public GameObject[] spawnPoints;
     public GameObject[] bases;
     public GameObject[] fruitSpawnPoints;
+    public GameObject[] fruits;
+    public List<Vector3> filledPositions;
     // Start is called before the first frame update
     void Start()
     {
+        foreach (GameObject position in fruitSpawnPoints)
+        {
+            int rand = Random.Range(0, fruits.Length);
+            Quaternion rot = Quaternion.Euler(270, 0, 0);
+            Instantiate(fruits[rand], position.transform.position, rot);
+            filledPositions.Add(position.transform.position);
+        }
+
         StartCoroutine(SpawnItems());
         for (int i = 0; i < bases.Length; i++)
         {
@@ -37,14 +47,18 @@ public class MapScript : MonoBehaviour
         }
         StartCoroutine(SpawnItems());
     }
+
     IEnumerator SpawnFruit()
     {
         yield return new WaitForSeconds(5);
-        int rand = Random.Range(0, fruitSpawnPoints.Length);
-        if (fruitSpawnPoints[rand].activeSelf == false)
+        int a = Random.Range(0, fruitSpawnPoints.Length);
+        if (!filledPositions.Contains(fruitSpawnPoints[a].transform.position))
         {
-            fruitSpawnPoints[rand].SetActive(true);
-        }
+            int rand = Random.Range(0, fruits.Length);
+            Quaternion rot = Quaternion.Euler(270, 0, 0);
+            Instantiate(fruits[rand], fruitSpawnPoints[a].transform.position, rot);
+            filledPositions.Add(fruitSpawnPoints[a].transform.position);
+        } 
         StartCoroutine(SpawnFruit());
     }
 }

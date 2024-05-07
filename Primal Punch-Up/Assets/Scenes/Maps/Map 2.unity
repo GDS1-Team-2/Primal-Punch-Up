@@ -4008,9 +4008,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 264402510}
+  - component: {fileID: 264402512}
   - component: {fileID: 264402509}
   - component: {fileID: 264402511}
-  - component: {fileID: 264402512}
   - component: {fileID: 264402514}
   - component: {fileID: 264402513}
   m_Layer: 0
@@ -4163,6 +4163,13 @@ MonoBehaviour:
   - {fileID: 663652392}
   - {fileID: 882914074}
   - {fileID: 775067839}
+  fruits:
+  - {fileID: 8863973275017441408, guid: 832c82a2d594e0f4ea4f1bea93811e0c, type: 3}
+  - {fileID: 8694433813301734547, guid: 3e37777b34ad9994f82a060ea2dbc0a3, type: 3}
+  - {fileID: 2604164167954528985, guid: cec04d24e86202846813de5a9f61a6ba, type: 3}
+  - {fileID: 5413602950076491785, guid: 59acca3c3404a134aa769ad67c0ceee3, type: 3}
+  - {fileID: 6596685521752545756, guid: 99c117a1c28b220428305e07fff280e7, type: 3}
+  filledPositions: []
 --- !u!114 &264402513
 MonoBehaviour:
   m_ObjectHideFlags: 0
