@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class CompleteScoreScript : MonoBehaviour
 {
-    public Text Player1ScoreText;
-    public Text Player2ScoreText;
-    public Text Player3ScoreText;
-    public Text Player4ScoreText;
+    private Text Player1ScoreText;
+    private Text Player2ScoreText;
+    private Text Player3ScoreText;
+    private Text Player4ScoreText;
 
     public GameObject finalScreen;
     public GameObject continueScreen2Players;
@@ -21,20 +21,20 @@ public class CompleteScoreScript : MonoBehaviour
     public Image foxIcon;
     public Image rabbitIcon;
 
-    public GameObject lizardModel;
-    public GameObject bearModel;
-    public GameObject foxModel;
-    public GameObject rabbitModel;
+    public GameObject[] lizardModels;
+    public GameObject[] bearModels;
+    public GameObject[] foxModels;
+    public GameObject[] rabbitModels;
 
-    public Image player1Icon;
-    public Image player2Icon;
-    public Image player3Icon;
-    public Image player4Icon;
+    private Image player1Icon;
+    private Image player2Icon;
+    private Image player3Icon;
+    private Image player4Icon;
 
-    public Slider player1Score;
-    public Slider player2Score;
-    public Slider player3Score;
-    public Slider player4Score;
+    private Slider player1Score;
+    private Slider player2Score;
+    private Slider player3Score;
+    private Slider player4Score;
 
     //public Text winnerText;
     public Text FirstPlaceScoreText;
@@ -69,7 +69,7 @@ public class CompleteScoreScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("RoundNo") < 4)
+        if (PlayerPrefs.GetInt("RoundNo") < 1)
         {
             switch (PlayerPrefs.GetInt("noOfPlayers"))
             {
@@ -187,33 +187,39 @@ public class CompleteScoreScript : MonoBehaviour
         }
     }
 
-    public void SetModel(Vector3 pos, string animal)
+    //public void SetModel(Vector3 pos, string animal, int number)
+   // {
+    //    SelectAnimal(animal)[number].transform.position = pos;
+    //}
+
+    public GameObject[] SelectAnimal(string animal)
     {
         switch (animal)
         {
             case "Lizard":
-                lizardModel.transform.position = pos;
+                return lizardModels;
                 break;
             case "Bear":
-                bearModel.transform.position = pos;
+                return bearModels;
                 break;
             case "Fox":
-                foxModel.transform.position = pos;
+                return foxModels;
                 break;
             case "Rabbit":
-                rabbitModel.transform.position = pos;
+                return rabbitModels;
                 break;
         }
+        return lizardModels;
     }
 
-    public void SetAnim(string animal, string state)
+    /*public void SetAnim(GameObject model, string state)
     {
         string anim = animal + state;
         Debug.Log(anim);
         switch (animal)
         {
             case "Lizard":
-                lizardModel.GetComponent<Animator>().Play(anim);
+                lizardModel
                 break;
             case "Bear":
                 bearModel.GetComponent<Animator>().Play(anim);
@@ -225,7 +231,7 @@ public class CompleteScoreScript : MonoBehaviour
                 rabbitModel.GetComponent<Animator>().Play(anim);
                 break;
         }
-    }
+    }*/
 
     public void SetScore(Slider slider, Text scoreText, int scoreValue)
     {
@@ -300,26 +306,29 @@ public class CompleteScoreScript : MonoBehaviour
             {
                 case 0:
                     FirstPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                    SetModel(FirstPlacePosition.position, PlayerPrefs.GetString(playermodel));
+                    GameObject model1 = SelectAnimal(PlayerPrefs.GetString(playermodel))[1];
+                    model1.transform.position = FirstPlacePosition.position;
                     SetIcon(FirstPlaceIcon, PlayerPrefs.GetString(playermodel));
                     SetIconColour(FirstPlaceIcon, playerindex[i]);
-                    SetAnim(PlayerPrefs.GetString(playermodel), "Victory");
+                    model1.GetComponent<Animator>().Play(PlayerPrefs.GetString(playermodel) + "Victory");
                     break;
                 case 1:
                     SecondPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                    SetModel(SecondPlacePosition.position, PlayerPrefs.GetString(playermodel));
+                    GameObject model2 = SelectAnimal(PlayerPrefs.GetString(playermodel))[2];
+                    model2.transform.position = SecondPlacePosition.position;
                     SetIcon(SecondPlaceIcon, PlayerPrefs.GetString(playermodel));
                     SetIconColour(SecondPlaceIcon, playerindex[i]);
-                    SetAnim(PlayerPrefs.GetString(playermodel), "Defeat");
+                    model2.GetComponent<Animator>().Play(PlayerPrefs.GetString(playermodel) + "Defeat");
                     break;
                 case 2:
                     if (PlayerPrefs.GetInt("noOfPlayers") > 2)
                     {
                         ThirdPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                        SetModel(ThirdPlacePosition.position, PlayerPrefs.GetString(playermodel));
+                        GameObject model3 = SelectAnimal(PlayerPrefs.GetString(playermodel))[3];
+                        model3.transform.position = ThirdPlacePosition.position;
                         SetIcon(ThirdPlaceIcon, PlayerPrefs.GetString(playermodel));
                         SetIconColour(ThirdPlaceIcon, playerindex[i]);
-                        SetAnim(PlayerPrefs.GetString(playermodel), "Defeat");
+                        model3.GetComponent<Animator>().Play(PlayerPrefs.GetString(playermodel) + "Defeat");
                     }
                     else
                     {
