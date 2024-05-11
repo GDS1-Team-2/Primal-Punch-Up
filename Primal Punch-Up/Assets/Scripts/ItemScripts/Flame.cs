@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Flame : MonoBehaviour
 {
-
     public int playerNo;
+    public int damage = 5; 
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,8 +15,13 @@ public class Flame : MonoBehaviour
         {
             if (other.gameObject.GetComponent<PlayerBase>().playerNo != playerNo)
             {
-                other.gameObject.GetComponent<PlayerBase>().TakeDamage(5);
+                other.gameObject.GetComponent<PlayerBase>().TakeDamage(damage);
             }
         }
+    }
+
+    public void UpdateDamage(int newDamage)
+    {
+        damage = newDamage;
     }
 }
