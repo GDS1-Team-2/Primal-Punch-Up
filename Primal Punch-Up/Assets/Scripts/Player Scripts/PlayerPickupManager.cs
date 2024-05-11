@@ -14,6 +14,7 @@ public class PlayerPickupManager : MonoBehaviour
     public int playerNo;
 
     public Text itemText;
+    public GameObject controlIcon;
 
     public MagnetItem MagnetItem;
 
@@ -43,6 +44,22 @@ public class PlayerPickupManager : MonoBehaviour
         string playerIconUi = "Player" + playerNo + "CurrentItemIcon";
         itemIconUI = GameObject.Find(playerIconUi).GetComponent<Image>();
         itemIconUI.gameObject.SetActive(false);
+        switch (playerNo)
+        {
+            case 1:
+                controlIcon = GameObject.Find("Control N");
+                break;
+            case 2:
+                controlIcon = GameObject.Find("Control ]");
+                break;
+            case 3:
+                controlIcon = GameObject.Find("Control Square");
+                break;
+            case 4:
+                controlIcon = GameObject.Find("Control Square");
+                break;
+        }
+        controlIcon.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,6 +71,7 @@ public class PlayerPickupManager : MonoBehaviour
             usingMagnet = false;
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
+            controlIcon.SetActive(false);
         }
     }
 
@@ -71,6 +89,7 @@ public class PlayerPickupManager : MonoBehaviour
                 currentItem = items[rand];
                 string uitext = "Current Item: " + currentItem.name;
                 itemText.text = uitext;
+                controlIcon.SetActive(true);
 
                 // Update the UI icon for the current item
                 if (currentItem.GetComponent<Ui_icon>() != null)
@@ -92,6 +111,7 @@ public class PlayerPickupManager : MonoBehaviour
             hasItem = false;
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
+            controlIcon.SetActive(false);
         }
         else if (currentItem.name == "Landmine")
         {
@@ -100,6 +120,7 @@ public class PlayerPickupManager : MonoBehaviour
             hasItem = false;
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
+            controlIcon.SetActive(false);
         }
         else if((currentItem.name == "Magnet")) {
             MagnetItem.ActivateMagnet();
@@ -158,6 +179,7 @@ public class PlayerPickupManager : MonoBehaviour
         currentItem = null;
         itemText.text = "Current Item: None";
         itemIconUI.gameObject.SetActive(false);
+        controlIcon.SetActive(false);
     }
 
 }
