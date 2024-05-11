@@ -19,8 +19,8 @@ public class SelectSettings : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerDrop = GameObject.Find("NoPlayersDropDown");
-        playerNoDrop = playerDrop.GetComponent<TMP_Dropdown>();
+        //playerDrop = GameObject.Find("NoPlayersDropDown");
+        //playerNoDrop = playerDrop.GetComponent<TMP_Dropdown>();
         //roundDrop = GameObject.Find("NoRoundsDropDown");
         //roundNoDrop = roundDrop.GetComponent<TMP_Dropdown>();
     }

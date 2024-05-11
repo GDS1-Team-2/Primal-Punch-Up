@@ -1513,6 +1513,7 @@ MonoBehaviour:
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}
+  dropNumber: 3
   fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
   isDead: 0
   isTakingDamage: 0
@@ -1551,15 +1552,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
   score: 0
-  tempScore: 0
-  maxTempBag: 3
-  currentTempBag: 0
   scoreText: {fileID: 0}
-  tempScoreText: {fileID: 0}
-  OneScoreTag: score1
-  ThreeScoreTag: score2
-  BadScoreTag: NegativeFruit
-  baseTag: Home1
+  OneScoreTag: Fruit
+  MultiScoreTag: MultiScore
+  BadScoreTag: BadFruit
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
   playerNo: 0

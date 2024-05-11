@@ -102,15 +102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400704, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.03
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 400704, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.03
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 400704, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.03
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 400704, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -154,15 +154,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 495592, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 495592, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 495592, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
+      propertyPath: simulationSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -170,10 +174,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.46191663
+      value: 0.8470589
       objectReference: {fileID: 0}
     - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.15294117
+      objectReference: {fileID: 0}
+    - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.58785635
+      objectReference: {fileID: 0}
+    - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.6383666
+      objectReference: {fileID: 0}
+    - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19872566, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
@@ -184,13 +204,21 @@ PrefabInstance:
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 19885394, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19885394, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 19886654, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19886654, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.32644996
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19886654, guid: 6259e15b34abadc4da60353faa5a4dfc, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r

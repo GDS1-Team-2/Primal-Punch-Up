@@ -24,15 +24,6 @@ public class MagnetItem : MonoBehaviour
         }
     }
 
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("MagnetItem"))
-        {
-            ActivateMagnet();
-            Destroy(other.gameObject);  // 销毁磁铁道具
-        }
-    }*/
-
     public void ActivateMagnet()
     {
         if (!isActive)  // 如果磁铁目前不是激活状态，才激活
@@ -48,25 +39,13 @@ public class MagnetItem : MonoBehaviour
         PickupItem pickupScript = GetComponent<PickupItem>();
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.CompareTag(pickupScript.OneScoreTag) && pickupScript.currentTempBag < pickupScript.maxTempBag)
+            if (hitCollider.CompareTag(pickupScript.OneScoreTag))
             {
-                pickupScript.AddScore(1);
-                pickupScript.currentTempBag++;
-                Destroy(hitCollider.gameObject);  // 销毁得分物品
-                if (pickupScript.pickupSound != null)
-                {
-                    AudioSource.PlayClipAtPoint(pickupScript.pickupSound, transform.position);
-                }
+                pickupScript.AddScore(hitCollider.gameObject, 1);
             }
-            else if (hitCollider.CompareTag(pickupScript.ThreeScoreTag) && pickupScript.currentTempBag < pickupScript.maxTempBag)
+            else if (hitCollider.CompareTag(pickupScript.MultiScoreTag))
             {
-                pickupScript.AddScore(3);
-                pickupScript.currentTempBag++;
-                if (pickupScript.pickupSound != null)
-                {
-                    AudioSource.PlayClipAtPoint(pickupScript.pickupSound, transform.position);
-                }
-                Destroy(hitCollider.gameObject);  // 销毁得分物品
+                pickupScript.AddScore(hitCollider.gameObject, 3);
             }
         }
     }

@@ -77,6 +77,7 @@ public class PlayerBase : MonoBehaviour
 
     private Vector3 spawnPos;
     private PickupItem PickupItem;
+    public int dropNumber = 3;
 
     public GameObject fruitPrefab;
     public bool isDead = false;
@@ -523,7 +524,7 @@ public class PlayerBase : MonoBehaviour
         anim.Play(deathAnim);
         respawnScreen.SetActive(true);
         int radius = 5;
-        int fruitNumber = PickupItem.tempScore;
+        int fruitNumber = dropNumber;
         Vector3 center = new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z);
         for (int i = 0; i < fruitNumber; i++)
         {
@@ -532,7 +533,6 @@ public class PlayerBase : MonoBehaviour
             GameObject fruit = Instantiate(fruitPrefab, pos, rot);
             //fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
         }
-        PickupItem.tempScore = 0;
         capCol.enabled = false;
 
         for (float timer = deathTimer; timer >= 0; timer -= 1f)

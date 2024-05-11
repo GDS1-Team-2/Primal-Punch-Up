@@ -9,16 +9,16 @@ public class PickupItem : MonoBehaviour
     //follow is for pickup score item
     public AudioClip pickupSound; // Sound effect for picking up items
     public int score = 0; // Player's score
-    public int tempScore = 0; // Player's temporary score
-    public int maxTempBag = 3; // Maximum capacity of temporary items, can be modified in Unity
-    public int currentTempBag = 0; // Current count of temporary items
+    //public int tempScore = 0; // Player's temporary score
+    //public int maxTempBag = 3; // Maximum capacity of temporary items, can be modified in Unity
+    //public int currentTempBag = 0; // Current count of temporary items
     public Text scoreText; // UI component for displaying score
-    public Text tempScoreText; // UI component for displaying temporary score
-    public string OneScoreTag = "ItemSpawn"; // Tag for items worth one point
-    public string ThreeScoreTag = "ScoreItems"; // Tag for items worth three points
-    public string BadScoreTag = "PunishScoreItem"; // Tag for items that subtract points
+    //public Text tempScoreText; // UI component for displaying temporary score
+    public string OneScoreTag; // Tag for items worth one point
+    public string MultiScoreTag; // Tag for items worth three points
+    public string BadScoreTag; // Tag for items that subtract points
     //public string BiggerBag = "BiggerBag";
-    public string baseTag; // Base tag for depositing items
+    //public string baseTag; // Base tag for depositing items
 
 
     //follow is for ?
@@ -39,106 +39,53 @@ public class PickupItem : MonoBehaviour
         audioSource = GameObject.Find("UI Sounds").GetComponent<AudioSource>();
         PlayerBase = gameObject.GetComponent<PlayerBase>();
         playerNo = PlayerBase.playerNo;
-        baseTag = "Home" + playerNo;
         string scoreTag = "Player" + playerNo + "Score";
         scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
-        string inventoryTag = "Player" + playerNo + "InventoryScore";
-        tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
+        //string inventoryTag = "Player" + playerNo + "InventoryScore";
+        //tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
+        if (other.gameObject.CompareTag(OneScoreTag))
         {
             AddScore(other.gameObject, 1);
         }
-        if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
+        if (other.gameObject.CompareTag(MultiScoreTag))
         {
             AddScore(other.gameObject, 3);
         }
-        /*if (other.gameObject.CompareTag(BiggerBag))
+        if (other.gameObject.CompareTag(BadScoreTag))
         {
-            maxTempBag = 5;
-            Destroy(other.gameObject);
-        }
-
-
-        if (other.gameObject.CompareTag("chocolate"))
-        {
-            Destroy(other.gameObject);
-            this.speedRangeCollider.gameObject.SetActive(true);
-            GameObject newPrefab = Instantiate(blueEffectPrefab, this.transform.position, this.transform.rotation);
-            newPrefab.transform.parent = this.transform;
-            newPrefab.transform.localScale *= 10;
-            StartCoroutine(DeactivateNodeAfterTime(newPrefab));
-        }
-        if (other.gameObject.CompareTag("speedRange"))
-        {
-            this.gameObject.GetComponent<PlayerBase>().setSpeed(true);
-            StartCoroutine(recoverSpeed());
-        }*/
-
-        if (other.gameObject.CompareTag(BadScoreTag) && tempScore > 1)
-        {
-            BadFruitScore(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag(baseTag))
-        {
-            ConvertTempScoreToScore();
+            SubtractScore(other.gameObject);
         }
     }
 
-    /*IEnumerator DeactivateNodeAfterTime(GameObject effect)
-    {
-        yield return new WaitForSeconds(speedRangeDeactivationTime);
-        this.speedRangeCollider.gameObject.SetActive(false);
-        Destroy(effect);
-    }
 
-    IEnumerator recoverSpeed()
+    public void AddScore(GameObject item, int scoreIncrease)
     {
-        yield return new WaitForSeconds(speedRangeDeactivationTime);
-        this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("speedRange"))
-        {
-            this.gameObject.GetComponent<PlayerBase>().setSpeed(false);
-        }
-    }*/
-
-    private void Update()
-    {
-        // Method could be used to continuously check conditions or implement logic to lose temporary score
-    }
-
-
-    private void AddScore(GameObject item, int scoreIncrease)
-    {
-        tempScore += scoreIncrease;
-        currentTempBag++;
+        score += scoreIncrease;
         if (pickupSound != null)
         {
-            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            audioSource.PlayOneShot(pickupSound);
         }
-
-        item.SetActive(false);
-        UpdateTempScoreText();
+        Destroy(item);
+        UpdateScoreText();
+        string scoreKey = "ScoreKey" + PlayerBase.playerNo;
+        PlayerPrefs.SetInt(scoreKey, score);
+        PlayerPrefs.Save();
     }
 
 
-    private void BadFruitScore(GameObject item)
+    private void SubtractScore(GameObject item)
     {
-        tempScore -= 1;
-
+        score -= 1;
         if (pickupSound != null)
         {
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
         }
         Destroy(item);
-        UpdateTempScoreText();
+        UpdateScoreText();
     }
 
 
@@ -149,40 +96,5 @@ public class PickupItem : MonoBehaviour
             scoreText.text = score.ToString();
         }
     }
-
-    public void UpdateTempScoreText()
-    {
-        if (tempScoreText != null)
-        {
-            string s = tempScore + "/3";
-            tempScoreText.text = s;
-        }
-    }
-
-    private void ConvertTempScoreToScore()
-    {
-        score += tempScore; // Add temporary score to main score
-        tempScore = 0; // Reset temporary score
-        currentTempBag = 0;
-        UpdateScoreText();
-        UpdateTempScoreText();
-        string scoreKey = "ScoreKey" + PlayerBase.playerNo;
-        PlayerPrefs.SetInt(scoreKey, score);
-        PlayerPrefs.Save();
-    }
-
-    public void LoseTempScore()
-    {
-        // Logic for losing temporary score
-        tempScore = 0;
-        UpdateTempScoreText();
-    }
-
-    public void AddScore(int scoreToAdd)
-    {
-        tempScore += scoreToAdd;
-        UpdateTempScoreText();
-    }
-
 
 }
