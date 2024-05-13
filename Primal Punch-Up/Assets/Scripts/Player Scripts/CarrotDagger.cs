@@ -6,11 +6,11 @@ public class CarrotDagger : MonoBehaviour
 {
 
     public Rigidbody carrotBody;
-    public float throwSpeed = 25.0f;
+    public float throwSpeed = 40.0f;
     private Vector3 startPos;
     private float distance;
     private Vector3 currentPos;
-    public float throwDistance = 20.0f;
+    public float throwDistance = 40.0f;
     public PlayerBase thisPlayer;
     private bool hit = false;
 
@@ -36,7 +36,7 @@ public class CarrotDagger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        int carrotDamage = 15;
+        int carrotDamage = 20;
         PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
 
         if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger)

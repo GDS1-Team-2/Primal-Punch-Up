@@ -100,7 +100,7 @@ public class LizardUniqueAbility : MonoBehaviour
         particlesInstance = Instantiate(smokePrefab, transform.position + smokeSpawnLoc, Quaternion.identity);
         LizardSmoke thisNewLizardSmoke = particlesInstance.GetComponent<LizardSmoke>();
         thisNewLizardSmoke.thisPlayer = thisPlayer;
-        StartCoroutine(thisLizardSmoke.SmokeCollider());
+        StartCoroutine(thisNewLizardSmoke.SmokeCollider());
         smr.enabled = true;
         abilityCD = true;
         cdTimer = cdLength;
