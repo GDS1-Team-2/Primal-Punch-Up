@@ -32,7 +32,12 @@ public class PlayerPickupManager : MonoBehaviour
     private bool secondPlaced = false;
 
     //add icon
-    public Image itemIconUI; // UI Image component to display the item icon
+    public Image itemIconUI;
+    public GameObject itemCooldown;
+    private Slider cooldownSlider;
+    public GameObject itemTimer;
+    private Text timerText;
+    // UI Image component to display the item icon
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +49,13 @@ public class PlayerPickupManager : MonoBehaviour
         string playerIconUi = "Player" + playerNo + "CurrentItemIcon";
         itemIconUI = GameObject.Find(playerIconUi).GetComponent<Image>();
         itemIconUI.gameObject.SetActive(false);
+        string playerCooldownUI = "Player" + playerNo + "ItemCooldown";
+        itemCooldown = GameObject.Find(playerCooldownUI);
+        cooldownSlider = itemCooldown.GetComponent<Slider>();
+        string playerCooldownTimerUI = "Player" + playerNo + "ItemTimer";
+        itemTimer = GameObject.Find(playerCooldownTimerUI);
+        timerText = itemTimer.GetComponent<Text>();
+        itemCooldown.SetActive(false);
         switch (playerNo)
         {
             case 1:
@@ -72,6 +84,7 @@ public class PlayerPickupManager : MonoBehaviour
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
             controlIcon.SetActive(false);
+            itemCooldown.SetActive(false);
         }
     }
 
@@ -126,6 +139,10 @@ public class PlayerPickupManager : MonoBehaviour
             MagnetItem.ActivateMagnet();
             usingMagnet = true;
             hasItem = true;
+            itemCooldown.SetActive(true);
+            cooldownSlider.maxValue = MagnetItem.magnetDuration;
+            MagnetItem.cooldownSlider = cooldownSlider;
+            MagnetItem.timerText = timerText;
         }
         else if (currentItem.name == "Firecracker")
         {
@@ -167,6 +184,7 @@ public class PlayerPickupManager : MonoBehaviour
 
     IEnumerator CreateFlameTrail()
     {
+        StartCoroutine(FlameTimer());
         float endTime = Time.time + flameTrailDuration;
         while (Time.time <= endTime)
         {
@@ -180,6 +198,24 @@ public class PlayerPickupManager : MonoBehaviour
         itemText.text = "Current Item: None";
         itemIconUI.gameObject.SetActive(false);
         controlIcon.SetActive(false);
+        itemCooldown.SetActive(false);
+    }
+
+    IEnumerator FlameTimer()
+    {
+        itemCooldown.SetActive(true);
+        float flameTimer = flameTrailDuration;
+        cooldownSlider.maxValue = flameTrailDuration;
+        float elapsedTime = 0;
+        float duration = flameTrailDuration;
+        while (elapsedTime < duration)
+        {
+            flameTimer -= Time.deltaTime;
+            cooldownSlider.value = flameTimer;
+            timerText.text = Mathf.RoundToInt(flameTimer).ToString();
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
 }
