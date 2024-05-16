@@ -13587,6 +13587,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1844235179766881173, guid: 9062c1850d4ecc4438ee1d0d2d62997d, type: 3}
   m_PrefabInstance: {fileID: 875484858}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &879660443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7462072278582108944, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 632926526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &882176739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19591,9 +19596,13 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3578631364533083089, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
+      propertyPath: areaSpawnWarning
+      value: 
+      objectReference: {fileID: 879660443}
     - target: {fileID: 3578631364533116277, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
       propertyPath: m_Name
-      value: Capture Area
+      value: Harvest Halo
       objectReference: {fileID: 0}
     - target: {fileID: 3578631364533469525, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
       propertyPath: m_RootOrder
@@ -19637,6 +19646,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3578631364533469525, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578631364544374929, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
