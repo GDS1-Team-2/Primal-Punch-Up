@@ -16,6 +16,7 @@ public class SelectController : MonoBehaviour
     Gamepad player3Controller;
     bool allLockedIn = true;
     public GameObject letsGoBtn;
+    public GameObject infoTxt;
     public GameObject characterLoader;
     public CharacterLoader characterLoadScript;
     public string P1Char = "";
@@ -103,9 +104,11 @@ public class SelectController : MonoBehaviour
         if (allLockedIn)
         {
             letsGoBtn.SetActive(true);
+            infoTxt.SetActive(false);
         } else
         {
             letsGoBtn.SetActive(false);
+            infoTxt.SetActive(true);
         }
     }
 
