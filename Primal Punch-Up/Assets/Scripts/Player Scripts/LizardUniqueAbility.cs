@@ -25,6 +25,8 @@ public class LizardUniqueAbility : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip clip;
 
+    public bool usedAbility = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,7 @@ public class LizardUniqueAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!abilityCD)
+        if (!abilityCD && !usedAbility)
         {
             if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
             {
@@ -74,6 +76,7 @@ public class LizardUniqueAbility : MonoBehaviour
 
         if (abilityCD)
         {
+            usedAbility = false;
             cooldownGray.enabled = true;
             cooldownSlider.value = cdTimer;
             cdTimer -= 1 * Time.deltaTime;
@@ -88,6 +91,7 @@ public class LizardUniqueAbility : MonoBehaviour
 
     public IEnumerator LizardAttack()
     {
+        usedAbility = true;
         audioSource.clip = clip;
         audioSource.Play();
         smr.enabled = false;
