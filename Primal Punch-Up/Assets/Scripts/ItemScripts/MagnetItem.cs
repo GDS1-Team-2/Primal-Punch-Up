@@ -8,6 +8,7 @@ public class MagnetItem : MonoBehaviour
     public float magnetDuration = 10f;  // 磁铁效果持续时间
     public bool isActive = false;  // 磁铁是否激活的标志
     private float magnetTimer = 0;  // 磁铁效果的计时器
+    //public Transform player;
 
     public GameObject magnetRangeIndicator;
     void Update()
@@ -15,6 +16,8 @@ public class MagnetItem : MonoBehaviour
         if (isActive)
         {
             magnetTimer -= Time.deltaTime;
+            magnetRangeIndicator.transform.position = transform.position + new Vector3(0, 0.1f, 0); // 持续更新位置以跟随玩家
+
             if (magnetTimer <= 0)
             {
                 DeactivateMagnet();
@@ -41,6 +44,7 @@ public class MagnetItem : MonoBehaviour
         {
             isActive = true;
             magnetTimer = magnetDuration;
+            magnetRangeIndicator.transform.position = transform.position + new Vector3(0, 0.1f, 0); //
             magnetRangeIndicator.SetActive(true); // 显示圆形范围指示器
         }
     }
