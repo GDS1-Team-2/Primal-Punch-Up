@@ -348,6 +348,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1171113591}
     m_Modifications:
+    - target: {fileID: 3578631364533083089, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
+      propertyPath: areaSpawnWarning
+      value: 
+      objectReference: {fileID: 2053955145}
     - target: {fileID: 3578631364533116277, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
       propertyPath: m_Name
       value: Capture Area
@@ -18897,6 +18901,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8088009754019667362, guid: cf8fd19741f5fcc42ba2b46c3e3b94f5, type: 3}
   m_PrefabInstance: {fileID: 2044636119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2053955145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7462072278582108944, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 1298635097}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2057506062
 PrefabInstance:
