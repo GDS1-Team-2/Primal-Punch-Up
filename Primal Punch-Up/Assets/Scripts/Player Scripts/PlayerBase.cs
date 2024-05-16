@@ -27,6 +27,7 @@ public class PlayerBase : MonoBehaviour
     public float deathTimer = 5.0f;
 
     public bool canMove = true;
+    public bool acceptInput = true;
 
     public float speed = 10.0f;
 
@@ -114,6 +115,7 @@ public class PlayerBase : MonoBehaviour
         PickupItem = GetComponent<PickupItem>();
 
         canMove = true;
+        acceptInput = true;
 
         spawnPos = transform.position;
 
@@ -135,6 +137,7 @@ public class PlayerBase : MonoBehaviour
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 minimapIcon.material = Player1Material;
+                RoundsScript.SetPlayer1(gameObject);
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -149,18 +152,21 @@ public class PlayerBase : MonoBehaviour
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player2Model", gameObject.tag);
                 minimapIcon.material = Player2Material;
+                RoundsScript.SetPlayer2(gameObject);
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player3Model", gameObject.tag);
                 minimapIcon.material = Player3Material;
+                RoundsScript.SetPlayer3(gameObject);
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player4Model", gameObject.tag);
                 minimapIcon.material = Player4Material;
+                RoundsScript.SetPlayer4(gameObject);
                 break;
         }
 
@@ -209,117 +215,107 @@ public class PlayerBase : MonoBehaviour
     {
         //HandleInput();
 
-        if (playerNo == 1 || playerNo == 2)
+        if (acceptInput)
         {
-            if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) &&!isAttacking && !isDashing &&!isUsingSpecial &&!isDead)
+            if (playerNo == 1 || playerNo == 2)
             {
-                StartCoroutine(PlayerBasicAttack());
-            }
-            if (itemKey.HasValue && Input.GetKey(itemKey.Value))
-            {
-                PlayerPickupManager.UseItem();
-            }
-            if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-            {
-                isDashing = true;
-                dashTimer = dashDuration;
-            }
-            
-        }
-        else if (playerNo == 3)
-        {
-            if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-            {
-                StartCoroutine(PlayerBasicAttack());
-            }
-            if (P3Controller.buttonWest.wasPressedThisFrame)
-            {
-                PlayerPickupManager.UseItem();
-            }
-            if (P3Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
-            {
-                isDashing = true;
-                dashTimer = dashDuration;
-            }
-        }
-        else if (playerNo == 4)
-        {
-            if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-            {
-                StartCoroutine(PlayerBasicAttack());
-            }
-            if (P4Controller.buttonWest.wasPressedThisFrame)
-            {
-                PlayerPickupManager.UseItem();
-            }
-            if (P4Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
-            {
-                isDashing = true;
-                dashTimer = dashDuration;
-            }
-
-        }
-
-        ChangeDirection();
-
-        if (dashTimer > 0 && !isDashing)
-        {
-            dashTimer -= Time.deltaTime;
-        }
-
-        //Regen health when out of combat
-        if (!inCombat)
-        {
-            gainHP += Time.deltaTime;
-            if (gainHP >= 1.0f)
-            {
-                hp += 2;
-                if (hp >= maxHP)
+                if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
                 {
-                    hp = maxHP;
+                    StartCoroutine(PlayerBasicAttack());
                 }
-                gainHP = 0.0f;
-                //Debug.Log(this.hp);
+                if (itemKey.HasValue && Input.GetKey(itemKey.Value))
+                {
+                    PlayerPickupManager.UseItem();
+                }
+                if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    isDashing = true;
+                    dashTimer = dashDuration;
+                }
+
             }
-        }
-        else
-        {
-            inCombatTimer -= 1 * Time.deltaTime;
-            if (inCombatTimer < 0.0f)
+            else if (playerNo == 3)
             {
-                inCombatTimer = 0.0f;
-                inCombat = false;
+                if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    StartCoroutine(PlayerBasicAttack());
+                }
+                if (P3Controller.buttonWest.wasPressedThisFrame)
+                {
+                    PlayerPickupManager.UseItem();
+                }
+                if (P3Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    isDashing = true;
+                    dashTimer = dashDuration;
+                }
+            }
+            else if (playerNo == 4)
+            {
+                if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    StartCoroutine(PlayerBasicAttack());
+                }
+                if (P4Controller.buttonWest.wasPressedThisFrame)
+                {
+                    PlayerPickupManager.UseItem();
+                }
+                if (P4Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    isDashing = true;
+                    dashTimer = dashDuration;
+                }
+
+            }
+
+            ChangeDirection();
+
+            if (dashTimer > 0 && !isDashing)
+            {
+                dashTimer -= Time.deltaTime;
+            }
+
+            //Regen health when out of combat
+            if (!inCombat)
+            {
+                gainHP += Time.deltaTime;
+                if (gainHP >= 1.0f)
+                {
+                    hp += 2;
+                    if (hp >= maxHP)
+                    {
+                        hp = maxHP;
+                    }
+                    gainHP = 0.0f;
+                    //Debug.Log(this.hp);
+                }
+            }
+            else
+            {
+                inCombatTimer -= 1 * Time.deltaTime;
+                if (inCombatTimer < 0.0f)
+                {
+                    inCombatTimer = 0.0f;
+                    inCombat = false;
+                }
+            }
+
+            healthBarSlider.value = hp;
+
+            //setting the players for the round score
+
+
+            if (hp <= 0 && !isDead)
+            {
+                StartCoroutine(OnDeath());
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PauseScript.PauseGame();
             }
         }
-
-        healthBarSlider.value = hp;
-
-        //setting the players for the round score
-        switch (playerNo)
-        {
-            case 1:
-                RoundsScript.SetPlayer1(gameObject);
-                break;
-            case 2:
-                RoundsScript.SetPlayer2(gameObject);
-                break;
-            case 3:
-                RoundsScript.SetPlayer3(gameObject);
-                break;
-            case 4:
-                RoundsScript.SetPlayer4(gameObject);
-                break;
-        }
-
-        if (hp <= 0 && !isDead)
-        {
-            StartCoroutine(OnDeath());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseScript.PauseGame();
-        }
+        
     }
 
     void FixedUpdate()
