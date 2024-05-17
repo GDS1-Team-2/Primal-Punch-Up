@@ -5,12 +5,21 @@ using UnityEngine.UI;
 
 public class MagnetItem : MonoBehaviour
 {
-    public float magnetRadius = 5f;  // ´ÅÌú×÷ÓÃ°ë¾¶
-    public float magnetDuration = 10f;  // ´ÅÌúÐ§¹û³ÖÐøÊ±¼ä
-    public bool isActive = false;  // ´ÅÌúÊÇ·ñ¼¤»îµÄ±êÖ¾
-    private float magnetTimer = 0;  // ´ÅÌúÐ§¹ûµÄ¼ÆÊ±Æ÷
+    public float magnetRadius = 10f;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ë¾¶
+    public float magnetDuration = 10f;  // ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    public bool isActive = false;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ñ¼¤»ï¿½Ä±ï¿½Ö¾
+    private float magnetTimer = 0;  // ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½Ä¼ï¿½Ê±ï¿½ï¿½
     public Slider cooldownSlider;
     public Text timerText;
+    //public Transform player;
+
+    public GameObject magnetRangeIndicator;
+
+    public void Start()
+    {
+        
+    }
+
     void Update()
     {
         if (isActive)
@@ -18,6 +27,7 @@ public class MagnetItem : MonoBehaviour
             magnetTimer -= Time.deltaTime;
             cooldownSlider.value = magnetTimer;
             timerText.text = Mathf.RoundToInt(magnetTimer).ToString();
+
             if (magnetTimer <= 0)
             {
                 DeactivateMagnet();
@@ -31,10 +41,11 @@ public class MagnetItem : MonoBehaviour
 
     public void ActivateMagnet()
     {
-        if (!isActive)  // Èç¹û´ÅÌúÄ¿Ç°²»ÊÇ¼¤»î×´Ì¬£¬²Å¼¤»î
+        if (!isActive)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Ç°ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½
         {
             isActive = true;
             magnetTimer = magnetDuration;
+            magnetRangeIndicator.SetActive(true); // ï¿½ï¿½Ê¾Ô²ï¿½Î·ï¿½Î§Ö¸Ê¾ï¿½ï¿½
         }
     }
 
@@ -44,19 +55,46 @@ public class MagnetItem : MonoBehaviour
         PickupItem pickupScript = GetComponent<PickupItem>();
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.CompareTag(pickupScript.OneScoreTag))
-            {
-                pickupScript.AddScore(hitCollider.gameObject, 1);
-            }
-            else if (hitCollider.CompareTag(pickupScript.MultiScoreTag))
-            {
-                pickupScript.AddScore(hitCollider.gameObject, 3);
+            if ((hitCollider.CompareTag(pickupScript.OneScoreTag) || hitCollider.CompareTag(pickupScript.MultiScoreTag))) { 
+                StartCoroutine(MoveItemToPlayer(hitCollider.gameObject, hitCollider.CompareTag(pickupScript.OneScoreTag) ? 1 : 3, pickupScript));
             }
         }
     }
 
+    IEnumerator MoveItemToPlayer(GameObject item, int scoreToAdd, PickupItem pickupScript)
+    {
+        float time = 0;
+        float duration = 0.5f; // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+        Vector3 startPosition = item.transform.position;
+
+        // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å±»ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+        while (time < duration)
+        {
+            if (item == null)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+                yield break;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å²»ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½Ð­ï¿½ï¿½
+
+            item.transform.position = Vector3.Lerp(startPosition, transform.position, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        // ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãºï¿½ï¿½Ù½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óºï¿½ï¿½ï¿½ï¿½ï¿½
+        if (item != null)  // ï¿½Ù´Î¼ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½
+        {
+            //pickupScript.AddScore(scoreToAdd);
+            //pickupScript.currentTempBag++;
+            if (pickupScript.pickupSound != null)
+            {
+                AudioSource.PlayClipAtPoint(pickupScript.pickupSound, transform.position);
+            }
+            Destroy(item);  // ï¿½ï¿½ï¿½ÙµÃ·ï¿½ï¿½ï¿½Æ·
+        }
+    }
+
+
     private void DeactivateMagnet()
     {
         isActive = false;
+        magnetRangeIndicator.SetActive(false); // ï¿½ï¿½ï¿½ï¿½Ô²ï¿½Î·ï¿½Î§Ö¸Ê¾ï¿½ï¿½
     }
 }

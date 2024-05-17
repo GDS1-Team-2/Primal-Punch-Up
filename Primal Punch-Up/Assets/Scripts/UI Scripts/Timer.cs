@@ -55,7 +55,7 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(currentTime / 60);
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
-        if (countdown == false && seconds < 5.5)
+        if (countdown == false && seconds < 5.5 && minutes == 0)
         {
             countdown = true;
             TimerText2.color = Color.red;
