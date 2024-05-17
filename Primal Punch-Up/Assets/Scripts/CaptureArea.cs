@@ -13,6 +13,7 @@ public class CaptureArea : MonoBehaviour
     private float increaseScoreTimer = 0.0f;
     public float increaseInterval = 2.0f;
     private List<PickupItem> pickUpItems = new List<PickupItem>();
+    public GameObject areaSpawnWarning;
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +38,14 @@ public class CaptureArea : MonoBehaviour
             }
         }
 
+        if (timeUntilStart >= randTime - 5f && timeUntilStart <= randTime)
+        {
+            areaSpawnWarning.SetActive(true);
+        }
+
         if (timeUntilStart >= randTime && areaActive == false)
         {
+            areaSpawnWarning.SetActive(false);
             particles.Play();
             sphereCol.enabled = true;
             areaActive = true;
