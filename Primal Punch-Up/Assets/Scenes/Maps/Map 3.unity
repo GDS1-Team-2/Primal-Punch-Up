@@ -1107,6 +1107,10 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3578631364533083089, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
+      propertyPath: areaSpawnWarning
+      value: 
+      objectReference: {fileID: 587426965}
     - target: {fileID: 3578631364533116277, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
       propertyPath: m_Name
       value: Capture Area
@@ -9572,6 +9576,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6493377689671104905, guid: 0ec95b028ac81b447b55814afa8d85a8, type: 3}
   m_PrefabInstance: {fileID: 585843506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &587426965 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7462072278582108944, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
+  m_PrefabInstance: {fileID: 1704504500}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &588868512
 PrefabInstance:
