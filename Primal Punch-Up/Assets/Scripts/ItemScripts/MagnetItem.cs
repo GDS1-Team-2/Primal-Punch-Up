@@ -14,6 +14,12 @@ public class MagnetItem : MonoBehaviour
     //public Transform player;
 
     public GameObject magnetRangeIndicator;
+
+    public void Start()
+    {
+        
+    }
+
     void Update()
     {
         if (isActive)
@@ -21,7 +27,6 @@ public class MagnetItem : MonoBehaviour
             magnetTimer -= Time.deltaTime;
             cooldownSlider.value = magnetTimer;
             timerText.text = Mathf.RoundToInt(magnetTimer).ToString();
-            magnetRangeIndicator.transform.position = transform.position + new Vector3(0, 0.1f, 0); // ��������λ���Ը������
 
             if (magnetTimer <= 0)
             {
@@ -40,7 +45,6 @@ public class MagnetItem : MonoBehaviour
         {
             isActive = true;
             magnetTimer = magnetDuration;
-            magnetRangeIndicator.transform.position = transform.position + new Vector3(0, 0.1f, 0); //
             magnetRangeIndicator.SetActive(true); // ��ʾԲ�η�Χָʾ��
         }
     }

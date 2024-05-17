@@ -532,6 +532,90 @@ Transform:
   m_Father: {fileID: 7330923011257786112}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 65.35968, y: 88.29515, z: -173.37083}
+--- !u!1 &5193606691201262530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4050008495287631983}
+  - component: {fileID: 1225366899711470562}
+  m_Layer: 0
+  m_Name: MagnetRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4050008495287631983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193606691201262530}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.0001, z: 0}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7431775831024789636}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!212 &1225366899711470562
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193606691201262530}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3764706}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &5229039164407904939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1212,7 @@ Transform:
   - {fileID: 3130752099749365776}
   - {fileID: 7782587198703641146}
   - {fileID: 8012347076432335351}
+  - {fileID: 4050008495287631983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1190,6 +1275,7 @@ MonoBehaviour:
   maxHP: 50
   deathTimer: 5
   canMove: 0
+  acceptInput: 1
   speed: 10
   inCombatLength: 10
   dashSpeed: 20
@@ -1221,6 +1307,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d9b60a057c79d6e43bc5e737535601b1, type: 3}
   - {fileID: 8300000, guid: 04e55823a18de1944b362e54d53e4ea4, type: 3}
   - {fileID: 8300000, guid: 7b0c8b9cb833a5a469805c9565545e60, type: 3}
+  magnetRangeIndicator: {fileID: 5193606691201262530}
 --- !u!136 &7811819089111855679
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1266,7 +1353,6 @@ MonoBehaviour:
   OneScoreTag: Fruit
   MultiScoreTag: MultiScore
   BadScoreTag: BadFruit
-  baseTag: Home2
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
   playerNo: 0
@@ -1293,6 +1379,7 @@ MonoBehaviour:
   PlayerBase: {fileID: 0}
   playerNo: 0
   itemText: {fileID: 0}
+  controlIcon: {fileID: 0}
   MagnetItem: {fileID: 0}
   teleportGatePrefab: {fileID: 7577934001833564739, guid: 89a7a1e1cd9dda941bf50aca005dde9c, type: 3}
   flamePrefab: {fileID: 2599679904589132441, guid: 497fb7daaae482e4986117ac010365bb, type: 3}
@@ -1301,6 +1388,8 @@ MonoBehaviour:
   flameSpawnInterval: 0.5
   flameLifetime: 1
   itemIconUI: {fileID: 0}
+  itemCooldown: {fileID: 0}
+  itemTimer: {fileID: 0}
 --- !u!114 &5412500035539744412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,6 +1431,9 @@ MonoBehaviour:
   magnetRadius: 5
   magnetDuration: 10
   isActive: 0
+  cooldownSlider: {fileID: 0}
+  timerText: {fileID: 0}
+  magnetRangeIndicator: {fileID: 5193606691201262530}
 --- !u!82 &6879233772519011644
 AudioSource:
   m_ObjectHideFlags: 0

@@ -91,6 +91,8 @@ public class PlayerBase : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip[] audioClips;
 
+    public GameObject magnetRangeIndicator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -138,6 +140,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 minimapIcon.material = Player1Material;
                 RoundsScript.SetPlayer1(gameObject);
+                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.5424528f, 0.8564558f, 1, 0.3764706f);
+                magnetRangeIndicator.SetActive(false);
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -153,6 +157,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player2Model", gameObject.tag);
                 minimapIcon.material = Player2Material;
                 RoundsScript.SetPlayer2(gameObject);
+                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
+                magnetRangeIndicator.SetActive(false);
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
@@ -160,6 +166,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player3Model", gameObject.tag);
                 minimapIcon.material = Player3Material;
                 RoundsScript.SetPlayer3(gameObject);
+                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.6383248f, 1, 0.5518868f, 0.3764706f);
+                magnetRangeIndicator.SetActive(false);
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
@@ -167,6 +175,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player4Model", gameObject.tag);
                 minimapIcon.material = Player4Material;
                 RoundsScript.SetPlayer4(gameObject);
+                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(1, 0.945283f, 0.5896226f, 0.3764706f);
+                magnetRangeIndicator.SetActive(false);
                 break;
         }
 
