@@ -51,8 +51,7 @@ public class MagnetItem : MonoBehaviour
         PickupItem pickupScript = GetComponent<PickupItem>();
         foreach (var hitCollider in hitColliders)
         {
-            if ((hitCollider.CompareTag(pickupScript.OneScoreTag) || hitCollider.CompareTag(pickupScript.ThreeScoreTag)) && pickupScript.currentTempBag < pickupScript.maxTempBag)
-            {
+            if ((hitCollider.CompareTag(pickupScript.OneScoreTag) || hitCollider.CompareTag(pickupScript.MultiScoreTag))) { 
                 StartCoroutine(MoveItemToPlayer(hitCollider.gameObject, hitCollider.CompareTag(pickupScript.OneScoreTag) ? 1 : 3, pickupScript));
             }
         }
