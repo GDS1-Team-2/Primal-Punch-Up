@@ -21,6 +21,8 @@ public class CaptureArea : MonoBehaviour
         particles = GetComponent<ParticleSystem>();
         sphereCol = GetComponent<SphereCollider>();
         randTime = Random.Range(30f, 90f - areaCountDown);
+        areaSpawnWarning = GameObject.Find("HarvestHaloCanvas");
+        areaSpawnWarning.SetActive(false);
     }
 
     // Update is called once per frame

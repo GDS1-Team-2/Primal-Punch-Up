@@ -10566,6 +10566,7 @@ MonoBehaviour:
   UICanvas2Players: {fileID: 1298635100}
   UICanvas3Players: {fileID: 1298635099}
   UICanvas4Players: {fileID: 1298635101}
+  EndAnimCanvas: {fileID: 0}
   players: []
   newRound: 0
   ScoreboardScript: {fileID: 0}
@@ -10596,7 +10597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f26dffb6a382148a6917e05df00e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeLeft: 120
+  TimeLeft: 10
   TimerOn: 1
   timer1: {fileID: 678693689}
   timer2: {fileID: 711944027}
