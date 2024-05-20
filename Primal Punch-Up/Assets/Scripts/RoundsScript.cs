@@ -155,7 +155,7 @@ public class RoundsScript : MonoBehaviour
                 player.GetComponent<Rigidbody>().isKinematic = true;
                 player.GetComponent<PlayerBase>().acceptInput = false;
             }
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1f);
             ScoreboardScript.ScoreBoard();
         }
     }

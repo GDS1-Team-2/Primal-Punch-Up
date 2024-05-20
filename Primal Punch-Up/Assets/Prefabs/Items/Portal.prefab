@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2192722235241738008}
   - component: {fileID: 2192722235241738009}
   - component: {fileID: 267051770312948629}
+  - component: {fileID: 2877575515182576604}
   m_Layer: 0
   m_Name: Portal
   m_TagString: PortalPickup
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2192722235241738015
 MeshFilter:
@@ -114,3 +115,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2877575515182576604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2192722235241738010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469716de623693d48bf83eae012fb45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: -1245250079, guid: 17a52653fcae77f498f3f9dad6482b49, type: 3}

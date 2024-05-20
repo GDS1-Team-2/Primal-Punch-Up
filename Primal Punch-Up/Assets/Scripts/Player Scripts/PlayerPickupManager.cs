@@ -167,6 +167,7 @@ public class PlayerPickupManager : MonoBehaviour
         {
             firstPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
             firstPortal.name = "FirstPortal";
+            firstPlaced = true;
         }
         else if (firstPlaced && !secondPlaced)
         {
@@ -175,8 +176,7 @@ public class PlayerPickupManager : MonoBehaviour
             firstPortal.GetComponent<Portal>().SetPartner(secondPortal);
             secondPortal.GetComponent<Portal>().SetPartner(firstPortal);
             hasItem = false;
-            firstPlaced = false;
-            secondPlaced = false;
+            secondPlaced = true;
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
         }

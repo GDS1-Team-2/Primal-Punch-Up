@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2734287383690903486}
   - component: {fileID: 4598648049800810837}
   - component: {fileID: 7724320287216146743}
+  - component: {fileID: 3831178616097001552}
   m_Layer: 0
   m_Name: PortalGate
   m_TagString: Portal
@@ -113,6 +114,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partnerPortal: {fileID: 7577934001833564739}
   proximityThreshold: 5
+--- !u!114 &3831178616097001552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577934001833564739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469716de623693d48bf83eae012fb45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: -1245250079, guid: 17a52653fcae77f498f3f9dad6482b49, type: 3}
 --- !u!1001 &7039905731585691864
 PrefabInstance:
   m_ObjectHideFlags: 0
