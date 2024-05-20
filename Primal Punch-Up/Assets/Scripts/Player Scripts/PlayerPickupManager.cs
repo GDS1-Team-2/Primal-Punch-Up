@@ -30,6 +30,7 @@ public class PlayerPickupManager : MonoBehaviour
 
     private bool firstPlaced = false;
     private bool secondPlaced = false;
+    private bool canPlace = false;
 
     //add icon
     public Image itemIconUI;
@@ -166,20 +167,31 @@ public class PlayerPickupManager : MonoBehaviour
         if (!firstPlaced)
         {
             firstPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            firstPortal.GetComponent<Portal>().SetColour(playerNo);
             firstPortal.name = "FirstPortal";
-            firstPlaced = true;
+            StartCoroutine(PortalTime());
         }
-        else if (firstPlaced && !secondPlaced)
+        else if (firstPlaced && !secondPlaced && canPlace)
         {
             secondPortal = Instantiate(teleportGatePrefab, transform.position, Quaternion.identity);
+            secondPortal.GetComponent<Portal>().SetColour(playerNo);
             secondPortal.name = "SecondPortal";
             firstPortal.GetComponent<Portal>().SetPartner(secondPortal);
             secondPortal.GetComponent<Portal>().SetPartner(firstPortal);
             hasItem = false;
             secondPlaced = true;
+            canPlace = false;
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
+            items.RemoveAt(items.Count-1);
         }
+    }
+
+    IEnumerator PortalTime()
+    {
+        firstPlaced = true;
+        yield return new WaitForSeconds(1.0f);
+        canPlace = true;
     }
 
     IEnumerator CreateFlameTrail()

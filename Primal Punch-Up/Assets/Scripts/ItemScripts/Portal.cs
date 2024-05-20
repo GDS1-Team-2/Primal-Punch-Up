@@ -7,7 +7,14 @@ public class Portal : MonoBehaviour
     public GameObject partnerPortal;
     private List<string> playerTags = new List<string> { "Lizard", "Bear", "Rabbit", "Fox" };
     private float teleportCooldown = 1.0f;
-    public float proximityThreshold = 0.5f; 
+    public float proximityThreshold = 0.5f;
+
+    public GameObject blue;
+    public GameObject red;
+    public GameObject green;
+    public GameObject yellow;
+
+    private int playerNo;
 
     public void SetPartner(GameObject otherPortal)
     {
@@ -18,8 +25,31 @@ public class Portal : MonoBehaviour
     {
         if (playerTags.Contains(other.tag) && partnerPortal != null)
         {
-            StartCoroutine(TeleportAfterDelay(other.gameObject));
+            if (other.gameObject.GetComponent<PlayerBase>().playerNo == playerNo)
+            {
+                StartCoroutine(TeleportAfterDelay(other.gameObject));
+            }
         }
+    }
+
+    public void SetColour(int playernumber)
+    {
+        switch (playernumber)
+        {
+            case 1:
+                blue.SetActive(true);
+                break;
+            case 2:
+                red.SetActive(true);
+                break;
+            case 3:
+                green.SetActive(true);
+                break;
+            case 4:
+                yellow.SetActive(true);
+                break;
+        }
+        playerNo = playernumber;
     }
 
     private IEnumerator TeleportAfterDelay(GameObject player)
