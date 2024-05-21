@@ -11,6 +11,7 @@ public class PlayerBase : MonoBehaviour
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
 
+    public GameObject targetPrefab;
     
 
     public Animator anim;
@@ -96,6 +97,7 @@ public class PlayerBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dropNumber = 3;
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
@@ -527,19 +529,24 @@ public class PlayerBase : MonoBehaviour
     IEnumerator OnDeath()
     {
         isDead = true;
+        PickupItem.canPickup = false;
         anim.Play(deathAnim);
         respawnScreen.SetActive(true);
-        int radius = 5;
-        int fruitNumber = dropNumber;
+        float radius = 5f;
         Vector3 center = new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z);
-        for (int i = 0; i < fruitNumber; i++)
+        for (int i = 0; i < dropNumber; i++)
         {
-            Vector3 pos = RandomCircle(center, 5.0f);
+            //Vector3 pos = RandomCircle(center, radius);
+            //Vector3 pos = 
             Quaternion rot = Quaternion.Euler(270, 0, 0);
-            GameObject fruit = Instantiate(fruitPrefab, pos, rot);
-            //fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
+            //GameObject target = Instantiate(targetPrefab, pos, rot);
+            GameObject fruit = Instantiate(fruitPrefab, gameObject.transform.position, rot);
+            fruit.GetComponent<FruitScript>().Drop(i, radius);
+            //fruit.GetComponent<FruitScript>().target = target.transform;
+           // fruit.GetComponent<FruitScript>().canDrop = true;
         }
         capCol.enabled = false;
+        PickupItem.DropScoreOnDeath(dropNumber);
 
         for (float timer = deathTimer; timer >= 0; timer -= 1f)
         {
@@ -552,6 +559,7 @@ public class PlayerBase : MonoBehaviour
         transform.position = spawnPos;
         hp = maxHP;
         isDead = false;
+        PickupItem.canPickup = true;
         respawnScreen.SetActive(false);
     }
 

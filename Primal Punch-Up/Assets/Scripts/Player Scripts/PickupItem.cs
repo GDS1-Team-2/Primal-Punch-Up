@@ -32,8 +32,11 @@ public class PickupItem : MonoBehaviour
     public AudioSource audioSource;
     public int playerNo;
 
+    public bool canPickup;
+
     void Start()
     {
+        canPickup = true;
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
         audioSource = GameObject.Find("UI Sounds").GetComponent<AudioSource>();
@@ -47,18 +50,22 @@ public class PickupItem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(OneScoreTag))
+        if (canPickup)
         {
-            AddScore(other.gameObject, 1);
+            if (other.gameObject.CompareTag(OneScoreTag))
+            {
+                AddScore(other.gameObject, 1);
+            }
+            if (other.gameObject.CompareTag(MultiScoreTag))
+            {
+                AddScore(other.gameObject, 3);
+            }
+            if (other.gameObject.CompareTag(BadScoreTag))
+            {
+                SubtractScore(other.gameObject);
+            }
         }
-        if (other.gameObject.CompareTag(MultiScoreTag))
-        {
-            AddScore(other.gameObject, 3);
-        }
-        if (other.gameObject.CompareTag(BadScoreTag))
-        {
-            SubtractScore(other.gameObject);
-        }
+        
     }
 
 
@@ -77,7 +84,7 @@ public class PickupItem : MonoBehaviour
     }
 
 
-    private void SubtractScore(GameObject item)
+    public void SubtractScore(GameObject item)
     {
         score -= 1;
         if (pickupSound != null)
@@ -85,6 +92,12 @@ public class PickupItem : MonoBehaviour
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
         }
         Destroy(item);
+        UpdateScoreText();
+    }
+
+    public void DropScoreOnDeath(int number)
+    {
+        score -= number;
         UpdateScoreText();
     }
 

@@ -1485,6 +1485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNo: 0
+  targetPrefab: {fileID: 0}
   anim: {fileID: 7434326416971981804}
   rbody: {fileID: 7434326416971981778}
   boxCol: {fileID: 0}
@@ -1516,7 +1517,7 @@ MonoBehaviour:
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}
   dropNumber: 3
-  fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
+  fruitPrefab: {fileID: 5413602950076491785, guid: 59acca3c3404a134aa769ad67c0ceee3, type: 3}
   isDead: 0
   isTakingDamage: 0
   isAttacking: 0
