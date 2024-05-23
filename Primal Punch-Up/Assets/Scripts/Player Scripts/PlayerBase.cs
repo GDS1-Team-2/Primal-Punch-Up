@@ -90,7 +90,7 @@ public class PlayerBase : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip[] audioClips;
 
-    public GameObject magnetRangeIndicator;
+    //public GameObject magnetRangeIndicator;
     public float shieldHealth = 3f;
     public float shieldCD = 10f;
     public GameObject forceField;
@@ -104,6 +104,7 @@ public class PlayerBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dropNumber = 3;
         anim = GetComponent<Animator>();
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
@@ -150,8 +151,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 minimapIcon.material = Player1Material;
                 RoundsScript.SetPlayer1(gameObject);
-                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.5424528f, 0.8564558f, 1, 0.3764706f);
-                magnetRangeIndicator.SetActive(false);
+                //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.5424528f, 0.8564558f, 1, 0.3764706f);
+                //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat);
                 break;
             case 2:
@@ -168,8 +169,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player2Model", gameObject.tag);
                 minimapIcon.material = Player2Material;
                 RoundsScript.SetPlayer2(gameObject);
-                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
-                magnetRangeIndicator.SetActive(false);
+                //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
+                //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat1);
                 break;
             case 3:
@@ -178,8 +179,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player3Model", gameObject.tag);
                 minimapIcon.material = Player3Material;
                 RoundsScript.SetPlayer3(gameObject);
-                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.6383248f, 1, 0.5518868f, 0.3764706f);
-                magnetRangeIndicator.SetActive(false);
+                //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.6383248f, 1, 0.5518868f, 0.3764706f);
+                //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat2);
                 break;
             case 4:
@@ -188,8 +189,8 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player4Model", gameObject.tag);
                 minimapIcon.material = Player4Material;
                 RoundsScript.SetPlayer4(gameObject);
-                magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(1, 0.945283f, 0.5896226f, 0.3764706f);
-                magnetRangeIndicator.SetActive(false);
+                //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(1, 0.945283f, 0.5896226f, 0.3764706f);
+                //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat3);
                 break;
         }
@@ -581,19 +582,24 @@ public class PlayerBase : MonoBehaviour
     IEnumerator OnDeath()
     {
         isDead = true;
+        PickupItem.canPickup = false;
         anim.Play(deathAnim);
         respawnScreen.SetActive(true);
-        int radius = 5;
-        int fruitNumber = dropNumber;
+        float radius = 5f;
         Vector3 center = new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z);
-        for (int i = 0; i < fruitNumber; i++)
+        for (int i = 0; i < dropNumber; i++)
         {
-            Vector3 pos = RandomCircle(center, 5.0f);
+            //Vector3 pos = RandomCircle(center, radius);
+            //Vector3 pos = 
             Quaternion rot = Quaternion.Euler(270, 0, 0);
-            GameObject fruit = Instantiate(fruitPrefab, pos, rot);
-            //fruit.GetComponent<FruitScript>().StartPickupAfterDrop(playerNo);
+            //GameObject target = Instantiate(targetPrefab, pos, rot);
+            GameObject fruit = Instantiate(fruitPrefab, gameObject.transform.position, rot);
+            fruit.GetComponent<FruitScript>().Drop(i, radius);
+            //fruit.GetComponent<FruitScript>().target = target.transform;
+           // fruit.GetComponent<FruitScript>().canDrop = true;
         }
         capCol.enabled = false;
+        PickupItem.DropScoreOnDeath(dropNumber);
 
         for (float timer = deathTimer; timer >= 0; timer -= 1f)
         {
@@ -606,6 +612,7 @@ public class PlayerBase : MonoBehaviour
         transform.position = spawnPos;
         hp = maxHP;
         isDead = false;
+        PickupItem.canPickup = true;
         respawnScreen.SetActive(false);
     }
 }

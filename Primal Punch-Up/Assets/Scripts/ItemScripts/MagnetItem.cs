@@ -17,7 +17,8 @@ public class MagnetItem : MonoBehaviour
 
     public void Start()
     {
-        
+        magnetRadius = 10f;
+        magnetRangeIndicator.SetActive(false);
     }
 
     void Update()
