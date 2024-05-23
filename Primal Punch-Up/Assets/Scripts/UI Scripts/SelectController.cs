@@ -139,6 +139,19 @@ public class SelectController : MonoBehaviour
             }
         }
         DontDestroyOnLoad(characterLoader);
-        SceneManager.LoadScene("Map 1");
+        int rand = Random.Range(1, 4);
+        switch (rand)
+        {
+            case 1:
+                SceneManager.LoadScene("Map 1");
+                break;
+            case 2:
+                SceneManager.LoadScene("Map 2");
+                break;
+            case 3:
+                SceneManager.LoadScene("Map 3");
+                break;
+        }
+        
     }
 }
