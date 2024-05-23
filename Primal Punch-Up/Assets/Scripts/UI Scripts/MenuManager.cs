@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour
     public string PlayerNumberSelectSceneName;
 
     public bool reset = false;
+    public PlayerNoSelect PlayerNoSelect;
 
     public void OpenOptions()
     {
@@ -106,22 +107,56 @@ public class MenuManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("noOfPlayers", 2);
         PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("noOfPlayers"));
+        PlayerNoSelect.ActivateButton();
     }
 
     public void Set3Players()
     {
         PlayerPrefs.SetInt("noOfPlayers", 3);
         PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("noOfPlayers"));
+        PlayerNoSelect.ActivateButton();
     }
 
     public void Set4Players()
     {
         PlayerPrefs.SetInt("noOfPlayers", 4);
         PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("noOfPlayers"));
+        PlayerNoSelect.ActivateButton();
     }
+
+    public void Set3Rounds()
+    {
+        PlayerPrefs.SetInt("noOfRounds", 3);
+        PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("noOfRounds"));
+        PlayerNoSelect.ActivateButton();
+    }
+
+    public void Set5Rounds()
+    {
+        PlayerPrefs.SetInt("noOfRounds", 5);
+        PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("noOfRounds"));
+        PlayerNoSelect.ActivateButton();
+    }
+
+    public void Set7Rounds()
+    {
+        PlayerPrefs.SetInt("noOfRounds", 7);
+        PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("noOfRounds"));
+        PlayerNoSelect.ActivateButton();
+    }
+
+    
 
     public void LoadPlayerNumberSelect()
     {
+        PlayerPrefs.SetInt("noOfRounds", 0);
+        PlayerPrefs.SetInt("noOfPlayers", 0);
         SceneManager.LoadScene(PlayerNumberSelectSceneName);
     }
 

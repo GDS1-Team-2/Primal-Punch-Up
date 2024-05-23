@@ -138,8 +138,9 @@ public class RoundsScript : MonoBehaviour
         PlayerPrefs.SetInt("ScoreKey2", 0);
         PlayerPrefs.SetInt("ScoreKey3", 0);
         PlayerPrefs.SetInt("ScoreKey4", 0);
-        if (PlayerPrefs.GetInt("RoundNo") >= 4)
+        if (PlayerPrefs.GetInt("RoundNo") > PlayerPrefs.GetInt("noOfRounds"))
         {
+            yield return new WaitForSeconds(1.5f);
             SceneManager.LoadScene(CompleteSceneName);
         }
         else
