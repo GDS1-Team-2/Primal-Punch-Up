@@ -54,21 +54,21 @@ public class BearUniqueAbility : MonoBehaviour
         {
             if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
             {
-                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
+                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
                 {
                     StartCoroutine(BearAttack());
                 }
             }
             else if (baseScript.playerNo == 3)
             {
-                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
+                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
                 {
                     StartCoroutine(BearAttack());
                 }
             }
             else if (baseScript.playerNo == 4)
             {
-                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead)
+                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
                 {
                     StartCoroutine(BearAttack());
                 }
@@ -101,7 +101,7 @@ public class BearUniqueAbility : MonoBehaviour
 
         if (currentState.IsName(abilityAnim))
         {
-            yield return new WaitForSeconds(currentState.length);
+            yield return new WaitForSeconds(currentState.length - 0.6f);
             ParticleSystem[] fireInstances = FindObjectsOfType<ParticleSystem>();
             abilityCD = true;
             cdTimer = cdLength;

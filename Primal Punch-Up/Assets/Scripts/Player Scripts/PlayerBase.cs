@@ -11,8 +11,6 @@ public class PlayerBase : MonoBehaviour
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
 
-    
-
     public Animator anim;
     public Rigidbody rbody;
     public BoxCollider boxCol;
@@ -85,6 +83,7 @@ public class PlayerBase : MonoBehaviour
     public bool isTakingDamage = false;
     public bool isAttacking = false;
     public bool isUsingSpecial = false;
+    public bool isShielding = false;
     public bool bearFireMovement = false;
     public bool lizSmokeDmg = false;
 
@@ -92,6 +91,15 @@ public class PlayerBase : MonoBehaviour
     public AudioClip[] audioClips;
 
     public GameObject magnetRangeIndicator;
+    public float shieldHealth = 3f;
+    public float shieldCD = 10f;
+    public GameObject forceField;
+    public GameObject forceFieldOuter;
+    public MeshRenderer ffr;
+    public Material ForceFieldMat;
+    public Material ForceFieldMat1;
+    public Material ForceFieldMat2;
+    public Material ForceFieldMat3;
 
     // Start is called before the first frame update
     void Start()
@@ -121,8 +129,10 @@ public class PlayerBase : MonoBehaviour
 
         spawnPos = transform.position;
 
-
         audioSource = GetComponent<AudioSource>();
+
+        ffr = forceField.GetComponent<MeshRenderer>();
+        Material[] materials = ffr.materials;
 
         switch (playerNo)
         {
@@ -142,6 +152,7 @@ public class PlayerBase : MonoBehaviour
                 RoundsScript.SetPlayer1(gameObject);
                 magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.5424528f, 0.8564558f, 1, 0.3764706f);
                 magnetRangeIndicator.SetActive(false);
+                UpdateForceFieldMaterial(ForceFieldMat);
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -159,6 +170,7 @@ public class PlayerBase : MonoBehaviour
                 RoundsScript.SetPlayer2(gameObject);
                 magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
                 magnetRangeIndicator.SetActive(false);
+                UpdateForceFieldMaterial(ForceFieldMat1);
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
@@ -168,6 +180,7 @@ public class PlayerBase : MonoBehaviour
                 RoundsScript.SetPlayer3(gameObject);
                 magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.6383248f, 1, 0.5518868f, 0.3764706f);
                 magnetRangeIndicator.SetActive(false);
+                UpdateForceFieldMaterial(ForceFieldMat2);
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
@@ -177,6 +190,7 @@ public class PlayerBase : MonoBehaviour
                 RoundsScript.SetPlayer4(gameObject);
                 magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(1, 0.945283f, 0.5896226f, 0.3764706f);
                 magnetRangeIndicator.SetActive(false);
+                UpdateForceFieldMaterial(ForceFieldMat3);
                 break;
         }
 
@@ -220,6 +234,13 @@ public class PlayerBase : MonoBehaviour
 
     }
 
+    void UpdateForceFieldMaterial(Material newMaterial)
+    {
+        Material[] materials = ffr.materials;
+        materials[0] = newMaterial;
+        ffr.materials = materials;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -229,7 +250,96 @@ public class PlayerBase : MonoBehaviour
         {
             if (playerNo == 1 || playerNo == 2)
             {
-                if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+                StartCoroutine(PlayerBasicAttack());
+            }
+            if (itemKey.HasValue && Input.GetKey(itemKey.Value))
+            {
+                PlayerPickupManager.UseItem();
+            }
+            if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            {
+                isDashing = true;
+                dashTimer = dashDuration;
+            }
+            
+        }
+        else if (playerNo == 3)
+        {
+            if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
+            {
+                StartCoroutine(PlayerBasicAttack());
+            }
+            if (P3Controller.buttonWest.wasPressedThisFrame)
+            {
+                PlayerPickupManager.UseItem();
+            }
+            if (P3Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding)
+            {
+                isDashing = true;
+                dashTimer = dashDuration;
+            }
+            if (P3Controller.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            {
+                forceFieldOuter.SetActive(true);
+                isShielding = true;
+            } else if (P3Controller.rightTrigger.wasReleasedThisFrame)
+            {
+                forceFieldOuter.SetActive(false);
+                isShielding = false;
+            }
+        }
+        else if (playerNo == 4)
+        {
+            if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            {
+                StartCoroutine(PlayerBasicAttack());
+            }
+            if (P4Controller.buttonWest.wasPressedThisFrame)
+            {
+                PlayerPickupManager.UseItem();
+            }
+            if (P4Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
+            {
+                isDashing = true;
+                dashTimer = dashDuration;
+            }
+
+        }
+
+        if (isShielding)
+        {
+            shieldHealth -= 1 * Time.deltaTime;
+            print(shieldHealth);
+        }
+        
+        if (shieldHealth <= 0)
+        {
+            forceFieldOuter.SetActive(false);
+            isShielding = false;
+            shieldCD -= Time.deltaTime;
+        }
+
+        if (shieldCD <= 0)
+        {
+            shieldHealth = 3f;
+            shieldCD = 10f;
+        }
+
+        ChangeDirection();
+
+        if (dashTimer > 0 && !isDashing)
+        {
+            dashTimer -= Time.deltaTime;
+        }
+
+        //Regen health when out of combat
+        if (!inCombat)
+        {
+            gainHP += Time.deltaTime;
+            if (gainHP >= 1.0f)
+            {
+                hp += 2;
+                if (hp >= maxHP)
                 {
                     StartCoroutine(PlayerBasicAttack());
                 }
@@ -411,7 +521,7 @@ public class PlayerBase : MonoBehaviour
         
         if (!bearFireMovement)
         {
-            if (!isDead && !isTakingDamage)
+            if (!isDead && !isTakingDamage && !isShielding)
             {
                 rbody.velocity = transform.forward * moveDirection.z * currentSpeed;
             }
@@ -464,7 +574,7 @@ public class PlayerBase : MonoBehaviour
 
         if (currentState.IsName(attack1Anim))
         {
-            yield return new WaitForSeconds(currentState.length);
+            yield return new WaitForSeconds(currentState.length - 0.6f);
             boxCol.enabled = false;
         }
         isAttacking = false;
@@ -495,12 +605,15 @@ public class PlayerBase : MonoBehaviour
 
     public IEnumerator TakeDamage(int damage)
     {
-        isTakingDamage = true;
-        currentSpeed = 0;
-        anim.Play(takeHit1Anim);
-        audioSource.clip = audioClips[1];
-        audioSource.Play();
-        hp -= damage;
+        if (!isShielding)
+        {
+            hp -= damage;
+            currentSpeed = 0;
+            isTakingDamage = true;
+            anim.Play(takeHit1Anim);
+            audioSource.clip = audioClips[1];
+            audioSource.Play();
+        }
         //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
