@@ -49,7 +49,8 @@ public class CharacterLoader : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        GameObject player1 = Instantiate(convertCharacter(P1Char), P1Spawn.transform.position, Quaternion.identity);
+                        Quaternion rot1 = Quaternion.Euler(0, -40, 0);
+                        GameObject player1 = Instantiate(convertCharacter(P1Char), P1Spawn.transform.position, rot1);
                         PlayerBase player1Script = player1.GetComponent<PlayerBase>();
                         player1Script.playerNo = 1;
                         Camera P1cam = player1.GetComponentInChildren<Camera>();
@@ -66,7 +67,8 @@ public class CharacterLoader : MonoBehaviour
                         
                         break;
                     case 1:
-                        GameObject player2 = Instantiate(convertCharacter(P2Char), P2Spawn.transform.position, Quaternion.identity);
+                        Quaternion rot2 = Quaternion.Euler(0, 135, 0);
+                        GameObject player2 = Instantiate(convertCharacter(P2Char), P2Spawn.transform.position, rot2);
                         PlayerBase player2Script = player2.GetComponent<PlayerBase>();
                         player2Script.playerNo = 2;
                         Camera P2cam = player2.GetComponentInChildren<Camera>();
@@ -80,7 +82,8 @@ public class CharacterLoader : MonoBehaviour
                         }
                         break;
                     case 2:
-                        GameObject player3 = Instantiate(convertCharacter(P3Char), P3Spawn.transform.position, Quaternion.identity);
+                        Quaternion rot3 = Quaternion.Euler(0, 40, 0);
+                        GameObject player3 = Instantiate(convertCharacter(P3Char), P3Spawn.transform.position, rot3);
                         PlayerBase player3Script = player3.GetComponent<PlayerBase>();
                         player3Script.playerNo = 3;
                         player3Script.P3Controller = P3Controller;
@@ -88,7 +91,8 @@ public class CharacterLoader : MonoBehaviour
                         P3cam.rect = new Rect(0.0f, 0.0f, 0.5f, 0.5f);
                         break;
                     case 3:
-                        GameObject player4 = Instantiate(convertCharacter(P4Char), P4Spawn.transform.position, Quaternion.identity);
+                        Quaternion rot4 = Quaternion.Euler(0, 205, 0);
+                        GameObject player4 = Instantiate(convertCharacter(P4Char), P4Spawn.transform.position, rot4);
                         PlayerBase player4Script = player4.GetComponent<PlayerBase>();
                         player4Script.playerNo = 4;
                         player4Script.P4Controller = P4Controller;
