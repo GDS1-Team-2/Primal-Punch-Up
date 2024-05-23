@@ -246,9 +246,9 @@ public class PlayerBase : MonoBehaviour
     {
         //HandleInput();
 
-        if (acceptInput)
+        if (playerNo == 1 || playerNo == 2)
         {
-            if (playerNo == 1 || playerNo == 2)
+            if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
@@ -261,7 +261,6 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
-            
         }
         else if (playerNo == 3)
         {
@@ -332,6 +331,13 @@ public class PlayerBase : MonoBehaviour
             dashTimer -= Time.deltaTime;
         }
 
+        ChangeDirection();
+
+        if (dashTimer > 0 && !isDashing)
+        {
+            dashTimer -= Time.deltaTime;
+        }
+
         //Regen health when out of combat
         if (!inCombat)
         {
@@ -341,101 +347,36 @@ public class PlayerBase : MonoBehaviour
                 hp += 2;
                 if (hp >= maxHP)
                 {
-                    StartCoroutine(PlayerBasicAttack());
+                    hp = maxHP;
                 }
-                if (itemKey.HasValue && Input.GetKey(itemKey.Value))
-                {
-                    PlayerPickupManager.UseItem();
-                }
-                if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    isDashing = true;
-                    dashTimer = dashDuration;
-                }
-
-            }
-            else if (playerNo == 3)
-            {
-                if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    StartCoroutine(PlayerBasicAttack());
-                }
-                if (P3Controller.buttonWest.wasPressedThisFrame)
-                {
-                    PlayerPickupManager.UseItem();
-                }
-                if (P3Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    isDashing = true;
-                    dashTimer = dashDuration;
-                }
-            }
-            else if (playerNo == 4)
-            {
-                if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    StartCoroutine(PlayerBasicAttack());
-                }
-                if (P4Controller.buttonWest.wasPressedThisFrame)
-                {
-                    PlayerPickupManager.UseItem();
-                }
-                if (P4Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    isDashing = true;
-                    dashTimer = dashDuration;
-                }
-
-            }
-
-            ChangeDirection();
-
-            if (dashTimer > 0 && !isDashing)
-            {
-                dashTimer -= Time.deltaTime;
-            }
-
-            //Regen health when out of combat
-            if (!inCombat)
-            {
-                gainHP += Time.deltaTime;
-                if (gainHP >= 1.0f)
-                {
-                    hp += 2;
-                    if (hp >= maxHP)
-                    {
-                        hp = maxHP;
-                    }
-                    gainHP = 0.0f;
-                    //Debug.Log(this.hp);
-                }
-            }
-            else
-            {
-                inCombatTimer -= 1 * Time.deltaTime;
-                if (inCombatTimer < 0.0f)
-                {
-                    inCombatTimer = 0.0f;
-                    inCombat = false;
-                }
-            }
-
-            healthBarSlider.value = hp;
-
-            //setting the players for the round score
-
-
-            if (hp <= 0 && !isDead)
-            {
-                StartCoroutine(OnDeath());
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                PauseScript.PauseGame();
+                gainHP = 0.0f;
+                //Debug.Log(this.hp);
             }
         }
-        
+        else
+        {
+            inCombatTimer -= 1 * Time.deltaTime;
+            if (inCombatTimer < 0.0f)
+            {
+                inCombatTimer = 0.0f;
+                inCombat = false;
+            }
+        }
+
+        healthBarSlider.value = hp;
+
+        //setting the players for the round score
+
+
+        if (hp <= 0 && !isDead)
+        {
+            StartCoroutine(OnDeath());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseScript.PauseGame();
+        }
     }
 
     void FixedUpdate()
@@ -667,7 +608,4 @@ public class PlayerBase : MonoBehaviour
         isDead = false;
         respawnScreen.SetActive(false);
     }
-
-
-    
 }
