@@ -25,7 +25,7 @@ public class PlayerPickupManager : MonoBehaviour
     public GameObject flamePrefab;
     public bool hasFlameItem = false;
     public float flameTrailDuration = 5.0f;
-    public float flameSpawnInterval = 0.5f;
+    public float flameSpawnInterval = 0.1f;
     public float flameLifetime = 1.0f;
 
     private bool firstPlaced = false;
@@ -197,13 +197,16 @@ public class PlayerPickupManager : MonoBehaviour
     IEnumerator CreateFlameTrail()
     {
         StartCoroutine(FlameTimer());
-        float endTime = Time.time + flameTrailDuration;
-        while (Time.time <= endTime)
+        float elapsedTime = 0;
+        float duration = flameTrailDuration;
+        while (elapsedTime < duration)
         {
             GameObject flame = Instantiate(flamePrefab, transform.position, Quaternion.identity);
             flame.GetComponent<Flame>().playerNo = PlayerBase.playerNo;
             Destroy(flame, flameLifetime);
-            yield return new WaitForSeconds(flameSpawnInterval);
+            //yield return new WaitForSeconds(flameSpawnInterval);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
         hasItem = false;
         currentItem = null;

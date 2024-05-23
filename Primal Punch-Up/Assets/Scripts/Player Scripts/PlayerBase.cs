@@ -545,6 +545,11 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public void DamagePlayer(int damage)
+    {
+        StartCoroutine(TakeDamage(damage));
+    }
+
     public IEnumerator TakeDamage(int damage)
     {
         if (!isShielding)

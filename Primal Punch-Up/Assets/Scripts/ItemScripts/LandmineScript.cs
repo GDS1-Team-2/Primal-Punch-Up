@@ -70,7 +70,7 @@ public class LandmineScript : MonoBehaviour
                 particleSystem.Play();
                 gameObject.GetComponent<AudioSource>().PlayOneShot(explodeSound);
                 //other.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, 3.0F);
-                StartCoroutine(other.gameObject.GetComponent<PlayerBase>().TakeDamage(damage));
+                other.gameObject.GetComponent<PlayerBase>().DamagePlayer(damage);
                 Vector3 direction = (other.gameObject.transform.position - gameObject.transform.position).normalized;
                 other.gameObject.GetComponent<Rigidbody>().AddForce(direction * knockBackForce);
                 gameObject.GetComponent<CapsuleCollider>().enabled = false;

@@ -16,7 +16,8 @@ public class Flame : MonoBehaviour
         {
             if (other.gameObject.GetComponent<PlayerBase>().playerNo != playerNo)
             {
-                other.gameObject.GetComponent<PlayerBase>().TakeDamage(5);
+                other.gameObject.GetComponent<PlayerBase>().DamagePlayer(1);
+                Debug.Log("fire");
             }
         }
     }
