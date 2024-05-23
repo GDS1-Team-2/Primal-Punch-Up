@@ -12,7 +12,14 @@ public class PauseScript : MonoBehaviour
     {
         pauseMenu = GameObject.Find("PauseMenu");
         pauseMenu.SetActive(false);
-        Time.timeScale = 0;
+        if (PlayerPrefs.GetInt("RoundNo") == 1)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            tutorialBox.SetActive(false);
+        }
     }
 
     // Update is called once per frame
