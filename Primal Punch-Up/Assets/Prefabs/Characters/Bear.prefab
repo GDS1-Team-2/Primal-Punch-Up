@@ -1363,6 +1363,7 @@ MonoBehaviour:
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
   playerNo: 0
+  canPickup: 0
 --- !u!114 &197804796273387262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1820,7 +1821,27 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7431775831024789636}
     m_Modifications:
-    - target: {fileID: 7574354436410736946, guid: dcb9e6ea720cf9e42aa98d4d127e1976, type: 3}
+    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 12.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.6701452
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.05098039
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904594, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904594, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751412253328, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
