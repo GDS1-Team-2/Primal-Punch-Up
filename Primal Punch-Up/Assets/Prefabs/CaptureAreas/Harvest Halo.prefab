@@ -9501,7 +9501,6 @@ GameObject:
   - component: {fileID: 3578631364533469525}
   - component: {fileID: 3578631364519314453}
   - component: {fileID: 3578631364519361973}
-  - component: {fileID: 3578631364544374929}
   - component: {fileID: 3578631364533083102}
   - component: {fileID: 3578631364533083089}
   m_Layer: 0
@@ -14272,19 +14271,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &3578631364544374929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3578631364533116277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnlyDeactivate: 0
 --- !u!135 &3578631364533083102
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14313,6 +14299,8 @@ MonoBehaviour:
   particles: {fileID: 0}
   sphereCol: {fileID: 0}
   areaCountDown: 20
+  increaseInterval: 2
+  areaSpawnWarning: {fileID: 0}
 --- !u!1 &3578631364533116279
 GameObject:
   m_ObjectHideFlags: 0
