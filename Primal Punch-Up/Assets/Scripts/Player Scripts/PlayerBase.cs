@@ -327,7 +327,7 @@ public class PlayerBase : MonoBehaviour
         if (isShielding)
         {
             shieldHealth -= 1 * Time.deltaTime;
-            print(shieldHealth);
+            //print(shieldHealth);
             forcefieldSlider.value = -shieldHealth;
         }
         

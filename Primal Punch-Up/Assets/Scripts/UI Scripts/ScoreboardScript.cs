@@ -31,12 +31,20 @@ public class ScoreboardScript : MonoBehaviour
 
     public float dropDuration = 1;
 
+    public int rounds;
+
     // Start is called before the first frame update
     void Start()
     {
         continueScreen2Players.SetActive(false);
         continueScreen3Players.SetActive(false);
         continueScreen4Players.SetActive(false);
+        rounds = PlayerPrefs.GetInt("noOfRounds");
+    }
+
+    public void ExtraRound(int number)
+    {
+        rounds = number+1;
     }
 
     public void ScoreBoard()
@@ -50,6 +58,9 @@ public class ScoreboardScript : MonoBehaviour
 
                 player1Score = GameObject.Find("Player 1 Score").GetComponent<Slider>();
                 player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
+
+                player1Score.maxValue = rounds;
+                player2Score.maxValue = rounds;
 
                 player1Icon = GameObject.Find("Player 1 Icon").GetComponent<Image>();
                 player2Icon = GameObject.Find("Player 2 Icon").GetComponent<Image>();
@@ -72,6 +83,10 @@ public class ScoreboardScript : MonoBehaviour
                 player1Score = GameObject.Find("Player 1 Score").GetComponent<Slider>();
                 player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
                 player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
+
+                player1Score.maxValue = rounds;
+                player2Score.maxValue = rounds;
+                player3Score.maxValue = rounds;
 
                 player1Icon = GameObject.Find("Player 1 Icon").GetComponent<Image>();
                 player2Icon = GameObject.Find("Player 2 Icon").GetComponent<Image>();
@@ -98,6 +113,11 @@ public class ScoreboardScript : MonoBehaviour
                 player2Score = GameObject.Find("Player 2 Score").GetComponent<Slider>();
                 player3Score = GameObject.Find("Player 3 Score").GetComponent<Slider>();
                 player4Score = GameObject.Find("Player 4 Score").GetComponent<Slider>();
+
+                player1Score.maxValue = rounds;
+                player2Score.maxValue = rounds;
+                player3Score.maxValue = rounds;
+                player4Score.maxValue = rounds;
 
                 player1Icon = GameObject.Find("Player 1 Icon").GetComponent<Image>();
                 player2Icon = GameObject.Find("Player 2 Icon").GetComponent<Image>();
