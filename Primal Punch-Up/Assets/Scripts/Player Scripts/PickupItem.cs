@@ -31,6 +31,7 @@ public class PickupItem : MonoBehaviour
     private PlayerBase PlayerBase;
     public AudioSource audioSource;
     public int playerNo;
+    public GameObject Text_Plus;
 
     void Start()
     {
@@ -44,6 +45,21 @@ public class PickupItem : MonoBehaviour
         scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
         string inventoryTag = "Player" + playerNo + "InventoryScore";
         tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
+        Text_Plus.SetActive(false);
+    }
+
+    public void ShowNodeForOneSecond()
+    {
+        StartCoroutine(ShowAndHideNode());
+    }
+
+    IEnumerator ShowAndHideNode()
+    {
+       Text_Plus.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+
+        Text_Plus.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,6 +67,7 @@ public class PickupItem : MonoBehaviour
         if (other.gameObject.CompareTag(OneScoreTag) && currentTempBag < maxTempBag)
         {
             AddScore(other.gameObject, 1);
+            ShowNodeForOneSecond();
         }
         if (other.gameObject.CompareTag(ThreeScoreTag) && currentTempBag < maxTempBag)
         {
