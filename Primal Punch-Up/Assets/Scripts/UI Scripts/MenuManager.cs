@@ -109,6 +109,7 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetInt("noOfPlayers"));
         PlayerNoSelect.ActivateButton();
+        PlayerNoSelect.SetPlayerText(2);
     }
 
     public void Set3Players()
@@ -117,6 +118,7 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetInt("noOfPlayers"));
         PlayerNoSelect.ActivateButton();
+        PlayerNoSelect.SetPlayerText(3);
     }
 
     public void Set4Players()
@@ -125,6 +127,16 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetInt("noOfPlayers"));
         PlayerNoSelect.ActivateButton();
+        PlayerNoSelect.SetPlayerText(4);
+    }
+
+    public void Set2Rounds()
+    {
+        PlayerPrefs.SetInt("noOfRounds", 2);
+        PlayerPrefs.Save();
+        Debug.Log(PlayerPrefs.GetInt("noOfRounds"));
+        PlayerNoSelect.ActivateButton();
+        PlayerNoSelect.SetRoundsText(2);
     }
 
     public void Set3Rounds()
@@ -133,22 +145,16 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetInt("noOfRounds"));
         PlayerNoSelect.ActivateButton();
+        PlayerNoSelect.SetRoundsText(3);
     }
 
-    public void Set5Rounds()
+    public void Set4Rounds()
     {
-        PlayerPrefs.SetInt("noOfRounds", 5);
+        PlayerPrefs.SetInt("noOfRounds", 4);
         PlayerPrefs.Save();
         Debug.Log(PlayerPrefs.GetInt("noOfRounds"));
         PlayerNoSelect.ActivateButton();
-    }
-
-    public void Set7Rounds()
-    {
-        PlayerPrefs.SetInt("noOfRounds", 7);
-        PlayerPrefs.Save();
-        Debug.Log(PlayerPrefs.GetInt("noOfRounds"));
-        PlayerNoSelect.ActivateButton();
+        PlayerNoSelect.SetRoundsText(4);
     }
 
     

@@ -48,6 +48,7 @@ public class PlayerBase : MonoBehaviour
     public KeyCode? attack2Key = null;
     KeyCode? itemKey = null;
     KeyCode? dashKey = null;
+    KeyCode? shieldKey = null;
 
     public float dashSpeed = 20.0f;
     public float dashCooldown = 0.5f;
@@ -100,6 +101,7 @@ public class PlayerBase : MonoBehaviour
     public Material ForceFieldMat1;
     public Material ForceFieldMat2;
     public Material ForceFieldMat3;
+    public Slider forcefieldSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -154,6 +156,8 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.5424528f, 0.8564558f, 1, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat);
+                forcefieldSlider = GameObject.Find("Player 1 Forcefield Bar").GetComponent<Slider>();
+                shieldKey = KeyCode.T;
                 break;
             case 2:
                 moveForwardKey = KeyCode.UpArrow;
@@ -172,6 +176,8 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat1);
+                forcefieldSlider = GameObject.Find("Player 2 Forcefield Bar").GetComponent<Slider>();
+                shieldKey = KeyCode.U;
                 break;
             case 3:
                 healthBar = GameObject.Find("Player 3 Health");
@@ -182,6 +188,7 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.6383248f, 1, 0.5518868f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat2);
+                forcefieldSlider = GameObject.Find("Player 3 Forcefield Bar").GetComponent<Slider>();
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
@@ -192,6 +199,7 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(1, 0.945283f, 0.5896226f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat3);
+                forcefieldSlider = GameObject.Find("Player 4 Forcefield Bar").GetComponent<Slider>();
                 break;
         }
 
@@ -262,6 +270,16 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
+            if (shieldKey.HasValue && Input.GetKeyDown(shieldKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            {
+                forceFieldOuter.SetActive(true);
+                isShielding = true;
+            }
+            else if (shieldKey.HasValue && Input.GetKeyUp(shieldKey.Value))
+            {
+                forceFieldOuter.SetActive(false);
+                isShielding = false;
+            }
         }
         else if (playerNo == 3)
         {
@@ -310,6 +328,7 @@ public class PlayerBase : MonoBehaviour
         {
             shieldHealth -= 1 * Time.deltaTime;
             print(shieldHealth);
+            forcefieldSlider.value = -shieldHealth;
         }
         
         if (shieldHealth <= 0)
@@ -317,6 +336,7 @@ public class PlayerBase : MonoBehaviour
             forceFieldOuter.SetActive(false);
             isShielding = false;
             shieldCD -= Time.deltaTime;
+            forcefieldSlider.value = -3 + (shieldCD / 3);
         }
 
         if (shieldCD <= 0)
