@@ -102,6 +102,7 @@ public class PlayerBase : MonoBehaviour
     public Material ForceFieldMat2;
     public Material ForceFieldMat3;
     public Slider forcefieldSlider;
+    public Animator forcefieldSliderAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -157,6 +158,7 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat);
                 forcefieldSlider = GameObject.Find("Player 1 Forcefield Bar").GetComponent<Slider>();
+                forcefieldSliderAnimator = GameObject.Find("Actual Fill 1").GetComponent<Animator>();
                 shieldKey = KeyCode.T;
                 break;
             case 2:
@@ -177,6 +179,7 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat1);
                 forcefieldSlider = GameObject.Find("Player 2 Forcefield Bar").GetComponent<Slider>();
+                forcefieldSliderAnimator = GameObject.Find("Actual Fill 2").GetComponent<Animator>();
                 shieldKey = KeyCode.U;
                 break;
             case 3:
@@ -189,6 +192,7 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat2);
                 forcefieldSlider = GameObject.Find("Player 3 Forcefield Bar").GetComponent<Slider>();
+                forcefieldSliderAnimator = GameObject.Find("Actual Fill 3").GetComponent<Animator>();
                 break;
             case 4:
                 healthBar = GameObject.Find("Player 4 Health");
@@ -200,6 +204,7 @@ public class PlayerBase : MonoBehaviour
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat3);
                 forcefieldSlider = GameObject.Find("Player 4 Forcefield Bar").GetComponent<Slider>();
+                forcefieldSliderAnimator = GameObject.Find("Actual Fill 4").GetComponent<Animator>();
                 break;
         }
 
@@ -336,6 +341,10 @@ public class PlayerBase : MonoBehaviour
             forceFieldOuter.SetActive(false);
             isShielding = false;
             shieldCD -= Time.deltaTime;
+            if (!forcefieldSliderAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShieldFlash"))
+            {
+                forcefieldSliderAnimator.Play("ShieldFlash");
+            }
             forcefieldSlider.value = -3 + (shieldCD / 3);
         }
 
