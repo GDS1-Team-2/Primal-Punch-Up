@@ -172,7 +172,6 @@ public class PlayerBase : MonoBehaviour
                 UpdateForceFieldMaterial(ForceFieldMat);
                 forcefieldSlider = GameObject.Find("Player 1 Forcefield Bar").GetComponent<Slider>();
                 forcefieldSliderAnimator = GameObject.Find("Actual Fill 1").GetComponent<Animator>();
-                shieldKey = KeyCode.T;
                 break;
             case 2:
                 thisController = P2Controller;
@@ -404,7 +403,7 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(OnDeath());
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || thisController.startButton.wasPressedThisFrame)
         {
             PauseScript.PauseGame();
         }
