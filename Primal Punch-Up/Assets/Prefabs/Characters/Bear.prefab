@@ -1105,6 +1105,7 @@ GameObject:
   - component: {fileID: 5412500035539744412}
   - component: {fileID: 1878767460080102476}
   - component: {fileID: 6879233772519011644}
+  - component: {fileID: 6425806235495305246}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Bear
@@ -1129,7 +1130,7 @@ Transform:
   - {fileID: 7782587198703641146}
   - {fileID: 8012347076432335351}
   - {fileID: 4807544944800455974}
-  - {fileID: 4050008495287631983}
+  - {fileID: 4821601049300602853}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1187,7 +1188,6 @@ MonoBehaviour:
   boxCol: {fileID: 0}
   capCol: {fileID: 0}
   currentSpeed: 10
-  rotateSpeed: 180
   hp: 50
   maxHP: 50
   deathTimer: 5
@@ -1196,7 +1196,6 @@ MonoBehaviour:
   speed: 10
   inCombatLength: 10
   dashSpeed: 20
-  dashCooldown: 0.6
   dashDuration: 0.6
   isDashing: 0
   healthBar: {fileID: 0}
@@ -1213,12 +1212,14 @@ MonoBehaviour:
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}
   dropNumber: 3
+  PickupUIScript: {fileID: 0}
   fruitPrefab: {fileID: 5413602950076491785, guid: 59acca3c3404a134aa769ad67c0ceee3, type: 3}
   isDead: 0
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
   isShielding: 0
+  canDash: 1
   bearFireMovement: 0
   lizSmokeDmg: 0
   audioClips:
@@ -1234,10 +1235,9 @@ MonoBehaviour:
   ForceFieldMat1: {fileID: 2100000, guid: 880bafd83f37a644ea00eadfb6387ac2, type: 2}
   ForceFieldMat2: {fileID: 2100000, guid: 1c8716ed319aede40ac97b291ca05063, type: 2}
   ForceFieldMat3: {fileID: 2100000, guid: 75dced762955d07439b67785fa4a8c75, type: 2}
+  forcefieldSlider: {fileID: 0}
+  forcefieldSliderAnimator: {fileID: 0}
   playerCamera: {fileID: 7782587198703641144}
-  cameraSensitivity: 100
-  minPitch: -40
-  maxPitch: 60
 --- !u!136 &7811819089111855679
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1285,6 +1285,7 @@ MonoBehaviour:
   BadScoreTag: BadFruit
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
+  PickupUIScript: {fileID: 0}
   playerNo: 0
   canPickup: 0
 --- !u!114 &197804796273387262
@@ -1462,6 +1463,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6425806235495305246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7811819089111855678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a09d147779cdba40987600605df4885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  twoP1plus: {fileID: 8129170929262446761, guid: 06ce9fe8f542de945a71fd9bd470311d, type: 3}
+  twoP1minus: {fileID: 9204501665959881326, guid: 94f1903d31841b24aacc2567b2f4265e, type: 3}
+  twoP2plus: {fileID: 7078387000916958821, guid: 88c1bd232dd3c4742a63b8547b835ad5, type: 3}
+  twoP2minus: {fileID: 1039015823757994465, guid: 4c7e2155010a2df4ca1ed8c9ee294f7f, type: 3}
+  twoP1multi: {fileID: 8129170929262446761, guid: 06f28c1e227b3304eb6a345a2aa3547e, type: 3}
+  twoP2multi: {fileID: 7078387000916958821, guid: 805edf3ee8f6f8c46978c6b9636c46e6, type: 3}
+  fourP1plus: {fileID: 7835577850860137305, guid: e20bcd31f5b9c174d9caa1485ad6ac5d, type: 3}
+  fourP1minus: {fileID: 4220056806200533404, guid: 8d4d5cbef2e75ce40aa3619cc560251a, type: 3}
+  fourP2plus: {fileID: 1854685382413886210, guid: 40df21e521b970e4aa42999ef282d4a7, type: 3}
+  fourP2minus: {fileID: 8239928287429359856, guid: 2488c24bbe046e545b7c662c4640ec3a, type: 3}
+  fourP3plus: {fileID: 1288180509624588842, guid: b8e5fdeed97d7ff49a129749ac6995c9, type: 3}
+  fourP3minus: {fileID: 3620098522541772434, guid: f471da97fcf373747a1affd9cb3d0eff, type: 3}
+  fourP4plus: {fileID: 3900671796509913452, guid: cd6d62565f0d24746b35b932fcb3f5ba, type: 3}
+  fourP4minus: {fileID: 829351844647589605, guid: 355d387abf55efa4a9ec73d42e9e4003, type: 3}
+  fourP1multi: {fileID: 7835577850860137305, guid: 8a293123d53472941b5857775ae4d8b0, type: 3}
+  fourP2multi: {fileID: 1854685382413886210, guid: a13f8a6491ce64948b552f7afa25f1a1, type: 3}
+  fourP3multi: {fileID: 1288180509624588842, guid: 59c7a60114c865d4c86696a903e6d587, type: 3}
+  fourP4multi: {fileID: 3900671796509913452, guid: 0a769ed1c2d50e94b90e623ddcb8e228, type: 3}
 --- !u!1 &8047159989690782053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,30 +1776,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 7431775831024789636}
     m_Modifications:
-    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 12.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.6701452
-      objectReference: {fileID: 0}
-    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.05098039
-      objectReference: {fileID: 0}
-    - target: {fileID: 4153886751393904594, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4153886751393904594, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4153886751412253328, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 7574354436410736946, guid: dcb9e6ea720cf9e42aa98d4d127e1976, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.04
@@ -1828,6 +1835,30 @@ PrefabInstance:
     - target: {fileID: 7574354436410736947, guid: dcb9e6ea720cf9e42aa98d4d127e1976, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 12.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.6701452
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904592, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.05098039
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904594, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751393904594, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153886751412253328, guid: 27e4513c0c3215b40923cbf835c288d6, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

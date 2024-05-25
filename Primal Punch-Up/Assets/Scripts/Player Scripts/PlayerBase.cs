@@ -82,6 +82,7 @@ public class PlayerBase : MonoBehaviour
     private Vector3 spawnPos;
     private PickupItem PickupItem;
     public int dropNumber = 3;
+    public PickupUIScript PickupUIScript;
 
     public GameObject fruitPrefab;
     public bool isDead = false;
@@ -140,6 +141,8 @@ public class PlayerBase : MonoBehaviour
         respawnScreen.SetActive(false);
 
         PickupItem = GetComponent<PickupItem>();
+        PickupUIScript = gameObject.GetComponent<PickupUIScript>();
+        PickupUIScript.SetPlayerNo(playerNo);
 
         canMove = true;
         acceptInput = true;

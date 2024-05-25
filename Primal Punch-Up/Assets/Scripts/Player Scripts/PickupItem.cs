@@ -30,9 +30,12 @@ public class PickupItem : MonoBehaviour
     private RoundsScript RoundsScript;
     private PlayerBase PlayerBase;
     public AudioSource audioSource;
+    public PickupUIScript PickupUIScript;
     public int playerNo;
 
     public bool canPickup;
+
+    
 
     void Start()
     {
@@ -44,6 +47,7 @@ public class PickupItem : MonoBehaviour
         playerNo = PlayerBase.playerNo;
         string scoreTag = "Player" + playerNo + "Score";
         scoreText = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<Text>();
+        PickupUIScript = gameObject.GetComponent<PickupUIScript>();
         //string inventoryTag = "Player" + playerNo + "InventoryScore";
         //tempScoreText = GameObject.FindGameObjectWithTag(inventoryTag).GetComponent<Text>();
     }
@@ -62,7 +66,7 @@ public class PickupItem : MonoBehaviour
             }
             if (other.gameObject.CompareTag(BadScoreTag))
             {
-                SubtractScore(other.gameObject);
+                SubtractScore(other.gameObject, 3);
             }
         }
         
@@ -77,6 +81,11 @@ public class PickupItem : MonoBehaviour
             audioSource.PlayOneShot(pickupSound);
         }
         Destroy(item);
+        for (int i = 0; i < scoreIncrease; i++)
+        {
+            PickupUIScript.PopUp("plus", scoreIncrease);
+        }
+            
         UpdateScoreText();
         string scoreKey = "ScoreKey" + PlayerBase.playerNo;
         PlayerPrefs.SetInt(scoreKey, score);
@@ -84,15 +93,32 @@ public class PickupItem : MonoBehaviour
     }
 
 
-    public void SubtractScore(GameObject item)
+    public void SubtractScore(GameObject item, int scoreDecrease)
     {
-        score -= 1;
+        if (score-scoreDecrease < 0)
+        {
+            score = 0;
+        }
+        else
+        {
+            score -= scoreDecrease;
+        }
+        
         if (pickupSound != null)
         {
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
         }
         Destroy(item);
+
+        for (int i = 0; i < scoreDecrease; i++)
+        {
+            PickupUIScript.PopUp("minus", scoreDecrease);
+        }
+
         UpdateScoreText();
+        string scoreKey = "ScoreKey" + PlayerBase.playerNo;
+        PlayerPrefs.SetInt(scoreKey, score);
+        PlayerPrefs.Save();
     }
 
     public int CurrentScore()
@@ -120,6 +146,7 @@ public class PickupItem : MonoBehaviour
         {
             scoreText.text = score.ToString();
         }
+        
     }
 
 }

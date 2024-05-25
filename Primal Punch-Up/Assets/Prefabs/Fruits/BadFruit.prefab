@@ -107,6 +107,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4711697086054218529}
     m_Modifications:
+    - target: {fileID: 111982, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 187738, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: m_Name
       value: PowerOrbGreen
