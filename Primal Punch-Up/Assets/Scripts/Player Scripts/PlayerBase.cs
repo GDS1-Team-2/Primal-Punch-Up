@@ -605,8 +605,14 @@ public class PlayerBase : MonoBehaviour
         {
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             //Debug.Log(otherPlayer.gameObject.name + " has been hit");
+            if (otherPlayer.isDead)
+            {
+                PickupItem.canPickup = false;
+            }
         }
+        
     }
+
 
     public void DamagePlayer(int damage)
     {
@@ -653,9 +659,20 @@ public class PlayerBase : MonoBehaviour
         PickupItem.canPickup = false;
         anim.Play(deathAnim);
         respawnScreen.SetActive(true);
+        int score = PickupItem.CurrentScore();
+        int amount = dropNumber;
+        if (amount > score)
+        {
+            amount = PickupItem.CurrentScore();
+        }
+        else
+        {
+            amount = dropNumber;
+        }
+        
         float radius = 5f;
         Vector3 center = new Vector3(gameObject.transform.position.x, 1, gameObject.transform.position.z);
-        for (int i = 0; i < dropNumber; i++)
+        for (int i = 0; i < amount; i++)
         {
             //Vector3 pos = RandomCircle(center, radius);
             //Vector3 pos = 
@@ -667,7 +684,7 @@ public class PlayerBase : MonoBehaviour
            // fruit.GetComponent<FruitScript>().canDrop = true;
         }
         capCol.enabled = false;
-        PickupItem.DropScoreOnDeath(dropNumber);
+        PickupItem.DropScoreOnDeath(amount);
 
         for (float timer = deathTimer; timer >= 0; timer -= 1f)
         {

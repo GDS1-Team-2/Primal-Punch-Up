@@ -95,9 +95,21 @@ public class PickupItem : MonoBehaviour
         UpdateScoreText();
     }
 
+    public int CurrentScore()
+    {
+        return score;
+    }
+
     public void DropScoreOnDeath(int number)
     {
-        score -= number;
+        if (number >= score)
+        {
+            score -= number;
+        }
+        else
+        {
+            score = 0;
+        }
         UpdateScoreText();
     }
 
