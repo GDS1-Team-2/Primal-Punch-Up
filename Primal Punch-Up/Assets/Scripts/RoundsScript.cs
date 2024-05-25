@@ -39,7 +39,7 @@ public class RoundsScript : MonoBehaviour
         ScoreboardScript = this.gameObject.GetComponent<ScoreboardScript>();
         CharacterLoader = GameObject.Find("CharacterLoader");
         CharacterLoader.GetComponent<CharacterLoader>().loadCharacters = true;
-        int noOfPlayers = CharacterLoader.GetComponent<CharacterLoader>().noOfPlayers;
+        //int noOfPlayers = CharacterLoader.GetComponent<CharacterLoader>().noOfPlayers;
 
         UICanvas2Players = GameObject.Find("UICanvas2Players");
         UICanvas3Players = GameObject.Find("UICanvas3Players");
@@ -48,7 +48,7 @@ public class RoundsScript : MonoBehaviour
         EndAnimCanvas.SetActive(false);
 
 
-        switch (noOfPlayers)
+        switch (PlayerPrefs.GetInt("noOfPlayers"))
         {
             case 2:
                 UICanvas3Players.SetActive(false);

@@ -57,21 +57,8 @@ public class PlayerPickupManager : MonoBehaviour
         itemTimer = GameObject.Find(playerCooldownTimerUI);
         timerText = itemTimer.GetComponent<Text>();
         itemCooldown.SetActive(false);
-        switch (playerNo)
-        {
-            case 1:
-                controlIcon = GameObject.Find("Control N");
-                break;
-            case 2:
-                controlIcon = GameObject.Find("Control ]");
-                break;
-            case 3:
-                controlIcon = GameObject.Find("Control Square");
-                break;
-            case 4:
-                controlIcon = GameObject.Find("Control Square");
-                break;
-        }
+        string c = "P" + playerNo + "ItemControl";
+        controlIcon = GameObject.FindGameObjectWithTag(c);
         controlIcon.SetActive(false);
     }
 
