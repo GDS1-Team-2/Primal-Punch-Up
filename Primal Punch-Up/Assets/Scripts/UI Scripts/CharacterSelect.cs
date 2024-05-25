@@ -19,8 +19,10 @@ public class CharacterSelect : MonoBehaviour
 
     public RectTransform rectTrans;
 
+    public Gamepad Player2 = null;
     public Gamepad Player3 = null;
     public Gamepad Player4 = null;
+    public bool player2Activated = false;
     public bool player3Activated = false;
     public bool player4Activated = false;
 
@@ -34,6 +36,7 @@ public class CharacterSelect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        imgCol.enabled = false;
         //print(playerNo);
         audioSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
         clip = audioSource.clip;
@@ -43,23 +46,21 @@ public class CharacterSelect : MonoBehaviour
             case 1:
                 moveRight = KeyCode.D;
                 moveLeft = KeyCode.A;
-                select = KeyCode.C;
+                select = KeyCode.Q;
                 break;
             case 2:
                 imgCol.color = Color.red;
-                moveRight = KeyCode.RightArrow;
-                moveLeft = KeyCode.LeftArrow;
-                select = KeyCode.O;
+                Player2 = Gamepad.current;
                 increaseHeightPerPlayer = 75.0f;
                 break;
             case 3:
-                imgCol.color = Color.yellow;
+                imgCol.color = Color.green;
                 Player3 = Gamepad.current;
                 //print(Player3.name);
                 increaseHeightPerPlayer = 150.0f;
                 break;
             case 4:
-                imgCol.color = Color.green;
+                imgCol.color = Color.yellow;
                 Player4 = Gamepad.current;
                 //print(Player4.name);
                 increaseHeightPerPlayer = 225.0f;
@@ -92,8 +93,9 @@ public class CharacterSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerNo == 1 || playerNo == 2)
+        if (playerNo == 1)
         {
+            imgCol.enabled = true;
             if (moveRight.HasValue && Input.GetKeyDown(moveRight.Value) && !lockedIn)
             {
                 MoveRight();
@@ -104,8 +106,33 @@ public class CharacterSelect : MonoBehaviour
             {
                 LockInToggle();
             }
+        }
+        else if (playerNo == 2 && player2Activated)
+        {
+            imgCol.enabled = true;
+            if (leftStickUse == false)
+            {
+                if (Player2.leftStick.right.isPressed && !lockedIn)
+                {
+                    MoveRight();
+                }
+                else if (Player2.leftStick.left.isPressed && !lockedIn)
+                {
+                    MoveLeft();
+                }
+                else if (Player2.buttonEast.wasPressedThisFrame)
+                {
+                    LockInToggle();
+                }
+            }
+
+            if (Player2.leftStick.x.ReadValue() == 0)
+            {
+                leftStickUse = false;
+            }
         } else if (playerNo == 3 && player3Activated)
         {
+            imgCol.enabled = true;
             if (leftStickUse == false)
             {
                 if (Player3.leftStick.right.isPressed && !lockedIn)
@@ -127,6 +154,7 @@ public class CharacterSelect : MonoBehaviour
             }
         } else if (playerNo == 4 && player4Activated)
         {
+            imgCol.enabled = true;
             if (leftStickUse == false)
             {
                 if (Player4.leftStick.right.isPressed && !lockedIn)

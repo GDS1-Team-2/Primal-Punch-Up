@@ -24,6 +24,7 @@ public class CharacterLoader : MonoBehaviour
     public GameObject P3Spawn;
     public GameObject P4Spawn;
 
+    public Gamepad P2Controller = null;
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
 
@@ -71,6 +72,7 @@ public class CharacterLoader : MonoBehaviour
                         GameObject player2 = Instantiate(convertCharacter(P2Char), P2Spawn.transform.position, rot2);
                         PlayerBase player2Script = player2.GetComponent<PlayerBase>();
                         player2Script.playerNo = 2;
+                        player2Script.P2Controller = P2Controller;
                         Camera P2cam = player2.GetComponentInChildren<Camera>();
                         if (noOfPlayers == 2)
                         {

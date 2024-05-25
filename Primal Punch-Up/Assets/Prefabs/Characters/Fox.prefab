@@ -720,7 +720,7 @@ Transform:
   - {fileID: 1994141740455233186}
   - {fileID: 3127671020419216718}
   - {fileID: 1320519552179076648}
-  - {fileID: 6854342081693444163}
+  - {fileID: 4078597931109141701}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -839,6 +839,10 @@ MonoBehaviour:
   ForceFieldMat1: {fileID: 2100000, guid: 880bafd83f37a644ea00eadfb6387ac2, type: 2}
   ForceFieldMat2: {fileID: 2100000, guid: 1c8716ed319aede40ac97b291ca05063, type: 2}
   ForceFieldMat3: {fileID: 2100000, guid: 75dced762955d07439b67785fa4a8c75, type: 2}
+  playerCamera: {fileID: 1994141740455233188}
+  cameraSensitivity: 100
+  minPitch: -40
+  maxPitch: 60
 --- !u!65 &1994141739145485188
 BoxCollider:
   m_ObjectHideFlags: 0

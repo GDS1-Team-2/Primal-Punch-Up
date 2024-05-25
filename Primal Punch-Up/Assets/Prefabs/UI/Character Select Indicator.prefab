@@ -89,6 +89,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c744a0b08b02f4c8c7e5e0b6c058b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNo: 0
+  lockIndex: 0
+  lockedIn: 0
   imgCol: {fileID: 3012033178335270285}
   rectTrans: {fileID: 0}
-  playerPrefab: {fileID: 0}
+  player2Activated: 0
+  player3Activated: 0
+  player4Activated: 0
+  audioSource: {fileID: 0}
+  clip: {fileID: 0}

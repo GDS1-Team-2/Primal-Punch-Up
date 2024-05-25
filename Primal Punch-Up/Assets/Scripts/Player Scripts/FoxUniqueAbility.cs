@@ -50,23 +50,16 @@ public class FoxUniqueAbility : MonoBehaviour
     {
         if (!abilityCD)
         {
-            if (baseScript.playerNo == 1 || baseScript.playerNo == 2)
+            if (baseScript.playerNo == 1)
             {
                 if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
                 {
                     StartCoroutine(FoxAttack());
                 }
             }
-            else if (baseScript.playerNo == 3)
+            else if (baseScript.playerNo == 2 || baseScript.playerNo == 3 || baseScript.playerNo == 4)
             {
-                if (baseScript.P3Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
-                {
-                    StartCoroutine(FoxAttack());
-                }
-            }
-            else if (baseScript.playerNo == 4)
-            {
-                if (baseScript.P4Controller.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
+                if (baseScript.thisController.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
                 {
                     StartCoroutine(FoxAttack());
                 }
