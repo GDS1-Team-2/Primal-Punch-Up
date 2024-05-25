@@ -7,7 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerBase : MonoBehaviour
 {
     public int playerNo = 0;
-    
+
+    public Gamepad thisController = null;
+    public Gamepad P2Controller = null;
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
 
@@ -19,7 +21,7 @@ public class PlayerBase : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 lastMoveDirection;
     public float currentSpeed = 10.0f;
-    public float rotateSpeed = 720.0f;
+    private float rotateSpeed = 500.0f;
     public int hp = 50;
     public int maxHP = 50;
     public float deathTimer = 5.0f;
@@ -48,6 +50,8 @@ public class PlayerBase : MonoBehaviour
     public KeyCode? attack2Key = null;
     KeyCode? itemKey = null;
     KeyCode? dashKey = null;
+    KeyCode? shieldKey = null;
+    KeyCode? strafeKey = null;
 
     public float dashSpeed = 20.0f;
     public float dashCooldown = 0.5f;
@@ -84,6 +88,7 @@ public class PlayerBase : MonoBehaviour
     public bool isAttacking = false;
     public bool isUsingSpecial = false;
     public bool isShielding = false;
+    private bool isStrafing = false;
     public bool bearFireMovement = false;
     public bool lizSmokeDmg = false;
 
@@ -100,6 +105,13 @@ public class PlayerBase : MonoBehaviour
     public Material ForceFieldMat1;
     public Material ForceFieldMat2;
     public Material ForceFieldMat3;
+
+    public Camera playerCamera;
+    private float cameraSensitivity = 1f;
+    private float cameraYaw = 0.0f;
+    private float cameraPitch = 0.0f;
+    private float cameraDistance = 10.0f;
+    private Vector3 cameraOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -141,10 +153,12 @@ public class PlayerBase : MonoBehaviour
                 moveBackKey = KeyCode.S;
                 rotateLeftKey = KeyCode.A;
                 rotateRightKey = KeyCode.D;
-                attack1Key = KeyCode.C;
-                attack2Key = KeyCode.V;
-                dashKey = KeyCode.B;
-                itemKey = KeyCode.N;
+                attack1Key = KeyCode.Q;
+                attack2Key = KeyCode.E;
+                dashKey = KeyCode.Space;
+                itemKey = KeyCode.C;
+                shieldKey = KeyCode.LeftShift;
+                strafeKey = KeyCode.Mouse1;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player1Model", gameObject.tag);
@@ -155,14 +169,7 @@ public class PlayerBase : MonoBehaviour
                 UpdateForceFieldMaterial(ForceFieldMat);
                 break;
             case 2:
-                moveForwardKey = KeyCode.UpArrow;
-                moveBackKey = KeyCode.DownArrow;
-                rotateLeftKey = KeyCode.LeftArrow;
-                rotateRightKey = KeyCode.RightArrow;
-                attack1Key = KeyCode.O;
-                attack2Key = KeyCode.P;
-                dashKey = KeyCode.LeftBracket;
-                itemKey = KeyCode.RightBracket;
+                thisController = P2Controller;
                 healthBar = GameObject.Find("Player 2 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player2Model", gameObject.tag);
@@ -173,6 +180,7 @@ public class PlayerBase : MonoBehaviour
                 UpdateForceFieldMaterial(ForceFieldMat1);
                 break;
             case 3:
+                thisController = P3Controller;
                 healthBar = GameObject.Find("Player 3 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player3Model", gameObject.tag);
@@ -183,6 +191,7 @@ public class PlayerBase : MonoBehaviour
                 UpdateForceFieldMaterial(ForceFieldMat2);
                 break;
             case 4:
+                thisController = P4Controller;
                 healthBar = GameObject.Find("Player 4 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player4Model", gameObject.tag);
@@ -231,7 +240,7 @@ public class PlayerBase : MonoBehaviour
             default:
                 break;
         }
-
+        cameraOffset = new Vector3(0, 2, -cameraDistance);
     }
 
     void UpdateForceFieldMaterial(Material newMaterial)
@@ -246,7 +255,7 @@ public class PlayerBase : MonoBehaviour
     {
         //HandleInput();
 
-        if (playerNo == 1 || playerNo == 2)
+        if (playerNo == 1)
         {
             if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
@@ -261,54 +270,62 @@ public class PlayerBase : MonoBehaviour
                 isDashing = true;
                 dashTimer = dashDuration;
             }
-        }
-        else if (playerNo == 3)
-        {
-            if (P3Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
-            {
-                StartCoroutine(PlayerBasicAttack());
-            }
-            if (P3Controller.buttonWest.wasPressedThisFrame)
-            {
-                PlayerPickupManager.UseItem();
-            }
-            if (P3Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding)
-            {
-                isDashing = true;
-                dashTimer = dashDuration;
-            }
-            if (P3Controller.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            if (shieldKey.HasValue && Input.GetKeyDown(shieldKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
                 forceFieldOuter.SetActive(true);
                 isShielding = true;
-            } else if (P3Controller.rightTrigger.wasReleasedThisFrame)
+            }
+            else if (shieldKey.HasValue && Input.GetKeyUp(shieldKey.Value))
             {
                 forceFieldOuter.SetActive(false);
                 isShielding = false;
             }
+            if (strafeKey.HasValue && Input.GetKeyDown(strafeKey.Value))
+            {
+                isStrafing = true;
+            }
+            else if (shieldKey.HasValue && Input.GetKeyUp(strafeKey.Value))
+            {
+                isStrafing = false;
+            }
         }
-        else if (playerNo == 4)
+        else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
         {
-            if (P4Controller.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
-            if (P4Controller.buttonWest.wasPressedThisFrame)
+            if (thisController.buttonWest.wasPressedThisFrame)
             {
                 PlayerPickupManager.UseItem();
             }
-            if (P4Controller.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead)
+            if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding)
             {
                 isDashing = true;
                 dashTimer = dashDuration;
             }
-
+            if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            {
+                forceFieldOuter.SetActive(true);
+                isShielding = true;
+            } else if (thisController.rightTrigger.wasReleasedThisFrame)
+            {
+                forceFieldOuter.SetActive(false);
+                isShielding = false;
+            }
+            if (thisController.leftTrigger.wasPressedThisFrame)
+            {
+                isStrafing = true;
+            } else if (thisController.leftTrigger.wasReleasedThisFrame)
+            {
+                isStrafing = false;
+            }
         }
 
         if (isShielding)
         {
             shieldHealth -= 1 * Time.deltaTime;
-            print(shieldHealth);
+            //print(shieldHealth);
         }
         
         if (shieldHealth <= 0)
@@ -324,19 +341,14 @@ public class PlayerBase : MonoBehaviour
             shieldCD = 10f;
         }
 
-        ChangeDirection();
-
         if (dashTimer > 0 && !isDashing)
         {
             dashTimer -= Time.deltaTime;
         }
 
-        ChangeDirection();
+        HandleCamera();
 
-        if (dashTimer > 0 && !isDashing)
-        {
-            dashTimer -= Time.deltaTime;
-        }
+        ChangeDirection();
 
         //Regen health when out of combat
         if (!inCombat)
@@ -388,19 +400,46 @@ public class PlayerBase : MonoBehaviour
         
     }
 
+    private void HandleCamera()
+    {
+        float rightStickX = 0.0f;
+        float rightStickY = 0.0f;
+        if (playerNo == 1)
+        {
+            rightStickX = Input.GetAxis("Mouse X");
+            rightStickY = Input.GetAxis("Mouse Y");
+        }
+        else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
+        {
+            rightStickX = thisController.rightStick.ReadValue().x;
+            rightStickY = thisController.rightStick.ReadValue().y;
+        }
+
+        cameraYaw += rightStickX * cameraSensitivity;
+        cameraPitch -= rightStickY * cameraSensitivity;
+        cameraPitch = Mathf.Clamp(cameraPitch, -30f, 60f);
+
+        Quaternion rotation = Quaternion.Euler(cameraPitch, cameraYaw, 0);
+        Vector3 newPosition = transform.position + rotation * cameraOffset;
+
+        playerCamera.transform.position = newPosition;
+        playerCamera.transform.LookAt(transform.position + Vector3.up * 3f);
+    }
+
     void ChangeDirection()
     {
         float moveZ = 0;
+        float moveX = 0;
 
-        if (playerNo == 1 || playerNo == 2)
+        if (playerNo == 1)
         {
             if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value) && !isDashing)
             {
-                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+                moveX = -1;
             }
             else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value) && !isDashing)
             {
-                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+                moveX = 1;
             }
 
             if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
@@ -412,49 +451,36 @@ public class PlayerBase : MonoBehaviour
                 moveZ = -1;
             }
         }
-        else if (playerNo == 3)
+        else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
         {
-            if (P3Controller.leftStick.left.isPressed && !isDashing)
+            if (thisController.leftStick.left.isPressed && !isDashing)
             {
-                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+                moveX = -1;
             }
-            else if (P3Controller.leftStick.right.isPressed && !isDashing)
+            else if (thisController.leftStick.right.isPressed && !isDashing)
             {
-                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+                moveX = 1;
             }
 
-            if (P3Controller.leftStick.up.isPressed)
+            if (thisController.leftStick.up.isPressed)
             {
                 moveZ = 1;
             }
-            else if (P3Controller.leftStick.down.isPressed)
-            {
-                moveZ = -1;
-            }
-        }
-        else if (playerNo == 4)
-        {
-            if (P4Controller.leftStick.left.isPressed && !isDashing)
-            {
-                transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
-            }
-            else if (P4Controller.leftStick.right.isPressed && !isDashing)
-            {
-                transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
-            }
-
-            if (P4Controller.leftStick.up.isPressed)
-            {
-                moveZ = 1;
-            }
-            else if (P4Controller.leftStick.down.isPressed)
+            else if (thisController.leftStick.down.isPressed)
             {
                 moveZ = -1;
             }
         }
 
-        moveDirection = new Vector3(0, 0, moveZ);
+        Vector3 move = new Vector3(moveX, 0, moveZ).normalized;
+        moveDirection = playerCamera.transform.TransformDirection(move);
+        moveDirection.y = 0;
         moveDirection.Normalize();
+
+        if (moveDirection != Vector3.zero)
+        {
+            lastMoveDirection = moveDirection;
+        }
     }
 
     void Move()
@@ -464,7 +490,7 @@ public class PlayerBase : MonoBehaviour
         {
             if (!isDead && !isTakingDamage && !isShielding)
             {
-                rbody.velocity = transform.forward * moveDirection.z * currentSpeed;
+                rbody.velocity = moveDirection * currentSpeed;
             }
             else
             {
@@ -487,11 +513,17 @@ public class PlayerBase : MonoBehaviour
                 anim.Play(idleAnim);
                 audioSource.Stop();
             }
+
+            if (moveDirection != Vector3.zero && !isStrafing)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
         }
 
         if (isDashing)
         {
-            transform.position += transform.forward * dashSpeed * Time.deltaTime;
+            rbody.velocity = transform.forward * dashSpeed;
             anim.Play(dashAnim);
             dashTimer -= Time.deltaTime;
 

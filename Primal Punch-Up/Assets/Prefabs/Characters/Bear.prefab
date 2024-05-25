@@ -1213,6 +1213,7 @@ Transform:
   - {fileID: 7782587198703641146}
   - {fileID: 8012347076432335351}
   - {fileID: 4807544944800455974}
+  - {fileID: 4050008495287631983}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1301,6 +1302,7 @@ MonoBehaviour:
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  isShielding: 0
   bearFireMovement: 0
   lizSmokeDmg: 0
   audioClips:
@@ -1308,6 +1310,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 04e55823a18de1944b362e54d53e4ea4, type: 3}
   - {fileID: 8300000, guid: 7b0c8b9cb833a5a469805c9565545e60, type: 3}
   magnetRangeIndicator: {fileID: 5193606691201262530}
+  shieldHealth: 3
+  shieldCD: 10
   forceField: {fileID: 4582945388806850714}
   forceFieldOuter: {fileID: 4807544944800455975}
   ffr: {fileID: 0}
@@ -1315,6 +1319,10 @@ MonoBehaviour:
   ForceFieldMat1: {fileID: 2100000, guid: 880bafd83f37a644ea00eadfb6387ac2, type: 2}
   ForceFieldMat2: {fileID: 2100000, guid: 1c8716ed319aede40ac97b291ca05063, type: 2}
   ForceFieldMat3: {fileID: 2100000, guid: 75dced762955d07439b67785fa4a8c75, type: 2}
+  playerCamera: {fileID: 7782587198703641144}
+  cameraSensitivity: 100
+  minPitch: -40
+  maxPitch: 60
 --- !u!136 &7811819089111855679
 CapsuleCollider:
   m_ObjectHideFlags: 0
