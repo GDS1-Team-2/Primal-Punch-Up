@@ -54,11 +54,12 @@ public class PlayerBase : MonoBehaviour
     KeyCode? strafeKey = null;
 
     public float dashSpeed = 20.0f;
-    public float dashCooldown = 0.5f;
+    private float dashCooldown = 2f;
     public float dashDuration = 0.5f;
 
     public bool isDashing = false;
     private float dashTimer = 0.0f;
+    private float dashCdTimer = 0.0f;
 
     public GameObject healthBar;
     public Slider healthBarSlider;
@@ -89,6 +90,7 @@ public class PlayerBase : MonoBehaviour
     public bool isUsingSpecial = false;
     public bool isShielding = false;
     private bool isStrafing = false;
+    public bool canDash = true;
     public bool bearFireMovement = false;
     public bool lizSmokeDmg = false;
 
@@ -277,10 +279,11 @@ public class PlayerBase : MonoBehaviour
             {
                 PlayerPickupManager.UseItem();
             }
-            if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead && canDash)
             {
                 isDashing = true;
                 dashTimer = dashDuration;
+                dashCdTimer = dashCooldown;
             }
             if (shieldKey.HasValue && Input.GetKeyDown(shieldKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
@@ -311,10 +314,11 @@ public class PlayerBase : MonoBehaviour
             {
                 PlayerPickupManager.UseItem();
             }
-            if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding)
+            if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding && canDash)
             {
                 isDashing = true;
                 dashTimer = dashDuration;
+                dashCdTimer = dashCooldown;
             }
             if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
             {
@@ -362,6 +366,16 @@ public class PlayerBase : MonoBehaviour
         if (dashTimer > 0 && !isDashing)
         {
             dashTimer -= Time.deltaTime;
+        }
+
+        if (dashCdTimer > 0)
+        {
+            dashCdTimer -= Time.deltaTime;
+            canDash = false;
+        } else
+        {
+            dashCdTimer = 0;
+            canDash = true;
         }
 
         HandleCamera();
@@ -548,7 +562,7 @@ public class PlayerBase : MonoBehaviour
             if (dashTimer <= 0.0f)
             {
                 isDashing = false;
-                dashTimer = dashCooldown;
+                //dashTimer = dashCooldown;
             }
         }
     }
