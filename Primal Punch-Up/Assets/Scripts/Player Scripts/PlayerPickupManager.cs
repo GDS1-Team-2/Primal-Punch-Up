@@ -28,6 +28,9 @@ public class PlayerPickupManager : MonoBehaviour
     public float flameSpawnInterval = 0.1f;
     public float flameLifetime = 1.0f;
 
+    public float iceDuration;
+    public GameObject iceRadius;
+
     private bool firstPlaced = false;
     private bool secondPlaced = false;
     private bool canPlace = false;
@@ -60,6 +63,8 @@ public class PlayerPickupManager : MonoBehaviour
         string c = "P" + playerNo + "ItemControl";
         controlIcon = GameObject.FindGameObjectWithTag(c);
         controlIcon.SetActive(false);
+        iceRadius.GetComponent<IceScript>().playerNo = playerNo;
+        iceRadius.SetActive(false);
     }
 
     // Update is called once per frame
@@ -147,7 +152,44 @@ public class PlayerPickupManager : MonoBehaviour
                 PlacePortal();
             }
         }
+        else if (currentItem.name == "Ice Glove")
+        {
+            hasItem = true;
+            itemCooldown.SetActive(true);
+            cooldownSlider.maxValue = iceDuration;
+            StartCoroutine(ActivateIceGlove(10));
+            
+        }
     }
+
+    IEnumerator ActivateIceGlove(float duration)
+    {
+        float elapsedTime = 0;
+        iceRadius.SetActive(true);
+
+        while (elapsedTime < duration)
+        {
+            cooldownSlider.value = elapsedTime - duration;
+            timerText.text = Mathf.RoundToInt(duration - elapsedTime).ToString();
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime > 9)
+            {
+                iceRadius.GetComponent<IceScript>().SetEnding(true);
+            }
+            yield return null;
+        }
+
+        
+        hasItem = false;
+        itemCooldown.SetActive(false);
+        iceRadius.GetComponent<IceScript>().SetEnding(false);
+        iceRadius.SetActive(false);
+        itemText.text = "Current Item: None";
+        itemIconUI.gameObject.SetActive(false);
+        controlIcon.SetActive(false);
+
+    }
+
 
     void PlacePortal()
     {

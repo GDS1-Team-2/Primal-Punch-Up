@@ -30,6 +30,7 @@ public class PlayerBase : MonoBehaviour
     public bool acceptInput = true;
 
     public float speed = 10.0f;
+    public float baseSpeed = 0.0f;
 
     float inCombatTimer = 0.0f;
     public float inCombatLength = 10.0f;
@@ -258,6 +259,7 @@ public class PlayerBase : MonoBehaviour
                 break;
         }
         cameraOffset = new Vector3(0, 2, -cameraDistance);
+        baseSpeed = speed;
     }
 
     void UpdateForceFieldMaterial(Material newMaterial)
