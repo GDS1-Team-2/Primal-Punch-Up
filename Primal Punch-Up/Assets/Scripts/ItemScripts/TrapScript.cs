@@ -10,13 +10,19 @@ public class TrapScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        model.SetActive(false);
+        StartCoroutine(VisibleForSeconds(3));
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    IEnumerator VisibleForSeconds(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        model.SetActive(false);
     }
 
     

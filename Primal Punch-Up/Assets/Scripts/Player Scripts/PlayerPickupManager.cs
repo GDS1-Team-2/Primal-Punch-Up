@@ -34,6 +34,7 @@ public class PlayerPickupManager : MonoBehaviour
 
     public float iceDuration;
     public GameObject iceRadius;
+    public bool usingIce;
 
     private bool firstPlaced = false;
     private bool secondPlaced = false;
@@ -71,6 +72,7 @@ public class PlayerPickupManager : MonoBehaviour
 
         usingFirecracker = false;
         usingMagnet = false;
+        usingIce = false;
         portalUsed = false;
     }
 
@@ -172,16 +174,20 @@ public class PlayerPickupManager : MonoBehaviour
         }
         else if (currentItem.name == "Freeze")
         {
-            hasItem = true;
-            itemCooldown.SetActive(true);
-            cooldownSlider.maxValue = iceDuration;
-            StartCoroutine(ActivateIceGlove(10));
-            
+            if (!usingIce)
+            {
+                usingIce = true;
+                hasItem = true;
+                itemCooldown.SetActive(true);
+                cooldownSlider.maxValue = iceDuration;
+                StartCoroutine(ActivateFreeze(10));
+            }
         }
     }
 
-    IEnumerator ActivateIceGlove(float duration)
+    IEnumerator ActivateFreeze(float duration)
     {
+
         float elapsedTime = 0;
         GameObject iceZone = Instantiate(iceRadius, new Vector3(gameObject.transform.position.x, 999, gameObject.transform.position.z), Quaternion.identity);
         iceZone.GetComponent<IceScript>().playerNo = playerNo;
@@ -195,6 +201,7 @@ public class PlayerPickupManager : MonoBehaviour
             if (elapsedTime > 9.9)
             {
                 iceZone.GetComponent<IceScript>().SetEnding(true);
+                usingIce = false;
             }
             yield return null;
         }
@@ -202,7 +209,7 @@ public class PlayerPickupManager : MonoBehaviour
         
         hasItem = false;
         itemCooldown.SetActive(false);
-
+        
         Destroy( iceZone );
         itemText.text = "Current Item: None";
         itemIconUI.gameObject.SetActive(false);
