@@ -129,7 +129,7 @@ public class PickupItem : MonoBehaviour
 
     public void DropScoreOnDeath(int number)
     {
-        if (number >= score)
+        if (number <= score)
         {
             score -= number;
         }

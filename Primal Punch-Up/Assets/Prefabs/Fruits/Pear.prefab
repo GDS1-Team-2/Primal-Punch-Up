@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9b839524b2990924dba22c4021586b55, type: 2}
+  - {fileID: 2318951454002463517, guid: 33ac4defc05fc774c8694c0c0429945a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,6 +114,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNo: 0
   canDrop: 1
+  target: {fileID: 0}
+  speed: 2
+  radius: 1
+  angle: 0
+  throwForce: 0
+  throwUpwardForce: 0
 --- !u!1001 &6733545153864880421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,6 +128,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 4711697086054218529}
     m_Modifications:
+    - target: {fileID: 111982, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 187738, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: m_Name
       value: PowerOrbGreen
@@ -212,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19823954, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
+      value: 0.040144444
       objectReference: {fileID: 0}
     - target: {fileID: 19823954, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
@@ -220,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19823954, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.83971727
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19823954, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: InitialModule.startRotationX.minMaxState
@@ -236,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19869566, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
+      value: 0.11642933
       objectReference: {fileID: 0}
     - target: {fileID: 19869566, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
@@ -244,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19869566, guid: c5de546e03785ee408b30fe2a72ae65c, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.7697209
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
