@@ -560,7 +560,7 @@ public class PlayerBase : MonoBehaviour
 
         if (!isDashing && !isAttacking && !isDead && !isTakingDamage && !isUsingSpecial)
         {
-            if (moveDirection != Vector3.zero)
+            if (rbody.velocity != Vector3.zero)
             {
                 anim.Play(runAnim);
                 lastMoveDirection = moveDirection;
