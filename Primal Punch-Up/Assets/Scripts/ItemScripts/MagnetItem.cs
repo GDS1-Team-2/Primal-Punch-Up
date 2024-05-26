@@ -97,5 +97,6 @@ public class MagnetItem : MonoBehaviour
     {
         isActive = false;
         magnetRangeIndicator.SetActive(false); // ����Բ�η�Χָʾ��
+        gameObject.GetComponent<PlayerPickupManager>().NoMagnet();
     }
 }
