@@ -1549,7 +1549,6 @@ Transform:
   - {fileID: 4615018074567182864}
   - {fileID: 6251620973323004777}
   - {fileID: 4107885454944750938}
-  - {fileID: 8388871676819746324}
   - {fileID: 2919983951187034098}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1674,6 +1673,7 @@ MonoBehaviour:
   forcefieldSlider: {fileID: 0}
   forcefieldSliderAnimator: {fileID: 0}
   playerCamera: {fileID: 7434326416881920516}
+  usingIce: 0
 --- !u!65 &7434326416971981776
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1700,6 +1700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
+  badSound: {fileID: 8300000, guid: 8d1ea81e79584534a9f1bc104a13fd48, type: 3}
   score: 0
   scoreText: {fileID: 0}
   OneScoreTag: Fruit
@@ -1746,7 +1747,7 @@ MonoBehaviour:
   flameLifetime: 1
   usingFirecracker: 0
   iceDuration: 0
-  iceRadius: {fileID: 5891270821090194289}
+  iceRadius: {fileID: 3664945509919710047, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
   itemIconUI: {fileID: 0}
   itemCooldown: {fileID: 0}
   itemTimer: {fileID: 0}
@@ -2326,73 +2327,4 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7574354436410736946, guid: dcb9e6ea720cf9e42aa98d4d127e1976, type: 3}
   m_PrefabInstance: {fileID: 4602603080249649755}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &7142004356028114990
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 6964448494670545983}
-    m_Modifications:
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664945509919710047, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_Name
-      value: IceZone
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
---- !u!1 &5891270821090194289 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3664945509919710047, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-  m_PrefabInstance: {fileID: 7142004356028114990}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8388871676819746324 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-  m_PrefabInstance: {fileID: 7142004356028114990}
   m_PrefabAsset: {fileID: 0}

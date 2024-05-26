@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3109781149356564161}
   - component: {fileID: 7514727794927950401}
   - component: {fileID: 749511579556263892}
-  - component: {fileID: 6627711247705810991}
   m_Layer: 0
   m_Name: CFX3 Small Aura
   m_TagString: Untagged
@@ -4777,19 +4776,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6627711247705810991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700349822670916625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnlyDeactivate: 0
 --- !u!1 &2299876395536470754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4801,7 +4787,6 @@ GameObject:
   - component: {fileID: 1305397655031645265}
   - component: {fileID: 8611558723793808856}
   - component: {fileID: 8747528590442306841}
-  - component: {fileID: 8339965890638084808}
   m_Layer: 0
   m_Name: CFX3_MagicAura_B_Runic
   m_TagString: Untagged
@@ -9569,19 +9554,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8339965890638084808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2299876395536470754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnlyDeactivate: 0
 --- !u!1 &3664945509919710047
 GameObject:
   m_ObjectHideFlags: 0
@@ -9631,7 +9603,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &470642884977233309
 MonoBehaviour:
@@ -9711,7 +9683,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ec11fe74ccc555d4f926af279df18afe, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -9806,7 +9778,6 @@ GameObject:
   - component: {fileID: 800687847081226250}
   - component: {fileID: 1548934309565419129}
   - component: {fileID: 2996720793055471479}
-  - component: {fileID: 8924319527515056215}
   m_Layer: 0
   m_Name: big
   m_TagString: Untagged
@@ -10063,7 +10034,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 24.5
+      scalar: 19.88
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -14572,19 +14543,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &8924319527515056215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7549734994051661151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnlyDeactivate: 0
 --- !u!1001 &5090115730649280427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14603,15 +14561,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 487700, guid: e1058fc030688db448faf54f4fdaabb6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.05
+      value: 7.04
       objectReference: {fileID: 0}
     - target: {fileID: 487700, guid: e1058fc030688db448faf54f4fdaabb6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.06
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 487700, guid: e1058fc030688db448faf54f4fdaabb6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.04
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 487700, guid: e1058fc030688db448faf54f4fdaabb6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14619,7 +14577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 487700, guid: e1058fc030688db448faf54f4fdaabb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.414
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 487700, guid: e1058fc030688db448faf54f4fdaabb6, type: 3}
       propertyPath: m_LocalPosition.z

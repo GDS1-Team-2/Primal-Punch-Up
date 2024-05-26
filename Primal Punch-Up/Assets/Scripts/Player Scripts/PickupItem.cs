@@ -8,6 +8,7 @@ public class PickupItem : MonoBehaviour
 {
     //follow is for pickup score item
     public AudioClip pickupSound; // Sound effect for picking up items
+    public AudioClip badSound;
     public int score = 0; // Player's score
     //public int tempScore = 0; // Player's temporary score
     //public int maxTempBag = 3; // Maximum capacity of temporary items, can be modified in Unity
@@ -103,10 +104,10 @@ public class PickupItem : MonoBehaviour
         {
             score -= scoreDecrease;
         }
-        
-        if (pickupSound != null)
+
+        if (badSound != null)
         {
-            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            audioSource.PlayOneShot(badSound);
         }
         Destroy(item);
 

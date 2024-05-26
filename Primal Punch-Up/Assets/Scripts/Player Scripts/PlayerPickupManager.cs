@@ -68,8 +68,7 @@ public class PlayerPickupManager : MonoBehaviour
         string c = "P" + playerNo + "ItemControl";
         controlIcon = GameObject.FindGameObjectWithTag(c);
         controlIcon.SetActive(false);
-        iceRadius.GetComponent<IceScript>().playerNo = playerNo;
-        iceRadius.SetActive(false);
+
         usingFirecracker = false;
         usingMagnet = false;
         portalUsed = false;
@@ -184,16 +183,18 @@ public class PlayerPickupManager : MonoBehaviour
     IEnumerator ActivateIceGlove(float duration)
     {
         float elapsedTime = 0;
-        iceRadius.SetActive(true);
+        GameObject iceZone = Instantiate(iceRadius, new Vector3(gameObject.transform.position.x, 999, gameObject.transform.position.z), Quaternion.identity);
+        iceZone.GetComponent<IceScript>().playerNo = playerNo;
 
         while (elapsedTime < duration)
         {
             cooldownSlider.value = elapsedTime - duration;
             timerText.text = Mathf.RoundToInt(duration - elapsedTime).ToString();
+            iceZone.transform.position = gameObject.transform.position;
             elapsedTime += Time.deltaTime;
-            if (elapsedTime > 9)
+            if (elapsedTime > 9.9)
             {
-                iceRadius.GetComponent<IceScript>().SetEnding(true);
+                iceZone.GetComponent<IceScript>().SetEnding(true);
             }
             yield return null;
         }
@@ -201,8 +202,8 @@ public class PlayerPickupManager : MonoBehaviour
         
         hasItem = false;
         itemCooldown.SetActive(false);
-        iceRadius.GetComponent<IceScript>().SetEnding(false);
-        iceRadius.SetActive(false);
+
+        Destroy( iceZone );
         itemText.text = "Current Item: None";
         itemIconUI.gameObject.SetActive(false);
         controlIcon.SetActive(false);

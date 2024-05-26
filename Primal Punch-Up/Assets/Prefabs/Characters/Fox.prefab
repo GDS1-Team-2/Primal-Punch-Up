@@ -850,7 +850,6 @@ Transform:
   - {fileID: 3127671020419216718}
   - {fileID: 1320519552179076648}
   - {fileID: 6854342081693444163}
-  - {fileID: 2214071508417261238}
   - {fileID: 5594250982622712062}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -975,6 +974,7 @@ MonoBehaviour:
   forcefieldSlider: {fileID: 0}
   forcefieldSliderAnimator: {fileID: 0}
   playerCamera: {fileID: 1994141740455233188}
+  usingIce: 0
 --- !u!65 &1994141739145485188
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1001,6 +1001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
+  badSound: {fileID: 8300000, guid: 8d1ea81e79584534a9f1bc104a13fd48, type: 3}
   score: 0
   scoreText: {fileID: 0}
   OneScoreTag: Fruit
@@ -1082,7 +1083,7 @@ MonoBehaviour:
   flameLifetime: 1
   usingFirecracker: 0
   iceDuration: 0
-  iceRadius: {fileID: 4256829151876445139}
+  iceRadius: {fileID: 3664945509919710047, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
   itemIconUI: {fileID: 0}
   itemCooldown: {fileID: 0}
   itemTimer: {fileID: 0}
@@ -1999,75 +2000,6 @@ Transform:
   m_Father: {fileID: 8088808054238493924}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -2.377865, y: -4.6058636, z: -13.314641}
---- !u!1001 &707006907594975372
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 4910092166573974276}
-    m_Modifications:
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664945509919710047, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-      propertyPath: m_Name
-      value: IceZone
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
---- !u!4 &2214071508417261238 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1690606086256854586, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-  m_PrefabInstance: {fileID: 707006907594975372}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4256829151876445139 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3664945509919710047, guid: 613a04eb3d78b7e4fa8c8486723531b1, type: 3}
-  m_PrefabInstance: {fileID: 707006907594975372}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6351997686530011943
 PrefabInstance:
   m_ObjectHideFlags: 0

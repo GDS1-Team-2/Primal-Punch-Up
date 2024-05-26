@@ -27,6 +27,7 @@ public class IceScript : MonoBehaviour
         {
             gameObject.GetComponent<AudioSource>().Play();
             playSound = false;
+            gameObject.GetComponentInParent<PlayerBase>().usingIce = true;
         }
         if (ending)
         {
@@ -36,6 +37,7 @@ public class IceScript : MonoBehaviour
                 {
                     player.GetComponent<PlayerBase>().speed = player.GetComponent<PlayerBase>().baseSpeed;
                     player.GetComponent<PlayerBase>().currentSpeed = player.GetComponent<PlayerBase>().baseSpeed;
+                    player.GetComponent<PlayerBase>().usingIce = false;
                 }
             }
             

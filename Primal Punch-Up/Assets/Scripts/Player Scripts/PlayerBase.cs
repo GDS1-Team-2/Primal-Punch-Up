@@ -119,6 +119,8 @@ public class PlayerBase : MonoBehaviour
     private float cameraDistance = 10.0f;
     private Vector3 cameraOffset;
 
+    public bool usingIce = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -623,8 +625,9 @@ public class PlayerBase : MonoBehaviour
         PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
         PlayerBase thisPlayer = GetComponent<PlayerBase>();
 
-        if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger && gameObject.tag != "Ice Zone")
+        if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger)
         {
+            
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             //Debug.Log(otherPlayer.gameObject.name + " has been hit");
             if (otherPlayer.isDead)
