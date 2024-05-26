@@ -9052,6 +9052,8 @@ MonoBehaviour:
   UICanvas2Players: {fileID: 1298635100}
   UICanvas3Players: {fileID: 1298635099}
   UICanvas4Players: {fileID: 1298635101}
+  EndAnimCanvas: {fileID: 0}
+  PauseScript: {fileID: 0}
   players: []
   newRound: 0
   ScoreboardScript: {fileID: 0}
@@ -9178,6 +9180,7 @@ MonoBehaviour:
   gamePaused: 0
   pauseMenu: {fileID: 1693618151}
   tutorialBox: {fileID: 837133156}
+  players: []
 --- !u!114 &966917694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9199,6 +9202,7 @@ MonoBehaviour:
   CharacterSelectSceneName: CharacterSelect
   PlayerNumberSelectSceneName: PlayerNumber
   reset: 0
+  PlayerNoSelect: {fileID: 0}
 --- !u!1 &980949803
 GameObject:
   m_ObjectHideFlags: 0
@@ -20492,16 +20496,15 @@ MonoBehaviour:
   boxCol: {fileID: 0}
   capCol: {fileID: 0}
   currentSpeed: 10
-  rotateSpeed: 180
   hp: 50
   maxHP: 50
   deathTimer: 5
   canMove: 0
   acceptInput: 1
   speed: 10
+  baseSpeed: 0
   inCombatLength: 10
   dashSpeed: 20
-  dashCooldown: 0.6
   dashDuration: 0.6
   isDashing: 0
   healthBar: {fileID: 0}
@@ -20518,18 +20521,33 @@ MonoBehaviour:
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}
   dropNumber: 3
+  PickupUIScript: {fileID: 0}
   fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
   isDead: 0
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  isShielding: 0
+  canDash: 1
   bearFireMovement: 0
   lizSmokeDmg: 0
   audioClips:
   - {fileID: 8300000, guid: d9c8ba1a3e7b6a6469a261676f4f37f7, type: 3}
   - {fileID: 8300000, guid: 8e79656fc2cf74b4aaa153f154d92c43, type: 3}
   - {fileID: 8300000, guid: 1d7e76ede927349499281571b3214066, type: 3}
-  magnetRangeIndicator: {fileID: 0}
+  shieldHealth: 3
+  shieldCD: 10
+  forceField: {fileID: 0}
+  forceFieldOuter: {fileID: 0}
+  ffr: {fileID: 0}
+  ForceFieldMat: {fileID: 0}
+  ForceFieldMat1: {fileID: 0}
+  ForceFieldMat2: {fileID: 0}
+  ForceFieldMat3: {fileID: 0}
+  forcefieldSlider: {fileID: 0}
+  forcefieldSliderAnimator: {fileID: 0}
+  playerCamera: {fileID: 0}
+  usingIce: 0
 --- !u!23 &1195824351234958744
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20642,7 +20660,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21772,6 +21790,7 @@ MonoBehaviour:
   items:
   - {fileID: 5507687823956197242, guid: 993ae5fceace12a459365715af5c25d8, type: 3}
   currentItem: {fileID: 0}
+  AudioSource: {fileID: 0}
   hasItem: 0
   usingMagnet: 0
   PlayerBase: {fileID: 0}
@@ -21785,6 +21804,10 @@ MonoBehaviour:
   flameTrailDuration: 5
   flameSpawnInterval: 0.5
   flameLifetime: 1
+  usingFirecracker: 0
+  iceDuration: 0
+  iceRadius: {fileID: 0}
+  usingIce: 0
   itemIconUI: {fileID: 0}
   itemCooldown: {fileID: 0}
   itemTimer: {fileID: 0}
@@ -21959,6 +21982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
+  badSound: {fileID: 0}
   score: 0
   scoreText: {fileID: 0}
   OneScoreTag: score1
@@ -21966,7 +21990,9 @@ MonoBehaviour:
   BadScoreTag: NegativeFruit
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
+  PickupUIScript: {fileID: 0}
   playerNo: 0
+  canPickup: 0
 --- !u!4 &4719280254665652193
 Transform:
   m_ObjectHideFlags: 0
@@ -22012,6 +22038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
+  badSound: {fileID: 0}
   score: 0
   scoreText: {fileID: 0}
   OneScoreTag: score1
@@ -22019,7 +22046,9 @@ MonoBehaviour:
   BadScoreTag: NegativeFruit
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
+  PickupUIScript: {fileID: 0}
   playerNo: 0
+  canPickup: 0
 --- !u!1 &5022266926197061122
 GameObject:
   m_ObjectHideFlags: 0
@@ -22357,6 +22386,7 @@ MonoBehaviour:
   items:
   - {fileID: 5507687823956197242, guid: 993ae5fceace12a459365715af5c25d8, type: 3}
   currentItem: {fileID: 0}
+  AudioSource: {fileID: 0}
   hasItem: 0
   usingMagnet: 0
   PlayerBase: {fileID: 0}
@@ -22370,6 +22400,10 @@ MonoBehaviour:
   flameTrailDuration: 5
   flameSpawnInterval: 0.5
   flameLifetime: 1
+  usingFirecracker: 0
+  iceDuration: 0
+  iceRadius: {fileID: 0}
+  usingIce: 0
   itemIconUI: {fileID: 0}
   itemCooldown: {fileID: 0}
   itemTimer: {fileID: 0}
@@ -22821,16 +22855,15 @@ MonoBehaviour:
   boxCol: {fileID: 0}
   capCol: {fileID: 0}
   currentSpeed: 10
-  rotateSpeed: 180
   hp: 50
   maxHP: 50
   deathTimer: 5
   canMove: 0
   acceptInput: 1
   speed: 10
+  baseSpeed: 0
   inCombatLength: 10
   dashSpeed: 20
-  dashCooldown: 0.6
   dashDuration: 0.6
   isDashing: 0
   healthBar: {fileID: 0}
@@ -22847,18 +22880,33 @@ MonoBehaviour:
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}
   dropNumber: 3
+  PickupUIScript: {fileID: 0}
   fruitPrefab: {fileID: 1340593966245118885, guid: 5fa7a94d95f07a34b81b6c5423de1bcb, type: 3}
   isDead: 0
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  isShielding: 0
+  canDash: 1
   bearFireMovement: 0
   lizSmokeDmg: 0
   audioClips:
   - {fileID: 8300000, guid: d9b60a057c79d6e43bc5e737535601b1, type: 3}
   - {fileID: 8300000, guid: 04e55823a18de1944b362e54d53e4ea4, type: 3}
   - {fileID: 8300000, guid: 7b0c8b9cb833a5a469805c9565545e60, type: 3}
-  magnetRangeIndicator: {fileID: 0}
+  shieldHealth: 3
+  shieldCD: 10
+  forceField: {fileID: 0}
+  forceFieldOuter: {fileID: 0}
+  ffr: {fileID: 0}
+  ForceFieldMat: {fileID: 0}
+  ForceFieldMat1: {fileID: 0}
+  ForceFieldMat2: {fileID: 0}
+  ForceFieldMat3: {fileID: 0}
+  forcefieldSlider: {fileID: 0}
+  forcefieldSliderAnimator: {fileID: 0}
+  playerCamera: {fileID: 0}
+  usingIce: 0
 --- !u!54 &6792869855970251946
 Rigidbody:
   m_ObjectHideFlags: 0
