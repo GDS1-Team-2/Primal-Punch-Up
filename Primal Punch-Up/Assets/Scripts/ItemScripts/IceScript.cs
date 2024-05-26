@@ -7,10 +7,12 @@ public class IceScript : MonoBehaviour
     public int playerNo;
     public List<GameObject> players;
     public bool ending = false;
+    public bool playSound = true;
     // Start is called before the first frame update
 
     private void Start()
     {
+        playSound = true;
         ending = false;
     }
     public void SetEnding(bool state)
@@ -21,6 +23,11 @@ public class IceScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameObject.activeSelf && playSound)
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+            playSound = false;
+        }
         if (ending)
         {
             foreach (GameObject player in players)

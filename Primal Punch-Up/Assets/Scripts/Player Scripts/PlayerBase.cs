@@ -623,7 +623,7 @@ public class PlayerBase : MonoBehaviour
         PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
         PlayerBase thisPlayer = GetComponent<PlayerBase>();
 
-        if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger)
+        if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger && gameObject.tag != "Ice Zone")
         {
             StartCoroutine(otherPlayer.TakeDamage(BADamage));
             //Debug.Log(otherPlayer.gameObject.name + " has been hit");
@@ -680,6 +680,7 @@ public class PlayerBase : MonoBehaviour
         isDead = true;
         PickupItem.canPickup = false;
         anim.Play(deathAnim);
+        audioSource.PlayOneShot(audioClips[3]);
         respawnScreen.SetActive(true);
         int score = PickupItem.CurrentScore();
         int amount = dropNumber;

@@ -7,6 +7,9 @@ public class PlayerPickupManager : MonoBehaviour
 {
     public List<GameObject> items = new List<GameObject>();
     public GameObject currentItem;
+
+    public AudioSource AudioSource;
+
     public bool hasItem = false;
     public bool usingMagnet = false;
 
@@ -243,6 +246,7 @@ public class PlayerPickupManager : MonoBehaviour
     IEnumerator CreateFlameTrail()
     {
         usingFirecracker = true;
+        AudioSource.Play();
         StartCoroutine(FlameTimer());
         float elapsedTime = 0;
         float duration = flameTrailDuration;
@@ -261,6 +265,7 @@ public class PlayerPickupManager : MonoBehaviour
         itemIconUI.gameObject.SetActive(false);
         controlIcon.SetActive(false);
         itemCooldown.SetActive(false);
+        AudioSource.Stop();
         usingFirecracker = false;
     }
 
