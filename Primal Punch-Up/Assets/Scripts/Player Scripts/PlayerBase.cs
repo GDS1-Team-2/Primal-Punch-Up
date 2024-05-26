@@ -399,9 +399,12 @@ public class PlayerBase : MonoBehaviour
             ChangeDirection();
 
             //|| thisController.startButton.wasPressedThisFrame
-            if (Input.GetKeyDown(KeyCode.Escape) )
+            if (thisController != null)
             {
-                PauseScript.PauseGame();
+                if (Input.GetKeyDown(KeyCode.Escape) || thisController.startButton.wasPressedThisFrame)
+                {
+                    PauseScript.PauseGame();
+                }
             }
         }
 
