@@ -27,6 +27,7 @@ public class PlayerPickupManager : MonoBehaviour
     public float flameTrailDuration = 5.0f;
     public float flameSpawnInterval = 0.1f;
     public float flameLifetime = 1.0f;
+    public bool usingFirecracker = false;
 
     public float iceDuration;
     public GameObject iceRadius;
@@ -34,6 +35,7 @@ public class PlayerPickupManager : MonoBehaviour
     private bool firstPlaced = false;
     private bool secondPlaced = false;
     private bool canPlace = false;
+    private bool portalUsed = false;
 
     //add icon
     public Image itemIconUI;
@@ -65,6 +67,9 @@ public class PlayerPickupManager : MonoBehaviour
         controlIcon.SetActive(false);
         iceRadius.GetComponent<IceScript>().playerNo = playerNo;
         iceRadius.SetActive(false);
+        usingFirecracker = false;
+        usingMagnet = false;
+        portalUsed = false;
     }
 
     // Update is called once per frame
@@ -129,30 +134,41 @@ public class PlayerPickupManager : MonoBehaviour
             controlIcon.SetActive(false);
         }
         else if((currentItem.name == "Magnet")) {
-            MagnetItem.ActivateMagnet();
-            usingMagnet = true;
-            hasItem = true;
-            itemCooldown.SetActive(true);
-            cooldownSlider.maxValue = MagnetItem.magnetDuration;
-            MagnetItem.cooldownSlider = cooldownSlider;
-            MagnetItem.timerText = timerText;
+            if (!usingMagnet)
+            {
+                MagnetItem.ActivateMagnet();
+                usingMagnet = true;
+                hasItem = true;
+                itemCooldown.SetActive(true);
+                cooldownSlider.maxValue = MagnetItem.magnetDuration;
+                MagnetItem.cooldownSlider = cooldownSlider;
+                MagnetItem.timerText = timerText;
+            }
+            
         }
         else if (currentItem.name == "Firecracker")
         {
-            StartCoroutine(CreateFlameTrail());
+            if (!usingFirecracker)
+            {
+                StartCoroutine(CreateFlameTrail());
+            }
         }
         else if (currentItem.name == "Portal")
         {
-            if (!firstPlaced)
+            if (!portalUsed)
             {
-                PlacePortal();
-            }
-            else if (firstPlaced && !secondPlaced)
-            {
-                PlacePortal();
+                if (!firstPlaced)
+                {
+                    PlacePortal();
+                }
+                else if (firstPlaced && !secondPlaced)
+                {
+                    PlacePortal();
+                    portalUsed = true;
+                }
             }
         }
-        else if (currentItem.name == "Ice Glove")
+        else if (currentItem.name == "Freeze")
         {
             hasItem = true;
             itemCooldown.SetActive(true);
@@ -213,6 +229,7 @@ public class PlayerPickupManager : MonoBehaviour
             itemText.text = "Current Item: None";
             itemIconUI.gameObject.SetActive(false);
             items.RemoveAt(items.Count-1);
+            controlIcon.SetActive(false);
         }
     }
 
@@ -225,6 +242,7 @@ public class PlayerPickupManager : MonoBehaviour
 
     IEnumerator CreateFlameTrail()
     {
+        usingFirecracker = true;
         StartCoroutine(FlameTimer());
         float elapsedTime = 0;
         float duration = flameTrailDuration;
@@ -243,6 +261,7 @@ public class PlayerPickupManager : MonoBehaviour
         itemIconUI.gameObject.SetActive(false);
         controlIcon.SetActive(false);
         itemCooldown.SetActive(false);
+        usingFirecracker = false;
     }
 
     IEnumerator FlameTimer()
