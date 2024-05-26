@@ -21,6 +21,8 @@ public class RoundsScript : MonoBehaviour
     public GameObject UICanvas4Players;
     public GameObject EndAnimCanvas;
 
+    public PauseScript PauseScript;
+
     public List<GameObject> players;
 
     public bool newRound = false;
@@ -39,6 +41,7 @@ public class RoundsScript : MonoBehaviour
         ScoreboardScript = this.gameObject.GetComponent<ScoreboardScript>();
         CharacterLoader = GameObject.Find("CharacterLoader");
         CharacterLoader.GetComponent<CharacterLoader>().loadCharacters = true;
+        PauseScript = this.gameObject.GetComponent<PauseScript>();
         //int noOfPlayers = CharacterLoader.GetComponent<CharacterLoader>().noOfPlayers;
 
         UICanvas2Players = GameObject.Find("UICanvas2Players");
@@ -84,6 +87,7 @@ public class RoundsScript : MonoBehaviour
     {
         Player1 = player;
         players.Add(Player1);
+        
     }
 
     public void SetPlayer2(GameObject player)

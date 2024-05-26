@@ -173,6 +173,7 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 minimapIcon.material = Player1Material;
                 RoundsScript.SetPlayer1(gameObject);
+                PauseScript.AddPlayer(gameObject);
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.5424528f, 0.8564558f, 1, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat);
@@ -186,6 +187,7 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player2Model", gameObject.tag);
                 minimapIcon.material = Player2Material;
                 RoundsScript.SetPlayer2(gameObject);
+                PauseScript.AddPlayer(gameObject);
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat1);
@@ -200,6 +202,7 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player3Model", gameObject.tag);
                 minimapIcon.material = Player3Material;
                 RoundsScript.SetPlayer3(gameObject);
+                PauseScript.AddPlayer(gameObject);
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.6383248f, 1, 0.5518868f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat2);
@@ -213,6 +216,7 @@ public class PlayerBase : MonoBehaviour
                 PlayerPrefs.SetString("Player4Model", gameObject.tag);
                 minimapIcon.material = Player4Material;
                 RoundsScript.SetPlayer4(gameObject);
+                PauseScript.AddPlayer(gameObject);
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(1, 0.945283f, 0.5896226f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
                 UpdateForceFieldMaterial(ForceFieldMat3);
@@ -274,118 +278,130 @@ public class PlayerBase : MonoBehaviour
     {
         //HandleInput();
 
-        if (playerNo == 1)
+        if (acceptInput)
         {
-            if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            if (playerNo == 1)
             {
-                StartCoroutine(PlayerBasicAttack());
+                if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    StartCoroutine(PlayerBasicAttack());
+                }
+                if (itemKey.HasValue && Input.GetKey(itemKey.Value))
+                {
+                    PlayerPickupManager.UseItem();
+                }
+                if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead && canDash)
+                {
+                    isDashing = true;
+                    dashTimer = dashDuration;
+                    dashCdTimer = dashCooldown;
+                }
+                if (shieldKey.HasValue && Input.GetKeyDown(shieldKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    forceFieldOuter.SetActive(true);
+                    isShielding = true;
+                }
+                else if (shieldKey.HasValue && Input.GetKeyUp(shieldKey.Value))
+                {
+                    forceFieldOuter.SetActive(false);
+                    isShielding = false;
+                }
+                if (strafeKey.HasValue && Input.GetKeyDown(strafeKey.Value))
+                {
+                    isStrafing = true;
+                }
+                else if (shieldKey.HasValue && Input.GetKeyUp(strafeKey.Value))
+                {
+                    isStrafing = false;
+                }
             }
-            if (itemKey.HasValue && Input.GetKey(itemKey.Value))
+            else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
             {
-                PlayerPickupManager.UseItem();
+                if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
+                {
+                    StartCoroutine(PlayerBasicAttack());
+                }
+                if (thisController.buttonWest.wasPressedThisFrame)
+                {
+                    PlayerPickupManager.UseItem();
+                }
+                if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding && canDash)
+                {
+                    isDashing = true;
+                    dashTimer = dashDuration;
+                    dashCdTimer = dashCooldown;
+                }
+                if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+                {
+                    forceFieldOuter.SetActive(true);
+                    isShielding = true;
+                }
+                else if (thisController.rightTrigger.wasReleasedThisFrame)
+                {
+                    forceFieldOuter.SetActive(false);
+                    isShielding = false;
+                }
+                if (thisController.leftTrigger.wasPressedThisFrame)
+                {
+                    isStrafing = true;
+                }
+                else if (thisController.leftTrigger.wasReleasedThisFrame)
+                {
+                    isStrafing = false;
+                }
             }
-            if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead && canDash)
+
+            if (isShielding)
             {
-                isDashing = true;
-                dashTimer = dashDuration;
-                dashCdTimer = dashCooldown;
+                shieldHealth -= 1 * Time.deltaTime;
+                //print(shieldHealth);
+                forcefieldSlider.value = -shieldHealth;
             }
-            if (shieldKey.HasValue && Input.GetKeyDown(shieldKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-            {
-                forceFieldOuter.SetActive(true);
-                isShielding = true;
-            }
-            else if (shieldKey.HasValue && Input.GetKeyUp(shieldKey.Value))
+
+            if (shieldHealth <= 0)
             {
                 forceFieldOuter.SetActive(false);
                 isShielding = false;
+                shieldCD -= Time.deltaTime;
+                if (!forcefieldSliderAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShieldFlash"))
+                {
+                    forcefieldSliderAnimator.Play("ShieldFlash");
+                }
+                forcefieldSlider.value = -3 + (shieldCD / 3);
             }
-            if (strafeKey.HasValue && Input.GetKeyDown(strafeKey.Value))
-            {
-                isStrafing = true;
-            }
-            else if (shieldKey.HasValue && Input.GetKeyUp(strafeKey.Value))
-            {
-                isStrafing = false;
-            }
-        }
-        else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
-        {
-            if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
-            {
-                StartCoroutine(PlayerBasicAttack());
-            }
-            if (thisController.buttonWest.wasPressedThisFrame)
-            {
-                PlayerPickupManager.UseItem();
-            }
-            if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding && canDash)
-            {
-                isDashing = true;
-                dashTimer = dashDuration;
-                dashCdTimer = dashCooldown;
-            }
-            if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-            {
-                forceFieldOuter.SetActive(true);
-                isShielding = true;
-            } else if (thisController.rightTrigger.wasReleasedThisFrame)
-            {
-                forceFieldOuter.SetActive(false);
-                isShielding = false;
-            }
-            if (thisController.leftTrigger.wasPressedThisFrame)
-            {
-                isStrafing = true;
-            } else if (thisController.leftTrigger.wasReleasedThisFrame)
-            {
-                isStrafing = false;
-            }
-        }
 
-        if (isShielding)
-        {
-            shieldHealth -= 1 * Time.deltaTime;
-            //print(shieldHealth);
-            forcefieldSlider.value = -shieldHealth;
-        }
-        
-        if (shieldHealth <= 0)
-        {
-            forceFieldOuter.SetActive(false);
-            isShielding = false;
-            shieldCD -= Time.deltaTime;
-            if (!forcefieldSliderAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShieldFlash"))
+            if (shieldCD <= 0)
             {
-                forcefieldSliderAnimator.Play("ShieldFlash");
+                shieldHealth = 3f;
+                shieldCD = 10f;
             }
-            forcefieldSlider.value = -3 + (shieldCD / 3);
+
+            if (dashTimer > 0 && !isDashing)
+            {
+                dashTimer -= Time.deltaTime;
+            }
+
+            if (dashCdTimer > 0)
+            {
+                dashCdTimer -= Time.deltaTime;
+                canDash = false;
+            }
+            else
+            {
+                dashCdTimer = 0;
+                canDash = true;
+            }
+
+            HandleCamera();
+
+            ChangeDirection();
+
+            //|| thisController.startButton.wasPressedThisFrame
+            if (Input.GetKeyDown(KeyCode.Escape) )
+            {
+                PauseScript.PauseGame();
+            }
         }
-
-        if (shieldCD <= 0)
-        {
-            shieldHealth = 3f;
-            shieldCD = 10f;
-        }
-
-        if (dashTimer > 0 && !isDashing)
-        {
-            dashTimer -= Time.deltaTime;
-        }
-
-        if (dashCdTimer > 0)
-        {
-            dashCdTimer -= Time.deltaTime;
-            canDash = false;
-        } else
-        {
-            dashCdTimer = 0;
-            canDash = true;
-        }
-
-        HandleCamera();
-
-        ChangeDirection();
 
         //Regen health when out of combat
         if (!inCombat)
@@ -422,15 +438,12 @@ public class PlayerBase : MonoBehaviour
             StartCoroutine(OnDeath());
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || thisController.startButton.wasPressedThisFrame)
-        {
-            PauseScript.PauseGame();
-        }
+        
     }
 
     void FixedUpdate()
     {
-        if (canMove)
+        if (canMove && acceptInput)
         {
             Move();
         }

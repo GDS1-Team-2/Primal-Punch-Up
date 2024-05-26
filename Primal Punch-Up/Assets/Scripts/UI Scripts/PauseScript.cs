@@ -7,6 +7,7 @@ public class PauseScript : MonoBehaviour
     public bool gamePaused = false;
     public GameObject pauseMenu;
     public GameObject tutorialBox;
+    public List<GameObject> players;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,11 @@ public class PauseScript : MonoBehaviour
         {
             tutorialBox.SetActive(false);
         }
+    }
+
+    public void AddPlayer(GameObject player)
+    {
+        players.Add(player);
     }
 
     // Update is called once per frame
@@ -41,6 +47,10 @@ public class PauseScript : MonoBehaviour
     {
         Time.timeScale = 0;
         gamePaused = true;
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerBase>().acceptInput = false;
+        }
         if (pauseMenu != null)
         {
             pauseMenu.SetActive(true);
@@ -51,6 +61,10 @@ public class PauseScript : MonoBehaviour
     {
         Time.timeScale = 1;
         gamePaused = false;
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerBase>().acceptInput = true;
+        }
         if (pauseMenu != null)
         {
             pauseMenu.SetActive(false);
