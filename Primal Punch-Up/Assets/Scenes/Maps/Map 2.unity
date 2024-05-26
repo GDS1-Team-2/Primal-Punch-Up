@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -3646,6 +3646,7 @@ MonoBehaviour:
   UICanvas3Players: {fileID: 632926529}
   UICanvas4Players: {fileID: 632926531}
   EndAnimCanvas: {fileID: 0}
+  PauseScript: {fileID: 0}
   players: []
   newRound: 0
   ScoreboardScript: {fileID: 0}
@@ -3776,6 +3777,7 @@ MonoBehaviour:
   gamePaused: 0
   pauseMenu: {fileID: 319964265}
   tutorialBox: {fileID: 569756870}
+  players: []
 --- !u!114 &264402515
 MonoBehaviour:
   m_ObjectHideFlags: 0

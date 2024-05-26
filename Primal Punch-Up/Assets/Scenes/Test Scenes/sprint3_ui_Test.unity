@@ -2162,7 +2162,7 @@ Transform:
   - {fileID: 1587506062}
   - {fileID: 1124693864}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220707421
 GameObject:
@@ -2203,7 +2203,7 @@ Transform:
   - {fileID: 1929794829}
   - {fileID: 142244551}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &227654202
 PrefabInstance:
@@ -7530,7 +7530,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &731340715
 PrefabInstance:
@@ -9639,7 +9639,11 @@ MonoBehaviour:
   UICanvas2Players: {fileID: 0}
   UICanvas3Players: {fileID: 0}
   UICanvas4Players: {fileID: 0}
+  EndAnimCanvas: {fileID: 0}
+  PauseScript: {fileID: 0}
+  players: []
   newRound: 0
+  ScoreboardScript: {fileID: 0}
 --- !u!4 &966917690
 Transform:
   m_ObjectHideFlags: 0
@@ -9653,7 +9657,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &966917691
 MonoBehaviour:
@@ -9669,6 +9673,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeLeft: 120
   TimerOn: 1
+  timer1: {fileID: 0}
+  timer2: {fileID: 0}
+  timer3: {fileID: 0}
   TimerText2: {fileID: 0}
   TimerText3: {fileID: 1396976931}
   TimerText4: {fileID: 0}
@@ -9697,6 +9704,8 @@ MonoBehaviour:
   - {fileID: 142244552}
   bases: []
   fruitSpawnPoints: []
+  fruits: []
+  filledPositions: []
 --- !u!1 &972092262
 GameObject:
   m_ObjectHideFlags: 0
@@ -11594,7 +11603,7 @@ Transform:
   - {fileID: 581212733}
   - {fileID: 851104995}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1189489235
 PrefabInstance:
@@ -13787,7 +13796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2973700156501281621, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2973700156501281621, guid: e4f53fec8a3564142934af0eca687c4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14268,7 +14277,7 @@ Transform:
   m_Children:
   - {fileID: 510036151}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1445726194
 PrefabInstance:
@@ -16005,7 +16014,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1587506061 stripped
 GameObject:
@@ -20648,7 +20657,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &2004739453
 PrefabInstance:
@@ -22368,12 +22377,27 @@ MonoBehaviour:
   - {fileID: 1844235179766881173, guid: 5272460ad18c21a42aa9e341772df81c, type: 3}
   - {fileID: 6431815464764186155, guid: 4ff9f7a87a138684ab93c0ce58ba5419, type: 3}
   currentItem: {fileID: 0}
+  AudioSource: {fileID: 0}
   hasItem: 0
+  usingMagnet: 0
   PlayerBase: {fileID: 0}
   playerNo: 0
-  itemTexts: []
+  itemText: {fileID: 0}
+  controlIcon: {fileID: 0}
   MagnetItem: {fileID: 0}
+  teleportGatePrefab: {fileID: 0}
+  flamePrefab: {fileID: 0}
+  hasFlameItem: 0
+  flameTrailDuration: 5
+  flameSpawnInterval: 0.1
+  flameLifetime: 1
+  usingFirecracker: 0
+  iceDuration: 0
+  iceRadius: {fileID: 0}
+  usingIce: 0
   itemIconUI: {fileID: 0}
+  itemCooldown: {fileID: 0}
+  itemTimer: {fileID: 0}
 --- !u!137 &242327529675312503
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -23513,26 +23537,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNo: 1
-  teleportGatePrefab: {fileID: 0}
-  flamePrefab: {fileID: 0}
-  hasFlameItem: 0
-  flameTrailDuration: 5
-  flameSpawnInterval: 0.5
-  flameLifetime: 1
   anim: {fileID: 0}
   rbody: {fileID: 0}
   boxCol: {fileID: 0}
   capCol: {fileID: 0}
   currentSpeed: 10
-  rotateSpeed: 180
   hp: 50
   maxHP: 50
   deathTimer: 5
   canMove: 0
+  acceptInput: 1
   speed: 10
+  baseSpeed: 0
   inCombatLength: 10
   dashSpeed: 20
-  dashCooldown: 0.6
   dashDuration: 0.6
   isDashing: 0
   healthBar: {fileID: 0}
@@ -23540,16 +23558,39 @@ MonoBehaviour:
   respawnScreen: {fileID: 0}
   respawnSlider: {fileID: 0}
   respawnTimer: {fileID: 0}
+  minimapIcon: {fileID: 0}
+  Player1Material: {fileID: 0}
+  Player2Material: {fileID: 0}
+  Player3Material: {fileID: 0}
+  Player4Material: {fileID: 0}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}
+  dropNumber: 3
+  PickupUIScript: {fileID: 0}
   fruitPrefab: {fileID: 0}
   isDead: 0
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  isShielding: 0
+  canDash: 1
   bearFireMovement: 0
   lizSmokeDmg: 0
+  audioClips: []
+  shieldHealth: 3
+  shieldCD: 10
+  forceField: {fileID: 0}
+  forceFieldOuter: {fileID: 0}
+  ffr: {fileID: 0}
+  ForceFieldMat: {fileID: 0}
+  ForceFieldMat1: {fileID: 0}
+  ForceFieldMat2: {fileID: 0}
+  ForceFieldMat3: {fileID: 0}
+  forcefieldSlider: {fileID: 0}
+  forcefieldSliderAnimator: {fileID: 0}
+  playerCamera: {fileID: 0}
+  usingIce: 0
 --- !u!54 &3843513543303457784
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24240,6 +24281,8 @@ MonoBehaviour:
   cooldownGray: {fileID: 0}
   iconSprite: {fileID: 0}
   graySprite: {fileID: 0}
+  audioSource: {fileID: 0}
+  clip: {fileID: 0}
 --- !u!1 &5417063151528600783
 GameObject:
   m_ObjectHideFlags: 0
@@ -24893,26 +24936,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNo: 2
-  teleportGatePrefab: {fileID: 0}
-  flamePrefab: {fileID: 0}
-  hasFlameItem: 0
-  flameTrailDuration: 5
-  flameSpawnInterval: 0.5
-  flameLifetime: 1
   anim: {fileID: 6964889131301662411}
   rbody: {fileID: 6964889131301662410}
   boxCol: {fileID: 0}
   capCol: {fileID: 0}
   currentSpeed: 10
-  rotateSpeed: 180
   hp: 50
   maxHP: 50
   deathTimer: 5
   canMove: 0
+  acceptInput: 1
   speed: 10
+  baseSpeed: 0
   inCombatLength: 10
   dashSpeed: 20
-  dashCooldown: 0.6
   dashDuration: 0.6
   isDashing: 0
   healthBar: {fileID: 0}
@@ -24920,16 +24957,39 @@ MonoBehaviour:
   respawnScreen: {fileID: 0}
   respawnSlider: {fileID: 0}
   respawnTimer: {fileID: 0}
+  minimapIcon: {fileID: 0}
+  Player1Material: {fileID: 0}
+  Player2Material: {fileID: 0}
+  Player3Material: {fileID: 0}
+  Player4Material: {fileID: 0}
   Manager: {fileID: 0}
   PlayerPickupManager: {fileID: 0}
   PauseScript: {fileID: 0}
+  dropNumber: 3
+  PickupUIScript: {fileID: 0}
   fruitPrefab: {fileID: 0}
   isDead: 0
   isTakingDamage: 0
   isAttacking: 0
   isUsingSpecial: 0
+  isShielding: 0
+  canDash: 1
   bearFireMovement: 0
   lizSmokeDmg: 0
+  audioClips: []
+  shieldHealth: 3
+  shieldCD: 10
+  forceField: {fileID: 0}
+  forceFieldOuter: {fileID: 0}
+  ffr: {fileID: 0}
+  ForceFieldMat: {fileID: 0}
+  ForceFieldMat1: {fileID: 0}
+  ForceFieldMat2: {fileID: 0}
+  ForceFieldMat3: {fileID: 0}
+  forcefieldSlider: {fileID: 0}
+  forcefieldSliderAnimator: {fileID: 0}
+  playerCamera: {fileID: 0}
+  usingIce: 0
 --- !u!54 &6964889131301662410
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24979,19 +25039,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
+  badSound: {fileID: 0}
   score: 0
-  tempScore: 0
-  maxTempBag: 3
-  currentTempBag: 0
   scoreText: {fileID: 0}
-  tempScoreText: {fileID: 0}
   OneScoreTag: score1
-  ThreeScoreTag: score2
+  MultiScoreTag: 
   BadScoreTag: NegativeFruit
-  baseTag: Home1
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
+  PickupUIScript: {fileID: 0}
   playerNo: 0
+  canPickup: 0
 --- !u!1 &7100809560800092220
 GameObject:
   m_ObjectHideFlags: 0
@@ -25167,7 +25225,7 @@ Transform:
   - {fileID: 7782587198359880631}
   - {fileID: 8012347074628972666}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7555193718530820254
 Transform:
@@ -25201,12 +25259,27 @@ MonoBehaviour:
   - {fileID: 1448466250548227226}
   - {fileID: 1587506061}
   currentItem: {fileID: 0}
+  AudioSource: {fileID: 0}
   hasItem: 0
+  usingMagnet: 0
   PlayerBase: {fileID: 0}
   playerNo: 0
-  itemTexts: []
+  itemText: {fileID: 0}
+  controlIcon: {fileID: 0}
   MagnetItem: {fileID: 0}
+  teleportGatePrefab: {fileID: 0}
+  flamePrefab: {fileID: 0}
+  hasFlameItem: 0
+  flameTrailDuration: 5
+  flameSpawnInterval: 0.1
+  flameLifetime: 1
+  usingFirecracker: 0
+  iceDuration: 0
+  iceRadius: {fileID: 0}
+  usingIce: 0
   itemIconUI: {fileID: 1232995409}
+  itemCooldown: {fileID: 0}
+  itemTimer: {fileID: 0}
 --- !u!114 &7782587197634625761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25548,7 +25621,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25631,6 +25704,9 @@ MonoBehaviour:
   cooldownGray: {fileID: 0}
   iconSprite: {fileID: 0}
   graySprite: {fileID: 0}
+  audioSource: {fileID: 0}
+  clip: {fileID: 0}
+  usedAbility: 0
 --- !u!114 &8308846308372138221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25645,6 +25721,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetRadius: 5
   magnetDuration: 10
+  isActive: 0
+  cooldownSlider: {fileID: 0}
+  timerText: {fileID: 0}
+  magnetRangeIndicator: {fileID: 0}
 --- !u!114 &8308846308372138222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25917,19 +25997,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: adc1f771af6478542be4f13a043e78d4, type: 3}
+  badSound: {fileID: 0}
   score: 0
-  tempScore: 0
-  maxTempBag: 3
-  currentTempBag: 0
   scoreText: {fileID: 0}
-  tempScoreText: {fileID: 0}
   OneScoreTag: score1
-  ThreeScoreTag: score2
+  MultiScoreTag: 
   BadScoreTag: NegativeFruit
-  baseTag: Home2
   Manager: {fileID: 0}
   audioSource: {fileID: 0}
+  PickupUIScript: {fileID: 0}
   playerNo: 0
+  canPickup: 0
 --- !u!4 &9118677113657445268
 Transform:
   m_ObjectHideFlags: 0

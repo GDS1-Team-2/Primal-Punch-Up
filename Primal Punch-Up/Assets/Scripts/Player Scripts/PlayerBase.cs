@@ -22,8 +22,8 @@ public class PlayerBase : MonoBehaviour
     private Vector3 lastMoveDirection;
     public float currentSpeed = 10.0f;
     private float rotateSpeed = 500.0f;
-    public int hp = 50;
-    public int maxHP = 50;
+    public float hp = 50;
+    public float maxHP = 50;
     public float deathTimer = 5.0f;
 
     public bool canMove = true;
@@ -642,12 +642,12 @@ public class PlayerBase : MonoBehaviour
     }
 
 
-    public void DamagePlayer(int damage)
+    public void DamagePlayer(float damage)
     {
         StartCoroutine(TakeDamage(damage));
     }
 
-    public IEnumerator TakeDamage(int damage)
+    public IEnumerator TakeDamage(float damage)
     {
         if (!isShielding)
         {
