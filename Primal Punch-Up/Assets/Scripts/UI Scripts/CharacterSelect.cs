@@ -82,11 +82,11 @@ public class CharacterSelect : MonoBehaviour
         rectTrans = gameObject.GetComponent<RectTransform>();
 
         positions = new Vector3[5];
-        positions[0] = new Vector3(-700, 200 + increaseHeightPerPlayer, 0);
-        positions[1] = new Vector3(-250, 200 + increaseHeightPerPlayer, 0);
-        positions[2] = new Vector3(200, 200 + increaseHeightPerPlayer, 0);
+        positions[0] = new Vector3(Screen.width * -0.35f, Screen.height * 0.2f + increaseHeightPerPlayer, 0);
+        positions[1] = new Vector3(Screen.width * -0.15f, Screen.height * 0.2f + increaseHeightPerPlayer, 0);
+        positions[2] = new Vector3(Screen.width * 0.1f, Screen.height * 0.2f + increaseHeightPerPlayer, 0);
         //positions[3] = new Vector3(350, 250 + increaseHeightPerPlayer, 0);
-        positions[3] = new Vector3(600, 200 + increaseHeightPerPlayer, 0);
+        positions[3] = new Vector3(Screen.width * 0.35f, Screen.height * 0.2f + increaseHeightPerPlayer, 0);
         gameObject.GetComponent<RectTransform>().anchoredPosition = positions[index];
     }
 
