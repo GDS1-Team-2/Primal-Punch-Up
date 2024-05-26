@@ -86,6 +86,7 @@ public class FoxUniqueAbility : MonoBehaviour
         GameObject particlesInstance = Instantiate(magicPrefab, transform.position + magicSpawnLoc, Quaternion.LookRotation(Vector3.up));
         baseScript.currentSpeed = 0;
         FoxVortex thisFoxVortex = particlesInstance.GetComponent<FoxVortex>();
+        SphereCollider vortexCol = particlesInstance.GetComponent<SphereCollider>();
         PlayerBase thisPlayer = GetComponent<PlayerBase>();
         thisFoxVortex.thisPlayer = thisPlayer;
         anim.Play(abilityAnim);
@@ -102,6 +103,7 @@ public class FoxUniqueAbility : MonoBehaviour
             abilityCD = true;
             cdTimer = cdLength;
             baseScript.currentSpeed = baseScript.speed;
+            vortexCol.enabled = false;
             foreach (ParticleSystem instance in vortexInstances)
             {
                 if (instance.name.Contains(magicPrefab.name))
