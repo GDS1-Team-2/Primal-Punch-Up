@@ -27,7 +27,6 @@ public class IceScript : MonoBehaviour
         {
             gameObject.GetComponent<AudioSource>().Play();
             playSound = false;
-            gameObject.GetComponentInParent<PlayerBase>().usingIce = true;
         }
         if (ending)
         {

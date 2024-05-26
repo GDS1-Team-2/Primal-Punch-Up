@@ -32,7 +32,7 @@ public class PlayerPickupManager : MonoBehaviour
     public float flameLifetime = 1.0f;
     public bool usingFirecracker = false;
 
-    public float iceDuration;
+    public float iceDuration = 10;
     public GameObject iceRadius;
     public bool usingIce;
 
@@ -69,7 +69,7 @@ public class PlayerPickupManager : MonoBehaviour
         string c = "P" + playerNo + "ItemControl";
         controlIcon = GameObject.FindGameObjectWithTag(c);
         controlIcon.SetActive(false);
-
+        iceDuration = 10;
         usingFirecracker = false;
         usingMagnet = false;
         usingIce = false;
@@ -180,7 +180,7 @@ public class PlayerPickupManager : MonoBehaviour
                 hasItem = true;
                 itemCooldown.SetActive(true);
                 cooldownSlider.maxValue = iceDuration;
-                StartCoroutine(ActivateFreeze(10));
+                StartCoroutine(ActivateFreeze(iceDuration));
             }
         }
     }
@@ -194,7 +194,7 @@ public class PlayerPickupManager : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            cooldownSlider.value = elapsedTime - duration;
+            cooldownSlider.value = duration - elapsedTime;
             timerText.text = Mathf.RoundToInt(duration - elapsedTime).ToString();
             iceZone.transform.position = gameObject.transform.position;
             elapsedTime += Time.deltaTime;
