@@ -139,7 +139,7 @@ public class PlayerPickupManager : MonoBehaviour
             controlIcon.SetActive(false);
         }
         else if((currentItem.name == "Magnet")) {
-            if (!usingMagnet && !MagnetItem.isActive)
+            if (!usingMagnet && !MagnetItem.isActive && hasItem)
             {
                 MagnetItem.ActivateMagnet();
                 usingMagnet = true;
