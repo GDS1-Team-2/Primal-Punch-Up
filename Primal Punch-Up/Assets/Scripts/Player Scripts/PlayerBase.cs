@@ -465,9 +465,13 @@ public class PlayerBase : MonoBehaviour
             rightStickY = thisController.rightStick.ReadValue().y;
         }
 
+        //z
         cameraYaw += rightStickX * cameraSensitivity;
+        //cameraYaw = Mathf.Clamp(cameraYaw, 0.0f, 1.0f);
+
+        //y
         cameraPitch -= rightStickY * cameraSensitivity;
-        cameraPitch = Mathf.Clamp(cameraPitch, -30f, 60f);
+        cameraPitch = Mathf.Clamp(cameraPitch, 10f, 60f);
 
         Quaternion rotation = Quaternion.Euler(cameraPitch, cameraYaw, 0);
         Vector3 newPosition = transform.position + rotation * cameraOffset;
