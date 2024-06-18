@@ -36,6 +36,11 @@ public class PlayerPickupManager : MonoBehaviour
     public GameObject iceRadius;
     public bool usingIce;
 
+    //public GameObject ArrowPrefab;
+    public bool hasBow = false;
+    public int maxArrowNumber = 3;
+    public int currentArrowNumber = 3;
+
     private bool firstPlaced = false;
     private bool secondPlaced = false;
     private bool canPlace = false;
@@ -74,6 +79,7 @@ public class PlayerPickupManager : MonoBehaviour
         usingMagnet = false;
         usingIce = false;
         portalUsed = false;
+        maxArrowNumber = 3;
     }
 
     // Update is called once per frame
@@ -113,6 +119,14 @@ public class PlayerPickupManager : MonoBehaviour
                     itemIconUI.gameObject.SetActive(true);
                     itemIconUI.sprite = currentItem.GetComponent<Ui_icon>().itemIcon;
                      // Ensure the icon is visible
+                }
+                if (currentItem.name == "Bow")
+                {
+                    itemCooldown.SetActive(true);
+                    cooldownSlider.maxValue = maxArrowNumber;
+                    currentArrowNumber = maxArrowNumber;
+                    timerText.text = currentArrowNumber.ToString();
+                    hasBow = true;
                 }
             }
         }
@@ -182,6 +196,31 @@ public class PlayerPickupManager : MonoBehaviour
                 itemCooldown.SetActive(true);
                 cooldownSlider.maxValue = iceDuration;
                 StartCoroutine(ActivateFreeze(iceDuration));
+            }
+        }
+
+        else if (currentItem.name == "Bow")
+        {
+            //cooldownSlider.maxValue = maxArrowNumber;
+            //currentArrowNumber = maxArrowNumber;
+            if (currentArrowNumber > 1)
+            {
+                currentArrowNumber--;
+                timerText.text = currentArrowNumber.ToString();
+                currentItem.GetComponent<BowAndArrowScript>().ShootArrow();
+            }
+            else if (currentArrowNumber == 1)
+            {
+                currentArrowNumber--;
+                timerText.text = currentArrowNumber.ToString();
+                currentItem.GetComponent<BowAndArrowScript>().ShootArrow();
+                hasBow = false;
+                currentArrowNumber = 0;
+                hasItem = false;
+                itemText.text = "Current Item: None";
+                itemIconUI.gameObject.SetActive(false);
+                controlIcon.SetActive(false);
+                itemCooldown.SetActive(false );
             }
         }
     }
