@@ -9,7 +9,7 @@ public class ArrowScript : MonoBehaviour
     public GameObject target;
 
     private float speed = 15;
-    private float rotateSpeed = 95;
+    private float rotateSpeed = 500;
 
     private float maxDistancePredict = 100;
     private float minDistancePredict = 5;
@@ -34,6 +34,7 @@ public class ArrowScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         start = true;
+        rb.velocity = Vector3.zero;
     }
 
     
@@ -43,24 +44,22 @@ public class ArrowScript : MonoBehaviour
         if (!start)
         {
             rb.velocity = thisPlayer.transform.forward * speed;
+            Vector3 direction = thisPlayer.transform.forward;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.fixedDeltaTime);
         }
         else
         {
-            Debug.Log(target);
-            var step = speed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+            //Debug.Log(target);
+            var step = speed * Time.fixedDeltaTime; // calculate distance to move
+            Vector3 targetPos = new Vector3(target.transform.position.x, 2, target.transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.fixedDeltaTime);
+
+            Vector3 direction = targetPos - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.fixedDeltaTime);
         }
         
-        
-        
-
-        //var leadTimePercentage = Mathf.InverseLerp(minDistancePredict, maxDistancePredict, Vector3.Distance(transform.position, target.transform.position));
-
-        //PredictMovement(leadTimePercentage);
-
-        //AddDeviation(leadTimePercentage);
-
-        //RotateRocket();
     }
 
     private void PredictMovement(float leadTimePercentage)

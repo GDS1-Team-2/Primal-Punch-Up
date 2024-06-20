@@ -38,7 +38,7 @@ public class BowAndArrowScript : MonoBehaviour
             }
         }
         
-        Vector3 instantiatePosition = playerPos + Vector3.up;
+        Vector3 instantiatePosition = playerPos + new Vector3(0,2,0);
         GameObject arrow = Instantiate(ArrowPrefab, instantiatePosition, gameObject.transform.rotation);
         ArrowScript thisArrow = arrow.GetComponent<ArrowScript>();
         thisArrow.thisPlayer = thisPlayer;
