@@ -6,8 +6,7 @@ using UnityEngine;
 public class ArrowScript : MonoBehaviour
 {
     private Rigidbody rb;
-    private GameObject target;
-    private GameObject explosionPrefab;
+    public GameObject target;
 
     private float speed = 15;
     private float rotateSpeed = 95;
@@ -20,17 +19,48 @@ public class ArrowScript : MonoBehaviour
     private float deviationAmount = 50;
     private float deviationSpeed = 2;
 
+    public GameObject thisPlayer;
+    private bool hit = false;
+    private bool start = false;
+
+    private void Start()
+    {
+        rb = this.GetComponent<Rigidbody>();
+        //target = GetClosestPlayer();
+        StartCoroutine(Waiting());
+    }
+
+    IEnumerator Waiting()
+    {
+        yield return new WaitForSeconds(1);
+        start = true;
+    }
+
+    
+
     private void FixedUpdate()
     {
-        rb.velocity = transform.forward * speed;
+        if (!start)
+        {
+            rb.velocity = thisPlayer.transform.forward * speed;
+        }
+        else
+        {
+            Debug.Log(target);
+            var step = speed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+        }
+        
+        
+        
 
-        var leadTimePercentage = Mathf.InverseLerp(minDistancePredict, maxDistancePredict, Vector3.Distance(transform.position, target.transform.position));
+        //var leadTimePercentage = Mathf.InverseLerp(minDistancePredict, maxDistancePredict, Vector3.Distance(transform.position, target.transform.position));
 
-        PredictMovement(leadTimePercentage);
+        //PredictMovement(leadTimePercentage);
 
-        AddDeviation(leadTimePercentage);
+        //AddDeviation(leadTimePercentage);
 
-        RotateRocket();
+        //RotateRocket();
     }
 
     private void PredictMovement(float leadTimePercentage)
@@ -57,20 +87,30 @@ public class ArrowScript : MonoBehaviour
         rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (explosionPrefab) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        //if (collision.transform.TryGetComponent<IExplode>(out var ex)) ex.Explode();
+        int carrotDamage = 20;
+        PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
 
+        if (otherPlayer != null && otherPlayer.gameObject != thisPlayer && !other.isTrigger)
+        {
+            StartCoroutine(HitTarget(otherPlayer, carrotDamage));
+        }
+    }
+
+    IEnumerator HitTarget(PlayerBase otherPlayer, int damage)
+    {
+        hit = true;
+        yield return StartCoroutine(otherPlayer.TakeDamage(damage));
         Destroy(gameObject);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, standardPrediction);
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(standardPrediction, deviatedPrediction);
+        Gizmos.DrawLine(transform.position, target.transform.position);
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawLine(standardPrediction, deviatedPrediction);
     }
 
 }

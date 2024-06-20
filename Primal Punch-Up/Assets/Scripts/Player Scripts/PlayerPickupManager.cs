@@ -127,6 +127,7 @@ public class PlayerPickupManager : MonoBehaviour
                     currentArrowNumber = maxArrowNumber;
                     timerText.text = currentArrowNumber.ToString();
                     hasBow = true;
+                    //currentItem.GetComponent<BowAndArrowScript>().thisPlayer = gameObject;
                 }
             }
         }
@@ -207,13 +208,13 @@ public class PlayerPickupManager : MonoBehaviour
             {
                 currentArrowNumber--;
                 timerText.text = currentArrowNumber.ToString();
-                currentItem.GetComponent<BowAndArrowScript>().ShootArrow();
+                currentItem.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
             }
             else if (currentArrowNumber == 1)
             {
                 currentArrowNumber--;
                 timerText.text = currentArrowNumber.ToString();
-                currentItem.GetComponent<BowAndArrowScript>().ShootArrow();
+                currentItem.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
                 hasBow = false;
                 currentArrowNumber = 0;
                 hasItem = false;

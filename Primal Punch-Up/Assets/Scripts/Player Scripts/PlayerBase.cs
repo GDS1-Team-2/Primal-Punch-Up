@@ -729,4 +729,7 @@ public class PlayerBase : MonoBehaviour
         PickupItem.canPickup = true;
         respawnScreen.SetActive(false);
     }
+
+    
+
 }
