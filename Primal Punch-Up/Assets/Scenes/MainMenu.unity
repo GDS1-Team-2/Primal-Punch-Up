@@ -388,7 +388,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1122999882}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectSettings, Assembly-CSharp
         m_MethodName: UpdateRoundCount
         m_Mode: 1
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1122999882}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SelectSettings, Assembly-CSharp
         m_MethodName: UpdatePlayerCount
         m_Mode: 1
@@ -1833,7 +1833,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1122999884}
   - component: {fileID: 1122999883}
-  - component: {fileID: 1122999882}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Manager
@@ -1841,24 +1840,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1122999882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1122999881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dce6818c067b0540b90489c4f7a75b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  noOfPlayers: 1
-  noOfRounds: 1
-  playerDrop: {fileID: 0}
-  playerNoDrop: {fileID: 0}
-  roundDrop: {fileID: 0}
-  roundNoDrop: {fileID: 0}
 --- !u!114 &1122999883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,6 +1862,8 @@ MonoBehaviour:
   PlayerNumberSelectSceneName: PlayerNumber
   reset: 0
   PlayerNoSelect: {fileID: 0}
+  creditsCanvas: {fileID: 0}
+  endcreditsButton: {fileID: 0}
 --- !u!4 &1122999884
 Transform:
   m_ObjectHideFlags: 0
