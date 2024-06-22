@@ -19,16 +19,14 @@ public class CharacterSelect : MonoBehaviour
 
     public RectTransform rectTrans;
 
+    public Gamepad Player1 = null;
     public Gamepad Player2 = null;
     public Gamepad Player3 = null;
     public Gamepad Player4 = null;
+    public bool player1Activated = false;
     public bool player2Activated = false;
     public bool player3Activated = false;
     public bool player4Activated = false;
-
-    KeyCode? moveRight = null;
-    KeyCode? moveLeft = null;
-    KeyCode? select = null;
 
     public AudioSource audioSource;
     public AudioClip clip;
@@ -44,9 +42,8 @@ public class CharacterSelect : MonoBehaviour
         switch (playerNo)
         {
             case 1:
-                moveRight = KeyCode.D;
-                moveLeft = KeyCode.A;
-                select = KeyCode.Q;
+                imgCol.color = Color.blue;
+                Player1 = Gamepad.current;
                 break;
             case 2:
                 imgCol.color = Color.red;
@@ -93,18 +90,28 @@ public class CharacterSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerNo == 1)
+        if (playerNo == 1 && player1Activated)
         {
             imgCol.enabled = true;
-            if (moveRight.HasValue && Input.GetKeyDown(moveRight.Value) && !lockedIn)
+            if (leftStickUse == false)
             {
-                MoveRight();
-            } else if (moveLeft.HasValue && Input.GetKeyDown(moveLeft.Value) && !lockedIn)
+                if (Player1.leftStick.right.isPressed && !lockedIn)
+                {
+                    MoveRight();
+                }
+                else if (Player1.leftStick.left.isPressed && !lockedIn)
+                {
+                    MoveLeft();
+                }
+                else if (Player1.buttonEast.wasPressedThisFrame)
+                {
+                    LockInToggle();
+                }
+            }
+
+            if (Player1.leftStick.x.ReadValue() == 0)
             {
-                MoveLeft();
-            } else if (select.HasValue && Input.GetKeyDown(select.Value))
-            {
-                LockInToggle();
+                leftStickUse = false;
             }
         }
         else if (playerNo == 2 && player2Activated)
@@ -225,6 +232,5 @@ public class CharacterSelect : MonoBehaviour
             audioSource.PlayOneShot(clip);
             rectTrans.sizeDelta = new Vector2(50, 50);
         }
-
     }
 }

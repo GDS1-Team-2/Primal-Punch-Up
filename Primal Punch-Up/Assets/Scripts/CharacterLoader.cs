@@ -24,6 +24,7 @@ public class CharacterLoader : MonoBehaviour
     public GameObject P3Spawn;
     public GameObject P4Spawn;
 
+    public Gamepad P1Controller = null;
     public Gamepad P2Controller = null;
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
@@ -54,18 +55,15 @@ public class CharacterLoader : MonoBehaviour
                         GameObject player1 = Instantiate(convertCharacter(P1Char), P1Spawn.transform.position, rot1);
                         PlayerBase player1Script = player1.GetComponent<PlayerBase>();
                         player1Script.playerNo = 1;
+                        player1Script.P1Controller = P1Controller;
                         Camera P1cam = player1.GetComponentInChildren<Camera>();
-                        if (noOfPlayers == 1)
-                        {
-                            P1cam.rect = new Rect(0f, 0f, 1f, 1f);
-                        } else if (noOfPlayers == 2)
+                        if (noOfPlayers == 2)
                         {
                             P1cam.rect = new Rect(0f, 0f, 0.5f, 1f);
                         } else if (noOfPlayers >= 3)
                         {
                             P1cam.rect = new Rect(0f, 0.5f, 0.5f, 0.5f);
                         }
-                        
                         break;
                     case 1:
                         Quaternion rot2 = Quaternion.Euler(0, 135, 0);

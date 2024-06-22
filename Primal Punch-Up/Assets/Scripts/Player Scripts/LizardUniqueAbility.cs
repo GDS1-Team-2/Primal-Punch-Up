@@ -51,19 +51,9 @@ public class LizardUniqueAbility : MonoBehaviour
     {
         if (!abilityCD && !usedAbility)
         {
-            if (baseScript.playerNo == 1)
+            if (baseScript.thisController.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
             {
-                if (baseScript.attack2Key.HasValue && Input.GetKey(baseScript.attack2Key.Value) && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
-                {
-                    StartCoroutine(LizardAttack());
-                }
-            }
-            else if (baseScript.playerNo == 2 || baseScript.playerNo == 3 || baseScript.playerNo == 4)
-            {
-                if (baseScript.thisController.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
-                {
-                    StartCoroutine(LizardAttack());
-                }
+                StartCoroutine(LizardAttack());
             }
         }
 

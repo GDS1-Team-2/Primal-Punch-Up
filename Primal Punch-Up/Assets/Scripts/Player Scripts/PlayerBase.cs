@@ -9,6 +9,7 @@ public class PlayerBase : MonoBehaviour
     public int playerNo = 0;
 
     public Gamepad thisController = null;
+    public Gamepad P1Controller = null;
     public Gamepad P2Controller = null;
     public Gamepad P3Controller = null;
     public Gamepad P4Controller = null;
@@ -43,16 +44,6 @@ public class PlayerBase : MonoBehaviour
     string takeHit1Anim = "";
     string deathAnim = "";
     string dashAnim = "";
-    KeyCode? moveForwardKey = null;
-    KeyCode? moveBackKey = null;
-    KeyCode? rotateLeftKey = null;
-    KeyCode? rotateRightKey = null;
-    KeyCode? attack1Key = null;
-    public KeyCode? attack2Key = null;
-    KeyCode? itemKey = null;
-    KeyCode? dashKey = null;
-    KeyCode? shieldKey = null;
-    KeyCode? strafeKey = null;
 
     public float dashSpeed = 20.0f;
     private float dashCooldown = 2f;
@@ -160,25 +151,16 @@ public class PlayerBase : MonoBehaviour
         switch (playerNo)
         {
             case 1:
-                moveForwardKey = KeyCode.W;
-                moveBackKey = KeyCode.S;
-                rotateLeftKey = KeyCode.A;
-                rotateRightKey = KeyCode.D;
-                attack1Key = KeyCode.Q;
-                attack2Key = KeyCode.E;
-                dashKey = KeyCode.Space;
-                itemKey = KeyCode.C;
-                shieldKey = KeyCode.LeftShift;
-                strafeKey = KeyCode.Mouse1;
+                thisController = P1Controller;
                 healthBar = GameObject.Find("Player 1 Health");
                 healthBarSlider = healthBar.GetComponent<Slider>();
                 PlayerPrefs.SetString("Player1Model", gameObject.tag);
                 minimapIcon.material = Player1Material;
                 RoundsScript.SetPlayer1(gameObject);
                 PauseScript.AddPlayer(gameObject);
-                //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.5424528f, 0.8564558f, 1, 0.3764706f);
+                //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
-                UpdateForceFieldMaterial(ForceFieldMat);
+                UpdateForceFieldMaterial(ForceFieldMat1);
                 forcefieldSlider = GameObject.Find("Player 1 Forcefield Bar").GetComponent<Slider>();
                 forcefieldSliderAnimator = GameObject.Find("Actual Fill 1").GetComponent<Animator>();
                 break;
@@ -195,7 +177,6 @@ public class PlayerBase : MonoBehaviour
                 UpdateForceFieldMaterial(ForceFieldMat1);
                 forcefieldSlider = GameObject.Find("Player 2 Forcefield Bar").GetComponent<Slider>();
                 forcefieldSliderAnimator = GameObject.Find("Actual Fill 2").GetComponent<Animator>();
-                shieldKey = KeyCode.U;
                 break;
             case 3:
                 thisController = P3Controller;
@@ -282,75 +263,37 @@ public class PlayerBase : MonoBehaviour
 
         if (acceptInput)
         {
-            if (playerNo == 1)
+            if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
             {
-                if (attack1Key.HasValue && Input.GetKey(attack1Key.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    StartCoroutine(PlayerBasicAttack());
-                }
-                if (itemKey.HasValue && Input.GetKey(itemKey.Value))
-                {
-                    PlayerPickupManager.UseItem();
-                }
-                if (dashKey.HasValue && Input.GetKey(dashKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead && canDash)
-                {
-                    isDashing = true;
-                    dashTimer = dashDuration;
-                    dashCdTimer = dashCooldown;
-                }
-                if (shieldKey.HasValue && Input.GetKeyDown(shieldKey.Value) && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    forceFieldOuter.SetActive(true);
-                    isShielding = true;
-                }
-                else if (shieldKey.HasValue && Input.GetKeyUp(shieldKey.Value))
-                {
-                    forceFieldOuter.SetActive(false);
-                    isShielding = false;
-                }
-                if (strafeKey.HasValue && Input.GetKeyDown(strafeKey.Value))
-                {
-                    isStrafing = true;
-                }
-                else if (shieldKey.HasValue && Input.GetKeyUp(strafeKey.Value))
-                {
-                    isStrafing = false;
-                }
+                StartCoroutine(PlayerBasicAttack());
             }
-            else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
+            if (thisController.buttonWest.wasPressedThisFrame)
             {
-                if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
-                {
-                    StartCoroutine(PlayerBasicAttack());
-                }
-                if (thisController.buttonWest.wasPressedThisFrame)
-                {
-                    PlayerPickupManager.UseItem();
-                }
-                if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding && canDash)
-                {
-                    isDashing = true;
-                    dashTimer = dashDuration;
-                    dashCdTimer = dashCooldown;
-                }
-                if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
-                {
-                    forceFieldOuter.SetActive(true);
-                    isShielding = true;
-                }
-                else if (thisController.rightTrigger.wasReleasedThisFrame)
-                {
-                    forceFieldOuter.SetActive(false);
-                    isShielding = false;
-                }
-                if (thisController.leftTrigger.wasPressedThisFrame)
-                {
-                    isStrafing = true;
-                }
-                else if (thisController.leftTrigger.wasReleasedThisFrame)
-                {
-                    isStrafing = false;
-                }
+                PlayerPickupManager.UseItem();
+            }
+            if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding && canDash)
+            {
+                isDashing = true;
+                dashTimer = dashDuration;
+                dashCdTimer = dashCooldown;
+            }
+            if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            {
+                forceFieldOuter.SetActive(true);
+                isShielding = true;
+            }
+            else if (thisController.rightTrigger.wasReleasedThisFrame)
+            {
+                forceFieldOuter.SetActive(false);
+                isShielding = false;
+            }
+            if (thisController.leftTrigger.wasPressedThisFrame)
+            {
+                isStrafing = true;
+            }
+            else if (thisController.leftTrigger.wasReleasedThisFrame)
+            {
+                isStrafing = false;
             }
 
             if (isShielding)
@@ -459,16 +402,9 @@ public class PlayerBase : MonoBehaviour
     {
         float rightStickX = 0.0f;
         float rightStickY = 0.0f;
-        if (playerNo == 1)
-        {
-            rightStickX = Input.GetAxis("Mouse X");
-            rightStickY = Input.GetAxis("Mouse Y");
-        }
-        else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
-        {
-            rightStickX = thisController.rightStick.ReadValue().x;
-            rightStickY = thisController.rightStick.ReadValue().y;
-        }
+        
+        rightStickX = thisController.rightStick.ReadValue().x;
+        rightStickY = thisController.rightStick.ReadValue().y;
 
         //z
         cameraYaw += rightStickX * cameraSensitivity;
@@ -490,45 +426,22 @@ public class PlayerBase : MonoBehaviour
         float moveZ = 0;
         float moveX = 0;
 
-        if (playerNo == 1)
+        if (thisController.leftStick.left.isPressed && !isDashing)
         {
-            if (rotateLeftKey.HasValue && Input.GetKey(rotateLeftKey.Value) && !isDashing)
-            {
-                moveX = -1;
-            }
-            else if (rotateRightKey.HasValue && Input.GetKey(rotateRightKey.Value) && !isDashing)
-            {
-                moveX = 1;
-            }
-
-            if (moveForwardKey.HasValue && Input.GetKey(moveForwardKey.Value))
-            {
-                moveZ = 1;
-            }
-            else if (moveBackKey.HasValue && Input.GetKey(moveBackKey.Value))
-            {
-                moveZ = -1;
-            }
+            moveX = -1;
         }
-        else if (playerNo == 2 || playerNo == 3 || playerNo == 4)
+        else if (thisController.leftStick.right.isPressed && !isDashing)
         {
-            if (thisController.leftStick.left.isPressed && !isDashing)
-            {
-                moveX = -1;
-            }
-            else if (thisController.leftStick.right.isPressed && !isDashing)
-            {
-                moveX = 1;
-            }
+            moveX = 1;
+        }
 
-            if (thisController.leftStick.up.isPressed)
-            {
-                moveZ = 1;
-            }
-            else if (thisController.leftStick.down.isPressed)
-            {
-                moveZ = -1;
-            }
+        if (thisController.leftStick.up.isPressed)
+        {
+            moveZ = 1;
+        }
+        else if (thisController.leftStick.down.isPressed)
+        {
+            moveZ = -1;
         }
 
         Vector3 move = new Vector3(moveX, 0, moveZ).normalized;

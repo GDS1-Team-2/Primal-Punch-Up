@@ -1017,6 +1017,7 @@ MonoBehaviour:
   CharacterSelectSceneName: CharacterSelect
   PlayerNumberSelectSceneName: PlayerNumber
   reset: 0
+  PlayerNoSelect: {fileID: 0}
 --- !u!4 &503413277
 Transform:
   m_ObjectHideFlags: 0
@@ -1259,7 +1260,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Lets Go!
+  m_Text: "Hold \u25B3 - Lets Go!"
 --- !u!222 &577113486
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2629,6 +2630,7 @@ MonoBehaviour:
   P2Char: 
   P3Char: 
   P4Char: 
+  backBtn: {fileID: 816743363}
 --- !u!4 &1113178831
 Transform:
   m_ObjectHideFlags: 0
@@ -3240,7 +3242,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Back
+  m_Text: Hold X - Back
 --- !u!222 &1527873464
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3287,7 +3289,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -450}
-  m_SizeDelta: {x: 340, y: 100}
+  m_SizeDelta: {x: 440, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533413729
 MonoBehaviour:
