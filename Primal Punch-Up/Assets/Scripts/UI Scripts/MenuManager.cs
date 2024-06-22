@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class MenuManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class MenuManager : MonoBehaviour
 
     public bool reset = false;
     public PlayerNoSelect PlayerNoSelect;
+    public GameObject creditsCanvas;
+    public GameObject endcreditsButton;
 
     public void OpenOptions()
     {
@@ -186,4 +189,29 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene(CharacterSelectSceneName);
     }
+
+    public void LoadCredits()
+    {
+        StartCoroutine(Credits(new Vector3(0, 1100, 0), new Vector3(0, 0, 0)));
+    }
+
+    public void UnloadCredits()
+    {
+        endcreditsButton.SetActive(false);
+        StartCoroutine(Credits(new Vector3(0, 0, 0), new Vector3(0, 1100, 0)));
+    }
+
+    IEnumerator Credits( Vector3 startPos, Vector3 endPos)
+    {
+        int duration = 1;
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            creditsCanvas.transform.localPosition = Vector3.Lerp(startPos, endPos, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        endcreditsButton.SetActive(true);
+    }
+
 }
