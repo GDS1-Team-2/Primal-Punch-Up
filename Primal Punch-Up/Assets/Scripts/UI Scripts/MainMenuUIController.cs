@@ -10,6 +10,7 @@ public class MainMenuUIController : MonoBehaviour
 
     public GameObject firstBtn;
     public GameObject secondBtn;
+    public GameObject thirdBtn;
     private int indicatorPos = 0;
     private List<GameObject> buttons = new List<GameObject>();
 
@@ -17,10 +18,8 @@ public class MainMenuUIController : MonoBehaviour
     void Start()
     {
         buttons.Add(firstBtn);
-        if (secondBtn != null)
-        {
-            buttons.Add(secondBtn);
-        }
+        buttons.Add(secondBtn);
+        buttons.Add(thirdBtn);
     }
 
     // Update is called once per frame
@@ -30,7 +29,7 @@ public class MainMenuUIController : MonoBehaviour
         {
             if (gamepad.leftStick.down.isPressed)
             {
-                if (indicatorPos < buttons.Count - 1)
+                if (indicatorPos < 2)
                 {
                     indicatorPos++;
                 }
