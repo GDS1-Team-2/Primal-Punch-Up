@@ -44,6 +44,7 @@ public class PlayerBase : MonoBehaviour
     string takeHit1Anim = "";
     string deathAnim = "";
     string dashAnim = "";
+    string arrowAnim = "";
 
     public float dashSpeed = 20.0f;
     private float dashCooldown = 2f;
@@ -83,6 +84,7 @@ public class PlayerBase : MonoBehaviour
     public bool isUsingSpecial = false;
     public bool isShielding = false;
     private bool isStrafing = false;
+    private bool isShooting = false;
     public bool canDash = true;
     public bool bearFireMovement = false;
     public bool lizSmokeDmg = false;
@@ -217,6 +219,7 @@ public class PlayerBase : MonoBehaviour
                 takeHit1Anim = "LizardTakeHit1";
                 deathAnim = "LizardDeath";
                 dashAnim = "LizardDash";
+                arrowAnim = "LizardShootArrow";
                 break;
             case "Bear":
                 idleAnim = "BearIdle";
@@ -225,6 +228,7 @@ public class PlayerBase : MonoBehaviour
                 takeHit1Anim = "BearTakeHit1";
                 deathAnim = "BearDeath";
                 dashAnim = "BearDash";
+                arrowAnim = "BearShootArrow";
                 break;
             case "Rabbit":
                 idleAnim = "RabbitIdle";
@@ -233,6 +237,7 @@ public class PlayerBase : MonoBehaviour
                 takeHit1Anim = "RabbitTakeHit1";
                 deathAnim = "RabbitDeath";
                 dashAnim = "RabbitDash";
+                arrowAnim = "RabbitShootArrow";
                 break;
             case "Fox":
                 idleAnim = "FoxIdle";
@@ -241,6 +246,7 @@ public class PlayerBase : MonoBehaviour
                 takeHit1Anim = "FoxTakeHit1";
                 deathAnim = "FoxDeath";
                 dashAnim = "FoxDash";
+                arrowAnim = "FoxShootArrow";
                 break;
             default:
                 break;
@@ -263,7 +269,7 @@ public class PlayerBase : MonoBehaviour
 
         if (acceptInput)
         {
-            if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead && !isShielding)
+            if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isShooting && !isDashing && !isUsingSpecial && !isDead && !isShielding)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
@@ -277,7 +283,7 @@ public class PlayerBase : MonoBehaviour
                 dashTimer = dashDuration;
                 dashCdTimer = dashCooldown;
             }
-            if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isDashing && !isUsingSpecial && !isDead)
+            if (thisController.rightTrigger.wasPressedThisFrame && !isAttacking && !isShooting && !isDashing && !isUsingSpecial && !isDead)
             {
                 forceFieldOuter.SetActive(true);
                 isShielding = true;
@@ -471,7 +477,7 @@ public class PlayerBase : MonoBehaviour
         }
 
 
-        if (!isDashing && !isAttacking && !isDead && !isTakingDamage && !isUsingSpecial)
+        if (!isDashing && !isAttacking && !isShooting && !isDead && !isTakingDamage && !isUsingSpecial)
         {
             if (rbody.velocity != Vector3.zero)
             {
@@ -589,9 +595,34 @@ public class PlayerBase : MonoBehaviour
         return pos;
     }
 
-    public void setSpeed(bool half)
+
+    public void PlayArrowAnim(GameObject bow, bool destroy)
     {
-        this.speed = half ? 5.0f : 10.0f;
+        StartCoroutine(PlayerShootArrow(bow, destroy));
+    }
+
+    IEnumerator PlayerShootArrow(GameObject bow, bool destroy)
+    {
+        isShooting = true;
+        anim.Play(arrowAnim);
+        currentSpeed = 0;
+
+        yield return new WaitForSeconds(0.1f);
+
+        AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (currentState.IsName(arrowAnim))
+        {
+            yield return new WaitForSeconds(currentState.length - 0.6f);
+        }
+
+        currentSpeed = speed;
+
+        if (destroy)
+        {
+            Destroy(bow);
+        }        
+        isShooting = false;
     }
 
     IEnumerator OnDeath()

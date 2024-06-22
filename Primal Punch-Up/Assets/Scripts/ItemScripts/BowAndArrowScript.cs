@@ -7,6 +7,8 @@ public class BowAndArrowScript : MonoBehaviour
 {
     public GameObject ArrowPrefab;
     public GameObject bowString;
+    public GameObject otherHand;
+    private bool isShooting = false;
     //string default is 0, -0.008, 0
     //max is 0, -0.0231, 0
 
@@ -21,11 +23,21 @@ public class BowAndArrowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isShooting)
+        {
+            bowString.transform.position = otherHand.transform.position;
+        }
     }
 
     public void ShootArrow(Vector3 playerPos, GameObject thisPlayer)
     {
+        StartCoroutine(ShootArrowCR(playerPos, thisPlayer));
+        
+    }
+
+    IEnumerator ShootArrowCR(Vector3 playerPos, GameObject thisPlayer)
+    {
+        isShooting = true;
         GameObject targetPlayer = null;
         float minDist = Mathf.Infinity;
         Vector3 currentPos = thisPlayer.transform.position;
@@ -41,13 +53,16 @@ public class BowAndArrowScript : MonoBehaviour
                 minDist = dist;
             }
         }
-        
-        Vector3 instantiatePosition = playerPos + new Vector3(0,2,0);
+
+        yield return new WaitForSeconds(0.7f);
+
+        Vector3 instantiatePosition = playerPos + new Vector3(0, 2, 0);
         GameObject arrow = Instantiate(ArrowPrefab, gameObject.transform.position, gameObject.transform.rotation);
         ArrowScript thisArrow = arrow.GetComponent<ArrowScript>();
         thisArrow.thisPlayer = thisPlayer;
         thisArrow.target = targetPlayer;
+        isShooting = false;
+        bowString.transform.localPosition = new Vector3(0, -0.008f, 0);
     }
-
    
 }
