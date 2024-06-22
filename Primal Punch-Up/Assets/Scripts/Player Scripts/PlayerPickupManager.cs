@@ -15,6 +15,7 @@ public class PlayerPickupManager : MonoBehaviour
 
     public PlayerBase PlayerBase;
     public int playerNo;
+    public GameObject hand;
 
     public Text itemText;
     public GameObject controlIcon;
@@ -35,6 +36,12 @@ public class PlayerPickupManager : MonoBehaviour
     public float iceDuration = 10;
     public GameObject iceRadius;
     public bool usingIce;
+
+    //public GameObject ArrowPrefab;
+    public bool hasBow = false;
+    public int maxArrowNumber = 3;
+    public int currentArrowNumber = 3;
+    GameObject bowHolding;
 
     private bool firstPlaced = false;
     private bool secondPlaced = false;
@@ -74,6 +81,7 @@ public class PlayerPickupManager : MonoBehaviour
         usingMagnet = false;
         usingIce = false;
         portalUsed = false;
+        maxArrowNumber = 3;
     }
 
     // Update is called once per frame
@@ -113,6 +121,51 @@ public class PlayerPickupManager : MonoBehaviour
                     itemIconUI.gameObject.SetActive(true);
                     itemIconUI.sprite = currentItem.GetComponent<Ui_icon>().itemIcon;
                      // Ensure the icon is visible
+                }
+                if (currentItem.name == "Bow")
+                {
+                    itemCooldown.SetActive(true);
+                    cooldownSlider.maxValue = maxArrowNumber;
+                    currentArrowNumber = maxArrowNumber;
+                    timerText.text = currentArrowNumber.ToString();
+                    hasBow = true;
+                    
+                    if (this.gameObject.CompareTag("Lizard"))
+                    {
+                        //pos 0 0 0
+                        //Rotation 0 190 197.9
+                        bowHolding = Instantiate(currentItem, new Vector3(0, 0, 0), Quaternion.identity, hand.transform);
+                        bowHolding.transform.localPosition = new Vector3(0, 0, 0);
+                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 197.9f);
+                    }
+                    else if (this.gameObject.CompareTag("Bear"))
+                    {
+                        bowHolding = Instantiate(currentItem, new Vector3(0,0,0), Quaternion.identity, hand.transform);
+                        bowHolding.transform.localPosition = new Vector3(0.00079999998f, 0.00380000006f, 0);
+                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 282.390015f);
+                    }
+                    else if (this.gameObject.CompareTag("Rabbit"))
+                    {
+                        //pos 000
+                        //rot bear
+                        bowHolding = Instantiate(currentItem, new Vector3(0, 0, 0), Quaternion.identity, hand.transform);
+                        bowHolding.transform.localPosition = new Vector3(0, 0, 0);
+                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 282.390015f);
+                    }
+                    else if (this.gameObject.CompareTag("Fox"))
+                    {
+                        //pos Vector3(-0.00107,-0.00106000004,0)
+                        bowHolding = Instantiate(currentItem, new Vector3(0, 0, 0), Quaternion.identity, hand.transform);
+                        bowHolding.transform.localPosition = new Vector3(-0.00107f, -0.00106000004f, 0);
+                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 282.390015f);
+                    }
+
+
+
+                    //GameObject bowHolding = Instantiate(currentItem);
+                    //bear pos: Vector3(0.00079999998,0.00380000006,0)
+                    //bear rot: Vector3(0,180,282.390015)
+                    //currentItem.GetComponent<BowAndArrowScript>().thisPlayer = gameObject;
                 }
             }
         }
@@ -182,6 +235,33 @@ public class PlayerPickupManager : MonoBehaviour
                 itemCooldown.SetActive(true);
                 cooldownSlider.maxValue = iceDuration;
                 StartCoroutine(ActivateFreeze(iceDuration));
+            }
+        }
+
+        else if (currentItem.name == "Bow")
+        {
+            //cooldownSlider.maxValue = maxArrowNumber;
+            //currentArrowNumber = maxArrowNumber;
+            if (currentArrowNumber > 1)
+            {
+                currentArrowNumber--;
+                timerText.text = currentArrowNumber.ToString();
+                bowHolding.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
+            }
+            else if (currentArrowNumber == 1)
+            {
+                currentArrowNumber--;
+                timerText.text = currentArrowNumber.ToString();
+                bowHolding.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
+                hasBow = false;
+                currentArrowNumber = 0;
+                hasItem = false;
+                itemText.text = "Current Item: None";
+                itemIconUI.gameObject.SetActive(false);
+                controlIcon.SetActive(false);
+                itemCooldown.SetActive(false );
+                Destroy(bowHolding);
+                bowHolding = null;
             }
         }
     }
