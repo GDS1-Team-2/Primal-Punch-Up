@@ -599,6 +599,7 @@ public class PlayerBase : MonoBehaviour
         isDead = true;
         PickupItem.canPickup = false;
         anim.Play(deathAnim);
+        yield return new WaitForSeconds(0.1f);
         audioSource.PlayOneShot(audioClips[3]);
         respawnScreen.SetActive(true);
         int score = PickupItem.CurrentScore();
