@@ -19,10 +19,14 @@ public class SettingsUIController : MonoBehaviour
     private bool cameFromOpSide = false;
     private List<GameObject> buttons = new List<GameObject>();
     bool leftStickUse = false;
+    public GameObject UISFXobj;
+    private UISFX uisfxScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        UISFXobj = GameObject.Find("UI SFX");
+        uisfxScript = UISFXobj.GetComponent<UISFX>();
         buttons.Add(backBtn);
         buttons.Add(twoPlayersBtn);
         buttons.Add(threePlayersBtn);
@@ -81,9 +85,15 @@ public class SettingsUIController : MonoBehaviour
             }
             else if (gamepad.buttonSouth.isPressed)
             {
+                uisfxScript.PlaySFX();
                 Button selectedBtn = buttons[indicatorPos].GetComponent<Button>();
                 selectedBtn.onClick.Invoke();
             } 
+            else if (gamepad.buttonEast.isPressed)
+            {
+                Button backButton = backBtn.GetComponent <Button>();
+                backButton.onClick.Invoke();
+            }
             else if (gamepad.leftStick.right.wasPressedThisFrame)
             {
                 if (indicatorPos > 0 && indicatorPos < 4)

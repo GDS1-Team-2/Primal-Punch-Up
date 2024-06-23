@@ -4044,7 +4044,11 @@ MonoBehaviour:
   UICanvas2Players: {fileID: 632926530}
   UICanvas3Players: {fileID: 632926529}
   UICanvas4Players: {fileID: 632926531}
+  EndAnimCanvas: {fileID: 0}
+  PauseScript: {fileID: 0}
+  players: []
   newRound: 0
+  ScoreboardScript: {fileID: 0}
 --- !u!4 &264402510
 Transform:
   m_ObjectHideFlags: 0
@@ -4191,6 +4195,10 @@ MonoBehaviour:
   CharacterSelectSceneName: CharacterSelect
   PlayerNumberSelectSceneName: PlayerNumber
   reset: 0
+  PlayerNoSelect: {fileID: 0}
+  creditsCanvas: {fileID: 0}
+  endcreditsButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &264402514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4206,6 +4214,7 @@ MonoBehaviour:
   gamePaused: 0
   pauseMenu: {fileID: 319964265}
   tutorialBox: {fileID: 569756870}
+  players: []
 --- !u!1001 &264546525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8858,7 +8867,7 @@ TerrainCollider:
   m_GameObject: {fileID: 581687284}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: f6c2bfee9e55e0945931d9f756dbcfd0, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: cf31ba0ef645f0e4e848d8f9f10b344c, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &581687286
 Terrain:

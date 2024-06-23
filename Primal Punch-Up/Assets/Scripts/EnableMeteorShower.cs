@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class EnableMeteorShower : MonoBehaviour
 {
-    public int meteorChanceDenominator = 6;
+    private int meteorChanceDenominator = 2;
     private int meteorChance;
     private bool willShower = false;
     private float timeUntilShower = 0.0f;
     MeteorSpawner spawnerScript;
     public GameObject meteorWarning;
 
-    //comment
+    //commen
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +21,7 @@ public class EnableMeteorShower : MonoBehaviour
         if (meteorChance == 1)
         {
             willShower = true;
+            print("will it shower? " + willShower);
         }
     }
 
@@ -30,14 +31,13 @@ public class EnableMeteorShower : MonoBehaviour
         if (willShower)
         {
             timeUntilShower += Time.deltaTime;
-            //print(timeUntilShower + " seconds until meteor shower");
         }
 
         if (timeUntilShower >= 85  && timeUntilShower <= 90)
         {
             meteorWarning.SetActive(true);
         }
-        else if (timeUntilShower >= 90)
+        else if (timeUntilShower >= 1)
         {
             meteorWarning.SetActive(false);
             spawnerScript.enabled = true;
