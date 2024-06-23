@@ -103,7 +103,7 @@ public class CharacterSelect : MonoBehaviour
                 {
                     MoveLeft();
                 }
-                else if (Player1.buttonEast.wasPressedThisFrame)
+                else if (Player1.buttonSouth.wasPressedThisFrame)
                 {
                     LockInToggle();
                 }
@@ -127,7 +127,7 @@ public class CharacterSelect : MonoBehaviour
                 {
                     MoveLeft();
                 }
-                else if (Player2.buttonEast.wasPressedThisFrame)
+                else if (Player2.buttonSouth.wasPressedThisFrame)
                 {
                     LockInToggle();
                 }
@@ -149,7 +149,7 @@ public class CharacterSelect : MonoBehaviour
                 else if (Player3.leftStick.left.isPressed && !lockedIn)
                 {
                     MoveLeft();
-                } else if (Player3.buttonEast.wasPressedThisFrame)
+                } else if (Player3.buttonSouth.wasPressedThisFrame)
                 {
                     LockInToggle();
                 }
@@ -171,7 +171,7 @@ public class CharacterSelect : MonoBehaviour
                 else if (Player4.leftStick.left.isPressed && !lockedIn)
                 {
                     MoveLeft();
-                } else if (Player4.buttonEast.wasPressedThisFrame)
+                } else if (Player4.buttonSouth.wasPressedThisFrame)
                 {
                     LockInToggle();
                 }

@@ -1163,6 +1163,7 @@ MonoBehaviour:
   PlayerNoSelect: {fileID: 0}
   creditsCanvas: {fileID: 0}
   endcreditsButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!4 &503413277
 Transform:
   m_ObjectHideFlags: 0
@@ -3390,7 +3391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Hold X - Back
+  m_Text: "Hold \u25CB - Back"
 --- !u!222 &1527873464
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4744,7 +4745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1424164403613907036, guid: 744beb5ae290b504c8f42ad5774d5fc8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 325
       objectReference: {fileID: 0}
     - target: {fileID: 1424164403613907036, guid: 744beb5ae290b504c8f42ad5774d5fc8, type: 3}
       propertyPath: m_SizeDelta.y
@@ -4820,6 +4821,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4135336375537353905, guid: 744beb5ae290b504c8f42ad5774d5fc8, type: 3}
       propertyPath: m_MinValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981675914761587775, guid: 744beb5ae290b504c8f42ad5774d5fc8, type: 3}
+      propertyPath: m_FillAmount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

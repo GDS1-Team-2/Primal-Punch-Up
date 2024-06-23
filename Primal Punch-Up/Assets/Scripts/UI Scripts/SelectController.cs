@@ -107,13 +107,13 @@ public class SelectController : MonoBehaviour
                     if (allLockedIn && gamepad.buttonNorth.isPressed)
                     {
                         startGame = true;
-                    } else if (gamepad.buttonSouth.isPressed)
+                    } else if (gamepad.buttonEast.isPressed)
                     {
                         startBack = true;
                     } else if (gamepad.buttonNorth.wasReleasedThisFrame)
                     {
                         startGame = false;
-                    } else if (gamepad.buttonSouth.wasReleasedThisFrame)
+                    } else if (gamepad.buttonEast.wasReleasedThisFrame)
                     {
                         startBack = false;
                     }
