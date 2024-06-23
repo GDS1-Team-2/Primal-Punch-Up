@@ -42,7 +42,7 @@ public class MenuAudio : MonoBehaviour
     void Update()
     {
         currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName == "Map 1" || currentSceneName == "Map 2" || currentSceneName == "Map 3")
+        if (currentSceneName == "Map 1" || currentSceneName == "Map 2" || currentSceneName == "Map 3" || currentSceneName == "Complete")
         {
             audioSource.Stop();
         } else

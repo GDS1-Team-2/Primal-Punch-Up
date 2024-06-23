@@ -3963,6 +3963,9 @@ MonoBehaviour:
   PlayerNumberSelectSceneName: PlayerNumber
   reset: 0
   PlayerNoSelect: {fileID: 0}
+  creditsCanvas: {fileID: 0}
+  endcreditsButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &264402514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4114,11 +4117,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 44459499b7f5e024dae627cd65abe368, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 365e671b7f0b91341871becda1f1172a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -5675,6 +5678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstBtn: {fileID: 604681327}
   secondBtn: {fileID: 604681326}
+  thirdBtn: {fileID: 0}
 --- !u!4 &442673236
 Transform:
   m_ObjectHideFlags: 0
@@ -8388,6 +8392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstBtn: {fileID: 2111409597}
   secondBtn: {fileID: 2111409594}
+  thirdBtn: {fileID: 0}
 --- !u!4 &680962121
 Transform:
   m_ObjectHideFlags: 0
@@ -8510,6 +8515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstBtn: {fileID: 2111409596}
   secondBtn: {fileID: 2111409595}
+  thirdBtn: {fileID: 0}
 --- !u!4 &702650063
 Transform:
   m_ObjectHideFlags: 0
@@ -8973,6 +8979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstBtn: {fileID: 866354956}
   secondBtn: {fileID: 866354955}
+  thirdBtn: {fileID: 0}
 --- !u!4 &729594943
 Transform:
   m_ObjectHideFlags: 0
@@ -26934,6 +26941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstBtn: {fileID: 1163885768}
   secondBtn: {fileID: 0}
+  thirdBtn: {fileID: 0}
 --- !u!4 &2136559093
 Transform:
   m_ObjectHideFlags: 0
