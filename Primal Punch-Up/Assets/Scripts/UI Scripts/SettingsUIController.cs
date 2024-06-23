@@ -16,6 +16,7 @@ public class SettingsUIController : MonoBehaviour
     public GameObject fourRoundsBtn;
     public GameObject nextBtn;
     private int indicatorPos = 1;
+    private bool cameFromOpSide = false;
     private List<GameObject> buttons = new List<GameObject>();
     bool leftStickUse = false;
 
@@ -40,16 +41,42 @@ public class SettingsUIController : MonoBehaviour
         {
             if (gamepad.leftStick.down.wasPressedThisFrame)
             {
-                if (indicatorPos < 7)
+                if (cameFromOpSide)
                 {
-                    indicatorPos++;
+                    indicatorPos = 4;
+                    cameFromOpSide = false;
+                } else
+                {
+                    if (indicatorPos < 7 && indicatorPos != 3)
+                    {
+                        indicatorPos++;
+                        cameFromOpSide = false;
+                    }
+                    else if (indicatorPos == 3)
+                    {
+                        indicatorPos = 7;
+                        cameFromOpSide = true;
+                    }
                 }
             }
             else if (gamepad.leftStick.up.wasPressedThisFrame)
             {
-                if (indicatorPos > 0)
+                if (cameFromOpSide)
                 {
-                    indicatorPos--;
+                    indicatorPos = 3;
+                    cameFromOpSide = false;
+                } else
+                {
+                    if (indicatorPos > 0 && indicatorPos != 4)
+                    {
+                        indicatorPos--;
+                        cameFromOpSide = false;
+                    }
+                    else if (indicatorPos == 4)
+                    {
+                        indicatorPos = 0;
+                        cameFromOpSide = true;
+                    }
                 }
             }
             else if (gamepad.buttonEast.isPressed)
@@ -62,6 +89,7 @@ public class SettingsUIController : MonoBehaviour
                 if (indicatorPos > 0 && indicatorPos < 4)
                 {
                     indicatorPos += 3;
+                    cameFromOpSide = false;
                 }
             } 
             else if (gamepad.leftStick.left.wasPressedThisFrame)
@@ -69,6 +97,7 @@ public class SettingsUIController : MonoBehaviour
                 if (indicatorPos > 3 && indicatorPos < 7)
                 {
                     indicatorPos -= 3;
+                    cameFromOpSide = false;
                 }
             }
         }

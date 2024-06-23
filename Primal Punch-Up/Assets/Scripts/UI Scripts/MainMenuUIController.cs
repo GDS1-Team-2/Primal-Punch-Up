@@ -21,7 +21,8 @@ public class MainMenuUIController : MonoBehaviour
         if (secondBtn != null)
         {
             buttons.Add(secondBtn);
-        } else if (thirdBtn != null)
+        }
+        if (thirdBtn != null)
         {
             buttons.Add(thirdBtn);
         }
