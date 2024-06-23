@@ -36,6 +36,7 @@ public class TrapScript : MonoBehaviour
             if (other.gameObject.GetComponent<PlayerBase>().playerNo != playerNo)
             {
                 model.SetActive(true);
+                gameObject.GetComponent<AudioSource>().Play();
                 StartCoroutine(Trapped(other.gameObject));
             }
         }
