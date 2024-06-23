@@ -21,7 +21,7 @@ public class FirePunchCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        int firePunchDamage = 15;
+        int firePunchDamage = 20;
         PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
 
         if (otherPlayer != null && otherPlayer != thisPlayer && !other.isTrigger)
