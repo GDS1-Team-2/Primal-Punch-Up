@@ -16,10 +16,14 @@ public class MainMenuUIController : MonoBehaviour
     private int indicatorPos = 0;
     private List<GameObject> buttons = new List<GameObject>();
     private bool canMove = true;
+    public GameObject UISFXobj;
+    private UISFX uisfxScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        UISFXobj = GameObject.Find("UI SFX");
+        uisfxScript = UISFXobj.GetComponent<UISFX>();
         buttons.Add(firstBtn);
         if (secondBtn != null)
         {
@@ -56,6 +60,7 @@ public class MainMenuUIController : MonoBehaviour
                 {
                     Button selectedBtn = buttons[indicatorPos].GetComponent<Button>();
                     selectedBtn.onClick.Invoke();
+                    uisfxScript.PlaySFX();
                     if (indicatorPos == 1)
                     {
                         canMove = false;
@@ -66,6 +71,7 @@ public class MainMenuUIController : MonoBehaviour
                 if (gamepad.buttonEast.isPressed)
                 {
                     fourthButton.onClick.Invoke();
+                    uisfxScript.PlaySFX();
                     canMove = true;
                 }
             }

@@ -33,13 +33,17 @@ public class SelectController : MonoBehaviour
     private float startGameTimer = 0.0f;
     private float startBackTimer = 0.0f;
     public GameObject backBtn;
-
+    public GameObject letsGoAudio;
+    public AudioSource letsGoSFX;
     public Slider backSlider;
     public Slider nextSlider;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        letsGoSFX = letsGoAudio.GetComponent<AudioSource>();
+
         noOfPlayers = PlayerPrefs.GetInt("noOfPlayers");
 
         for (int i = 0; i < Gamepad.all.Count; i++)
@@ -104,16 +108,19 @@ public class SelectController : MonoBehaviour
 
                 foreach (var gamepad in gamepads)
                 {
-                    if (allLockedIn && gamepad.buttonNorth.isPressed)
+                    if (allLockedIn && gamepad.buttonNorth.wasPressedThisFrame)
                     {
                         startGame = true;
+                        letsGoSFX.Play();
                     } else if (gamepad.buttonEast.isPressed)
                     {
                         startBack = true;
                     } else if (gamepad.buttonNorth.wasReleasedThisFrame)
                     {
                         startGame = false;
-                    } else if (gamepad.buttonEast.wasReleasedThisFrame)
+                        letsGoSFX.Stop();
+                    }
+                    else if (gamepad.buttonEast.wasReleasedThisFrame)
                     {
                         startBack = false;
                     }
