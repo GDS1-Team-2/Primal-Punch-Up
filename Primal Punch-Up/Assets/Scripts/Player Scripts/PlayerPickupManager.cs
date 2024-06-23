@@ -16,6 +16,7 @@ public class PlayerPickupManager : MonoBehaviour
     public PlayerBase PlayerBase;
     public int playerNo;
     public GameObject hand;
+    public GameObject otherHand;
 
     public Text itemText;
     public GameObject controlIcon;
@@ -87,6 +88,7 @@ public class PlayerPickupManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     public void NoMagnet()
@@ -135,37 +137,30 @@ public class PlayerPickupManager : MonoBehaviour
                         //pos 0 0 0
                         //Rotation 0 190 197.9
                         bowHolding = Instantiate(currentItem, new Vector3(0, 0, 0), Quaternion.identity, hand.transform);
-                        bowHolding.transform.localPosition = new Vector3(0, 0, 0);
-                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 197.9f);
+                        bowHolding.transform.localPosition = new Vector3(-0.000449999992f, 0.000349999988f, -0.000720000011f);
+                        bowHolding.transform.localRotation = Quaternion.Euler(7.40002251f, 351.600006f, 218.700012f);
                     }
                     else if (this.gameObject.CompareTag("Bear"))
                     {
                         bowHolding = Instantiate(currentItem, new Vector3(0,0,0), Quaternion.identity, hand.transform);
-                        bowHolding.transform.localPosition = new Vector3(0.00079999998f, 0.00380000006f, 0);
-                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 282.390015f);
+                        bowHolding.transform.localPosition = new Vector3(-0.000199999995f, 0.00419999985f, 0.0037f);
+                        bowHolding.transform.localRotation = Quaternion.Euler(347.300018f, 348.200012f, 266.5f);
                     }
                     else if (this.gameObject.CompareTag("Rabbit"))
                     {
-                        //pos 000
-                        //rot bear
                         bowHolding = Instantiate(currentItem, new Vector3(0, 0, 0), Quaternion.identity, hand.transform);
-                        bowHolding.transform.localPosition = new Vector3(0, 0, 0);
-                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 282.390015f);
+                        bowHolding.transform.localPosition = new Vector3(0.00280999998f, 0.00246999995f, 0.000829999975f);
+                        bowHolding.transform.localRotation = Quaternion.Euler(285.889984f, 180, 152.430008f);
                     }
                     else if (this.gameObject.CompareTag("Fox"))
                     {
                         //pos Vector3(-0.00107,-0.00106000004,0)
                         bowHolding = Instantiate(currentItem, new Vector3(0, 0, 0), Quaternion.identity, hand.transform);
-                        bowHolding.transform.localPosition = new Vector3(-0.00107f, -0.00106000004f, 0);
-                        bowHolding.transform.localRotation = Quaternion.Euler(0, 180, 282.390015f);
+                        bowHolding.transform.localPosition = new Vector3(0, 0.000169999999f, 0.000809999998f);
+                        bowHolding.transform.localRotation = Quaternion.Euler(347.790009f, -4.36766896f, 274.529999f);
                     }
 
-
-
-                    //GameObject bowHolding = Instantiate(currentItem);
-                    //bear pos: Vector3(0.00079999998,0.00380000006,0)
-                    //bear rot: Vector3(0,180,282.390015)
-                    //currentItem.GetComponent<BowAndArrowScript>().thisPlayer = gameObject;
+                    bowHolding.GetComponent<BowAndArrowScript>().otherHand = otherHand;
                 }
             }
         }
@@ -238,12 +233,13 @@ public class PlayerPickupManager : MonoBehaviour
             }
         }
 
-        else if (currentItem.name == "Bow")
+        else if (currentItem.name == "Bow" && hasItem)
         {
-            //cooldownSlider.maxValue = maxArrowNumber;
-            //currentArrowNumber = maxArrowNumber;
+            
+
             if (currentArrowNumber > 1)
             {
+                PlayerBase.PlayArrowAnim(bowHolding, false);
                 currentArrowNumber--;
                 timerText.text = currentArrowNumber.ToString();
                 bowHolding.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
@@ -260,7 +256,7 @@ public class PlayerPickupManager : MonoBehaviour
                 itemIconUI.gameObject.SetActive(false);
                 controlIcon.SetActive(false);
                 itemCooldown.SetActive(false );
-                Destroy(bowHolding);
+                PlayerBase.PlayArrowAnim(bowHolding, true);
                 bowHolding = null;
             }
         }
