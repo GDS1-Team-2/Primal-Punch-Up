@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnableMeteorShower : MonoBehaviour
 {
-    private int meteorChanceDenominator = 6;
+    public int meteorChanceDenominator = 6;
     private int meteorChance;
     private bool willShower = false;
     private float timeUntilShower = 0.0f;

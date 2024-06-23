@@ -23046,6 +23046,10 @@ PrefabInstance:
       propertyPath: meteorWarning
       value: 
       objectReference: {fileID: 236032062}
+    - target: {fileID: 8300832092043462865, guid: 2b1b65c4e9718d941addd6a1a484cffb, type: 3}
+      propertyPath: meteorChanceDenominator
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b1b65c4e9718d941addd6a1a484cffb, type: 3}
@@ -23956,7 +23960,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1847033282
 PrefabInstance:
