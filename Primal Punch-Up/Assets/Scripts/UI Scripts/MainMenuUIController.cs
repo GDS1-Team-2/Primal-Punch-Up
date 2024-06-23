@@ -11,8 +11,11 @@ public class MainMenuUIController : MonoBehaviour
     public GameObject firstBtn;
     public GameObject secondBtn;
     public GameObject thirdBtn;
+    public GameObject fourthBtn;
+    public Button fourthButton;
     private int indicatorPos = 0;
     private List<GameObject> buttons = new List<GameObject>();
+    private bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -33,22 +36,38 @@ public class MainMenuUIController : MonoBehaviour
     {
         foreach (Gamepad gamepad in Gamepad.all)
         {
-            if (gamepad.leftStick.down.wasPressedThisFrame)
+            if (canMove)
             {
-                if (indicatorPos < buttons.Count - 1)
+                if (gamepad.leftStick.down.wasPressedThisFrame)
                 {
-                    indicatorPos++;
+                    if (indicatorPos < buttons.Count - 1)
+                    {
+                        indicatorPos++;
+                    }
                 }
-            } else if (gamepad.leftStick.up.wasPressedThisFrame)
-            {
-                if (indicatorPos > 0)
+                else if (gamepad.leftStick.up.wasPressedThisFrame)
                 {
-                    indicatorPos--;
+                    if (indicatorPos > 0)
+                    {
+                        indicatorPos--;
+                    }
                 }
-            } else  if (gamepad.buttonSouth.isPressed)
+                else if (gamepad.buttonSouth.isPressed)
+                {
+                    Button selectedBtn = buttons[indicatorPos].GetComponent<Button>();
+                    selectedBtn.onClick.Invoke();
+                    if (indicatorPos == 1)
+                    {
+                        canMove = false;
+                    }
+                }
+            } else
             {
-                Button selectedBtn = buttons[indicatorPos].GetComponent<Button>();
-                selectedBtn.onClick.Invoke();
+                if (gamepad.buttonEast.isPressed)
+                {
+                    fourthButton.onClick.Invoke();
+                    canMove = true;
+                }
             }
         }
 
