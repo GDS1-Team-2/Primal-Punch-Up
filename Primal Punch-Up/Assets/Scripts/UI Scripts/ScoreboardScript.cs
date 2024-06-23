@@ -30,6 +30,7 @@ public class ScoreboardScript : MonoBehaviour
     private Slider player4Score;
 
     public float dropDuration = 1;
+    public GameObject TieCanvas;
 
     public int rounds;
 
@@ -42,10 +43,7 @@ public class ScoreboardScript : MonoBehaviour
         rounds = PlayerPrefs.GetInt("noOfRounds");
     }
 
-    public void ExtraRound(int number)
-    {
-        rounds = number+1;
-    }
+    
 
     public void ScoreBoard()
     {
@@ -222,6 +220,21 @@ public class ScoreboardScript : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void ExtraRound(int number)
+    {
+        rounds = number + 1;
+        StartCoroutine(Tie());
+    }
+
+    private IEnumerator Tie()
+    {
+        yield return new WaitForSeconds(2);
+        TieCanvas.SetActive(true);
+        TieCanvas.GetComponent<Animator>().Play("TieAnim");
+        yield return new WaitForSeconds(3);
+        TieCanvas.SetActive(false);
     }
 
 
