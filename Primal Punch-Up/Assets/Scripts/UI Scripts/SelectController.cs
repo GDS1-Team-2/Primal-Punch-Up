@@ -34,6 +34,9 @@ public class SelectController : MonoBehaviour
     private float startBackTimer = 0.0f;
     public GameObject backBtn;
 
+    public Slider backSlider;
+    public Slider nextSlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,10 +67,13 @@ public class SelectController : MonoBehaviour
         if (startGame)
         {
             startGameTimer += Time.deltaTime;
+            
         } else
         {
             startGameTimer = 0.0f;
         }
+
+        nextSlider.value = startGameTimer;
 
         if (startBack)
         {
@@ -76,6 +82,8 @@ public class SelectController : MonoBehaviour
         {
             startBackTimer = 0.0f;
         }
+
+        backSlider.value = startBackTimer;
 
         if (startBackTimer > 1.0f)
         {
