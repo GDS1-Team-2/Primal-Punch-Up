@@ -30,6 +30,7 @@ public class MeteorSpawner : MonoBehaviour
             randZ = Random.Range(-80, 80);
             meteorSpawnPos = new Vector3(randX, this.transform.position.y, randZ);
             Instantiate(Meteor, meteorSpawnPos, Quaternion.Euler(270, 0, 0));
+            meteorCD = Random.Range(0.1f, 0.6f);
         }
 
     }
