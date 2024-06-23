@@ -19,6 +19,10 @@ public class MenuManager : MonoBehaviour
     public PlayerNoSelect PlayerNoSelect;
     public GameObject creditsCanvas;
     public GameObject endcreditsButton;
+    public GameObject audioSource;
+
+    private static MenuManager instance = null;
+    private static bool audioSourceInitialized = false;
 
     public void OpenOptions()
     {

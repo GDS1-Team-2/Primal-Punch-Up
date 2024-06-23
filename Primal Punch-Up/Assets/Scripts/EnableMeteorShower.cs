@@ -12,7 +12,7 @@ public class EnableMeteorShower : MonoBehaviour
     MeteorSpawner spawnerScript;
     public GameObject meteorWarning;
 
-    //commen
+    //comment
     // Start is called before the first frame update
     void Start()
     {
