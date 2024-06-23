@@ -8564,6 +8564,7 @@ MonoBehaviour:
   PlayerNoSelect: {fileID: 0}
   creditsCanvas: {fileID: 0}
   endcreditsButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &966917695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14267,11 +14268,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 44459499b7f5e024dae627cd65abe368, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b4e333b87fc099945ad7eb60f5f87d96, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
