@@ -9,6 +9,7 @@ public class Meteor : MonoBehaviour
     public float speed = 10.0f;
     public GameObject meteorExplosion;
     public float floorLevel;
+    public GameObject indicator;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class Meteor : MonoBehaviour
     void Update()
     {
         rbody.velocity = Vector3.down * speed;
+        indicator.transform.position = new Vector3(gameObject.transform.position.x, 0.01f, gameObject.transform.position.z);
     }
 
     void OnTriggerEnter(Collider collision)
