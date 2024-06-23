@@ -104,6 +104,13 @@ public class MenuManager : MonoBehaviour
             PlayerPrefs.SetInt("ScoreKey4", 0);
             PlayerPrefs.Save();
         }
+        if (SceneManager.GetActiveScene().name == PlayerNumberSelectSceneName)
+        {
+            PlayerPrefs.SetInt("noOfPlayers", 2);
+            PlayerPrefs.SetInt("noOfRounds", 2);
+            PlayerNoSelect.SetPlayerText(2);
+            PlayerNoSelect.SetRoundsText(2);
+        }
     }
 
     public void Set2Players()
