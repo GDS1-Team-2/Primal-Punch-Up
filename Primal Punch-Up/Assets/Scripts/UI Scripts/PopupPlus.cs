@@ -33,6 +33,6 @@ public class PopupPlus : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

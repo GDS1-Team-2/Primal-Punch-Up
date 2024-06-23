@@ -76,15 +76,16 @@ public class BearUniqueAbility : MonoBehaviour
     {
         baseScript.isUsingSpecial = true;
         anim.Play("BearUniqueAbility");
+        
+        yield return new WaitForSeconds(0.1f);
         audioSource.clip = clip;
         audioSource.Play();
-        yield return new WaitForSeconds(0.1f);
-
         AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
 
         if (currentState.IsName(abilityAnim))
         {
             yield return new WaitForSeconds(currentState.length - 0.6f);
+            
             ParticleSystem[] fireInstances = FindObjectsOfType<ParticleSystem>();
             abilityCD = true;
             cdTimer = cdLength;
