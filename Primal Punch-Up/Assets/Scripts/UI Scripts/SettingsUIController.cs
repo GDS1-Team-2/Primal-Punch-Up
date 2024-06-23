@@ -15,7 +15,7 @@ public class SettingsUIController : MonoBehaviour
     public GameObject threeRoundsBtn;
     public GameObject fourRoundsBtn;
     public GameObject nextBtn;
-    private int indicatorPos = 0;
+    private int indicatorPos = 1;
     private List<GameObject> buttons = new List<GameObject>();
     bool leftStickUse = false;
 

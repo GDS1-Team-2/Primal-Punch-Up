@@ -14,6 +14,7 @@ public class CaptureArea : MonoBehaviour
     public float increaseInterval = 2.0f;
     private List<PickupItem> pickUpItems = new List<PickupItem>();
     public GameObject areaSpawnWarning;
+    public GameObject giantPear;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,7 @@ public class CaptureArea : MonoBehaviour
             if (areaCountDown <= 0)
             {
                 sphereCol.enabled = false;
+                giantPear.SetActive(false);
                 areaCountDown = 0;
             }
         }
@@ -49,6 +51,7 @@ public class CaptureArea : MonoBehaviour
         {
             areaSpawnWarning.SetActive(false);
             particles.Play();
+            giantPear.SetActive(true);
             sphereCol.enabled = true;
             areaActive = true;
             areaCountDown = 20.0f;
