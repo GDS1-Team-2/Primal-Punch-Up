@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnableMeteorShower : MonoBehaviour
 {
-    private int meteorChanceDenominator = 6;
+    private int meteorChanceDenominator = 2;
     private int meteorChance;
     private bool willShower = false;
     private float timeUntilShower = 0.0f;
@@ -37,7 +37,7 @@ public class EnableMeteorShower : MonoBehaviour
         {
             meteorWarning.SetActive(true);
         }
-        else if (timeUntilShower >= 90)
+        else if (timeUntilShower >= 1)
         {
             meteorWarning.SetActive(false);
             spawnerScript.enabled = true;
