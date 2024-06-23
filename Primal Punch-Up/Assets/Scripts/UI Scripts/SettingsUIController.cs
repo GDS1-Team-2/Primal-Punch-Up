@@ -89,6 +89,11 @@ public class SettingsUIController : MonoBehaviour
                 Button selectedBtn = buttons[indicatorPos].GetComponent<Button>();
                 selectedBtn.onClick.Invoke();
             } 
+            else if (gamepad.buttonEast.isPressed)
+            {
+                Button backButton = backBtn.GetComponent <Button>();
+                backButton.onClick.Invoke();
+            }
             else if (gamepad.leftStick.right.wasPressedThisFrame)
             {
                 if (indicatorPos > 0 && indicatorPos < 4)
