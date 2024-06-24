@@ -128,6 +128,7 @@ public class PlayerPickupManager : MonoBehaviour
                 {
                     itemCooldown.SetActive(true);
                     cooldownSlider.maxValue = maxArrowNumber;
+                    cooldownSlider.value = maxArrowNumber;
                     currentArrowNumber = maxArrowNumber;
                     timerText.text = currentArrowNumber.ToString();
                     hasBow = true;
@@ -168,96 +169,100 @@ public class PlayerPickupManager : MonoBehaviour
 
     public void UseItem()
     {
-        if (currentItem.name == "Trap")
+        if (currentItem != null)
         {
-            currentItem.GetComponent<TrapScript>().playerNo = playerNo;
-            currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
-            hasItem = false;
-            itemText.text = "Current Item: None";
-            itemIconUI.gameObject.SetActive(false);
-            controlIcon.SetActive(false);
-        }
-        else if (currentItem.name == "Landmine")
-        {
-            currentItem.GetComponent<LandmineScript>().playerNo = playerNo;
-            currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
-            hasItem = false;
-            itemText.text = "Current Item: None";
-            itemIconUI.gameObject.SetActive(false);
-            controlIcon.SetActive(false);
-        }
-        else if((currentItem.name == "Magnet")) {
-            if (!usingMagnet && !MagnetItem.isActive && hasItem)
+            if (currentItem.name == "Trap")
             {
-                MagnetItem.ActivateMagnet();
-                usingMagnet = true;
-                hasItem = true;
-                itemCooldown.SetActive(true);
-                cooldownSlider.maxValue = MagnetItem.magnetDuration;
-                MagnetItem.cooldownSlider = cooldownSlider;
-                MagnetItem.timerText = timerText;
-            }
-            
-        }
-        else if (currentItem.name == "Firecracker")
-        {
-            if (!usingFirecracker)
-            {
-                StartCoroutine(CreateFlameTrail());
-            }
-        }
-        else if (currentItem.name == "Portal")
-        {
-            if (!portalUsed)
-            {
-                if (!firstPlaced)
-                {
-                    PlacePortal();
-                }
-                else if (firstPlaced && !secondPlaced)
-                {
-                    PlacePortal();
-                    portalUsed = true;
-                }
-            }
-        }
-        else if (currentItem.name == "Freeze")
-        {
-            if (!usingIce)
-            {
-                usingIce = true;
-                hasItem = true;
-                itemCooldown.SetActive(true);
-                cooldownSlider.maxValue = iceDuration;
-                StartCoroutine(ActivateFreeze(iceDuration));
-            }
-        }
-
-        else if (currentItem.name == "Bow" && hasItem)
-        {
-            
-
-            if (currentArrowNumber > 1)
-            {
-                PlayerBase.PlayArrowAnim(bowHolding, false);
-                currentArrowNumber--;
-                timerText.text = currentArrowNumber.ToString();
-                bowHolding.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
-            }
-            else if (currentArrowNumber == 1)
-            {
-                currentArrowNumber--;
-                timerText.text = currentArrowNumber.ToString();
-                bowHolding.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
-                hasBow = false;
-                currentArrowNumber = 0;
+                currentItem.GetComponent<TrapScript>().playerNo = playerNo;
+                currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
                 hasItem = false;
                 itemText.text = "Current Item: None";
                 itemIconUI.gameObject.SetActive(false);
                 controlIcon.SetActive(false);
-                itemCooldown.SetActive(false );
-                PlayerBase.PlayArrowAnim(bowHolding, true);
-                bowHolding = null;
+            }
+            else if (currentItem.name == "Landmine")
+            {
+                currentItem.GetComponent<LandmineScript>().playerNo = playerNo;
+                currentItem = Instantiate(currentItem, gameObject.transform.position, Quaternion.identity);
+                hasItem = false;
+                itemText.text = "Current Item: None";
+                itemIconUI.gameObject.SetActive(false);
+                controlIcon.SetActive(false);
+            }
+            else if ((currentItem.name == "Magnet"))
+            {
+                if (!usingMagnet && !MagnetItem.isActive && hasItem)
+                {
+                    MagnetItem.ActivateMagnet();
+                    usingMagnet = true;
+                    hasItem = true;
+                    itemCooldown.SetActive(true);
+                    cooldownSlider.maxValue = MagnetItem.magnetDuration;
+                    MagnetItem.cooldownSlider = cooldownSlider;
+                    MagnetItem.timerText = timerText;
+                }
+
+            }
+            else if (currentItem.name == "Firecracker")
+            {
+                if (!usingFirecracker)
+                {
+                    StartCoroutine(CreateFlameTrail());
+                }
+            }
+            else if (currentItem.name == "Portal")
+            {
+                if (!portalUsed)
+                {
+                    if (!firstPlaced)
+                    {
+                        PlacePortal();
+                    }
+                    else if (firstPlaced && !secondPlaced)
+                    {
+                        PlacePortal();
+                        portalUsed = true;
+                    }
+                }
+            }
+            else if (currentItem.name == "Freeze")
+            {
+                if (!usingIce)
+                {
+                    usingIce = true;
+                    hasItem = true;
+                    itemCooldown.SetActive(true);
+                    cooldownSlider.maxValue = iceDuration;
+                    StartCoroutine(ActivateFreeze(iceDuration));
+                }
+            }
+
+            else if (currentItem.name == "Bow" && hasItem)
+            {
+
+
+                if (currentArrowNumber > 1)
+                {
+                    PlayerBase.PlayArrowAnim(bowHolding, false);
+                    currentArrowNumber--;
+                    timerText.text = currentArrowNumber.ToString();
+                    bowHolding.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
+                }
+                else if (currentArrowNumber == 1)
+                {
+                    currentArrowNumber--;
+                    timerText.text = currentArrowNumber.ToString();
+                    bowHolding.GetComponent<BowAndArrowScript>().ShootArrow(transform.position, this.gameObject);
+                    hasBow = false;
+                    currentArrowNumber = 0;
+                    hasItem = false;
+                    itemText.text = "Current Item: None";
+                    itemIconUI.gameObject.SetActive(false);
+                    controlIcon.SetActive(false);
+                    itemCooldown.SetActive(false);
+                    PlayerBase.PlayArrowAnim(bowHolding, true);
+                    bowHolding = null;
+                }
             }
         }
     }
