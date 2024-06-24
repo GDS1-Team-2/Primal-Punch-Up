@@ -15,6 +15,8 @@ public class CaptureArea : MonoBehaviour
     private List<PickupItem> pickUpItems = new List<PickupItem>();
     public GameObject areaSpawnWarning;
     public GameObject giantPear;
+    public GameObject spawnSFX;
+    public AudioSource increaseScoreSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,7 @@ public class CaptureArea : MonoBehaviour
             areaSpawnWarning.SetActive(false);
             particles.Play();
             StartCoroutine(GiantPearSpawn());
+            spawnSFX.SetActive(true);
             sphereCol.enabled = true;
             areaActive = true;
             areaCountDown = 20.0f;
@@ -86,8 +89,11 @@ public class CaptureArea : MonoBehaviour
                     }
                     else
                     {
+                        increaseScoreSFX.Play();
                         player.score += 1;
                         player.UpdateScoreText();
+                        PickupUIScript pickupUIScript = player.GetComponent<PickupUIScript>();
+                        pickupUIScript.PopUp("plus", 1);
                     }
                 }
                 increaseScoreTimer = 0.0f;
