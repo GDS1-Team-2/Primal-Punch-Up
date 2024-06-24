@@ -117,6 +117,7 @@ public class PlayerBase : MonoBehaviour
     private Vector3 cameraOffset;
 
     public bool usingIce = false;
+    public AudioSource attackSoundSource;
 
     // Start is called before the first frame update
     void Start()
@@ -533,8 +534,7 @@ public class PlayerBase : MonoBehaviour
     {        
         isAttacking = true;
         anim.Play(attack1Anim);
-        audioSource.clip = audioClips[0];
-        audioSource.Play();
+        attackSoundSource.PlayOneShot(audioClips[0]);
         yield return new WaitForSeconds(0.1f);
 
         AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
