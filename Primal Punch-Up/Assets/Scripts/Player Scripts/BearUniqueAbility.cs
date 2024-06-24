@@ -78,8 +78,6 @@ public class BearUniqueAbility : MonoBehaviour
         anim.Play("BearUniqueAbility");
         
         yield return new WaitForSeconds(0.1f);
-        audioSource.clip = clip;
-        audioSource.Play();
         AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
 
         if (currentState.IsName(abilityAnim))
@@ -120,6 +118,8 @@ public class BearUniqueAbility : MonoBehaviour
         PlayerBase thisPlayer = GetComponent<PlayerBase>();
         thisFirePunch.thisPlayer = thisPlayer;
         baseScript.bearFireMovement = true;
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 
     public void PunchMoveEnd()

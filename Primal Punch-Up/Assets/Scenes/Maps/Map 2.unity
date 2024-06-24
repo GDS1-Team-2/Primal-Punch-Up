@@ -15721,6 +15721,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1031328666}
     m_Modifications:
+    - target: {fileID: 384183135436741594, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b864fa6dc2b508149b4ab5fe65bb8b3a, type: 2}
+    - target: {fileID: 2185399166216747535, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3578631364519314449, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 1

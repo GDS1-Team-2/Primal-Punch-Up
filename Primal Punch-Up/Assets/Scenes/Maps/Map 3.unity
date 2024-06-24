@@ -816,6 +816,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 65819157}
     m_Modifications:
+    - target: {fileID: 384183135436741594, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 900dad0c0b1cbca4090d7f23a3108218, type: 2}
     - target: {fileID: 3578631364519314449, guid: 893312f9ab6b32f4a9cf9ec28c4ee66a, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
       value: 1
@@ -4418,6 +4422,9 @@ MonoBehaviour:
   firstBtn: {fileID: 137323305}
   secondBtn: {fileID: 137323304}
   thirdBtn: {fileID: 0}
+  fourthBtn: {fileID: 0}
+  fourthButton: {fileID: 0}
+  UISFXobj: {fileID: 0}
 --- !u!4 &258521138
 Transform:
   m_ObjectHideFlags: 0
@@ -9233,6 +9240,9 @@ MonoBehaviour:
   firstBtn: {fileID: 315316115}
   secondBtn: {fileID: 315316114}
   thirdBtn: {fileID: 0}
+  fourthBtn: {fileID: 0}
+  fourthButton: {fileID: 0}
+  UISFXobj: {fileID: 0}
 --- !u!4 &661838871
 Transform:
   m_ObjectHideFlags: 0
@@ -14459,6 +14469,9 @@ MonoBehaviour:
   firstBtn: {fileID: 150866719}
   secondBtn: {fileID: 150866718}
   thirdBtn: {fileID: 0}
+  fourthBtn: {fileID: 0}
+  fourthButton: {fileID: 0}
+  UISFXobj: {fileID: 0}
 --- !u!4 &1052886564
 Transform:
   m_ObjectHideFlags: 0
@@ -19528,6 +19541,9 @@ MonoBehaviour:
   firstBtn: {fileID: 263204327}
   secondBtn: {fileID: 0}
   thirdBtn: {fileID: 0}
+  fourthBtn: {fileID: 0}
+  fourthButton: {fileID: 0}
+  UISFXobj: {fileID: 0}
 --- !u!4 &1382648017
 Transform:
   m_ObjectHideFlags: 0
@@ -25170,6 +25186,9 @@ MonoBehaviour:
   firstBtn: {fileID: 1735394488}
   secondBtn: {fileID: 1735394487}
   thirdBtn: {fileID: 0}
+  fourthBtn: {fileID: 0}
+  fourthButton: {fileID: 0}
+  UISFXobj: {fileID: 0}
 --- !u!4 &1774393615
 Transform:
   m_ObjectHideFlags: 0
