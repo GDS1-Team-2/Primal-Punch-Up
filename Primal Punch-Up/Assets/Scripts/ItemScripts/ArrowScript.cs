@@ -62,38 +62,14 @@ public class ArrowScript : MonoBehaviour
         
     }
 
-    private void PredictMovement(float leadTimePercentage)
-    {
-        var predictionTime = Mathf.Lerp(0, maxTimePrediction, leadTimePercentage);
-
-        standardPrediction = target.GetComponent<Rigidbody>().position + target.GetComponent<Rigidbody>().velocity * predictionTime;
-    }
-
-    private void AddDeviation(float leadTimePercentage)
-    {
-        var deviation = new Vector3(Mathf.Cos(Time.time * deviationSpeed), 0, 0);
-
-        var predictionOffset = transform.TransformDirection(deviation) * deviationAmount * leadTimePercentage;
-
-        deviatedPrediction = standardPrediction + predictionOffset;
-    }
-
-    private void RotateRocket()
-    {
-        var heading = deviatedPrediction - transform.position;
-
-        var rotation = Quaternion.LookRotation(heading);
-        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        int carrotDamage = 20;
+        int damage = 15;
         PlayerBase otherPlayer = other.gameObject.GetComponent<PlayerBase>();
 
         if (otherPlayer != null && otherPlayer.gameObject != thisPlayer && !other.isTrigger)
         {
-            StartCoroutine(HitTarget(otherPlayer, carrotDamage));
+            StartCoroutine(HitTarget(otherPlayer, damage));
         }
     }
 
