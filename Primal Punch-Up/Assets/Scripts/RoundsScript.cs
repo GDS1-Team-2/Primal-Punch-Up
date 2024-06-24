@@ -29,10 +29,14 @@ public class RoundsScript : MonoBehaviour
 
     public ScoreboardScript ScoreboardScript;
 
+    public AudioSource audioSource;
+    public AudioClip beep;
+
     bool twoWinners = false;
     bool threeWinners = false;
     bool fourWinners = false;
 
+    
 
 
     // Start is called before the first frame update
@@ -49,7 +53,7 @@ public class RoundsScript : MonoBehaviour
         UICanvas4Players = GameObject.Find("UICanvas4Players");
         EndAnimCanvas = GameObject.Find("EndAnimMenu");
         EndAnimCanvas.SetActive(false);
-
+        audioSource = this.gameObject.GetComponent<AudioSource>();
 
         switch (PlayerPrefs.GetInt("noOfPlayers"))
         {
@@ -115,6 +119,7 @@ public class RoundsScript : MonoBehaviour
 
     IEnumerator EndRoundCR()
     {
+        audioSource.PlayOneShot(beep);
         EndAnimCanvas.SetActive(true);
 
         EndAnimCanvas.GetComponent<EndAnims>().PlayAnim2();
@@ -123,21 +128,6 @@ public class RoundsScript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         EndAnimCanvas.GetComponent<EndAnims>().PlayAnim1();
         
-
-
-        /*int[] scores = {PlayerPrefs.GetInt("ScoreKey1"), PlayerPrefs.GetInt("ScoreKey2"),
-                        PlayerPrefs.GetInt("ScoreKey3"), PlayerPrefs.GetInt("ScoreKey4")};
-
-        int maxIndex = -1;
-        int maxValue = 0;
-        for (int i = 0; i < 4; i++)
-        {
-            if (scores[i] > maxValue)
-            {
-                maxValue = scores[i];
-                maxIndex = i;
-            }
-        }*/
 
         List<int> scores = new List<int>();
         int[] playerindex = { 1, 2, 3, 4 };
@@ -163,44 +153,44 @@ public class RoundsScript : MonoBehaviour
             playerindex[j + 1] = keyIndex;
         }
 
-        if (scores[0] == scores[1])
+        if (scores[0] == scores[1] && scores[0] == scores[2] && scores[0] == scores[3])
         {
-            //two winners
-            string winner = "Player" + playerindex[0] + "Wins";
-            PlayerPrefs.SetInt(winner, (PlayerPrefs.GetInt(winner) + 1));
+            // Four winners
+            string winner1 = "Player" + playerindex[0] + "Wins";
             string winner2 = "Player" + playerindex[1] + "Wins";
-            PlayerPrefs.SetInt(winner2, (PlayerPrefs.GetInt(winner2) + 1));
-            PlayerPrefs.Save();
-        }
-        else if (scores[0] == scores[1] && scores[0] == scores[2] && scores[1] == scores[2])
-        {
-            //three winners
-            string winner = "Player" + playerindex[0] + "Wins";
-            PlayerPrefs.SetInt(winner, (PlayerPrefs.GetInt(winner) + 1));
-            string winner2 = "Player" + playerindex[1] + "Wins";
-            PlayerPrefs.SetInt(winner2, (PlayerPrefs.GetInt(winner2) + 1));
             string winner3 = "Player" + playerindex[2] + "Wins";
-            PlayerPrefs.SetInt(winner3, (PlayerPrefs.GetInt(winner3) + 1));
-            PlayerPrefs.Save();
-        }
-        else if (scores[0] == scores[1] && scores[0] == scores[2] && scores[1] == scores[2] && scores[0] == scores[3])
-        {
-            //four winners
-            string winner = "Player" + playerindex[0] + "Wins";
-            PlayerPrefs.SetInt(winner, (PlayerPrefs.GetInt(winner) + 1));
-            string winner2 = "Player" + playerindex[1] + "Wins";
-            PlayerPrefs.SetInt(winner2, (PlayerPrefs.GetInt(winner2) + 1));
-            string winner3 = "Player" + playerindex[2] + "Wins";
-            PlayerPrefs.SetInt(winner3, (PlayerPrefs.GetInt(winner3) + 1));
             string winner4 = "Player" + playerindex[3] + "Wins";
-            PlayerPrefs.SetInt(winner4, (PlayerPrefs.GetInt(winner4) + 1));
+            PlayerPrefs.SetInt(winner1, PlayerPrefs.GetInt(winner1) + 1);
+            PlayerPrefs.SetInt(winner2, PlayerPrefs.GetInt(winner2) + 1);
+            PlayerPrefs.SetInt(winner3, PlayerPrefs.GetInt(winner3) + 1);
+            PlayerPrefs.SetInt(winner4, PlayerPrefs.GetInt(winner4) + 1);
+            PlayerPrefs.Save();
+        }
+        else if (scores[0] == scores[1] && scores[0] == scores[2])
+        {
+            // Three winners
+            string winner1 = "Player" + playerindex[0] + "Wins";
+            string winner2 = "Player" + playerindex[1] + "Wins";
+            string winner3 = "Player" + playerindex[2] + "Wins";
+            PlayerPrefs.SetInt(winner1, PlayerPrefs.GetInt(winner1) + 1);
+            PlayerPrefs.SetInt(winner2, PlayerPrefs.GetInt(winner2) + 1);
+            PlayerPrefs.SetInt(winner3, PlayerPrefs.GetInt(winner3) + 1);
+            PlayerPrefs.Save();
+        }
+        else if (scores[0] == scores[1])
+        {
+            // Two winners
+            string winner1 = "Player" + playerindex[0] + "Wins";
+            string winner2 = "Player" + playerindex[1] + "Wins";
+            PlayerPrefs.SetInt(winner1, PlayerPrefs.GetInt(winner1) + 1);
+            PlayerPrefs.SetInt(winner2, PlayerPrefs.GetInt(winner2) + 1);
             PlayerPrefs.Save();
         }
         else
         {
-            //one winner
+            // One winner
             string winner = "Player" + playerindex[0] + "Wins";
-            PlayerPrefs.SetInt(winner, (PlayerPrefs.GetInt(winner) + 1));
+            PlayerPrefs.SetInt(winner, PlayerPrefs.GetInt(winner) + 1);
             PlayerPrefs.Save();
         }
 

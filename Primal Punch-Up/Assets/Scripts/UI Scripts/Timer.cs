@@ -21,12 +21,17 @@ public class Timer : MonoBehaviour
     private RoundsScript RoundsScript;
 
     private bool load = false;
+    private AudioSource audioSource;
+    public AudioClip clip;
+    private bool countdownSound = true;
 
     void Start()
     {
         TimerOn = true;
         RoundsScript = gameObject.GetComponent<RoundsScript>();
         countdown = false;
+        audioSource = gameObject.GetComponent<AudioSource>();
+        countdownSound = true;
     }
 
     void Update()
@@ -64,6 +69,11 @@ public class Timer : MonoBehaviour
             timer1.GetComponent<Animator>().Play("Countdown");
             timer2.GetComponent<Animator>().Play("Countdown");
             timer3.GetComponent<Animator>().Play("Countdown");
+            if (!audioSource.isPlaying && countdownSound)
+            {
+                countdownSound = false;
+                audioSource.Play();
+            }
         }
 
         TimerText2.text = string.Format("{0:00} : {1:00}", minutes, seconds);

@@ -17970,6 +17970,8 @@ MonoBehaviour:
   players: []
   newRound: 0
   ScoreboardScript: {fileID: 0}
+  audioSource: {fileID: 0}
+  beep: {fileID: 8300000, guid: dccc565b61aa1d34981655170e4aa07f, type: 3}
 --- !u!4 &1311737661
 Transform:
   m_ObjectHideFlags: 0
@@ -17997,7 +17999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f26dffb6a382148a6917e05df00e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeLeft: 120
+  TimeLeft: 10
   TimerOn: 1
   timer1: {fileID: 1967796382}
   timer2: {fileID: 1967796381}
@@ -18005,6 +18007,7 @@ MonoBehaviour:
   TimerText2: {fileID: 1704504506}
   TimerText3: {fileID: 1704504502}
   TimerText4: {fileID: 1704504501}
+  clip: {fileID: 8300000, guid: ca78f571158352640a7884dd4cc87396, type: 3}
 --- !u!114 &1311737663
 MonoBehaviour:
   m_ObjectHideFlags: 0
