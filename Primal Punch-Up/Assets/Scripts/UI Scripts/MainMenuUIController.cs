@@ -56,7 +56,7 @@ public class MainMenuUIController : MonoBehaviour
                         indicatorPos--;
                     }
                 }
-                else if (gamepad.buttonSouth.isPressed)
+                else if (gamepad.buttonSouth.wasPressedThisFrame)
                 {
                     Button selectedBtn = buttons[indicatorPos].GetComponent<Button>();
                     selectedBtn.onClick.Invoke();
@@ -68,7 +68,7 @@ public class MainMenuUIController : MonoBehaviour
                 }
             } else
             {
-                if (gamepad.buttonEast.isPressed)
+                if (gamepad.buttonEast.wasPressedThisFrame)
                 {
                     fourthButton.onClick.Invoke();
                     uisfxScript.PlaySFX();

@@ -83,7 +83,7 @@ public class SettingsUIController : MonoBehaviour
                     }
                 }
             }
-            else if (gamepad.buttonSouth.isPressed)
+            else if (gamepad.buttonSouth.wasPressedThisFrame)
             {
                 uisfxScript.PlaySFX();
                 Button selectedBtn = buttons[indicatorPos].GetComponent<Button>();
