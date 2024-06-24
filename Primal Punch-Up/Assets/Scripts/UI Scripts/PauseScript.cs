@@ -15,6 +15,10 @@ public class PauseScript : MonoBehaviour
         pauseMenu.SetActive(false);
         if (PlayerPrefs.GetInt("RoundNo") == 1)
         {
+            foreach (GameObject player in players)
+            {
+                player.GetComponent<PlayerBase>().acceptInput = false;
+            }
             Time.timeScale = 0;
         }
         else
@@ -40,6 +44,10 @@ public class PauseScript : MonoBehaviour
         if (tutorialBox != null)
         {
             tutorialBox.SetActive(false);
+        }
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerBase>().acceptInput = true;
         }
     }
 
