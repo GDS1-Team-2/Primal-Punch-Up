@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class EnableMeteorShower : MonoBehaviour
 {
-    private int meteorChanceDenominator = 6;
+    private int meteorChanceDenominator = 2;
     private int meteorChance;
     private bool willShower = false;
     private float timeUntilShower = 0.0f;
     MeteorSpawner spawnerScript;
     public GameObject meteorWarning;
+    public AudioSource siren;
 
     //commen
     // Start is called before the first frame update
@@ -33,9 +34,10 @@ public class EnableMeteorShower : MonoBehaviour
             timeUntilShower += Time.deltaTime;
         }
 
-        if (timeUntilShower >= 85  && timeUntilShower <= 90)
+        if (timeUntilShower >= 1  && timeUntilShower <= 90)
         {
             meteorWarning.SetActive(true);
+            siren.Play();
         }
         else if (timeUntilShower >= 90)
         {
