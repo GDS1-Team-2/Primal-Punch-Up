@@ -162,7 +162,7 @@ public class PlayerBase : MonoBehaviour
                 PauseScript.AddPlayer(gameObject);
                 //magnetRangeIndicator.GetComponent<SpriteRenderer>().color = new Color(0.9716981f, 0.5469621f, 0.5469621f, 0.3764706f);
                 //magnetRangeIndicator.SetActive(false);
-                UpdateForceFieldMaterial(ForceFieldMat1);
+                UpdateForceFieldMaterial(ForceFieldMat);
                 forcefieldSlider = GameObject.Find("Player 1 Forcefield Bar").GetComponent<Slider>();
                 forcefieldSliderAnimator = GameObject.Find("Actual Fill 1").GetComponent<Animator>();
                 break;
@@ -435,13 +435,15 @@ public class PlayerBase : MonoBehaviour
         leftStickX = thisController.leftStick.ReadValue().x;
         leftStickZ = thisController.leftStick.ReadValue().y;
 
-        Vector3 targetMoveDirection = new Vector3(leftStickX, 0, leftStickZ).normalized;
-        targetMoveDirection = playerCamera.transform.TransformDirection(targetMoveDirection);
-        targetMoveDirection.y = 0;
-        targetMoveDirection.Normalize();
+        float deadZone = 0.05f;
+        if (Mathf.Abs(leftStickX) < deadZone) leftStickX = 0.0f;
+        if (Mathf.Abs(leftStickZ) < deadZone) leftStickZ = 0.0f;
 
-        // Smoothly interpolate to the new move direction
-        moveDirection = Vector3.Lerp(moveDirection, targetMoveDirection, Time.deltaTime * 5.0f);
+        Vector3 move = new Vector3(leftStickX, 0, leftStickZ).normalized;
+        moveDirection = playerCamera.transform.TransformDirection(move);
+        moveDirection.y = 0;
+        moveDirection.Normalize();
+
 
         if (moveDirection != Vector3.zero)
         {
