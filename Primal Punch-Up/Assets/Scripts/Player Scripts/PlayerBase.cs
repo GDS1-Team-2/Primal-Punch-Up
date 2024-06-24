@@ -429,31 +429,19 @@ public class PlayerBase : MonoBehaviour
 
     void ChangeDirection()
     {
-        float moveZ = 0;
-        float moveX = 0;
+        float leftStickX = 0.0f;
+        float leftStickZ = 0.0f;
 
-        if (thisController.leftStick.left.isPressed && !isDashing)
-        {
-            moveX = -1;
-        }
-        else if (thisController.leftStick.right.isPressed && !isDashing)
-        {
-            moveX = 1;
-        }
+        leftStickX = thisController.leftStick.ReadValue().x;
+        leftStickZ = thisController.leftStick.ReadValue().y;
 
-        if (thisController.leftStick.up.isPressed)
-        {
-            moveZ = 1;
-        }
-        else if (thisController.leftStick.down.isPressed)
-        {
-            moveZ = -1;
-        }
+        Vector3 targetMoveDirection = new Vector3(leftStickX, 0, leftStickZ).normalized;
+        targetMoveDirection = playerCamera.transform.TransformDirection(targetMoveDirection);
+        targetMoveDirection.y = 0;
+        targetMoveDirection.Normalize();
 
-        Vector3 move = new Vector3(moveX, 0, moveZ).normalized;
-        moveDirection = playerCamera.transform.TransformDirection(move);
-        moveDirection.y = 0;
-        moveDirection.Normalize();
+        // Smoothly interpolate to the new move direction
+        moveDirection = Vector3.Lerp(moveDirection, targetMoveDirection, Time.deltaTime * 5.0f);
 
         if (moveDirection != Vector3.zero)
         {
@@ -674,7 +662,4 @@ public class PlayerBase : MonoBehaviour
         PickupItem.canPickup = true;
         respawnScreen.SetActive(false);
     }
-
-    
-
 }
