@@ -91,6 +91,10 @@ public class PlayerBase : MonoBehaviour
 
     private AudioSource audioSource;
     public AudioClip[] audioClips;
+    public AudioClip[] footsteps;
+    private int footstepIndex = 0;
+    private bool isPlayingFootstep = false;
+    public float footstepInterval = 0.5f;
 
     //public GameObject magnetRangeIndicator;
     public float shieldHealth = 3f;
@@ -483,13 +487,18 @@ public class PlayerBase : MonoBehaviour
             {
                 anim.Play(runAnim);
                 lastMoveDirection = moveDirection;
-                audioSource.clip = audioClips[2];
-                audioSource.Play();
+
+                if (!isPlayingFootstep)
+                {
+                    StartCoroutine(PlayFootsteps());
+                }
             }
             else
             {
                 anim.Play(idleAnim);
                 audioSource.Stop();
+                StopCoroutine(PlayFootsteps());
+                isPlayingFootstep = false;
             }
 
             if (moveDirection != Vector3.zero && !isStrafing)
@@ -511,6 +520,23 @@ public class PlayerBase : MonoBehaviour
                 //dashTimer = dashCooldown;
             }
         }
+    }
+
+    private IEnumerator PlayFootsteps()
+    {
+        isPlayingFootstep = true;
+
+        while (rbody.velocity != Vector3.zero)
+        {
+            audioSource.clip = footsteps[footstepIndex];
+            audioSource.Play();
+            footstepIndex = (footstepIndex + 1) % footsteps.Length;
+
+            // Wait for the footstep interval before playing the next sound
+            yield return new WaitForSeconds(footstepInterval);
+        }
+
+        isPlayingFootstep = false;
     }
 
     IEnumerator PlayerBasicAttack()

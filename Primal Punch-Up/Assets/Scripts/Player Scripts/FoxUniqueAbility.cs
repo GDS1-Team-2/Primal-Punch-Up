@@ -24,7 +24,8 @@ public class FoxUniqueAbility : MonoBehaviour
     public Sprite graySprite;
 
     public AudioSource audioSource;
-    public AudioClip clip;
+    public AudioClip castSpell;
+    //public AudioClip magicLoop;
 
     // Start is called before the first frame update
     void Start()
@@ -80,9 +81,10 @@ public class FoxUniqueAbility : MonoBehaviour
         PlayerBase thisPlayer = GetComponent<PlayerBase>();
         thisFoxVortex.thisPlayer = thisPlayer;
         anim.Play(abilityAnim);
-        audioSource.clip = clip;
-        audioSource.Play();
-        yield return new WaitForSeconds(0.1f);
+        audioSource.PlayOneShot(castSpell);
+        //audioSource.clip = magicLoop;
+        //audioSource.Play();
+        yield return new WaitForSeconds(0.75f);
 
         AnimatorStateInfo currentState = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -104,6 +106,7 @@ public class FoxUniqueAbility : MonoBehaviour
             }
         }
         baseScript.isUsingSpecial = false;
+        
     }
 }
 
