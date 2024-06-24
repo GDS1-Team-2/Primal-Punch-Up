@@ -48,19 +48,19 @@ public class CharacterSelect : MonoBehaviour
             case 2:
                 imgCol.color = Color.red;
                 Player2 = Gamepad.current;
-                increaseHeightPerPlayer = 75.0f;
+                increaseHeightPerPlayer = 50.0f;
                 break;
             case 3:
                 imgCol.color = Color.green;
                 Player3 = Gamepad.current;
                 //print(Player3.name);
-                increaseHeightPerPlayer = 150.0f;
+                increaseHeightPerPlayer = 100.0f;
                 break;
             case 4:
                 imgCol.color = Color.yellow;
                 Player4 = Gamepad.current;
                 //print(Player4.name);
-                increaseHeightPerPlayer = 225.0f;
+                increaseHeightPerPlayer =150.0f;
                 break;
             default:
                 break;

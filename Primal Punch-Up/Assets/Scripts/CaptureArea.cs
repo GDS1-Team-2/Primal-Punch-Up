@@ -51,7 +51,7 @@ public class CaptureArea : MonoBehaviour
         {
             areaSpawnWarning.SetActive(false);
             particles.Play();
-            giantPear.SetActive(true);
+            StartCoroutine(GiantPearSpawn());
             sphereCol.enabled = true;
             areaActive = true;
             areaCountDown = 20.0f;
@@ -99,5 +99,11 @@ public class CaptureArea : MonoBehaviour
     {
         PickupItem pickUpItemScript = other.GetComponent<PickupItem>();
         pickUpItems.Remove(pickUpItemScript);
+    }
+
+    IEnumerator GiantPearSpawn()
+    {
+        yield return new WaitForSeconds(1.0f);
+        giantPear.SetActive(true);
     }
 }
