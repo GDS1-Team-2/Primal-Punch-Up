@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class CompleteScoreScript : MonoBehaviour
 {
-
     public Image lizardIcon;
     public Image bearIcon;
     public Image foxIcon;
@@ -17,11 +16,9 @@ public class CompleteScoreScript : MonoBehaviour
     public GameObject[] foxModels;
     public GameObject[] rabbitModels;
 
-    //public Text winnerText;
     public Text FirstPlaceScoreText;
     public Text SecondPlaceScoreText;
     public Text ThirdPlaceScoreText;
-    //public int numberOfRounds;
 
     public Transform FirstPlacePosition;
     public Transform SecondPlacePosition;
@@ -36,8 +33,6 @@ public class CompleteScoreScript : MonoBehaviour
     public Material Player3Outline;
     public Material Player4Outline;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         CalculateWinner();
@@ -68,24 +63,20 @@ public class CompleteScoreScript : MonoBehaviour
         {
             case "Lizard":
                 return lizardModels;
-                break;
             case "Bear":
                 return bearModels;
-                break;
             case "Fox":
                 return foxModels;
-                break;
             case "Rabbit":
                 return rabbitModels;
-                break;
         }
-        return lizardModels;
+        return lizardModels; // Default case
     }
 
     public void CalculateWinner()
     {
         List<int> wins = new List<int>();
-        int[] playerindex = {1, 2, 3, 4};
+        int[] playerindex = { 1, 2, 3, 4 };
 
         wins.Add(PlayerPrefs.GetInt("Player1Wins"));
         wins.Add(PlayerPrefs.GetInt("Player2Wins"));
@@ -98,7 +89,7 @@ public class CompleteScoreScript : MonoBehaviour
             int keyIndex = playerindex[i];
             int j = i - 1;
 
-            while (j >= 0 && wins[j] < key) 
+            while (j >= 0 && wins[j] < key)
             {
                 wins[j + 1] = wins[j];
                 playerindex[j + 1] = playerindex[j];
@@ -107,7 +98,6 @@ public class CompleteScoreScript : MonoBehaviour
             wins[j + 1] = key;
             playerindex[j + 1] = keyIndex;
         }
-
 
         for (int i = 0; i < 3; i++)
         {
@@ -125,7 +115,7 @@ public class CompleteScoreScript : MonoBehaviour
                     break;
                 case 1:
                     SecondPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                    GameObject model2 = SelectAnimal(PlayerPrefs.GetString(playermodel))[2];
+                    GameObject model2 = SelectAnimal(PlayerPrefs.GetString(playermodel))[1]; // Use the same model index as the first place
                     model2.transform.position = SecondPlacePosition.position;
                     SetIcon(SecondPlaceIcon, PlayerPrefs.GetString(playermodel));
                     SetIconColour(SecondPlaceIcon, playerindex[i]);
@@ -135,7 +125,7 @@ public class CompleteScoreScript : MonoBehaviour
                     if (PlayerPrefs.GetInt("noOfPlayers") > 2)
                     {
                         ThirdPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                        GameObject model3 = SelectAnimal(PlayerPrefs.GetString(playermodel))[3];
+                        GameObject model3 = SelectAnimal(PlayerPrefs.GetString(playermodel))[1]; // Use the same model index as the first place
                         model3.transform.position = ThirdPlacePosition.position;
                         SetIcon(ThirdPlaceIcon, PlayerPrefs.GetString(playermodel));
                         SetIconColour(ThirdPlaceIcon, playerindex[i]);
@@ -148,7 +138,13 @@ public class CompleteScoreScript : MonoBehaviour
                     }
                     break;
             }
-            
+        }
+
+        // Check if there are only two players and hide third place if true
+        if (PlayerPrefs.GetInt("noOfPlayers") == 2)
+        {
+            ThirdPlaceIcon.enabled = false;
+            ThirdPlaceScoreText.enabled = false;
         }
     }
 
@@ -171,12 +167,8 @@ public class CompleteScoreScript : MonoBehaviour
         }
     }
 
-
-    // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    
+    }
 }
