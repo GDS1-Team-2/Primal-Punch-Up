@@ -32,7 +32,6 @@ public class LizardUniqueAbility : MonoBehaviour
     {
         baseScript = GetComponent<PlayerBase>();
         smr = GetComponentInChildren<SkinnedMeshRenderer>();
-        audioSource = gameObject.GetComponent<AudioSource>();
         string playerCooldownSlider = "Player" + baseScript.playerNo + "AbilityCooldown";
         cooldownSlider = GameObject.Find(playerCooldownSlider).GetComponent<Slider>();
         cooldownSlider.maxValue = cdLength;
