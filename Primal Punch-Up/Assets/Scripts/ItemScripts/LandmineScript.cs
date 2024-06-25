@@ -60,7 +60,6 @@ public class LandmineScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Lizard") ||
             other.gameObject.CompareTag("Bear") ||
-            other.gameObject.CompareTag("Cat") ||
             other.gameObject.CompareTag("Rabbit") ||
             other.gameObject.CompareTag("Fox"))
         {
