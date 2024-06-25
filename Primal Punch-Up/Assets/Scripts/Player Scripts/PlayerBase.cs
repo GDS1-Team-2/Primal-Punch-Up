@@ -274,15 +274,15 @@ public class PlayerBase : MonoBehaviour
 
         if (acceptInput)
         {
-            if (thisController.buttonEast.wasPressedThisFrame && !isAttacking && !isShooting && !isDashing && !isUsingSpecial && !isDead && !isShielding)
+            if (thisController.buttonSouth.wasPressedThisFrame && !isAttacking && !isShooting && !isDashing && !isUsingSpecial && !isDead && !isShielding)
             {
                 StartCoroutine(PlayerBasicAttack());
             }
-            if (thisController.buttonWest.wasPressedThisFrame)
+            if (thisController.buttonNorth.wasPressedThisFrame)
             {
                 PlayerPickupManager.UseItem();
             }
-            if (thisController.buttonSouth.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding && canDash)
+            if (thisController.buttonEast.wasPressedThisFrame && !isDashing && !isUsingSpecial && !isDead && !isShielding && canDash)
             {
                 isDashing = true;
                 dashTimer = dashDuration;

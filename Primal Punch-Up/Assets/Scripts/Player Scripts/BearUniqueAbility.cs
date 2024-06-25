@@ -52,7 +52,7 @@ public class BearUniqueAbility : MonoBehaviour
     {
         if (!abilityCD)
         {
-            if (baseScript.thisController.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
+            if (baseScript.thisController.buttonWest.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
             {
                 StartCoroutine(BearAttack());
             }

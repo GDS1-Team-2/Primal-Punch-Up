@@ -108,14 +108,14 @@ public class SelectController : MonoBehaviour
 
                 foreach (var gamepad in gamepads)
                 {
-                    if (allLockedIn && gamepad.buttonNorth.wasPressedThisFrame)
+                    if (allLockedIn && gamepad.buttonWest.wasPressedThisFrame)
                     {
                         startGame = true;
                         letsGoSFX.Play();
                     } else if (gamepad.buttonEast.isPressed)
                     {
                         startBack = true;
-                    } else if (gamepad.buttonNorth.wasReleasedThisFrame)
+                    } else if (gamepad.buttonWest.wasReleasedThisFrame)
                     {
                         startGame = false;
                         letsGoSFX.Stop();
@@ -126,7 +126,7 @@ public class SelectController : MonoBehaviour
                     }
                     if (!player1Assigned)
                     {
-                        if (gamepad.buttonNorth.isPressed)
+                        if (gamepad.buttonWest.isPressed)
                         {
                             CharacterSelect characterScript = prefabs[0].GetComponent<CharacterSelect>();
                             characterScript.Player1 = gamepad;
@@ -140,7 +140,7 @@ public class SelectController : MonoBehaviour
                     }
                     else if (!player2Assigned)
                     {
-                        if (gamepad.buttonNorth.isPressed && gamepad != player1Controller)
+                        if (gamepad.buttonWest.isPressed && gamepad != player1Controller)
                         {
                             CharacterSelect characterScript = prefabs[1].GetComponent<CharacterSelect>();
                             characterScript.Player2 = gamepad;
@@ -154,7 +154,7 @@ public class SelectController : MonoBehaviour
                     }
                     else if (!player3Assigned)
                     {
-                        if (gamepad.buttonNorth.isPressed && gamepad != player1Controller && gamepad != player2Controller)
+                        if (gamepad.buttonWest.isPressed && gamepad != player1Controller && gamepad != player2Controller)
                         {
                             CharacterSelect characterScript = prefabs[2].GetComponent<CharacterSelect>();
                             characterScript.Player3 = gamepad;
@@ -168,7 +168,7 @@ public class SelectController : MonoBehaviour
                     }
                     else if (!player4Assigned)
                     {
-                        if (gamepad.buttonNorth.isPressed && gamepad != player1Controller && gamepad != player2Controller && gamepad != player3Controller)
+                        if (gamepad.buttonWest.isPressed && gamepad != player1Controller && gamepad != player2Controller && gamepad != player3Controller)
                         {
                             CharacterSelect characterScript = prefabs[3].GetComponent<CharacterSelect>();
                             characterScript.player4Activated = true;

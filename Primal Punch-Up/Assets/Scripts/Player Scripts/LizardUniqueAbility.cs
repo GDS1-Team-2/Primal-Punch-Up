@@ -27,6 +27,7 @@ public class LizardUniqueAbility : MonoBehaviour
 
     public bool usedAbility = false;
 
+    //commen
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +51,7 @@ public class LizardUniqueAbility : MonoBehaviour
     {
         if (!abilityCD && !usedAbility)
         {
-            if (baseScript.thisController.buttonNorth.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
+            if (baseScript.thisController.buttonWest.wasPressedThisFrame && !baseScript.isAttacking && !baseScript.isDashing && !baseScript.isUsingSpecial && !baseScript.isDead && !baseScript.isShielding)
             {
                 StartCoroutine(LizardAttack());
             }
