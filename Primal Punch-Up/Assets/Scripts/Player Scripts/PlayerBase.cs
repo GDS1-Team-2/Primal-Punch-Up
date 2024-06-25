@@ -417,6 +417,10 @@ public class PlayerBase : MonoBehaviour
         rightStickX = thisController.rightStick.ReadValue().x;
         rightStickY = thisController.rightStick.ReadValue().y;
 
+        float deadZone = 0.05f;
+        if (Mathf.Abs(leftStickX) < deadZone) leftStickX = 0.0f;
+        if (Mathf.Abs(leftStickZ) < deadZone) leftStickZ = 0.0f;
+
         //z
         cameraYaw += rightStickX * cameraSensitivity;
         //cameraYaw = Mathf.Clamp(cameraYaw, 0.0f, 1.0f);
