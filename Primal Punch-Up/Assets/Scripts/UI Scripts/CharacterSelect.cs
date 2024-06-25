@@ -233,4 +233,29 @@ public class CharacterSelect : MonoBehaviour
             rectTrans.sizeDelta = new Vector2(50, 50);
         }
     }
+
+    public void AssignController(Gamepad gamepad, int playerNumber)
+    {
+        switch (playerNumber)
+        {
+            case 1:
+                Player1 = gamepad;
+                player1Activated = true;
+                break;
+            case 2:
+                Player2 = gamepad;
+                player2Activated = true;
+                break;
+            case 3:
+                Player3 = gamepad;
+                player3Activated = true;
+                break;
+            case 4:
+                Player4 = gamepad;
+                player4Activated = true;
+                break;
+            default:
+                break;
+        }
+    }
 }

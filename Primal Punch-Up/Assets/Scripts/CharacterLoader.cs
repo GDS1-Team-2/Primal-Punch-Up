@@ -131,4 +131,25 @@ public class CharacterLoader : MonoBehaviour
                 break;
         }
     }
+
+    public void AssignController(Gamepad gamepad, int playerNumber)
+    {
+        switch (playerNumber)
+        {
+            case 1:
+                P1Controller = gamepad;
+                break;
+            case 2:
+                P2Controller = gamepad;
+                break;
+            case 3:
+                P3Controller = gamepad;
+                break;
+            case 4:
+                P4Controller = gamepad;
+                break;
+            default:
+                break;
+        }
+    }
 }
