@@ -82,6 +82,7 @@ public class FoxUniqueAbility : MonoBehaviour
         thisFoxVortex.thisPlayer = thisPlayer;
         anim.Play(abilityAnim);
         audioSource.PlayOneShot(castSpell);
+        StartCoroutine(DestroyFoxVortex(particlesInstance));
         //audioSource.clip = magicLoop;
         //audioSource.Play();
         yield return new WaitForSeconds(0.75f);
@@ -107,6 +108,12 @@ public class FoxUniqueAbility : MonoBehaviour
         }
         baseScript.isUsingSpecial = false;
         
+    }
+
+    public IEnumerator DestroyFoxVortex(GameObject particleInstance)
+    {
+        yield return new WaitForSeconds(5.0f);
+        Destroy(particleInstance);
     }
 }
 

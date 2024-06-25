@@ -644,6 +644,7 @@ public class PlayerBase : MonoBehaviour
     IEnumerator OnDeath()
     {
         isDead = true;
+        acceptInput = false;
         PickupItem.canPickup = false;
         anim.Play(deathAnim);
         yield return new WaitForSeconds(0.1f);
@@ -688,6 +689,7 @@ public class PlayerBase : MonoBehaviour
         hp = maxHP;
         isDead = false;
         PickupItem.canPickup = true;
+        acceptInput = true;
         respawnScreen.SetActive(false);
     }
 }
