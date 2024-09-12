@@ -79,15 +79,17 @@ public class MainMenuUIController : MonoBehaviour
 
         foreach (GameObject button in buttons)
         {
-            Color baseColor;
-            ColorUtility.TryParseHtmlString("#FFFFFF", out baseColor);
-            Image btnImg = button.GetComponent<Image>();
-            btnImg.color = baseColor;
+            //Color baseColor;
+            //ColorUtility.TryParseHtmlString("#FFFFFF", out baseColor);
+            //Image btnImg = button.GetComponent<Image>();
+            //btnImg.color = baseColor;
+            button.gameObject.GetComponent<Animator>().Play("RButtonAnim");
         }
 
-        Color newColor;
-        ColorUtility.TryParseHtmlString("#80FF80", out newColor);
-        Image selectedBtnImg = buttons[indicatorPos].GetComponent<Image>();
-        selectedBtnImg.color = newColor;
+        //Color newColor;
+        // ColorUtility.TryParseHtmlString("#80FF80", out newColor);
+        //Image selectedBtnImg = buttons[indicatorPos].GetComponent<Image>();
+        //selectedBtnImg.color = newColor;
+        buttons[indicatorPos].gameObject.GetComponent<Animator>().Play("Idle");
     }
 }
