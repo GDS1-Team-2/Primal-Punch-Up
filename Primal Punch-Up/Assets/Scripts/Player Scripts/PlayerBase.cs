@@ -30,7 +30,7 @@ public class PlayerBase : MonoBehaviour
     public bool canMove = true;
     public bool acceptInput = true;
 
-    public float speed = 10.0f;
+    public float speed = 15.0f;
     public float baseSpeed = 0.0f;
 
     float inCombatTimer = 0.0f;
@@ -110,7 +110,7 @@ public class PlayerBase : MonoBehaviour
     public Animator forcefieldSliderAnimator;
 
     public Camera playerCamera;
-    private float cameraSensitivity = 1f;
+    private float cameraSensitivity = 1.5f;
     private float cameraYaw = 0.0f;
     private float cameraPitch = 0.0f;
     private float cameraDistance = 10.0f;
@@ -647,7 +647,9 @@ public class PlayerBase : MonoBehaviour
         acceptInput = false;
         PickupItem.canPickup = false;
         anim.Play(deathAnim);
+        capCol.enabled = false;
         yield return new WaitForSeconds(0.1f);
+        rbody.velocity = Vector3.zero;
         audioSource.PlayOneShot(audioClips[3]);
         respawnScreen.SetActive(true);
         int score = PickupItem.CurrentScore();
