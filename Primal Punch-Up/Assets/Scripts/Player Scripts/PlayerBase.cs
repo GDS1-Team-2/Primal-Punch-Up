@@ -18,6 +18,8 @@ public class PlayerBase : MonoBehaviour
     public Rigidbody rbody;
     public BoxCollider boxCol;
     public CapsuleCollider capCol;
+    public SkinnedMeshRenderer SMR;
+    private Color originalColor;
 
     private Vector3 moveDirection;
     private Vector3 lastMoveDirection;
@@ -127,6 +129,7 @@ public class PlayerBase : MonoBehaviour
         rbody = GetComponent<Rigidbody>();
         boxCol = GetComponent<BoxCollider>();
         capCol = GetComponent<CapsuleCollider>();
+        originalColor = SMR.material.color;
 
         Manager = GameObject.FindGameObjectWithTag("Manager");
         RoundsScript = Manager.GetComponent<RoundsScript>();
@@ -596,8 +599,10 @@ public class PlayerBase : MonoBehaviour
         //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
+        SMR.material.color = Color.red;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 5);
         currentSpeed = speed;
+        SMR.material.color = originalColor;
         isTakingDamage = false;
     }
 
