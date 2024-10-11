@@ -158,6 +158,9 @@ public class PlayerBase : MonoBehaviour
         ffr = forceField.GetComponent<MeshRenderer>();
         Material[] materials = ffr.materials;
 
+        Vector3 forward = transform.forward;
+        cameraYaw = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
+
         switch (playerNo)
         {
             case 1:
