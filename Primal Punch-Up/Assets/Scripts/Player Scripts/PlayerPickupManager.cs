@@ -227,7 +227,7 @@ public class PlayerPickupManager : MonoBehaviour
             }
             else if (currentItem.name == "Freeze")
             {
-                if (!usingIce)
+                if (!usingIce && hasItem)
                 {
                     usingIce = true;
                     hasItem = true;
@@ -239,8 +239,6 @@ public class PlayerPickupManager : MonoBehaviour
 
             else if (currentItem.name == "Bow" && hasItem)
             {
-
-
                 if (currentArrowNumber > 1)
                 {
                     PlayerBase.PlayArrowAnim(bowHolding, false);
