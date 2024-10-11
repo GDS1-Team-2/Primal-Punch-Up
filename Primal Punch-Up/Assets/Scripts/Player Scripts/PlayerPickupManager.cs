@@ -42,7 +42,7 @@ public class PlayerPickupManager : MonoBehaviour
     public bool hasBow = false;
     public int maxArrowNumber = 3;
     public int currentArrowNumber = 3;
-    GameObject bowHolding;
+    public GameObject bowHolding;
 
     private bool firstPlaced = false;
     private bool secondPlaced = false;
@@ -290,6 +290,7 @@ public class PlayerPickupManager : MonoBehaviour
 
         
         hasItem = false;
+        usingIce = false;
         itemCooldown.SetActive(false);
         
         Destroy( iceZone );
