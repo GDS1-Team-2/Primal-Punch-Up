@@ -42,7 +42,7 @@ public class PlayerPickupManager : MonoBehaviour
     public bool hasBow = false;
     public int maxArrowNumber = 3;
     public int currentArrowNumber = 3;
-    GameObject bowHolding;
+    public GameObject bowHolding;
 
     private bool firstPlaced = false;
     private bool secondPlaced = false;
@@ -227,7 +227,7 @@ public class PlayerPickupManager : MonoBehaviour
             }
             else if (currentItem.name == "Freeze")
             {
-                if (!usingIce)
+                if (!usingIce && hasItem)
                 {
                     usingIce = true;
                     hasItem = true;
@@ -239,8 +239,6 @@ public class PlayerPickupManager : MonoBehaviour
 
             else if (currentItem.name == "Bow" && hasItem)
             {
-
-
                 if (currentArrowNumber > 1)
                 {
                     PlayerBase.PlayArrowAnim(bowHolding, false);
@@ -290,6 +288,7 @@ public class PlayerPickupManager : MonoBehaviour
 
         
         hasItem = false;
+        usingIce = false;
         itemCooldown.SetActive(false);
         
         Destroy( iceZone );

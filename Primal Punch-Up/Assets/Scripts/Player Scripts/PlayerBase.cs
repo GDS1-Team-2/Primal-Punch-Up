@@ -158,6 +158,9 @@ public class PlayerBase : MonoBehaviour
         ffr = forceField.GetComponent<MeshRenderer>();
         Material[] materials = ffr.materials;
 
+        Vector3 forward = transform.forward;
+        cameraYaw = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
+
         switch (playerNo)
         {
             case 1:
@@ -394,7 +397,7 @@ public class PlayerBase : MonoBehaviour
 
         //setting the players for the round score
 
-
+        
         if (hp <= 0 && !isDead)
         {
             StartCoroutine(OnDeath());
@@ -655,6 +658,17 @@ public class PlayerBase : MonoBehaviour
         isDead = true;
         acceptInput = false;
         PickupItem.canPickup = false;
+        PlayerPickupManager.hasItem = false;
+        PlayerPickupManager.itemText.text = "Current Item: None";
+        PlayerPickupManager.itemIconUI.gameObject.SetActive(false);
+        PlayerPickupManager.controlIcon.SetActive(false);
+        PlayerPickupManager.itemCooldown.SetActive(false);
+        if (PlayerPickupManager.bowHolding)
+        {
+            Destroy(PlayerPickupManager.bowHolding);
+        }
+
+        PlayerPickupManager.bowHolding = null;
         anim.Play(deathAnim);
         capCol.enabled = false;
         yield return new WaitForSeconds(0.1f);
