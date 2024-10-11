@@ -7,6 +7,8 @@ public class TrapScript : MonoBehaviour
     public bool move = true;
     public int playerNo;
     public GameObject model;
+    public Rigidbody playerRB;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,11 @@ public class TrapScript : MonoBehaviour
     {
         move = false;
         player.GetComponent<PlayerBase>().canMove = false;
-        player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        playerRB = player.GetComponent<Rigidbody>();
+        playerRB.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY
+                               | RigidbodyConstraints.FreezeRotationX
+                               | RigidbodyConstraints.FreezeRotationY
+                               | RigidbodyConstraints.FreezeRotationZ;
         //player.transform.position = gameObject.transform.position;
         player.transform.LookAt(gameObject.transform);
         float elapsedTime = 0;
@@ -71,6 +77,10 @@ public class TrapScript : MonoBehaviour
 
         player.GetComponent<PlayerBase>().canMove = true;
         move = true;
+        playerRB.constraints = (playerRB.constraints & ~(RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ))
+                 | RigidbodyConstraints.FreezeRotationX
+                 | RigidbodyConstraints.FreezeRotationY
+                 | RigidbodyConstraints.FreezeRotationZ;
 
         Destroy(gameObject);
     }
