@@ -1411,6 +1411,7 @@ MonoBehaviour:
   hasBow: 0
   maxArrowNumber: 3
   currentArrowNumber: 3
+  bowHolding: {fileID: 0}
   itemIconUI: {fileID: 0}
   itemCooldown: {fileID: 0}
   itemTimer: {fileID: 0}
@@ -1432,7 +1433,7 @@ MonoBehaviour:
   damageCollider: {fileID: 3504021144811894747, guid: fae87052a90ac384eb5cc361ab95ffc8, type: 3}
   cdTimer: 0
   cdLength: 5
-  punchSpeed: 40
+  punchSpeed: 70
   cooldownSlider: {fileID: 0}
   cooldownIcon: {fileID: 0}
   cooldownGray: {fileID: 0}

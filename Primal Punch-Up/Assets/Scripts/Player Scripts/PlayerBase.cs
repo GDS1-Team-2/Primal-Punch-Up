@@ -602,11 +602,11 @@ public class PlayerBase : MonoBehaviour
             anim.Play(takeHit1Anim);
             audioSource.clip = audioClips[1];
             audioSource.Play();
+            SMR.material.color = Color.red;
         }
         //Debug.Log(gameObject.name + " HP: " + hp);
         inCombat = true;
         inCombatTimer = inCombatLength;
-        SMR.material.color = Color.red;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / 5);
         currentSpeed = speed;
         SMR.material.color = originalColor;
