@@ -16,7 +16,7 @@ public class BearUniqueAbility : MonoBehaviour
     private bool abilityCD = false;
     public float cdTimer = 0.0f;
     public float cdLength = 5.0f;
-    public float punchSpeed = 40.0f;
+    public float punchSpeed = 50.0f;
     private string abilityAnim = "BearUniqueAbility";
 
     public Slider cooldownSlider;
