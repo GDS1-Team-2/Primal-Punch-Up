@@ -107,7 +107,7 @@ public class SelectController : MonoBehaviour
 
             foreach (var gamepad in gamepads)
             {
-                if (allLockedIn && gamepad.buttonNorth.wasPressedThisFrame)
+                if (allLockedIn && gamepad.buttonWest.wasPressedThisFrame)
                 {
                     startGame = true;
                     letsGoSFX.Play();
@@ -116,7 +116,7 @@ public class SelectController : MonoBehaviour
                 {
                     startBack = true;
                 }
-                else if (gamepad.buttonNorth.wasReleasedThisFrame)
+                else if (gamepad.buttonWest.wasReleasedThisFrame)
                 {
                     startGame = false;
                     letsGoSFX.Stop();
@@ -126,25 +126,25 @@ public class SelectController : MonoBehaviour
                     startBack = false;
                 }
 
-                if (!player1Assigned && gamepad.buttonNorth.isPressed)
+                if (!player1Assigned && gamepad.buttonWest.isPressed)
                 {
                     AssignPlayer(gamepad, 0);
                     player1Assigned = true;
                     player1Controller = gamepad;
                 }
-                else if (!player2Assigned && gamepad.buttonNorth.isPressed && gamepad != player1Controller)
+                else if (!player2Assigned && gamepad.buttonWest.isPressed && gamepad != player1Controller)
                 {
                     AssignPlayer(gamepad, 1);
                     player2Assigned = true;
                     player2Controller = gamepad;
                 }
-                else if (!player3Assigned && gamepad.buttonNorth.isPressed && gamepad != player1Controller && gamepad != player2Controller)
+                else if (!player3Assigned && gamepad.buttonWest.isPressed && gamepad != player1Controller && gamepad != player2Controller)
                 {
                     AssignPlayer(gamepad, 2);
                     player3Assigned = true;
                     player3Controller = gamepad;
                 }
-                else if (!player4Assigned && gamepad.buttonNorth.isPressed && gamepad != player1Controller && gamepad != player2Controller && gamepad != player3Controller)
+                else if (!player4Assigned && gamepad.buttonWest.isPressed && gamepad != player1Controller && gamepad != player2Controller && gamepad != player3Controller)
                 {
                     AssignPlayer(gamepad, 3);
                     player4Assigned = true;
