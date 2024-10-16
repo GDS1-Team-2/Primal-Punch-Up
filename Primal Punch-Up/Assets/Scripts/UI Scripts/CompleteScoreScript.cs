@@ -83,7 +83,7 @@ public class CompleteScoreScript : MonoBehaviour
         wins.Add(PlayerPrefs.GetInt("Player3Wins"));
         wins.Add(PlayerPrefs.GetInt("Player4Wins"));
 
-        for (int i = 1; i < 4; ++i)
+        for (int i = 1; i < wins.Count; ++i)
         {
             int key = wins[i];
             int keyIndex = playerindex[i];
@@ -107,7 +107,7 @@ public class CompleteScoreScript : MonoBehaviour
             {
                 case 0:
                     FirstPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                    GameObject model1 = SelectAnimal(PlayerPrefs.GetString(playermodel))[1];
+                    GameObject model1 = SelectAnimal(PlayerPrefs.GetString(playermodel))[0];
                     model1.transform.position = FirstPlacePosition.position;
                     SetIcon(FirstPlaceIcon, PlayerPrefs.GetString(playermodel));
                     SetIconColour(FirstPlaceIcon, playerindex[i]);
@@ -125,7 +125,7 @@ public class CompleteScoreScript : MonoBehaviour
                     if (PlayerPrefs.GetInt("noOfPlayers") > 2)
                     {
                         ThirdPlaceScoreText.text = PlayerPrefs.GetInt(winscore).ToString();
-                        GameObject model3 = SelectAnimal(PlayerPrefs.GetString(playermodel))[1]; // Use the same model index as the first place
+                        GameObject model3 = SelectAnimal(PlayerPrefs.GetString(playermodel))[2]; // Use the same model index as the first place
                         model3.transform.position = ThirdPlacePosition.position;
                         SetIcon(ThirdPlaceIcon, PlayerPrefs.GetString(playermodel));
                         SetIconColour(ThirdPlaceIcon, playerindex[i]);
