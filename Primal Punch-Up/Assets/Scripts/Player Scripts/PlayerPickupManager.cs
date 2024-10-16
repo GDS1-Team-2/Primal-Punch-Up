@@ -218,7 +218,7 @@ public class PlayerPickupManager : MonoBehaviour
                     {
                         PlacePortal();
                     }
-                    else if (firstPlaced && !secondPlaced)
+                    else if (firstPlaced && !secondPlaced && canPlace)
                     {
                         PlacePortal();
                         portalUsed = true;
