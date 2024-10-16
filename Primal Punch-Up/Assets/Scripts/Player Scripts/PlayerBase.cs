@@ -423,7 +423,7 @@ public class PlayerBase : MonoBehaviour
         rightStickX = thisController.rightStick.ReadValue().x;
         rightStickY = thisController.rightStick.ReadValue().y;
 
-        float deadZone = 0.05f;
+        float deadZone = 0.075f;
         if (Mathf.Abs(rightStickX) < deadZone) rightStickX = 0.0f;
         if (Mathf.Abs(rightStickY) < deadZone) rightStickY = 0.0f;
 
@@ -450,7 +450,7 @@ public class PlayerBase : MonoBehaviour
         leftStickX = thisController.leftStick.ReadValue().x;
         leftStickZ = thisController.leftStick.ReadValue().y;
 
-        float deadZone = 0.05f;
+        float deadZone = 0.075f;
         if (Mathf.Abs(leftStickX) < deadZone) leftStickX = 0.0f;
         if (Mathf.Abs(leftStickZ) < deadZone) leftStickZ = 0.0f;
 
